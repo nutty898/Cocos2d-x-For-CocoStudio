@@ -57,19 +57,11 @@ m_bClippingEnable(false),
 m_fScissorX(0.0f),
 m_fScissorY(0.0f),
 m_bEnableCustomArea(false),
-m_colorType(UL_C_NONE),
 m_loacationInWorld(CCPointZero),
 m_pClippingParent(NULL),
 m_bHandleScissor(true),
-m_pColorRender(NULL),
-m_pGradientRender(NULL),
-m_cColor(ccWHITE),
-m_gStartColor(ccWHITE),
-m_gEndColor(ccWHITE),
-m_nCOpacity(255),
 m_parentClippingRect(CCRectZero),
-m_clippingRect(CCRectZero),
-m_AlongVector(ccp(0.0f, -1.0f))
+m_clippingRect(CCRectZero)
 {
     
 }
@@ -196,74 +188,6 @@ bool UIClippingLayer::isClippingEnable()
     return m_bClippingEnable;
 }
 
-void UIClippingLayer::setColorType(UILayerColorType type)
-{
-    if (m_colorType == type)
-    {
-        return;
-    }
-    switch (m_colorType)
-    {
-        case UL_C_NONE:
-            if (m_pColorRender)
-            {
-                this->removeChild(m_pColorRender, true);
-                m_pColorRender = NULL;
-            }
-            if (m_pGradientRender)
-            {
-                this->removeChild(m_pGradientRender, true);
-                m_pGradientRender = NULL;
-            }
-            break;
-        case UL_C_COLOR:
-            if (m_pColorRender)
-            {
-                this->removeChild(m_pColorRender, true);
-                m_pColorRender = NULL;
-            }
-            break;
-        case UL_C_GRADIENT:
-            if (m_pGradientRender)
-            {
-                this->removeChild(m_pGradientRender, true);
-                m_pGradientRender = NULL;
-            }
-            break;
-        default:
-            break;
-    }
-    m_colorType = type;
-    switch (m_colorType)
-    {
-        case UL_C_NONE:
-            break;
-        case UL_C_COLOR:
-            m_pColorRender = CCLayerColor::create();
-            m_pColorRender->setContentSize(getContentSize());
-            m_pColorRender->setOpacity(m_nCOpacity);
-            m_pColorRender->setColor(m_cColor);
-            this->addChild(m_pColorRender,-2);
-            break;
-        case UL_C_GRADIENT:
-            m_pGradientRender = CCLayerGradient::create();
-            m_pGradientRender->setContentSize(getContentSize());
-            m_pGradientRender->setOpacity(m_nCOpacity);
-            m_pGradientRender->setStartColor(m_gStartColor);
-            m_pGradientRender->setEndColor(m_gEndColor);
-            m_pGradientRender->setVector(m_AlongVector);
-            this->addChild(m_pGradientRender,-2);
-            break;
-        default:
-            break;
-    }
-}
-
-bool UIClippingLayer::getColorType()
-{
-    return m_colorType;
-}
-
 void UIClippingLayer::setClipRect(const CCRect &rect)
 {
     
@@ -326,79 +250,6 @@ const CCRect& UIClippingLayer::getClippingRect()
         m_clippingRect.size.height = scissorHeight;
     }
     return m_clippingRect;
-}
-
-void UIClippingLayer::setPosition(const CCPoint &pos)
-{
-    CCLayerRGBA::setPosition(pos);
-//    m_loacationInWorld = convertToWorldSpace(CCPointZero);
-}
-
-void UIClippingLayer::setBGColor(const ccColor3B &color)
-{
-    m_cColor = color;
-    if (m_pColorRender)
-    {
-        m_pColorRender->setColor(color);
-    }
-}
-
-void UIClippingLayer::setBGStartColor(const ccColor3B &color)
-{
-    m_gStartColor = color;
-    if (m_pGradientRender)
-    {
-        m_pGradientRender->setStartColor(color);
-    }
-}
-
-void UIClippingLayer::setBGEndColor(const ccColor3B &color)
-{
-    m_gEndColor = color;
-    if (m_pGradientRender)
-    {
-        m_pGradientRender->setEndColor(color);
-    }
-}
-
-void UIClippingLayer::setBGVector(const CCPoint &vector)
-{
-    m_AlongVector = vector;
-    if (m_pGradientRender)
-    {
-        m_pGradientRender->setVector(vector);
-    }
-}
-
-void UIClippingLayer::setBGColorOpacity(int opacity)
-{
-    m_nCOpacity = opacity;
-    switch (m_colorType)
-    {
-        case UL_C_NONE:
-            break;
-        case UL_C_COLOR:
-            m_pColorRender->setOpacity(opacity);
-            break;
-        case UL_C_GRADIENT:
-            m_pGradientRender->setOpacity(opacity);
-            break;
-        default:
-            break;
-    }
-}
-
-void UIClippingLayer::setContentSize(const CCSize &size)
-{
-    CCLayerRGBA::setContentSize(size);
-    if (m_pColorRender)
-    {
-        m_pColorRender->setContentSize(size);
-    }
-    if (m_pGradientRender)
-    {
-        m_pGradientRender->setContentSize(size);
-    }
 }
 
 NS_CC_EXT_END

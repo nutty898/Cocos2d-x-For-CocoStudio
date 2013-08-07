@@ -36,7 +36,14 @@ m_bBackGroundScale9Enable(false),
 m_pBackGroundImage(NULL),
 m_strBackGroundImageFileName(""),
 m_backGroundImageCapInsets(CCRectZero),
-m_eBGImageTexType(UI_TEX_TYPE_LOCAL)
+m_eBGImageTexType(UI_TEX_TYPE_LOCAL),
+m_pColorRender(NULL),
+m_pGradientRender(NULL),
+m_AlongVector(ccp(0.0f, -1.0f)),
+m_cColor(ccWHITE),
+m_gStartColor(ccWHITE),
+m_gEndColor(ccWHITE),
+m_nCOpacity(255)
 {
     m_WidgetName = WIDGET_PANEL;
 }
@@ -124,6 +131,14 @@ void UIPanel::setSize(const CCSize &size)
     {
         dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_pRender->getContentSize());
     }
+    if (m_pColorRender)
+    {
+        m_pColorRender->setContentSize(size);
+    }
+    if (m_pGradientRender)
+    {
+        m_pGradientRender->setContentSize(size);
+    }
 }
 
 void UIPanel::setBackGroundImage(const char* fileName,TextureResType texType)
@@ -191,29 +206,115 @@ void UIPanel::setBackGroundImageCapInsets(const CCRect &capInsets)
 
 void UIPanel::setBackGroundColorType(PanelColorType type)
 {
-    DYNAMIC_CAST_CLIPPINGLAYER->setColorType((UILayerColorType)type);
+    if (m_colorType == type)
+    {
+        return;
+    }
+    switch (m_colorType)
+    {
+        case PANEL_COLOR_NONE:
+            if (m_pColorRender)
+            {
+                m_pRender->removeChild(m_pColorRender, true);
+                m_pColorRender = NULL;
+            }
+            if (m_pGradientRender)
+            {
+                m_pRender->removeChild(m_pGradientRender, true);
+                m_pGradientRender = NULL;
+            }
+            break;
+        case PANEL_COLOR_SOLID:
+            if (m_pColorRender)
+            {
+                m_pRender->removeChild(m_pColorRender, true);
+                m_pColorRender = NULL;
+            }
+            break;
+        case PANEL_COLOR_GRADIENT:
+            if (m_pGradientRender)
+            {
+                m_pRender->removeChild(m_pGradientRender, true);
+                m_pGradientRender = NULL;
+            }
+            break;
+        default:
+            break;
+    }
+    m_colorType = type;
+    switch (m_colorType)
+    {
+        case PANEL_COLOR_NONE:
+            break;
+        case PANEL_COLOR_SOLID:
+            m_pColorRender = CCLayerColor::create();
+            m_pColorRender->setContentSize(getContentSize());
+            m_pColorRender->setOpacity(m_nCOpacity);
+            m_pColorRender->setColor(m_cColor);
+            m_pRender->addChild(m_pColorRender,-2);
+            break;
+        case PANEL_COLOR_GRADIENT:
+            m_pGradientRender = CCLayerGradient::create();
+            m_pGradientRender->setContentSize(getContentSize());
+            m_pGradientRender->setOpacity(m_nCOpacity);
+            m_pGradientRender->setStartColor(m_gStartColor);
+            m_pGradientRender->setEndColor(m_gEndColor);
+            m_pGradientRender->setVector(m_AlongVector);
+            m_pRender->addChild(m_pGradientRender,-2);
+            break;
+        default:
+            break;
+    }
 }
 
 void UIPanel::setBackGroundColor(const ccColor3B &color)
 {
-    DYNAMIC_CAST_CLIPPINGLAYER->setBGColor(color);
+    m_cColor = color;
+    if (m_pColorRender)
+    {
+        m_pColorRender->setColor(color);
+    }
 }
 
 void UIPanel::setBackGroundColor(const ccColor3B &startColor, const ccColor3B &endColor)
 {
-    UIClippingLayer * render = DYNAMIC_CAST_CLIPPINGLAYER;
-    render->setBGStartColor(startColor);
-    render->setBGEndColor(endColor);
+    m_gStartColor = startColor;
+    if (m_pGradientRender)
+    {
+        m_pGradientRender->setStartColor(startColor);
+    }
+    m_gEndColor = endColor;
+    if (m_pGradientRender)
+    {
+        m_pGradientRender->setEndColor(endColor);
+    }
 }
 
 void UIPanel::setBackGroundColorOpacity(int opacity)
 {
-    DYNAMIC_CAST_CLIPPINGLAYER->setBGColorOpacity(opacity);
+    m_nCOpacity = opacity;
+    switch (m_colorType)
+    {
+        case PANEL_COLOR_NONE:
+            break;
+        case PANEL_COLOR_SOLID:
+            m_pColorRender->setOpacity(opacity);
+            break;
+        case PANEL_COLOR_GRADIENT:
+            m_pGradientRender->setOpacity(opacity);
+            break;
+        default:
+            break;
+    }
 }
 
 void UIPanel::setBackGroundColorVector(const CCPoint &vector)
 {
-    DYNAMIC_CAST_CLIPPINGLAYER->setBGVector(vector);
+    m_AlongVector = vector;
+    if (m_pGradientRender)
+    {
+        m_pGradientRender->setVector(vector);
+    }
 }
 
 void UIPanel::setColor(const ccColor3B &color)

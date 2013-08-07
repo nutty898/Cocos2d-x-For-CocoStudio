@@ -64,6 +64,13 @@ protected:
     CCRect m_backGroundImageCapInsets;
     PanelColorType m_colorType;
     TextureResType m_eBGImageTexType;
+    CCLayerColor* m_pColorRender;
+    CCLayerGradient* m_pGradientRender;
+    ccColor3B m_cColor;
+    ccColor3B m_gStartColor;
+    ccColor3B m_gEndColor;
+    CCPoint m_AlongVector;
+    int m_nCOpacity;
 };
 
 NS_CC_EXT_END
