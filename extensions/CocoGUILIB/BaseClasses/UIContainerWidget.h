@@ -47,10 +47,12 @@ public:
     UIContainerWidget();
     virtual ~UIContainerWidget();
     static UIContainerWidget* create();
+    
     //Only containerWidget can use the LayoutType for doing layout to child widget
     virtual void setLayoutType(LayoutType type);
     virtual LayoutType getLayoutType();
     virtual void doLayout();
+    
     virtual bool addChild(UIWidget* child);
     virtual void setClippingEnable(bool able);
     virtual void setClipRect(const CCRect &rect);

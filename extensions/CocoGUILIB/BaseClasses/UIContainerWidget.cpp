@@ -82,7 +82,6 @@ void UIContainerWidget::setLayoutType(LayoutType type)
         return;
     }
     m_eLayoutType = type;
-    doLayout();
 }
 
 LayoutType UIContainerWidget::getLayoutType()
