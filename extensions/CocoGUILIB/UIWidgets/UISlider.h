@@ -58,7 +58,7 @@ public:
     virtual void onTouchMoved(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
     virtual void onTouchCancelled(const CCPoint &touchPoint);
-    
+    void setTouchEnable(bool enable, bool containChildren = false);
 protected:
     virtual bool init();
     int getClickPercent(float location);

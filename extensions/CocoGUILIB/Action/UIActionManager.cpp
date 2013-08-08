@@ -64,7 +64,6 @@ void UIActionManager::initWithDictionary(const char* jsonName,cs::CSJsonDictiona
     std::string path = jsonName;
     int pos = path.find_last_of("/");
     std::string fileName = path.substr(pos+1,path.length());
-    CCLOG("filename == %s",fileName.c_str());
     CCArray* actionList = CCArray::create();
     int actionCount = DICTOOL->getArrayCount_json(dic, "actionlist");
     for (int i=0; i<actionCount; i++)

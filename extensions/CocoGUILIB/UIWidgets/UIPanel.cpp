@@ -209,7 +209,6 @@ void UIPanel::setBackGroundColorType(PanelColorType type)
 {
     if (m_colorType == type)
     {
-        CCLOG("is it return???");
         return;
     }
     switch (m_colorType)

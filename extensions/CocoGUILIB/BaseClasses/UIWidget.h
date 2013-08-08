@@ -117,7 +117,7 @@ public:
     virtual void setWidgetZOrder(int z);
     virtual int getWidgetZOrder();
     virtual void reorderChild(UIWidget* child);
-    void setTouchEnable(bool enable, bool containChildren = false);
+    virtual void setTouchEnable(bool enable, bool containChildren = false);
     void updateChildrenTouchEnable(bool enable, bool containChildren);
     bool isTouchEnable();
     void setUpdateEnable(bool enable);

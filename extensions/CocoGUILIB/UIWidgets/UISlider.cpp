@@ -83,6 +83,12 @@ bool UISlider::init()
     return false;
 }
 
+void UISlider::setTouchEnable(bool enable, bool containChildren)
+{
+    UIWidget::setTouchEnable(enable, containChildren);
+    m_pSlidBall->setTouchEnable(false);
+}
+
 void UISlider::setBarTexture(const char* fileName, TextureResType texType)
 {
     if (!fileName || strcmp(fileName, "") == 0)

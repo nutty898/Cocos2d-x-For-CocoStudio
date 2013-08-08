@@ -41,7 +41,7 @@ bool UISliderTest::init()
         // Create the slider
         UISlider* slider = UISlider::create();
         slider->setName("slider");
-        slider->setTouchEnable(true, true);
+        slider->setTouchEnable(true);
         slider->setSlidBallTextures("cocosgui/sliderThumb.png", "cocosgui/sliderThumb.png", "");
         slider->setBarTexture("cocosgui/sliderTrack.png");
         slider->setProgressBarVisible(true);
