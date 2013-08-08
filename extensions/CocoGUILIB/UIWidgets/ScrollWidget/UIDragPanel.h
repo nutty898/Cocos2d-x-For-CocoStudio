@@ -121,7 +121,7 @@ typedef void (CCObject::*SEL_DragPanelBounceToRightEvent)(CCObject*);
 typedef void (CCObject::*SEL_DragPanelBounceToBottomEvent)(CCObject*);
 #define coco_DragPanel_BounceToBottom_selector(_SELECTOR) (SEL_DragPanelBounceToBottomEvent)(&_SELECTOR)
 
-class UIDragPanel : public UIPanel// , public UIScrollDelegate
+class UIDragPanel : public UIPanel , public UIScrollDelegate
 {
 public:
     UIDragPanel();

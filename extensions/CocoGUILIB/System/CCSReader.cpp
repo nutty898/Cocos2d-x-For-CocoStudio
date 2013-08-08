@@ -89,7 +89,6 @@ int CCSReader::getVersionInteger(const char *str)
     int is = atoi(s.c_str());
     
     int iVersion = it*1000+ih*100+ite*10+is;
-    CCLOG("iversion %d",iVersion);
     return iVersion;
     /************************/
 }
@@ -260,7 +259,6 @@ UIWidget* CCSReader::widgetFromJsonFile(const char *fileName)
     /* *********temp********* */
     //    UIActionManager::shareManager()->releaseActions();
     /* ********************** */
-    CCLOG("file name == [%s]",fileName);
     UIActionManager::shareManager()->initWithDictionary(fileName,actions,widget);
     
 	CC_SAFE_DELETE(widgetTree);

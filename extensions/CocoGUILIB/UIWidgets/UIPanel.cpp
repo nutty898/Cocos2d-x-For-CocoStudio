@@ -43,7 +43,8 @@ m_AlongVector(ccp(0.0f, -1.0f)),
 m_cColor(ccWHITE),
 m_gStartColor(ccWHITE),
 m_gEndColor(ccWHITE),
-m_nCOpacity(255)
+m_nCOpacity(255),
+m_colorType(PANEL_COLOR_NONE)
 {
     m_WidgetName = WIDGET_PANEL;
 }
@@ -208,6 +209,7 @@ void UIPanel::setBackGroundColorType(PanelColorType type)
 {
     if (m_colorType == type)
     {
+        CCLOG("is it return???");
         return;
     }
     switch (m_colorType)
@@ -298,10 +300,16 @@ void UIPanel::setBackGroundColorOpacity(int opacity)
         case PANEL_COLOR_NONE:
             break;
         case PANEL_COLOR_SOLID:
-            m_pColorRender->setOpacity(opacity);
+            if (m_pColorRender)
+            {
+                m_pColorRender->setOpacity(opacity);
+            }
             break;
         case PANEL_COLOR_GRADIENT:
-            m_pGradientRender->setOpacity(opacity);
+            if (m_pGradientRender)
+            {
+                m_pGradientRender->setOpacity(opacity);   
+            }
             break;
         default:
             break;

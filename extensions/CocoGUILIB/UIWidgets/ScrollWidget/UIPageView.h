@@ -35,7 +35,7 @@ typedef enum {
     PAGEVIEW_TOUCHRIGHT
 }PVTouchDir;
 
-class UIPageView : public UIPanel// , public UIScrollDelegate
+class UIPageView : public UIPanel , public UIScrollDelegate
 {
     
 public:
