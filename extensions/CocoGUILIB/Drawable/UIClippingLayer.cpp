@@ -53,7 +53,7 @@ static void checkNodeClippingOption(CCNode *node)
 }
 
 UIClippingLayer::UIClippingLayer():
-m_bClippingEnable(false),
+m_bClippingEnabled(false),
 m_fScissorX(0.0f),
 m_fScissorY(0.0f),
 m_bEnableCustomArea(false),
@@ -98,7 +98,7 @@ void UIClippingLayer::onExit()
 
 void UIClippingLayer::checkClippingOption()
 {
-    if (!m_bClippingEnable)
+    if (!m_bClippingEnabled)
     {
         return;
     }
@@ -109,7 +109,7 @@ void UIClippingLayer::checkClippingOption()
         if(parent)
         {
             m_pClippingParent = dynamic_cast<UIClippingLayer*>(parent);
-            if (m_pClippingParent && m_pClippingParent->isClippingEnable())
+            if (m_pClippingParent && m_pClippingParent->isClippingEnabled())
             {
                 m_bHandleScissor = false;
                 break;
@@ -124,7 +124,7 @@ void UIClippingLayer::checkClippingOption()
 
 void UIClippingLayer::visit()
 {
-    if (m_bClippingEnable)
+    if (m_bClippingEnabled)
     {
         if (m_bHandleScissor)
         {
@@ -151,9 +151,9 @@ void UIClippingLayer::visit()
     }
 }
 
-void UIClippingLayer::setClippingEnable(bool able)
+void UIClippingLayer::setClippingEnabled(bool able)
 {
-    m_bClippingEnable = able;
+    m_bClippingEnabled = able;
     checkClippingOption();
     updateChildrenClippingOptions();
 }
@@ -183,9 +183,9 @@ void UIClippingLayer::updateChildrenClippingOptions()
     }
 }
 
-bool UIClippingLayer::isClippingEnable()
+bool UIClippingLayer::isClippingEnabled()
 {
-    return m_bClippingEnable;
+    return m_bClippingEnabled;
 }
 
 void UIClippingLayer::setClipRect(const CCRect &rect)

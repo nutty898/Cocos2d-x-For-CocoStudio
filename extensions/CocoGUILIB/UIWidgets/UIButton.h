@@ -43,7 +43,7 @@ public:
     void setCapInsets(const CCRect &capInsets);
     virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);
-    virtual void setScale9Enable(bool able);
+    virtual void setScale9Enabled(bool able);
     virtual void setScale9Size(const CCSize &size);
     virtual void setFlipX(bool flipX);
     virtual void setFlipY(bool flipY);
@@ -65,7 +65,7 @@ protected:
     std::string m_strNormalFileName;
     std::string m_strClickedFileName;
     std::string m_strDisabledFileName;
-    bool m_bScale9Enable;
+    bool m_bScale9Enabled;
     CCRect m_capInsets;
     CCSize m_scale9Size;
     TextureResType m_eNormalTexType;

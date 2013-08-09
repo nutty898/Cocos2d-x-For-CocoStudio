@@ -38,7 +38,7 @@ public:
     virtual ~UISlider();
     static UISlider* create();
     void loadBarTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setScale9Enable(bool able);
+    void setScale9Enabled(bool able);
     void setCapInsets(const CCRect &capInsets);
     void setScale9Size(const CCSize &size);
     void loadSlidBallTextures(const char* normal,const char* pressed,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
@@ -74,7 +74,7 @@ protected:
     UIButton* m_pSlidBall;
     float m_fBarNodeScaleValue;
     float m_fTouchMoveStartLocation;
-    bool m_bBarScale9Enable;
+    bool m_bBarScale9Enabled;
     std::string m_strTextureFile;
     CCRect m_capInsets;
     CCSize m_scale9Size;

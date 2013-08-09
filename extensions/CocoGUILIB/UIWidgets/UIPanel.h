@@ -46,7 +46,7 @@ public:
     void setBackGroundImageCapInsets(const CCRect& capInsets);
     virtual void setBackGroundColorType(PanelColorType type);
     virtual void setSize(const CCSize &size);
-    void setBackGroundImageScale9Enable(bool able);
+    void setBackGroundImageScale9Enabled(bool able);
     void setBackGroundColor(const ccColor3B &color);
     void setBackGroundColor(const ccColor3B &startColor, const ccColor3B &endColor);
     void setBackGroundColorOpacity(int opacity);
@@ -58,7 +58,7 @@ protected:
     virtual void initNodes();
     void addBackGroundImage();
 protected:
-    bool m_bBackGroundScale9Enable;
+    bool m_bBackGroundScale9Enabled;
     CCNode* m_pBackGroundImage;
     std::string m_strBackGroundImageFileName;
     CCRect m_backGroundImageCapInsets;

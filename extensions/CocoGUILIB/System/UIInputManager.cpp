@@ -85,7 +85,7 @@ void UIInputManager::sortRootWidgets(UIWidget *root)
         UIWidget* widget = (UIWidget*)(arrayRootChildren->arr[i]);
         sortRootWidgets(widget);
     }
-    if (root->isTouchEnable())
+    if (root->isTouchEnabled())
     {
         registWidget(root);
     }

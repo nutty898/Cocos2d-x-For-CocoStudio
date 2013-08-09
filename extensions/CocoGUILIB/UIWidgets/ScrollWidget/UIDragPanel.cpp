@@ -61,7 +61,7 @@ UIDragPanel::UIDragPanel()
 , m_pfnBerthToRightBottomSelector(NULL)
 , m_pBerthToRightTopListener(NULL)
 , m_pfnBerthToRightTopSelector(NULL)
-, m_bBounceEnable(false)
+, m_bBounceEnabled(false)
 , m_fBounceDuration(0.5f)
 , m_fBounceEaseRate(2.0f)
 , m_eBounceDirection(DRAGPANEL_BOUNCE_DIR_NONE)
@@ -117,8 +117,8 @@ bool UIDragPanel::init()
 {
     if (UIPanel::init())
     {
-        setUpdateEnable(true);
-        
+        setUpdateEnabled(true);
+        setClippingEnabled(true);
         m_pInnerPanel = UIPanel::create();
         m_pInnerPanel->setName("InnerPanel");
         m_pInnerPanel->setTouchEnabled(true);
@@ -328,13 +328,13 @@ void UIDragPanel::handleMoveLogic(const CCPoint &touchPoint)
     m_touchStartNodeSpace = nsp;
     
     // reset berth dir to none
-    if (!m_bBounceEnable)
+    if (!m_bBounceEnabled)
     {
         m_eBerthDirection = DRAGPANEL_BERTH_DIR_NONE;
     }
     
     // check will berth (bounce disable)
-    if (!m_bBounceEnable)
+    if (!m_bBounceEnabled)
     {
         if (checkToBoundaryWithDeltaPosition(delta))
         {
@@ -344,7 +344,7 @@ void UIDragPanel::handleMoveLogic(const CCPoint &touchPoint)
     // move
     moveWithDelta(delta);
     // check bounce or berth
-    if (m_bBounceEnable)
+    if (m_bBounceEnabled)
     {
         // bounce
         if (!pointAtSelfBody(touchPoint))
@@ -528,7 +528,7 @@ void UIDragPanel::moveWithDelta(const CCPoint &delta)
 // auto move
 void UIDragPanel::autoMove()
 {
-    if (m_bBounceEnable)
+    if (m_bBounceEnabled)
     {
         if (checkNeedBounce())
         {
@@ -561,7 +561,7 @@ void UIDragPanel::startAutoMove()
     m_fSlidTime = 0.0;
     
     // bounceEnable is disable
-    if (!m_bBounceEnable)
+    if (!m_bBounceEnabled)
     {
         if (checkToBoundaryWithDeltaPosition(delta))
         {
@@ -919,14 +919,14 @@ void UIDragPanel::addBerthToBottomEvent(CCObject *target, SEL_DragPanelBerthToBo
 
 
 // bounce
-bool UIDragPanel::isBounceEnable()
+bool UIDragPanel::isBounceEnabled()
 {
-    return m_bBounceEnable;
+    return m_bBounceEnabled;
 }
 
-void UIDragPanel::setBounceEnable(bool bounce)
+void UIDragPanel::setBounceEnabled(bool bounce)
 {
-    m_bBounceEnable = bounce;
+    m_bBounceEnabled = bounce;
 }
 
 bool UIDragPanel::checkNeedBounce()

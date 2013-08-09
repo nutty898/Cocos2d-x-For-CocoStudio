@@ -31,7 +31,7 @@ UIButton::UIButton():
 m_pButtonNormal(NULL),
 m_pButtonClicked(NULL),
 m_pButtonDisable(NULL),
-m_bScale9Enable(false),
+m_bScale9Enabled(false),
 m_strClickedFileName(""),
 m_strDisabledFileName(""),
 m_strNormalFileName(""),
@@ -90,15 +90,15 @@ void UIButton::initPressState(WidgetState state)
     m_pButtonDisable->setVisible(false);
 }
 
-void UIButton::setScale9Enable(bool able)
+void UIButton::setScale9Enabled(bool able)
 {
-    if (m_bScale9Enable == able)
+    if (m_bScale9Enabled == able)
     {
         return;
     }
     m_nPrevPressstate = WidgetStateNone;
     m_nCurPressState = WidgetStateNone;
-    m_bScale9Enable = able;
+    m_bScale9Enabled = able;
     
     m_pRender->removeChild(m_pButtonNormal, true);
     m_pRender->removeChild(m_pButtonClicked, true);
@@ -107,7 +107,7 @@ void UIButton::setScale9Enable(bool able)
     m_pButtonNormal = NULL;
     m_pButtonClicked = NULL;
     m_pButtonDisable = NULL;
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         m_pButtonNormal = CCScale9Sprite::create();
         m_pButtonClicked = CCScale9Sprite::create();
@@ -141,7 +141,7 @@ void UIButton::setScale9Size(const CCSize &size)
     {
         m_scale9Size = size;
     }
-    if (!m_bScale9Enable)
+    if (!m_bScale9Enabled)
     {
         return;
     }
@@ -166,7 +166,7 @@ void UIButton::loadNormalTexture(const char* normal,TextureResType texType)
     m_strNormalFileName = normal;
 //    setUseMergedTexture(useSpriteFrame);
     m_eNormalTexType = texType;
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         switch (m_eNormalTexType)
         {
@@ -210,7 +210,7 @@ void UIButton::loadPressedTexture(const char* selected,TextureResType texType)
     m_strClickedFileName = selected;
 //    setUseMergedTexture(useSpriteFrame);
     m_ePressedTexType = texType;
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         switch (m_ePressedTexType)
         {
@@ -254,7 +254,7 @@ void UIButton::loadDisabledTexture(const char* disabled,TextureResType texType)
     m_strDisabledFileName = disabled;
 //    setUseMergedTexture(useSpriteFrame);
     m_eDisabledTexType = texType;
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         switch (m_eDisabledTexType)
         {
@@ -292,7 +292,7 @@ void UIButton::loadDisabledTexture(const char* disabled,TextureResType texType)
 void UIButton::setCapInsets(const CCRect &capInsets)
 {
     m_capInsets = capInsets;
-    if (!m_bScale9Enable)
+    if (!m_bScale9Enabled)
     {
         return;
     }
@@ -344,7 +344,7 @@ CCNode* UIButton::getValidNode()
 
 void UIButton::setFlipX(bool flipX)
 {
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         return;
     }
@@ -355,7 +355,7 @@ void UIButton::setFlipX(bool flipX)
 
 void UIButton::setFlipY(bool flipY)
 {
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         return;
     }
@@ -366,7 +366,7 @@ void UIButton::setFlipY(bool flipY)
 
 bool UIButton::isFlipX()
 {
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         return false;
     }
@@ -375,7 +375,7 @@ bool UIButton::isFlipX()
 
 bool UIButton::isFlipY()
 {
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         return false;
     }
@@ -396,7 +396,7 @@ void UIButton::setNormalSpriteFrame(CCSpriteFrame *frame)
     {
         return;
     }
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         dynamic_cast<CCScale9Sprite*>(m_pButtonNormal)->setSpriteFrame(frame);
     }
@@ -412,7 +412,7 @@ void UIButton::setPressedSpriteFrame(CCSpriteFrame *frame)
     {
         return;
     }
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         dynamic_cast<CCScale9Sprite*>(m_pButtonClicked)->setSpriteFrame(frame);
     }
@@ -428,7 +428,7 @@ void UIButton::setDisabledSpriteFrame(CCSpriteFrame *frame)
     {
         return;
     }
-    if (m_bScale9Enable)
+    if (m_bScale9Enabled)
     {
         dynamic_cast<CCScale9Sprite*>(m_pButtonDisable)->setSpriteFrame(frame);
     }

@@ -33,7 +33,7 @@ NS_CC_EXT_BEGIN
 UIContainerWidget::UIContainerWidget():
 m_fWidth(0.0),
 m_fHeight(0.0),
-m_bClipAble(false),
+m_bClippingEnabled(false),
 m_eLayoutType(UI_LAYOUT_ABSOLUTE)
 {
     m_WidgetType = WidgetTypeContainer;
@@ -336,9 +336,9 @@ void UIContainerWidget::initNodes()
     m_pRender = UIClippingLayer::create();
 }
 
-bool UIContainerWidget::isClippingEnable()
+bool UIContainerWidget::isClippingEnabled()
 {
-    return m_bClipAble;
+    return m_bClippingEnabled;
 }
 
 bool UIContainerWidget::addChild(UIWidget* child)
@@ -348,7 +348,7 @@ bool UIContainerWidget::addChild(UIWidget* child)
     UIWidget* parent = this;
     while (parent)
     {
-        if (parent->isClippingEnable())
+        if (parent->isClippingEnabled())
         {
             needSetChildCheckAble = true;
             break;
@@ -363,10 +363,10 @@ bool UIContainerWidget::addChild(UIWidget* child)
     return true;
 }
 
-void UIContainerWidget::setClippingEnable(bool able)
+void UIContainerWidget::setClippingEnabled(bool able)
 {
-    m_bClipAble = able;
-    DYNAMIC_CAST_CLIPPINGLAYER->setClippingEnable(able);
+    m_bClippingEnabled = able;
+    DYNAMIC_CAST_CLIPPINGLAYER->setClippingEnabled(able);
     ccArray* arrayChildren = m_children->data;
     int childrenCount = arrayChildren->num;
     for (int i=0; i<childrenCount; i++)

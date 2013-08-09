@@ -38,7 +38,7 @@ m_fMinLength(0.0),
 m_pBarNode(NULL),
 m_pPercentListener(NULL),
 m_pfnPercentSelector(NULL),
-m_bBarScale9Enable(false),
+m_bBarScale9Enabled(false),
 m_bProgressBarVisible(false),
 m_pProgressBarNode(NULL),
 m_eBarTexType(UI_TEX_TYPE_LOCAL),
@@ -100,7 +100,7 @@ void UISlider::loadBarTexture(const char* fileName, TextureResType texType)
     switch (m_eBarTexType)
     {
         case UI_TEX_TYPE_LOCAL:
-            if (m_bBarScale9Enable)
+            if (m_bBarScale9Enabled)
             {
                 dynamic_cast<CCScale9Sprite*>(m_pBarNode)->initWithFile(fileName);
             }
@@ -110,7 +110,7 @@ void UISlider::loadBarTexture(const char* fileName, TextureResType texType)
             }
             break;
         case UI_TEX_TYPE_PLIST:
-            if (m_bBarScale9Enable)
+            if (m_bBarScale9Enabled)
             {
                 dynamic_cast<CCScale9Sprite*>(m_pBarNode)->initWithSpriteFrameName(fileName);
             }
@@ -122,7 +122,7 @@ void UISlider::loadBarTexture(const char* fileName, TextureResType texType)
         default:
             break;
     }
-    if (m_bBarScale9Enable)
+    if (m_bBarScale9Enabled)
     {
         dynamic_cast<CCScale9Sprite*>(m_pBarNode)->setColor(getColor());
         dynamic_cast<CCScale9Sprite*>(m_pBarNode)->setOpacity(getOpacity());
@@ -137,17 +137,17 @@ void UISlider::loadBarTexture(const char* fileName, TextureResType texType)
     setSlidBallPercent(m_nBarPercent);
 }
 
-void UISlider::setScale9Enable(bool able)
+void UISlider::setScale9Enabled(bool able)
 {
-    if (m_bBarScale9Enable == able)
+    if (m_bBarScale9Enabled == able)
     {
         return;
     }
     
-    m_bBarScale9Enable = able;
+    m_bBarScale9Enabled = able;
     m_pRender->removeChild(m_pBarNode, true);
     m_pBarNode = NULL;
-    if (m_bBarScale9Enable)
+    if (m_bBarScale9Enabled)
     {
         m_pBarNode = CCScale9Sprite::create();
     }
@@ -164,7 +164,7 @@ void UISlider::setScale9Enable(bool able)
 void UISlider::setCapInsets(const CCRect &capInsets)
 {
     m_capInsets = capInsets;
-    if (!m_bBarScale9Enable)
+    if (!m_bBarScale9Enabled)
     {
         return;
     }
@@ -181,7 +181,7 @@ void UISlider::setScale9Size(const CCSize &size)
     {
         m_scale9Size = size;
     }
-    if (!m_bBarScale9Enable)
+    if (!m_bBarScale9Enabled)
     {
         return;
     }
@@ -212,7 +212,7 @@ void UISlider::loadSlidBallDisabledTexture(const char* disabled,TextureResType t
 
 void UISlider::setBarLength(float length)
 {
-    if (!m_bBarScale9Enable)
+    if (!m_bBarScale9Enabled)
     {
         return;
     }
@@ -259,7 +259,7 @@ void UISlider::setProgressBarVisible(bool show)
     
     if (m_bProgressBarVisible)
     {
-        if (m_bBarScale9Enable)
+        if (m_bBarScale9Enabled)
         {
             m_pProgressBarNode = CCScale9Sprite::create();
         }
@@ -288,7 +288,7 @@ void UISlider::setProgressBarTexture(const char *fileName, TextureResType texTyp
     switch (m_eBarTexType)
     {
         case UI_TEX_TYPE_LOCAL:
-            if (m_bBarScale9Enable)
+            if (m_bBarScale9Enabled)
             {
                 dynamic_cast<CCScale9Sprite*>(m_pProgressBarNode)->initWithFile(fileName);
             }
@@ -298,7 +298,7 @@ void UISlider::setProgressBarTexture(const char *fileName, TextureResType texTyp
             }
             break;
         case UI_TEX_TYPE_PLIST:
-            if (m_bBarScale9Enable)
+            if (m_bBarScale9Enabled)
             {
                 dynamic_cast<CCScale9Sprite*>(m_pProgressBarNode)->initWithSpriteFrameName(fileName);
             }
@@ -310,7 +310,7 @@ void UISlider::setProgressBarTexture(const char *fileName, TextureResType texTyp
         default:
             break;
     }
-    if (m_bBarScale9Enable)
+    if (m_bBarScale9Enabled)
     {
         dynamic_cast<CCScale9Sprite*>(m_pProgressBarNode)->setColor(getColor());
         dynamic_cast<CCScale9Sprite*>(m_pProgressBarNode)->setOpacity(getOpacity());
@@ -330,7 +330,7 @@ void UISlider::setProgressBarScale()
 {
     float width = (float)(m_nBarPercent) / 100 * m_fBarLength;
     
-    if (m_bBarScale9Enable)
+    if (m_bBarScale9Enabled)
     {
         m_pProgressBarNode->setContentSize(CCSize(width, m_pProgressBarNode->getContentSize().height));
     }

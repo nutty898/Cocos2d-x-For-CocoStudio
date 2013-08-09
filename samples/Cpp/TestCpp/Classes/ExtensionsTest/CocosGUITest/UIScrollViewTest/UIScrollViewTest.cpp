@@ -42,7 +42,7 @@ bool UIScrollViewTest_Vertical::init()
         
         // Create the scrollview by vertical
         UIScrollView* scrollView = UIScrollView::create();
-        scrollView->setClippingEnable(true);
+        scrollView->setClippingEnabled(true);
         scrollView->setTouchEnabled(true);
         scrollView->setSize(CCSizeMake(280, 150));        
         CCSize backgroundSize = background->getContentSize();
@@ -135,7 +135,7 @@ bool UIScrollViewTest_Horizontal::init()
         // Create the scrollview by horizontal
         UIScrollView* scrollView = UIScrollView::create();        
         scrollView->setDirection(SCROLLVIEW_DIR_HORIZONTAL);
-        scrollView->setClippingEnable(true);
+        scrollView->setClippingEnabled(true);
         scrollView->setTouchEnabled(true);
         scrollView->setSize(CCSizeMake(280, 150));
         scrollView->setInnerContainerSize(scrollView->getRect().size);

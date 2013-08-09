@@ -53,13 +53,13 @@ public:
     void openIME();
     void closeIME();
     
-    void setMaxLengthEnable(bool enable);
-    bool isMaxLengthEnable();
+    void setMaxLengthEnabled(bool enable);
+    bool isMaxLengthEnabled();
     void setMaxLength(int length);
     int getMaxLength();
     int getCharCount();
-    void setPasswordEnable(bool enable);
-    bool isPasswordEnable();
+    void setPasswordEnabled(bool enable);
+    bool isPasswordEnabled();
     void setPasswordStyleText(const char* styleText);
     void setPasswordText(const char* text);
     void setAttachWithIME(bool attach);
@@ -71,9 +71,9 @@ public:
     void setDeleteBackward(bool deleteBackward);
     bool getDeleteBackward();
 protected:
-    bool m_bMaxLengthEnable;
+    bool m_bMaxLengthEnabled;
     int m_nMaxLength;
-    bool m_bPasswordEnable;
+    bool m_bPasswordEnabled;
     std::string m_strPasswordStyleText;
     bool m_bAttachWithIME;
     bool m_bDetachWithIME;

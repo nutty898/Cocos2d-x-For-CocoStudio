@@ -65,8 +65,8 @@ bool UIPageView::init()
     {
         m_pages = CCArray::create();
         m_pages->retain();
-        setClippingEnable(true);
-        setUpdateEnable(true);
+        setClippingEnabled(true);
+        setUpdateEnabled(true);
         return true;
     }
     return false;

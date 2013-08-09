@@ -32,7 +32,7 @@ NS_CC_EXT_BEGIN
 #define DYNAMIC_CAST_CLIPPINGLAYER dynamic_cast<UIClippingLayer*>(m_pRender)
 
 UIPanel::UIPanel():
-m_bBackGroundScale9Enable(false),
+m_bBackGroundScale9Enabled(false),
 m_pBackGroundImage(NULL),
 m_strBackGroundImageFileName(""),
 m_backGroundImageCapInsets(CCRectZero),
@@ -75,7 +75,7 @@ void UIPanel::initNodes()
 
 void UIPanel::addBackGroundImage()
 {
-    if (m_bBackGroundScale9Enable)
+    if (m_bBackGroundScale9Enabled)
     {
         m_pBackGroundImage = CCScale9Sprite::create();
         m_pBackGroundImage->setZOrder(-1);
@@ -96,16 +96,16 @@ void UIPanel::removeBackGroundImage()
     m_strBackGroundImageFileName = "";
 }
 
-void UIPanel::setBackGroundImageScale9Enable(bool able)
+void UIPanel::setBackGroundImageScale9Enabled(bool able)
 {
-    if (m_bBackGroundScale9Enable == able)
+    if (m_bBackGroundScale9Enabled == able)
     {
         return;
     }
     m_pRender->removeChild(m_pBackGroundImage, true);
     m_pBackGroundImage = NULL;
-    m_bBackGroundScale9Enable = able;
-    if (m_bBackGroundScale9Enable)
+    m_bBackGroundScale9Enabled = able;
+    if (m_bBackGroundScale9Enabled)
     {
         m_pBackGroundImage = CCScale9Sprite::create();
         m_pRender->addChild(m_pBackGroundImage);
@@ -128,7 +128,7 @@ void UIPanel::setSize(const CCSize &size)
         addBackGroundImage();
     }
     m_pBackGroundImage->setPosition(ccp(m_pRender->getContentSize().width/2.0f, m_pRender->getContentSize().height/2.0f));
-    if (m_bBackGroundScale9Enable)
+    if (m_bBackGroundScale9Enabled)
     {
         dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_pRender->getContentSize());
     }
@@ -154,7 +154,7 @@ void UIPanel::loadBackGroundImage(const char* fileName,TextureResType texType)
     }
     m_strBackGroundImageFileName = fileName;
     m_eBGImageTexType = texType;
-    if (m_bBackGroundScale9Enable)
+    if (m_bBackGroundScale9Enabled)
     {
         switch (m_eBGImageTexType)
         {
@@ -183,7 +183,7 @@ void UIPanel::loadBackGroundImage(const char* fileName,TextureResType texType)
                 break;
         }
     }
-    if (m_bBackGroundScale9Enable)
+    if (m_bBackGroundScale9Enabled)
     {
         dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setColor(getColor());
         dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setOpacity(getOpacity());
@@ -199,7 +199,7 @@ void UIPanel::loadBackGroundImage(const char* fileName,TextureResType texType)
 void UIPanel::setBackGroundImageCapInsets(const CCRect &capInsets)
 {
     m_backGroundImageCapInsets = capInsets;
-    if (m_bBackGroundScale9Enable)
+    if (m_bBackGroundScale9Enabled)
     {
         dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setCapInsets(capInsets);
     }

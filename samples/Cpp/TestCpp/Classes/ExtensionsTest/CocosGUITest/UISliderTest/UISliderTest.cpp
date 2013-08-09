@@ -101,7 +101,7 @@ bool UISliderTest_Scale9::init()
         // Create the slider
         UISlider* slider = UISlider::create();
         slider->setTouchEnabled(true);
-        slider->setScale9Enable(true);
+        slider->setScale9Enabled(true);
         slider->loadBarTexture("cocosgui/sliderTrack2.png");
         slider->setCapInsets(CCRectMake(0, 0, 0, 0));
         slider->setScale9Size(CCSizeMake(250, slider->getRect().size.height));

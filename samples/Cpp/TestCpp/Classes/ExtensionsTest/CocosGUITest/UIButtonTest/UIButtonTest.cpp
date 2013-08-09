@@ -107,7 +107,7 @@ bool UIButtonTest_Scale9::init()
         UIButton *button = UIButton::create();
         button->setTouchEnabled(true);
         // open scale9 render
-        button->setScale9Enable(true);
+        button->setScale9Enabled(true);
         button->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "");
         button->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f));
         button->setScale9Size(CCSizeMake(150, button->getContentSize().height * 1.5f));

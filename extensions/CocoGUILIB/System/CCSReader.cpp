@@ -336,7 +336,7 @@ void CCSReader::setPropsForButtonFromJsonDictionary(UIWidget*widget,cs::CSJsonDi
         setPropsForWidgetFromJsonDictionary(widget, options);
         UIButton* button = (UIButton*)widget;
         bool scale9Enable = DICTOOL->getBooleanValue_json(options, "scale9Enable");
-        button->setScale9Enable(scale9Enable);
+        button->setScale9Enabled(scale9Enable);
         
         std::string tp_n = m_strFilePath;
         std::string tp_p = m_strFilePath;
@@ -393,7 +393,7 @@ void CCSReader::setPropsForButtonFromJsonDictionary(UIWidget*widget,cs::CSJsonDi
         setPropsForWidgetFromJsonDictionary(widget, options);
         UIButton* button = (UIButton*)widget;
         bool scale9Enable = DICTOOL->getBooleanValue_json(options, "scale9Enable");
-        button->setScale9Enable(scale9Enable);
+        button->setScale9Enabled(scale9Enable);
         
         cs::CSJsonDictionary* normalDic = DICTOOL->getSubDictionary_json(options, "normalData");
         int normalType = DICTOOL->getIntValue_json(normalDic, "resourceType");
@@ -657,7 +657,7 @@ void CCSReader::setPropsForImageViewFromJsonDictionary(UIWidget*widget,cs::CSJso
         {
             scale9Enable = DICTOOL->getBooleanValue_json(options, "scale9Enable");
         }
-        imageView->setScale9Enable(scale9Enable);
+        imageView->setScale9Enabled(scale9Enable);
         
         std::string tp_i = m_strFilePath;
         const char* imageFileName_tp = NULL;
@@ -747,7 +747,7 @@ void CCSReader::setPropsForImageViewFromJsonDictionary(UIWidget*widget,cs::CSJso
         {
             scale9Enable = DICTOOL->getBooleanValue_json(options, "scale9Enable");
         }
-        imageView->setScale9Enable(scale9Enable);
+        imageView->setScale9Enabled(scale9Enable);
         
         
         if (scale9Enable)
@@ -864,7 +864,7 @@ void CCSReader::setPropsForContainerWidgetFromJsonDictionary(UIWidget *widget, c
 {
     setPropsForWidgetFromJsonDictionary(widget, options);
     UIContainerWidget* containerWidget = (UIContainerWidget*)widget;
-    containerWidget->setClippingEnable(DICTOOL->getBooleanValue_json(options, "clipAble"));
+    containerWidget->setClippingEnabled(DICTOOL->getBooleanValue_json(options, "clipAble"));
     setColorPropsForWidgetFromJsonDictionary(widget,options);
 }
 
@@ -875,7 +875,7 @@ void CCSReader::setPropsForPanelFromJsonDictionary(UIWidget*widget,cs::CSJsonDic
         setPropsForContainerWidgetFromJsonDictionary(widget, options);
         UIPanel* panel = (UIPanel*)widget;
         bool backGroundScale9Enable = DICTOOL->getBooleanValue_json(options, "backGroundScale9Enable");
-        panel->setBackGroundImageScale9Enable(backGroundScale9Enable);
+        panel->setBackGroundImageScale9Enabled(backGroundScale9Enable);
         int cr = DICTOOL->getIntValue_json(options, "bgColorR");
         int cg = DICTOOL->getIntValue_json(options, "bgColorG");
         int cb = DICTOOL->getIntValue_json(options, "bgColorB");
@@ -942,7 +942,7 @@ void CCSReader::setPropsForPanelFromJsonDictionary(UIWidget*widget,cs::CSJsonDic
         setPropsForContainerWidgetFromJsonDictionary(widget, options);
         UIPanel* panel = (UIPanel*)widget;
         bool backGroundScale9Enable = DICTOOL->getBooleanValue_json(options, "backGroundScale9Enable");
-        panel->setBackGroundImageScale9Enable(backGroundScale9Enable);
+        panel->setBackGroundImageScale9Enabled(backGroundScale9Enable);
         int cr = DICTOOL->getIntValue_json(options, "bgColorR");
         int cg = DICTOOL->getIntValue_json(options, "bgColorG");
         int cb = DICTOOL->getIntValue_json(options, "bgColorB");
@@ -1024,7 +1024,7 @@ void CCSReader::setPropsForSliderFromJsonDictionary(UIWidget*widget,cs::CSJsonDi
         UISlider* slider = (UISlider*)widget;
         
         bool barTextureScale9Enable = DICTOOL->getBooleanValue_json(options, "barTextureScale9Enable");
-        slider->setScale9Enable(barTextureScale9Enable);
+        slider->setScale9Enabled(barTextureScale9Enable);
         bool bt = DICTOOL->checkObjectExist_json(options, "barFileName");
         
         bool useMergedTexture = DICTOOL->getBooleanValue_json(options, "useMergedTexture");
@@ -1125,7 +1125,7 @@ void CCSReader::setPropsForSliderFromJsonDictionary(UIWidget*widget,cs::CSJsonDi
         UISlider* slider = (UISlider*)widget;
         
         bool barTextureScale9Enable = DICTOOL->getBooleanValue_json(options, "barTextureScale9Enable");
-        slider->setScale9Enable(barTextureScale9Enable);
+        slider->setScale9Enabled(barTextureScale9Enable);
         bool bt = DICTOOL->checkObjectExist_json(options, "barFileName");
         float barLength = DICTOOL->getFloatValue_json(options, "length");
         bool useMergedTexture = DICTOOL->getBooleanValue_json(options, "useMergedTexture");
@@ -1405,7 +1405,7 @@ void CCSReader::setPropsForTextFieldFromJsonDictionary(UIWidget*widget,cs::CSJso
     }
     
     bool passwordEnable = DICTOOL->getBooleanValue_json(options, "passwordEnable");
-    textField->setPasswordEnable(passwordEnable);
+    textField->setPasswordEnabled(passwordEnable);
     if (passwordEnable)
     {
         textField->setPasswordStyleText(DICTOOL->getStringValue_json(options, "passwordStyleText"));
@@ -1544,7 +1544,7 @@ void CCSReader::setPropsForDragPanelFromJsonDictionary(UIWidget *widget, cs::CSJ
     UIDragPanel* dragPanel = (UIDragPanel*)widget;
     
     bool bounceEnable = DICTOOL->getBooleanValue_json(options, "bounceEnable");
-    dragPanel->setBounceEnable(bounceEnable);
+    dragPanel->setBounceEnabled(bounceEnable);
     
     setColorPropsForWidgetFromJsonDictionary(widget, options);
 }

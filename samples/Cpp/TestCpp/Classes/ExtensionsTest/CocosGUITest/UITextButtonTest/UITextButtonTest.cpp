@@ -107,7 +107,7 @@ bool UITextButtonTest_Scale9::init()
         // Create the text button
         UITextButton* textButton = UITextButton::create();
         textButton->setTouchEnabled(true);
-        textButton->setScale9Enable(true);
+        textButton->setScale9Enabled(true);
         textButton->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "");
         textButton->setScale9Size(CCSizeMake(180, textButton->getContentSize().height * 1.5f));
         textButton->setText("Text Button scale9 render");

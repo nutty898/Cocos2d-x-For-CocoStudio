@@ -39,12 +39,12 @@ public:
     virtual void setTextureRect(const CCRect& rect);
     void doubleClickEvent();
     void checkDoubleClick(float dt);
-    void setDoubleClickEnable(bool able);
+    void setDoubleClickEnabled(bool able);
     virtual void setFlipX(bool flipX);
     virtual void setFlipY(bool flipY);
     virtual bool isFlipX();
     virtual bool isFlipY();
-    void setScale9Enable(bool able);
+    void setScale9Enabled(bool able);
     void setScale9Size(const CCSize &size);
     void setDisplayFrame(CCSpriteFrame *pNewFrame);
     void setSpriteFrame(CCSpriteFrame *pNewFrame);
@@ -66,9 +66,9 @@ protected:
     float m_fClickTimeInterval;
     bool m_bStartCheckDoubleClick;
     bool m_touchRelease;
-    bool m_bDoubleClickEnable;
+    bool m_bDoubleClickEnabled;
     
-    bool m_bScale9Enable;
+    bool m_bScale9Enabled;
     CCRect m_capInsets;
     CCSize m_scale9Size;
     CCNode* m_pImageRender;

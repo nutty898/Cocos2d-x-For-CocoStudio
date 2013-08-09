@@ -119,7 +119,7 @@ bool UITextFieldTest_MaxLength::init()
         
         // Create the textfield
         UITextField* textField = UITextField::create();
-        textField->setMaxLengthEnable(true);
+        textField->setMaxLengthEnabled(true);
         textField->setMaxLength(3);
         textField->setTouchEnabled(true);
         textField->setFontName("Marker Felt");
@@ -203,7 +203,7 @@ bool UITextFieldTest_Password::init()
         
         // Create the textfield
         UITextField* textField = UITextField::create();
-        textField->setPasswordEnable(true);
+        textField->setPasswordEnabled(true);
         textField->setPasswordStyleText("*");
         textField->setTouchEnabled(true);
         textField->setFontName("Marker Felt");

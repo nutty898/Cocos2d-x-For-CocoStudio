@@ -118,10 +118,10 @@ public:
     virtual int getWidgetZOrder();
     virtual void reorderChild(UIWidget* child);
     virtual void setTouchEnabled(bool enable, bool containChildren = false);
-    void updateChildrenTouchEnable(bool enable, bool containChildren);
-    bool isTouchEnable();
-    void setUpdateEnable(bool enable);
-    bool getUpdateEnable();
+    void updateChildrenTouchEnabled(bool enable, bool containChildren);
+    bool isTouchEnabled();
+    void setUpdateEnabled(bool enable);
+    bool isUpdateEnabled();
     bool isFocus();
     void setFocus(bool fucos);
     virtual void disable(bool containChildren = false);
@@ -129,7 +129,7 @@ public:
     void updateChildrenActive();
     void updateChildrenDisable();
     virtual bool isActive();
-    void updateBeTouchEnable(bool enable);
+    void updateBeTouchEnabled(bool enable);
     void setVisible(bool visible);
     bool isVisible();
     virtual CCRect getRect();
@@ -208,7 +208,7 @@ public:
     virtual void onTouchEnded(const CCPoint &touchPoint);
     virtual void onTouchCancelled(const CCPoint &touchPoint);
     virtual void onTouchLongClicked(const CCPoint &touchPoint);
-    virtual bool isClippingEnable(){return false;};
+    virtual bool isClippingEnabled(){return false;};
     virtual void update(float dt){};
     virtual bool pointAtSelfBody(const CCPoint &pt);
     bool checkVisibleDependParent(const CCPoint &pt);
@@ -264,7 +264,7 @@ protected:
     UIWidget* m_pWidgetParent;
     WidgetState m_nCurPressState;
     WidgetState m_nPrevPressstate;
-    bool m_bUpdateEnable;
+    bool m_bUpdateEnabled;
     CCNode* m_pRender;
     float m_fContentSizeWidth;
     float m_fContentSizeHeight;

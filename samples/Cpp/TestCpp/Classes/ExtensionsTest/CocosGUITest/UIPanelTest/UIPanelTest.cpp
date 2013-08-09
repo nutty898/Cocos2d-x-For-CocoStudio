@@ -31,7 +31,7 @@ bool UIPanelTest::init()
         
         // Create the panel
         UIPanel* panel = UIPanel::create();
-        panel->setClippingEnable(true);
+        panel->setClippingEnabled(true);
         panel->setSize(CCSizeMake(280, 150));
         CCSize backgroundSize = background->getRect().size;
         panel->setPosition(ccp((screenSize.width - backgroundSize.width) / 2 +
@@ -105,7 +105,7 @@ bool UIPanelTest_Color::init()
         UIPanel* panel = UIPanel::create();
         panel->setBackGroundColorType(PANEL_COLOR_SOLID);
         panel->setBackGroundColor(ccc3(128, 128, 128));
-        panel->setClippingEnable(true);
+        panel->setClippingEnabled(true);
         panel->setSize(CCSizeMake(280, 150));
         CCSize backgroundSize = background->getContentSize();
         panel->setPosition(ccp((screenSize.width - backgroundSize.width) / 2 +
@@ -178,7 +178,7 @@ bool UIPanelTest_Gradient::init()
         UIPanel* panel = UIPanel::create();
         panel->setBackGroundColorType(PANEL_COLOR_GRADIENT);
         panel->setBackGroundColor(ccc3(64, 64, 64), ccc3(192, 192, 192));
-        panel->setClippingEnable(true);
+        panel->setClippingEnabled(true);
         panel->setSize(CCSizeMake(280, 150));
         CCSize backgroundSize = background->getContentSize();
         panel->setPosition(ccp((screenSize.width - backgroundSize.width) / 2 +
@@ -250,7 +250,7 @@ bool UIPanelTest_BackGroundImage::init()
         // Create the panel with background image
         UIPanel* panel = UIPanel::create();
         panel->loadBackGroundImage("cocosgui/Hello.png");
-        panel->setClippingEnable(true);
+        panel->setClippingEnabled(true);
         panel->setSize(CCSizeMake(280, 150));
         CCSize backgroundSize = background->getContentSize();
         panel->setPosition(ccp((screenSize.width - backgroundSize.width) / 2 +
@@ -321,9 +321,9 @@ bool UIPanelTest_BackGroundImage_Scale9::init()
         
         // Create the panel with background image
         UIPanel* panel = UIPanel::create();
-        panel->setBackGroundImageScale9Enable(true);
+        panel->setBackGroundImageScale9Enabled(true);
         panel->loadBackGroundImage("cocosgui/green_edit.png");
-        panel->setClippingEnable(true);
+        panel->setClippingEnabled(true);
         panel->setSize(CCSizeMake(280, 150));
         CCSize backgroundSize = background->getContentSize();
         panel->setPosition(ccp((screenSize.width - backgroundSize.width) / 2 +

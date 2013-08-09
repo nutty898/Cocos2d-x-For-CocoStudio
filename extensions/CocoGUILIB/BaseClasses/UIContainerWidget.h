@@ -54,12 +54,12 @@ public:
     virtual void doLayout();
     
     virtual bool addChild(UIWidget* child);
-    virtual void setClippingEnable(bool able);
+    virtual void setClippingEnabled(bool able);
     virtual void setClipRect(const CCRect &rect);
     virtual void setSize(const CCSize &size);
     virtual float getWidth();
     virtual float getHeight();
-    virtual bool isClippingEnable();
+    virtual bool isClippingEnabled();
     virtual bool hitTest(CCNode*node, const CCPoint &pt);
     const CCSize& getWrapSize() const;
 protected:
@@ -69,7 +69,7 @@ protected:
 protected:    
     float m_fWidth;
     float m_fHeight;
-    bool m_bClipAble;
+    bool m_bClippingEnabled;
     LayoutType m_eLayoutType;
 };
 

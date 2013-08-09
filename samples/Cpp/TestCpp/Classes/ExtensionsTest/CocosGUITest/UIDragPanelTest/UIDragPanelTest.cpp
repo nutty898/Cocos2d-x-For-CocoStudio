@@ -41,9 +41,9 @@ bool UIDragPanelTest::init()
         
         // Create the dragpanel
         UIDragPanel* dragPanel = UIDragPanel::create();
-        dragPanel->setClippingEnable(true);
+//        dragPanel->setClippingEnabled(true);
         dragPanel->setTouchEnabled(true);
-        dragPanel->setBackGroundImageScale9Enable(true);
+        dragPanel->setBackGroundImageScale9Enabled(true);
         dragPanel->loadBackGroundImage("cocosgui/scrollviewbg.png");
         dragPanel->setSize(CCSizeMake(210, 122.5));
         CCSize backgroundSize = background->getContentSize();
@@ -152,10 +152,10 @@ bool UIDragPanelTest_Bounce::init()
         
         // Create the dragpanel
         UIDragPanel* dragPanel = UIDragPanel::create();
-        dragPanel->setClippingEnable(true);
+//        dragPanel->setClippingEnabled(true);
         dragPanel->setTouchEnabled(true);
-        dragPanel->setBounceEnable(true);
-        dragPanel->setBackGroundImageScale9Enable(true);
+        dragPanel->setBounceEnabled(true);
+        dragPanel->setBackGroundImageScale9Enabled(true);
         dragPanel->loadBackGroundImage("extensions/green_edit.png");
         dragPanel->setSize(CCSizeMake(210, 122.5));
         CCSize backgroundSize = background->getContentSize();

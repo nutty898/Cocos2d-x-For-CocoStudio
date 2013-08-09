@@ -45,7 +45,7 @@ m_nCurPressState(WidgetStateNone),
 m_nPrevPressstate(WidgetStateNone),
 m_bTouchEnabled(false),
 m_nWidgetTag(-1),
-m_bUpdateEnable(false),
+m_bUpdateEnabled(false),
 m_pRender(NULL),
 m_strName("default"),
 m_children(NULL),
@@ -127,7 +127,7 @@ void UIWidget::releaseResoures()
     m_pfnReleaseSelector = NULL;
     m_pCancelListener = NULL;
     m_pfnCancelSelector = NULL;
-    setUpdateEnable(false);
+    setUpdateEnabled(false);
     if (m_pUILayer)
     {
         m_pUILayer->getInputManager()->removeManageredWidget(this);
@@ -213,7 +213,7 @@ void UIWidget::setUILayer(UILayer *uiLayer)
 void UIWidget::updateChildrenUILayer(UILayer* uiLayer)
 {
     setUILayer(uiLayer);
-    setUpdateEnable(getUpdateEnable());
+    setUpdateEnabled(isUpdateEnabled());
     int childrenCount = m_children->data->num;
     ccArray* arrayChildren = m_children->data;
     for (int i=0; i<childrenCount; i++) {
@@ -399,12 +399,12 @@ void UIWidget::setTouchEnabled(bool enable, bool containChildren)
     m_bTouchEnabled = enable;
     if (containChildren)
     {
-        updateChildrenTouchEnable(enable, containChildren);
+        updateChildrenTouchEnabled(enable, containChildren);
     }
     structureChangedEvent();
 }
 
-void UIWidget::updateChildrenTouchEnable(bool enable, bool containChildren)
+void UIWidget::updateChildrenTouchEnabled(bool enable, bool containChildren)
 {
     ccArray* arrayChildren = m_children->data;
     int childrenCount = arrayChildren->num;
@@ -415,14 +415,14 @@ void UIWidget::updateChildrenTouchEnable(bool enable, bool containChildren)
     }
 }
 
-bool UIWidget::isTouchEnable()
+bool UIWidget::isTouchEnabled()
 {
     return m_bTouchEnabled;
 }
 
-void UIWidget::setUpdateEnable(bool enable)
+void UIWidget::setUpdateEnabled(bool enable)
 {
-    m_bUpdateEnable = enable;
+    m_bUpdateEnabled = enable;
     if (enable)
     {
         if (m_pUILayer)
@@ -439,9 +439,9 @@ void UIWidget::setUpdateEnable(bool enable)
     }
 }
 
-bool UIWidget::getUpdateEnable()
+bool UIWidget::isUpdateEnabled()
 {
-    return m_bUpdateEnable;
+    return m_bUpdateEnabled;
 }
 
 bool UIWidget::isFocus()
@@ -547,7 +547,7 @@ bool UIWidget::isActive()
     return m_bActived;
 }
 
-void UIWidget::updateBeTouchEnable(bool enable)
+void UIWidget::updateBeTouchEnabled(bool enable)
 {
     ccArray* arrayChildren = m_children->data;
     int childrenCount = arrayChildren->num;

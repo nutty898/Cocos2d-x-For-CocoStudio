@@ -27,9 +27,9 @@
 NS_CC_EXT_BEGIN
 
 UICCTextField::UICCTextField()
-: m_bMaxLengthEnable(false)
+: m_bMaxLengthEnabled(false)
 , m_nMaxLength(0)
-, m_bPasswordEnable(false)
+, m_bPasswordEnabled(false)
 , m_strPasswordStyleText("*")
 , m_bAttachWithIME(false)
 , m_bDetachWithIME(false)
@@ -79,7 +79,7 @@ bool UICCTextField::onTextFieldInsertText(CCTextFieldTTF *pSender, const char *t
         return false;
     }
     setInsertText(true);
-    if (m_bMaxLengthEnable)
+    if (m_bMaxLengthEnabled)
     {
         if (CCTextFieldTTF::getCharCount() >= m_nMaxLength)
         {
@@ -109,7 +109,7 @@ void UICCTextField::insertText(const char * text, int len)
     
     if (strcmp(text, "\n") != 0)
     {
-        if (m_bMaxLengthEnable)
+        if (m_bMaxLengthEnabled)
         {
             int multiple = 1;
             char value = text[0];
@@ -135,7 +135,7 @@ void UICCTextField::insertText(const char * text, int len)
     CCTextFieldTTF::insertText(str_text.c_str(), len);
     
     // password
-    if (m_bPasswordEnable)
+    if (m_bPasswordEnabled)
     {
         setPasswordText(m_pInputText->c_str());
     }
@@ -148,7 +148,7 @@ void UICCTextField::deleteBackward()
     if (CCTextFieldTTF::getCharCount() > 0)
     {
         // password
-        if (m_bPasswordEnable)
+        if (m_bPasswordEnabled)
         {
             setPasswordText(m_pInputText->c_str());
         }
@@ -165,14 +165,14 @@ void UICCTextField::closeIME()
     CCTextFieldTTF::detachWithIME();
 }
 
-void UICCTextField::setMaxLengthEnable(bool enable)
+void UICCTextField::setMaxLengthEnabled(bool enable)
 {
-    m_bMaxLengthEnable = enable;
+    m_bMaxLengthEnabled = enable;
 }
 
-bool UICCTextField::isMaxLengthEnable()
+bool UICCTextField::isMaxLengthEnabled()
 {
-    return m_bMaxLengthEnable;
+    return m_bMaxLengthEnabled;
 }
 
 void UICCTextField::setMaxLength(int length)
@@ -190,14 +190,14 @@ int UICCTextField::getCharCount()
     return CCTextFieldTTF::getCharCount();
 }
 
-void UICCTextField::setPasswordEnable(bool enable)
+void UICCTextField::setPasswordEnabled(bool enable)
 {
-    m_bPasswordEnable = enable;
+    m_bPasswordEnabled = enable;
 }
 
-bool UICCTextField::isPasswordEnable()
+bool UICCTextField::isPasswordEnabled()
 {
-    return m_bPasswordEnable;
+    return m_bPasswordEnabled;
 }
 
 void UICCTextField::setPasswordStyleText(const char* styleText)

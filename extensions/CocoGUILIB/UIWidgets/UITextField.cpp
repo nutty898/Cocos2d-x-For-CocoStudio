@@ -63,7 +63,7 @@ bool UITextField::init()
 {
     if (UIWidget::init())
     {
-        setUpdateEnable(true);
+        setUpdateEnabled(true);
         return true;
     }
     return false;
@@ -140,14 +140,14 @@ bool UITextField::pointAtSelfBody(const CCPoint &pt)
     return false;
 }
 
-void UITextField::setMaxLengthEnable(bool enable)
+void UITextField::setMaxLengthEnabled(bool enable)
 {
-    m_pRenderTextField->setMaxLengthEnable(enable);
+    m_pRenderTextField->setMaxLengthEnabled(enable);
 }
 
-bool UITextField::isMaxLengthEnable()
+bool UITextField::isMaxLengthEnabled()
 {
-    return m_pRenderTextField->isMaxLengthEnable();
+    return m_pRenderTextField->isMaxLengthEnabled();
 }
 
 void UITextField::setMaxLength(int length)
@@ -160,14 +160,14 @@ int UITextField::getMaxLength()
     return m_pRenderTextField->getMaxLength();
 }
 
-void UITextField::setPasswordEnable(bool enable)
+void UITextField::setPasswordEnabled(bool enable)
 {
-    m_pRenderTextField->setPasswordEnable(enable);
+    m_pRenderTextField->setPasswordEnabled(enable);
 }
 
-bool UITextField::isPasswordEnable()
+bool UITextField::isPasswordEnabled()
 {
-    return m_pRenderTextField->isPasswordEnable();
+    return m_pRenderTextField->isPasswordEnabled();
 }
 
 void UITextField::setPasswordStyleText(const char *styleText)

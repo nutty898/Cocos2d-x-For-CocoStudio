@@ -171,8 +171,8 @@ public:
     void addBerthToBottomEvent(CCObject* target, SEL_DragPanelBerthToBottomEvent selector);
     
     // bounce
-    bool isBounceEnable();
-    void setBounceEnable(bool bounce);
+    bool isBounceEnabled();
+    void setBounceEnabled(bool bounce);
     void setBounceDuratoin(float duration);
     void setBounceEaseRate(float rate);
     // bounce event
@@ -307,7 +307,7 @@ protected:
     SEL_DragPanelBerthToRightTopEvent m_pfnBerthToRightTopSelector;
     
     // bounce
-    bool m_bBounceEnable;
+    bool m_bBounceEnabled;
     DRAGPANEL_BOUNCE_DIR m_eBounceDirection;
     float m_fBounceDuration;
     float m_fBounceEaseRate;

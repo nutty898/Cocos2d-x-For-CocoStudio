@@ -59,12 +59,12 @@ public:
     const char* getStringValue();
     virtual void onTouchBegan(const CCPoint &touchPoint);
     virtual bool pointAtSelfBody(const CCPoint &pt);
-    void setMaxLengthEnable(bool enable);
-    bool isMaxLengthEnable();
+    void setMaxLengthEnabled(bool enable);
+    bool isMaxLengthEnabled();
     void setMaxLength(int length);
     int getMaxLength();
-    void setPasswordEnable(bool enable);
-    bool isPasswordEnable();
+    void setPasswordEnabled(bool enable);
+    bool isPasswordEnabled();
     void setPasswordStyleText(const char* styleText);
     void update(float dt);
     bool getAttachWithIME();

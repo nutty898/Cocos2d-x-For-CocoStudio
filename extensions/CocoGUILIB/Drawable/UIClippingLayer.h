@@ -37,8 +37,8 @@ public:
     virtual ~UIClippingLayer();
     static UIClippingLayer* create();
     virtual void visit();
-    void setClippingEnable(bool able);
-    bool isClippingEnable();
+    void setClippingEnabled(bool able);
+    bool isClippingEnabled();
     void setClipRect(const CCRect &rect);
     const CCRect& getClippingRect();
     virtual void onEnter();
@@ -46,7 +46,7 @@ public:
     void checkClippingOption();
     void updateChildrenClippingOptions();
 protected:
-    bool m_bClippingEnable;
+    bool m_bClippingEnabled;
     float m_fScissorX;
     float m_fScissorY;
     bool m_bEnableCustomArea;
