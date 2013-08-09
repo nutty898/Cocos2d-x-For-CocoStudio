@@ -121,7 +121,7 @@ bool UIDragPanel::init()
         
         m_pInnerPanel = UIPanel::create();
         m_pInnerPanel->setName("InnerPanel");
-        m_pInnerPanel->setTouchEnable(true);
+        m_pInnerPanel->setTouchEnabled(true);
         UIPanel::addChild(m_pInnerPanel);
         
         return true;

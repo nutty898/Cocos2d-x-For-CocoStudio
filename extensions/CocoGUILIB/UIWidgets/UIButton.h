@@ -36,10 +36,10 @@ public:
     virtual ~UIButton();
     static UIButton* create();
     virtual void initPressState(WidgetState state);
-    virtual void setTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setNormalTexture(const char* normal, TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setPressedTexture(const char* selected, TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setDisabledTexture(const char* disabled, TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadNormalTexture(const char* normal, TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadPressedTexture(const char* selected, TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadDisabledTexture(const char* disabled, TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setCapInsets(const CCRect &capInsets);
     virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);

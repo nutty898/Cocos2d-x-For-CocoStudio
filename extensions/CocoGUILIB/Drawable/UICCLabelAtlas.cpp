@@ -70,4 +70,11 @@ void UICCLabelAtlas::draw()
     CCAtlasNode::draw();
 }
 
+/* gui mark */
+void UICCLabelAtlas::updateDisplayedOpacity(GLubyte opacity)
+{
+    CCAtlasNode::setOpacity(opacity);
+}
+/**/
+
 NS_CC_EXT_END

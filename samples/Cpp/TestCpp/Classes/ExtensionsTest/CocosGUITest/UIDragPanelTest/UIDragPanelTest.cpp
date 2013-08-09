@@ -42,9 +42,9 @@ bool UIDragPanelTest::init()
         // Create the dragpanel
         UIDragPanel* dragPanel = UIDragPanel::create();
         dragPanel->setClippingEnable(true);
-        dragPanel->setTouchEnable(true);
+        dragPanel->setTouchEnabled(true);
         dragPanel->setBackGroundImageScale9Enable(true);
-        dragPanel->setBackGroundImage("cocosgui/scrollviewbg.png");
+        dragPanel->loadBackGroundImage("cocosgui/scrollviewbg.png");
         dragPanel->setSize(CCSizeMake(210, 122.5));
         CCSize backgroundSize = background->getContentSize();
         dragPanel->setPosition(ccp((screenSize.width - backgroundSize.width) / 2 +
@@ -61,8 +61,8 @@ bool UIDragPanelTest::init()
         dragPanel->addBerthToBottomEvent(this, coco_DragPanel_BerthToBottom_selector(UIDragPanelTest::berthToBottomEvent));
         
         UIImageView* imageView = UIImageView::create();
-        imageView->setTouchEnable(true);
-        imageView->setTexture("cocosgui/b11.png");
+        imageView->setTouchEnabled(true);
+        imageView->loadTexture("cocosgui/b11.png");
         imageView->setPosition(ccp(dragPanel->getRect().size.width / 2, dragPanel->getRect().size.height / 2));
         dragPanel->addChild(imageView);
         
@@ -153,10 +153,10 @@ bool UIDragPanelTest_Bounce::init()
         // Create the dragpanel
         UIDragPanel* dragPanel = UIDragPanel::create();
         dragPanel->setClippingEnable(true);
-        dragPanel->setTouchEnable(true);
+        dragPanel->setTouchEnabled(true);
         dragPanel->setBounceEnable(true);
         dragPanel->setBackGroundImageScale9Enable(true);
-        dragPanel->setBackGroundImage("extensions/green_edit.png");
+        dragPanel->loadBackGroundImage("extensions/green_edit.png");
         dragPanel->setSize(CCSizeMake(210, 122.5));
         CCSize backgroundSize = background->getContentSize();
         dragPanel->setPosition(ccp((screenSize.width - backgroundSize.width) / 2 +
@@ -173,8 +173,8 @@ bool UIDragPanelTest_Bounce::init()
         dragPanel->addBounceToBottomEvent(this, coco_DragPanel_BounceToBottom_selector(UIDragPanelTest_Bounce::bounceToBottomEvent));
         
         UIImageView* imageView = UIImageView::create();
-        imageView->setTouchEnable(true);
-        imageView->setTexture("cocosgui/b11.png");
+        imageView->setTouchEnabled(true);
+        imageView->loadTexture("cocosgui/b11.png");
         imageView->setPosition(ccp(dragPanel->getRect().size.width / 2, dragPanel->getRect().size.height / 2));
         dragPanel->addChild(imageView);
         

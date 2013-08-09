@@ -88,16 +88,16 @@ void UICheckBox::initNodes()
     m_pRender->addChild(m_pFrontCrossDisabled);
 }
 
-void UICheckBox::setTextures(const char *backGround, const char *backGroundSelected, const char *cross,const char* backGroundDisabled,const char* frontCrossDisabled,TextureResType texType)
+void UICheckBox::loadTextures(const char *backGround, const char *backGroundSelected, const char *cross,const char* backGroundDisabled,const char* frontCrossDisabled,TextureResType texType)
 {
-    setBackGroundTexture(backGround,texType);
-    setBackGroundSelectedTexture(backGroundSelected,texType);
-    setFrontCrossTexture(cross,texType);
-    setBackGroundDisabledTexture(backGroundDisabled,texType);
-    setFrontCrossDisabledTexture(frontCrossDisabled,texType);
+    loadBackGroundTexture(backGround,texType);
+    loadBackGroundSelectedTexture(backGroundSelected,texType);
+    loadFrontCrossTexture(cross,texType);
+    loadBackGroundDisabledTexture(backGroundDisabled,texType);
+    loadFrontCrossDisabledTexture(frontCrossDisabled,texType);
 }
 
-void UICheckBox::setBackGroundTexture(const char *backGround,TextureResType texType)
+void UICheckBox::loadBackGroundTexture(const char *backGround,TextureResType texType)
 {
     if (!backGround || strcmp(backGround, "") == 0)
     {
@@ -120,7 +120,7 @@ void UICheckBox::setBackGroundTexture(const char *backGround,TextureResType texT
     m_pBackGroundBox->setOpacity(getOpacity());
 }
 
-void UICheckBox::setBackGroundSelectedTexture(const char *backGroundSelected,TextureResType texType)
+void UICheckBox::loadBackGroundSelectedTexture(const char *backGroundSelected,TextureResType texType)
 {
     if (!backGroundSelected || strcmp(backGroundSelected, "") == 0)
     {
@@ -143,7 +143,7 @@ void UICheckBox::setBackGroundSelectedTexture(const char *backGroundSelected,Tex
     m_pBackGroundSelectedBox->setOpacity(getOpacity());
 }
 
-void UICheckBox::setFrontCrossTexture(const char *cross,TextureResType texType)
+void UICheckBox::loadFrontCrossTexture(const char *cross,TextureResType texType)
 {
     if (!cross || strcmp(cross, "") == 0)
     {
@@ -166,7 +166,7 @@ void UICheckBox::setFrontCrossTexture(const char *cross,TextureResType texType)
     m_pFrontCross->setOpacity(getOpacity());
 }
 
-void UICheckBox::setBackGroundDisabledTexture(const char *backGroundDisabled,TextureResType texType)
+void UICheckBox::loadBackGroundDisabledTexture(const char *backGroundDisabled,TextureResType texType)
 {
     if (!backGroundDisabled || strcmp(backGroundDisabled, "") == 0)
     {
@@ -189,7 +189,7 @@ void UICheckBox::setBackGroundDisabledTexture(const char *backGroundDisabled,Tex
     m_pBackGroundBoxDisabled->setOpacity(getOpacity());
 }
 
-void UICheckBox::setFrontCrossDisabledTexture(const char *frontCrossDisabled,TextureResType texType)
+void UICheckBox::loadFrontCrossDisabledTexture(const char *frontCrossDisabled,TextureResType texType)
 {
     if (!frontCrossDisabled || strcmp(frontCrossDisabled, "") == 0)
     {

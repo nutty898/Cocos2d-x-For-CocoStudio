@@ -65,9 +65,9 @@ void CocosGUIExamplesScene::onEnter()
     
     // exit
     UIButton* exit = UIButton::create();
-    exit->setTextures("cocosgui/CloseNormal.png", "cocosgui/CloseSelected.png", "");
+    exit->loadTextures("cocosgui/CloseNormal.png", "cocosgui/CloseSelected.png", "");
     exit->setPosition(ccp(430, 60));
-    exit->setTouchEnable(true);
+    exit->setTouchEnabled(true);
     exit->addReleaseEvent(this, coco_releaseselector(CocosGUIExamplesScene::toCocosGUITestScene));
     ul->addWidget(exit);
 }
@@ -291,7 +291,7 @@ void CocosGUIExamplesScene::EquipInit()
     // actor
     UIImageView* walBG_iv = dynamic_cast<UIImageView*>(up_panel->getChildByName("WAL"));
     UIImageView* wal_iv = UIImageView::create();
-    wal_iv->setTexture("cocosgui/examples/equip/eg/1.png");
+    wal_iv->loadTexture("cocosgui/examples/equip/eg/1.png");
     wal_iv->setAnchorPoint(ccp(0.5, 0.5));
     float wal_x = walBG_iv->getRect().size.width / 2.04;
     float wal_y = walBG_iv->getRect().size.height / 2.4;
@@ -302,7 +302,7 @@ void CocosGUIExamplesScene::EquipInit()
     // original clothes be used slot
     UIImageView* originalClothesSlot_iv = dynamic_cast<UIImageView*>(up_panel->getChildByName("1"));
     UIImageView* originalClothes_iv = UIImageView::create();
-    originalClothes_iv->setTexture("cocosgui/examples/equip/eg/6.png");
+    originalClothes_iv->loadTexture("cocosgui/examples/equip/eg/6.png");
     originalClothesSlot_iv->addChild(originalClothes_iv);
     m_dicBeUsedSlot->setObject(originalClothesSlot_iv, originalClothesSlot_iv->getName());
     
@@ -322,9 +322,9 @@ void CocosGUIExamplesScene::EquipInit()
     EquipCreate();
     
     // initialize touch able and influence children
-    clothes_panel->setTouchEnable(true, true);
-    weapons_panel->setTouchEnable(false, false);
-    pets_panel->setTouchEnable(false, false);
+    clothes_panel->setTouchEnabled(true, true);
+    weapons_panel->setTouchEnabled(false, false);
+    pets_panel->setTouchEnabled(false, false);
 }
 
 void CocosGUIExamplesScene::EquipCreate()
@@ -362,7 +362,7 @@ void CocosGUIExamplesScene::EquipCreateClothes()
     for (int i = 0; i < columnMax; ++i)
     {
         UIImageView* jacket_iv = UIImageView::create();
-        jacket_iv->setTexture(jacket_png[i]);
+        jacket_iv->loadTexture(jacket_png[i]);
         jacket_iv->setAnchorPoint(ccp(0.5, 0.5));
         jacket_iv->setPosition(ccp(offest_x + i * offest_x * 4, parent_h - offest_y));
         UIWidget* lastChild = dynamic_cast<UIWidget*>(clothes_panel->getChildren()->lastObject());
@@ -371,7 +371,7 @@ void CocosGUIExamplesScene::EquipCreateClothes()
             jacket_iv->setWidgetZOrder(lastChild->getWidgetZOrder() + 1);
         }
         jacket_iv->setName(jacket_name[i]);
-        jacket_iv->setTouchEnable(true);
+        jacket_iv->setTouchEnabled(true);
         jacket_iv->addPushDownEvent(this, coco_pushselector(CocosGUIExamplesScene::EquipTouch));
         jacket_iv->addMoveEvent(this, coco_moveselector(CocosGUIExamplesScene::EquipMove));
         jacket_iv->addReleaseEvent(this, coco_releaseselector(CocosGUIExamplesScene::EquipDrop));
@@ -409,7 +409,7 @@ void CocosGUIExamplesScene::EquipCreateClothes()
     for (int i = 0; i < columnMax; ++i)
     {
         UIImageView* kimono_iv = UIImageView::create();
-        kimono_iv->setTexture(kimono_png[i]);
+        kimono_iv->loadTexture(kimono_png[i]);
         kimono_iv->setPosition(ccp(offest_x + i * offest_x * 4, parent_h - offest_y * 3));
         UIWidget* lastChild = dynamic_cast<UIWidget*>(clothes_panel->getChildren()->lastObject());
         if (lastChild)
@@ -417,7 +417,7 @@ void CocosGUIExamplesScene::EquipCreateClothes()
             kimono_iv->setWidgetZOrder(lastChild->getWidgetZOrder() + 1);
         }
         kimono_iv->setName(kimono_name[i]);
-        kimono_iv->setTouchEnable(true);
+        kimono_iv->setTouchEnabled(true);
         kimono_iv->addPushDownEvent(this, coco_pushselector(CocosGUIExamplesScene::EquipTouch));
         kimono_iv->addMoveEvent(this, coco_moveselector(CocosGUIExamplesScene::EquipMove));
         kimono_iv->addReleaseEvent(this, coco_releaseselector(CocosGUIExamplesScene::EquipDrop));
@@ -467,7 +467,7 @@ void CocosGUIExamplesScene::EquipCreateWeapons()
     for (int i = 0; i < swordAmount; ++i)
     {
         UIImageView* sword_iv = UIImageView::create();
-        sword_iv->setTexture(sword_png[i]);
+        sword_iv->loadTexture(sword_png[i]);
         sword_iv->setPosition(ccp(offest_x, parent_h - offest_y - i * (offest_y * 2)));
         UIWidget* lastChild = dynamic_cast<UIWidget*>(weapons_panel->getChildren()->lastObject());
         if (lastChild)
@@ -513,7 +513,7 @@ void CocosGUIExamplesScene::EquipCreateWeapons()
     for (int i = 0; i < arrowAmount; ++i)
     {
         UIImageView* arrow_iv = UIImageView::create();
-        arrow_iv->setTexture(arrow_png[i]);
+        arrow_iv->loadTexture(arrow_png[i]);
         arrow_iv->setPosition(ccp(offest_x * 5, parent_h - offest_y - i * (offest_y * 2)));
         UIWidget* lastChild = dynamic_cast<UIWidget*>(weapons_panel->getChildren()->lastObject());
         if (lastChild)
@@ -555,7 +555,7 @@ void CocosGUIExamplesScene::EquipCreateWeapons()
     for (int i = 0; i < bombAmount; ++i)
     {
         UIImageView* bomb_iv = UIImageView::create();
-        bomb_iv->setTexture(bomb_png[i]);
+        bomb_iv->loadTexture(bomb_png[i]);
         bomb_iv->setPosition(ccp(offest_x * 9, parent_h - offest_y - i * (offest_y * 2)));
         UIWidget* lastChild = dynamic_cast<UIWidget*>(weapons_panel->getChildren()->lastObject());
         if (lastChild)
@@ -608,7 +608,7 @@ void CocosGUIExamplesScene::EquipCreatePets()
     for (int i = 0; i < dragonAmount; ++i)
     {
         UIImageView* dragon_iv = UIImageView::create();
-        dragon_iv->setTexture(dragon_png[i]);
+        dragon_iv->loadTexture(dragon_png[i]);
         dragon_iv->setPosition(ccp(offest_x, parent_h - offest_y - i * (offest_y * 2)));
         UIWidget* lastChild = dynamic_cast<UIWidget*>(pets_panel->getChildren()->lastObject());
         if (lastChild)
@@ -650,7 +650,7 @@ void CocosGUIExamplesScene::EquipCreatePets()
     for (int i = 0; i < crabAmount; ++i)
     {
         UIImageView* crab_iv = UIImageView::create();
-        crab_iv->setTexture(crab_png[i]);
+        crab_iv->loadTexture(crab_png[i]);
         crab_iv->setPosition(ccp(offest_x * 5, parent_h - offest_y - i * (offest_y * 2)));
         UIWidget* lastChild = dynamic_cast<UIWidget*>(pets_panel->getChildren()->lastObject());
         if (lastChild)
@@ -720,9 +720,9 @@ void CocosGUIExamplesScene::EquipSwitchBtnCallBack(CCObject *pSender)
             pets_panel->setPosition(container_3_Position);
             
             // equip slot touch able
-            clothes_panel->setTouchEnable(true, true);
-            weapons_panel->setTouchEnable(false, true);
-            pets_panel->setTouchEnable(false, true);
+            clothes_panel->setTouchEnabled(true, true);
+            weapons_panel->setTouchEnabled(false, true);
+            pets_panel->setTouchEnabled(false, true);
         }
             break;
             
@@ -741,9 +741,9 @@ void CocosGUIExamplesScene::EquipSwitchBtnCallBack(CCObject *pSender)
             clothes_panel->setPosition(container_3_Position);
             
             // equip slot touch able
-            weapons_panel->setTouchEnable(true, true);
-            clothes_panel->setTouchEnable(false, true);
-            pets_panel->setTouchEnable(false, true);
+            weapons_panel->setTouchEnabled(true, true);
+            clothes_panel->setTouchEnabled(false, true);
+            pets_panel->setTouchEnabled(false, true);
         }
             break;
             
@@ -762,9 +762,9 @@ void CocosGUIExamplesScene::EquipSwitchBtnCallBack(CCObject *pSender)
             weapons_panel->setPosition(container_3_Position);
             
             // equip slot touch able
-            pets_panel->setTouchEnable(true, true);
-            clothes_panel->setTouchEnable(false, true);
-            weapons_panel->setTouchEnable(false, true);
+            pets_panel->setTouchEnabled(true, true);
+            clothes_panel->setTouchEnabled(false, true);
+            weapons_panel->setTouchEnabled(false, true);
         }
             break;
             
@@ -893,14 +893,14 @@ void CocosGUIExamplesScene::EquipDrop(CCObject *pSender)
         CCDICT_FOREACH(equip_dic, element)
         {
             UIWidget* widget = dynamic_cast<UIWidget*>(element->getObject());
-            widget->setTouchEnable(false, true);
+            widget->setTouchEnabled(false, true);
         }
         
         // equip up panel
         UIWidget* example_root = dynamic_cast<UIPanel*>(ul->getWidgetByTag(EXAMPLE_PANEL_TAG_ROOT));
         UIPanel* equipe_root = dynamic_cast<UIPanel*>(example_root->getChildByName("equip_root"));
         UIPanel* up_panel = dynamic_cast<UIPanel*>(equipe_root->getChildByName("UP"));
-        up_panel->setTouchEnable(false, true);        
+        up_panel->setTouchEnabled(false, true);        
     }
 }
 
@@ -936,14 +936,14 @@ void CocosGUIExamplesScene::EquipBackOver(CCObject *pObject)
     CCDICT_FOREACH(equip_dic, element)
     {
         UIWidget* widget = dynamic_cast<UIWidget*>(element->getObject());
-        widget->setTouchEnable(true, true);
+        widget->setTouchEnabled(true, true);
     }
     
     // equip up panel
     UIWidget* example_root = dynamic_cast<UIPanel*>(ul->getWidgetByTag(EXAMPLE_PANEL_TAG_ROOT));
     UIPanel* equipe_root = dynamic_cast<UIPanel*>(example_root->getChildByName("equip_root"));
     UIPanel* up_panel = dynamic_cast<UIPanel*>(equipe_root->getChildByName("UP"));
-    up_panel->setTouchEnable(true, true);
+    up_panel->setTouchEnabled(true, true);
 }
 
 void CocosGUIExamplesScene::EquipClose(CCObject* pObject)

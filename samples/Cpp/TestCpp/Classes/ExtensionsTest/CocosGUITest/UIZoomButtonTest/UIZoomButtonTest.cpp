@@ -40,8 +40,8 @@ bool UIZoomButtonTest::init()
         
         // Create the zoom button
         UIZoomButton* zoomButton = UIZoomButton::create();
-        zoomButton->setTouchEnable(true);
-        zoomButton->setTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
+        zoomButton->setTouchEnabled(true);
+        zoomButton->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
         zoomButton->setTitle("Normal", "Down", "Up");
         zoomButton->setNormalFontSize(32);
         zoomButton->setNormalFontName("Marker Felt");

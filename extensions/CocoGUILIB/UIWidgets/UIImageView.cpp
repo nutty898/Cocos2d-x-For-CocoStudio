@@ -70,7 +70,7 @@ void UIImageView::initNodes()
     m_pRender->addChild(m_pImageRender);
 }
 
-void UIImageView::setTexture(const char *fileName, TextureResType texType)
+void UIImageView::loadTexture(const char *fileName, TextureResType texType)
 {
     if (!fileName || strcmp(fileName, "") == 0)
     {
@@ -281,7 +281,7 @@ void UIImageView::setScale9Enable(bool able)
     {
         m_pImageRender = CCSprite::create();
     }
-    setTexture(m_strTextureFile.c_str(),m_eImageTexType);
+    loadTexture(m_strTextureFile.c_str(),m_eImageTexType);
     m_pRender->addChild(m_pImageRender);
     setCapInsets(m_capInsets);
     setScale9Size(m_scale9Size);

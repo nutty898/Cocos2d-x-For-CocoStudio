@@ -43,7 +43,7 @@ public:
     static UILoadingBar* create();
     void setDirection(LoadingBarType dir);
     int getDirection();
-    void setTexture(const char* texture,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadTexture(const char* texture,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setPercent(int percent);
     int getPercent();
     float getTotalWidth();

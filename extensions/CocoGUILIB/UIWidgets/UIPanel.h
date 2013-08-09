@@ -42,7 +42,7 @@ public:
     UIPanel();
     virtual ~UIPanel();
     static UIPanel* create();
-    void setBackGroundImage(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadBackGroundImage(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setBackGroundImageCapInsets(const CCRect& capInsets);
     virtual void setBackGroundColorType(PanelColorType type);
     virtual void setSize(const CCSize &size);

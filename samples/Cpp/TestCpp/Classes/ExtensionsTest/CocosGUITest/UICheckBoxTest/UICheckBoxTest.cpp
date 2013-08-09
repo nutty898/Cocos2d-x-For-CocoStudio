@@ -39,8 +39,8 @@ bool UICheckBoxTest::init()
         
         // Create the checkbox
         UICheckBox* checkBox = UICheckBox::create();
-        checkBox->setTouchEnable(true);
-        checkBox->setTextures("cocosgui/check_box_normal.png",
+        checkBox->setTouchEnabled(true);
+        checkBox->loadTextures("cocosgui/check_box_normal.png",
                               "cocosgui/check_box_normal_press.png",
                               "cocosgui/check_box_active.png",
                               "cocosgui/check_box_normal_disable.png",

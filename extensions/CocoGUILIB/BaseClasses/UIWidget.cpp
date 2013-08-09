@@ -394,7 +394,7 @@ void UIWidget::setNeedCheckVisibleDepandParent(bool need)
     }
 }
 
-void UIWidget::setTouchEnable(bool enable, bool containChildren)
+void UIWidget::setTouchEnabled(bool enable, bool containChildren)
 {
     m_bTouchEnabled = enable;
     if (containChildren)
@@ -411,7 +411,7 @@ void UIWidget::updateChildrenTouchEnable(bool enable, bool containChildren)
     for (int i = 0; i < childrenCount; i++)
     {
         UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->setTouchEnable(enable, containChildren);
+        child->setTouchEnabled(enable, containChildren);
     }
 }
 
@@ -554,7 +554,7 @@ void UIWidget::updateBeTouchEnable(bool enable)
     for (int i = 0; i < childrenCount; i++)
     {
         UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->setTouchEnable(enable);
+        child->setTouchEnabled(enable);
     }
 }
 

@@ -39,8 +39,8 @@ bool UITextButtonTest::init()
         
         // Create the text button
         UITextButton* textButton = UITextButton::create();
-        textButton->setTouchEnable(true);
-        textButton->setTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
+        textButton->setTouchEnabled(true);
+        textButton->loadTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
         textButton->setText("Text Button");
         textButton->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f));
         textButton->addPushDownEvent(this, coco_pushselector(UITextButtonTest::touchBeganEvent));
@@ -106,9 +106,9 @@ bool UITextButtonTest_Scale9::init()
         
         // Create the text button
         UITextButton* textButton = UITextButton::create();
-        textButton->setTouchEnable(true);
+        textButton->setTouchEnabled(true);
         textButton->setScale9Enable(true);
-        textButton->setTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "");
+        textButton->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "");
         textButton->setScale9Size(CCSizeMake(180, textButton->getContentSize().height * 1.5f));
         textButton->setText("Text Button scale9 render");
         textButton->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f));

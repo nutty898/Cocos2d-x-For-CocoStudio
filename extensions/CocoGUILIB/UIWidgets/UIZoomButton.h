@@ -38,7 +38,7 @@ public:
     UIZoomButton();
     virtual ~UIZoomButton();
     static UIZoomButton* create();
-    void setTextures(const char* backgroundNormal,const char* backgroundPressed,const char* backgroundDisabled);
+    void loadTextures(const char* backgroundNormal,const char* backgroundPressed,const char* backgroundDisabled);
     void setTitle(const char* titleNormal,const char* titlePressed,const char* titleDisabled);
     virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);

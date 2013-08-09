@@ -35,7 +35,7 @@ bool UILoadingBarTest::init()
         // Create the loading bar
         UILoadingBar* loadingBar = UILoadingBar::create();
         loadingBar->setName("LoadingBar");
-        loadingBar->setTexture("cocosgui/sliderProgress.png");
+        loadingBar->loadTexture("cocosgui/sliderProgress.png");
         loadingBar->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f + loadingBar->getRect().size.height / 4.0f));
         m_pUiLayer->addWidget(loadingBar);
         

@@ -93,7 +93,7 @@ int UILoadingBar::getDirection()
     return m_nBarType;
 }
 
-void UILoadingBar::setTexture(const char* texture,TextureResType texType)
+void UILoadingBar::loadTexture(const char* texture,TextureResType texType)
 {
 //    setUseMergedTexture(useSpriteFrame);
     m_eRenderBarTexType = texType;

@@ -83,13 +83,13 @@ bool UISlider::init()
     return false;
 }
 
-void UISlider::setTouchEnable(bool enable, bool containChildren)
+void UISlider::setTouchEnabled(bool enable, bool containChildren)
 {
-    UIWidget::setTouchEnable(enable, containChildren);
-    m_pSlidBall->setTouchEnable(false);
+    UIWidget::setTouchEnabled(enable, containChildren);
+    m_pSlidBall->setTouchEnabled(false);
 }
 
-void UISlider::setBarTexture(const char* fileName, TextureResType texType)
+void UISlider::loadBarTexture(const char* fileName, TextureResType texType)
 {
     if (!fileName || strcmp(fileName, "") == 0)
     {
@@ -155,7 +155,7 @@ void UISlider::setScale9Enable(bool able)
     {
         m_pBarNode = CCSprite::create();
     }
-    setBarTexture(m_strTextureFile.c_str(), m_eBarTexType);
+    loadBarTexture(m_strTextureFile.c_str(), m_eBarTexType);
     setCapInsets(m_capInsets);
     setScale9Size(m_scale9Size);
     m_pRender->addChild(m_pBarNode, -1);
@@ -190,24 +190,24 @@ void UISlider::setScale9Size(const CCSize &size)
     setSlidBallPercent(m_nBarPercent);
 }
 
-void UISlider::setSlidBallTextures(const char* normal,const char* pressed,const char* disabled,TextureResType texType)
+void UISlider::loadSlidBallTextures(const char* normal,const char* pressed,const char* disabled,TextureResType texType)
 {
-    m_pSlidBall->setTextures(normal, pressed, disabled,texType);
+    m_pSlidBall->loadTextures(normal, pressed, disabled,texType);
 }
 
-void UISlider::setSlidBallNormalTexture(const char* normal,TextureResType texType)
+void UISlider::loadSlidBallNormalTexture(const char* normal,TextureResType texType)
 {
-    m_pSlidBall->setNormalTexture(normal,texType);
+    m_pSlidBall->loadNormalTexture(normal,texType);
 }
 
-void UISlider::setSlidBallPressedTexture(const char* pressed,TextureResType texType)
+void UISlider::loadSlidBallPressedTexture(const char* pressed,TextureResType texType)
 {
-    m_pSlidBall->setPressedTexture(pressed,texType);
+    m_pSlidBall->loadPressedTexture(pressed,texType);
 }
 
-void UISlider::setSlidBallDisabledTexture(const char* disabled,TextureResType texType)
+void UISlider::loadSlidBallDisabledTexture(const char* disabled,TextureResType texType)
 {
-    m_pSlidBall->setDisabledTexture(disabled,texType);
+    m_pSlidBall->loadDisabledTexture(disabled,texType);
 }
 
 void UISlider::setBarLength(float length)

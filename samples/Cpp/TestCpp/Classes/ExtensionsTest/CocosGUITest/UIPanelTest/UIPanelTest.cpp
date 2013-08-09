@@ -41,21 +41,21 @@ bool UIPanelTest::init()
         m_pUiLayer->addWidget(panel);
         
         UIButton* button = UIButton::create();
-        button->setTouchEnable(true);
-        button->setTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
+        button->setTouchEnabled(true);
+        button->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
         button->setPosition(ccp(button->getRect().size.width / 2, panel->getRect().size.height - button->getRect().size.height / 2));
         panel->addChild(button);
         
         UITextButton* textButton = UITextButton::create();
-        textButton->setTouchEnable(true);
-        textButton->setTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
+        textButton->setTouchEnabled(true);
+        textButton->loadTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
         textButton->setText("Text Button");
         textButton->setPosition(ccp(panel->getRect().size.width / 2, panel->getRect().size.height / 2));
         panel->addChild(textButton);
         
         UIZoomButton* zoomButton = UIZoomButton::create();
-        zoomButton->setTouchEnable(true);
-        zoomButton->setTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
+        zoomButton->setTouchEnabled(true);
+        zoomButton->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
         zoomButton->setTitle("ControlButton", "ControlButton", "ControlButton");
         zoomButton->setNormalFontSize(16);
         zoomButton->setNormalFontName("Marker Felt");
@@ -115,21 +115,21 @@ bool UIPanelTest_Color::init()
         m_pUiLayer->addWidget(panel);
         
         UIButton* button = UIButton::create();
-        button->setTouchEnable(true);
-        button->setTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
+        button->setTouchEnabled(true);
+        button->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
         button->setPosition(ccp(button->getRect().size.width / 2, panel->getRect().size.height - button->getRect().size.height / 2));
         panel->addChild(button);
         
         UITextButton* textButton = UITextButton::create();
-        textButton->setTouchEnable(true);
-        textButton->setTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
+        textButton->setTouchEnabled(true);
+        textButton->loadTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
         textButton->setText("Text Button");
         textButton->setPosition(ccp(panel->getRect().size.width / 2, panel->getRect().size.height / 2));
         panel->addChild(textButton);
         
         UIZoomButton* zoomButton = UIZoomButton::create();
-        zoomButton->setTouchEnable(true);
-        zoomButton->setTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
+        zoomButton->setTouchEnabled(true);
+        zoomButton->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
         zoomButton->setTitle("ControlButton", "ControlButton", "ControlButton");
         zoomButton->setNormalFontSize(16);
         zoomButton->setNormalFontName("Marker Felt");
@@ -188,21 +188,21 @@ bool UIPanelTest_Gradient::init()
         m_pUiLayer->addWidget(panel);
         
         UIButton* button = UIButton::create();
-        button->setTouchEnable(true);
-        button->setTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
+        button->setTouchEnabled(true);
+        button->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
         button->setPosition(ccp(button->getRect().size.width / 2, panel->getRect().size.height - button->getRect().size.height / 2));
         panel->addChild(button);
         
         UITextButton* textButton = UITextButton::create();
-        textButton->setTouchEnable(true);
-        textButton->setTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
+        textButton->setTouchEnabled(true);
+        textButton->loadTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
         textButton->setText("Text Button");
         textButton->setPosition(ccp(panel->getRect().size.width / 2, panel->getRect().size.height / 2));
         panel->addChild(textButton);
         
         UIZoomButton* zoomButton = UIZoomButton::create();
-        zoomButton->setTouchEnable(true);
-        zoomButton->setTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
+        zoomButton->setTouchEnabled(true);
+        zoomButton->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
         zoomButton->setTitle("ControlButton", "ControlButton", "ControlButton");
         zoomButton->setNormalFontSize(16);
         zoomButton->setNormalFontName("Marker Felt");
@@ -249,7 +249,7 @@ bool UIPanelTest_BackGroundImage::init()
         
         // Create the panel with background image
         UIPanel* panel = UIPanel::create();
-        panel->setBackGroundImage("cocosgui/Hello.png");
+        panel->loadBackGroundImage("cocosgui/Hello.png");
         panel->setClippingEnable(true);
         panel->setSize(CCSizeMake(280, 150));
         CCSize backgroundSize = background->getContentSize();
@@ -260,21 +260,21 @@ bool UIPanelTest_BackGroundImage::init()
         m_pUiLayer->addWidget(panel);
         
         UIButton* button = UIButton::create();
-        button->setTouchEnable(true);
-        button->setTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
+        button->setTouchEnabled(true);
+        button->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
         button->setPosition(ccp(button->getRect().size.width / 2, panel->getRect().size.height - button->getRect().size.height / 2));
         panel->addChild(button);
         
         UITextButton* textButton = UITextButton::create();
-        textButton->setTouchEnable(true);
-        textButton->setTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
+        textButton->setTouchEnabled(true);
+        textButton->loadTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
         textButton->setText("Text Button");
         textButton->setPosition(ccp(panel->getRect().size.width / 2, panel->getRect().size.height / 2));
         panel->addChild(textButton);
         
         UIZoomButton* zoomButton = UIZoomButton::create();
-        zoomButton->setTouchEnable(true);
-        zoomButton->setTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
+        zoomButton->setTouchEnabled(true);
+        zoomButton->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
         zoomButton->setTitle("ControlButton", "ControlButton", "ControlButton");
         zoomButton->setNormalFontSize(16);
         zoomButton->setNormalFontName("Marker Felt");
@@ -322,7 +322,7 @@ bool UIPanelTest_BackGroundImage_Scale9::init()
         // Create the panel with background image
         UIPanel* panel = UIPanel::create();
         panel->setBackGroundImageScale9Enable(true);
-        panel->setBackGroundImage("cocosgui/green_edit.png");
+        panel->loadBackGroundImage("cocosgui/green_edit.png");
         panel->setClippingEnable(true);
         panel->setSize(CCSizeMake(280, 150));
         CCSize backgroundSize = background->getContentSize();
@@ -333,21 +333,21 @@ bool UIPanelTest_BackGroundImage_Scale9::init()
         m_pUiLayer->addWidget(panel);
         
         UIButton* button = UIButton::create();
-        button->setTouchEnable(true);
-        button->setTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
+        button->setTouchEnabled(true);
+        button->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
         button->setPosition(ccp(button->getRect().size.width / 2, panel->getRect().size.height - button->getRect().size.height / 2));
         panel->addChild(button);
         
         UITextButton* textButton = UITextButton::create();
-        textButton->setTouchEnable(true);
-        textButton->setTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
+        textButton->setTouchEnabled(true);
+        textButton->loadTextures("cocosgui/backtotopnormal.png", "cocosgui/backtotoppressed.png", "");
         textButton->setText("Text Button");
         textButton->setPosition(ccp(panel->getRect().size.width / 2, panel->getRect().size.height / 2));
         panel->addChild(textButton);
         
         UIZoomButton* zoomButton = UIZoomButton::create();
-        zoomButton->setTouchEnable(true);
-        zoomButton->setTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
+        zoomButton->setTouchEnabled(true);
+        zoomButton->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "cocosgui/button.png");
         zoomButton->setTitle("ControlButton", "ControlButton", "ControlButton");
         zoomButton->setNormalFontSize(16);
         zoomButton->setNormalFontName("Marker Felt");

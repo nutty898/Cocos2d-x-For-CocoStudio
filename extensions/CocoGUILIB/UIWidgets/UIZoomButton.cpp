@@ -82,7 +82,7 @@ void UIZoomButton::initNodes()
     m_pDisabledBackGround = CCScale9Sprite::create();
 }
 
-void UIZoomButton::setTextures(const char* backgroundNormal,const char* backgroundPressed,const char* backgroundDisabled)
+void UIZoomButton::loadTextures(const char* backgroundNormal,const char* backgroundPressed,const char* backgroundDisabled)
 {
     m_pNormalBackGround->initWithFile(backgroundNormal);
     m_pPressedBackGround->initWithFile(backgroundPressed);

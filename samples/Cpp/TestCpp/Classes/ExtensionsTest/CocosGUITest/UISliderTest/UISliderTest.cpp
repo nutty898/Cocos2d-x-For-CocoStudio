@@ -41,9 +41,9 @@ bool UISliderTest::init()
         // Create the slider
         UISlider* slider = UISlider::create();
         slider->setName("slider");
-        slider->setTouchEnable(true);
-        slider->setSlidBallTextures("cocosgui/sliderThumb.png", "cocosgui/sliderThumb.png", "");
-        slider->setBarTexture("cocosgui/sliderTrack.png");
+        slider->setTouchEnabled(true);
+        slider->loadSlidBallTextures("cocosgui/sliderThumb.png", "cocosgui/sliderThumb.png", "");
+        slider->loadBarTexture("cocosgui/sliderTrack.png");
         slider->setProgressBarVisible(true);
         slider->setProgressBarTexture("cocosgui/sliderProgress.png");
         slider->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f));
@@ -100,9 +100,9 @@ bool UISliderTest_Scale9::init()
         
         // Create the slider
         UISlider* slider = UISlider::create();
-        slider->setTouchEnable(true);
+        slider->setTouchEnabled(true);
         slider->setScale9Enable(true);
-        slider->setBarTexture("cocosgui/sliderTrack2.png");
+        slider->loadBarTexture("cocosgui/sliderTrack2.png");
         slider->setCapInsets(CCRectMake(0, 0, 0, 0));
         slider->setScale9Size(CCSizeMake(250, slider->getRect().size.height));
         
@@ -111,7 +111,7 @@ bool UISliderTest_Scale9::init()
         slider->setBarLength(250);
         slider->setBarTextureScale9("cocosgui/sliderTrack2.png");
          */
-        slider->setSlidBallTextures("cocosgui/sliderThumb.png", "cocosgui/sliderThumb.png", "");
+        slider->loadSlidBallTextures("cocosgui/sliderThumb.png", "cocosgui/sliderThumb.png", "");
         slider->setProgressBarVisible(true);
         slider->setProgressBarTexture("cocosgui/slider_bar_active_9patch.png");
 //        slider->setProgressBarTextureScale9("cocosgui/slider_bar_active_9patch.png");

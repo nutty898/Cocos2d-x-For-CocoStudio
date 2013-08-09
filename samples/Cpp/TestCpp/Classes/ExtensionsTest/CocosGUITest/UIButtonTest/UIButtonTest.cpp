@@ -38,8 +38,8 @@ bool UIButtonTest::init()
         
         // Create the button
         UIButton *button = UIButton::create();
-        button->setTouchEnable(true);
-        button->setTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
+        button->setTouchEnabled(true);
+        button->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "");
         button->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f));
         button->addPushDownEvent(this, coco_pushselector(UIButtonTest::touchBeganEvent));
         button->addMoveEvent(this, coco_moveselector(UIButtonTest::touchMovedEvent));
@@ -105,10 +105,10 @@ bool UIButtonTest_Scale9::init()
         
         // Create the button
         UIButton *button = UIButton::create();
-        button->setTouchEnable(true);
+        button->setTouchEnabled(true);
         // open scale9 render
         button->setScale9Enable(true);
-        button->setTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "");
+        button->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "");
         button->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f));
         button->setScale9Size(CCSizeMake(150, button->getContentSize().height * 1.5f));
         button->addPushDownEvent(this, coco_pushselector(UIButtonTest_Scale9::touchBeganEvent));

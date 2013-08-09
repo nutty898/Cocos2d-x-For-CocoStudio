@@ -120,9 +120,9 @@ void UIButton::setScale9Enable(bool able)
         m_pButtonDisable = CCSprite::create();
     }
 //    setTextures(m_strNormalFileName.c_str(), m_strClickedFileName.c_str(), m_strDisabledFileName.c_str(),getUseMergedTexture());
-    setNormalTexture(m_strNormalFileName.c_str(), m_eNormalTexType);
-    setPressedTexture(m_strClickedFileName.c_str(), m_ePressedTexType);
-    setDisabledTexture(m_strDisabledFileName.c_str(), m_eDisabledTexType);
+    loadNormalTexture(m_strNormalFileName.c_str(), m_eNormalTexType);
+    loadPressedTexture(m_strClickedFileName.c_str(), m_ePressedTexType);
+    loadDisabledTexture(m_strDisabledFileName.c_str(), m_eDisabledTexType);
     m_pRender->addChild(m_pButtonNormal,-1);
     m_pRender->addChild(m_pButtonClicked,-1);
     m_pRender->addChild(m_pButtonDisable,-1);
@@ -150,14 +150,14 @@ void UIButton::setScale9Size(const CCSize &size)
     dynamic_cast<CCScale9Sprite*>(m_pButtonDisable)->setContentSize(size);
 }
 
-void UIButton::setTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType)
+void UIButton::loadTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType)
 {
-    setNormalTexture(normal,texType);
-    setPressedTexture(selected,texType);
-    setDisabledTexture(disabled,texType);
+    loadNormalTexture(normal,texType);
+    loadPressedTexture(selected,texType);
+    loadDisabledTexture(disabled,texType);
 }
 
-void UIButton::setNormalTexture(const char* normal,TextureResType texType)
+void UIButton::loadNormalTexture(const char* normal,TextureResType texType)
 {
     if (!normal || strcmp(normal, "") == 0)
     {
@@ -201,7 +201,7 @@ void UIButton::setNormalTexture(const char* normal,TextureResType texType)
     updateAnchorPoint();
 }
 
-void UIButton::setPressedTexture(const char* selected,TextureResType texType)
+void UIButton::loadPressedTexture(const char* selected,TextureResType texType)
 {
     if (!selected || strcmp(selected, "") == 0)
     {
@@ -245,7 +245,7 @@ void UIButton::setPressedTexture(const char* selected,TextureResType texType)
     updateAnchorPoint();
 }
 
-void UIButton::setDisabledTexture(const char* disabled,TextureResType texType)
+void UIButton::loadDisabledTexture(const char* disabled,TextureResType texType)
 {
     if (!disabled || strcmp(disabled, "") == 0)
     {

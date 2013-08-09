@@ -35,7 +35,7 @@ public:
     UIImageView();
     virtual ~UIImageView();
     static UIImageView* create();
-    virtual void setTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    virtual void loadTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
     virtual void setTextureRect(const CCRect& rect);
     void doubleClickEvent();
     void checkDoubleClick(float dt);

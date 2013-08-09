@@ -39,12 +39,12 @@ public:
     UICheckBox();
     virtual ~UICheckBox();
     static UICheckBox* create();
-    void setTextures(const char* backGround,const char* backGroundSelected,const char* cross,const char* backGroundDisabled,const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setBackGroundTexture(const char* backGround,TextureResType type = UI_TEX_TYPE_LOCAL);
-    void setBackGroundSelectedTexture(const char* backGroundSelected,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setFrontCrossTexture(const char* cross,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setBackGroundDisabledTexture(const char* backGroundDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setFrontCrossDisabledTexture(const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadTextures(const char* backGround,const char* backGroundSelected,const char* cross,const char* backGroundDisabled,const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadBackGroundTexture(const char* backGround,TextureResType type = UI_TEX_TYPE_LOCAL);
+    void loadBackGroundSelectedTexture(const char* backGroundSelected,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadFrontCrossTexture(const char* cross,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadBackGroundDisabledTexture(const char* backGroundDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadFrontCrossDisabledTexture(const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setSelectedState(bool selected);
     bool getSelectedState();
     virtual CCNode* getValidNode();

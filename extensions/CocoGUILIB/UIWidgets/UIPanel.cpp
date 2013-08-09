@@ -116,7 +116,7 @@ void UIPanel::setBackGroundImageScale9Enable(bool able)
         m_pRender->addChild(m_pBackGroundImage);
     }
     m_pBackGroundImage->setZOrder(-1);
-    setBackGroundImage(m_strBackGroundImageFileName.c_str(),m_eBGImageTexType);
+    loadBackGroundImage(m_strBackGroundImageFileName.c_str(),m_eBGImageTexType);
     setBackGroundImageCapInsets(m_backGroundImageCapInsets);
 }
     
@@ -142,7 +142,7 @@ void UIPanel::setSize(const CCSize &size)
     }
 }
 
-void UIPanel::setBackGroundImage(const char* fileName,TextureResType texType)
+void UIPanel::loadBackGroundImage(const char* fileName,TextureResType texType)
 {
     if (!fileName || strcmp(fileName, "") == 0)
     {

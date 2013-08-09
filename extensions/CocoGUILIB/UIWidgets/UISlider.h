@@ -37,14 +37,14 @@ public:
     UISlider();
     virtual ~UISlider();
     static UISlider* create();
-    void setBarTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadBarTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setScale9Enable(bool able);
     void setCapInsets(const CCRect &capInsets);
     void setScale9Size(const CCSize &size);
-    void setSlidBallTextures(const char* normal,const char* pressed,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setSlidBallNormalTexture(const char* normal,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setSlidBallPressedTexture(const char* pressed,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setSlidBallDisabledTexture(const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadSlidBallTextures(const char* normal,const char* pressed,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadSlidBallNormalTexture(const char* normal,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadSlidBallPressedTexture(const char* pressed,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void loadSlidBallDisabledTexture(const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setBarLength(float length);
     void setProgressBarVisible(bool show);
     void setProgressBarTexture(const char* fileName, TextureResType texType = UI_TEX_TYPE_LOCAL);
@@ -58,7 +58,7 @@ public:
     virtual void onTouchMoved(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
     virtual void onTouchCancelled(const CCPoint &touchPoint);
-    void setTouchEnable(bool enable, bool containChildren = false);
+    void setTouchEnabled(bool enable, bool containChildren = false);
 protected:
     virtual bool init();
     int getClickPercent(float location);
