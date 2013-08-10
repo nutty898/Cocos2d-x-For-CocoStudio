@@ -33,19 +33,6 @@ NS_CC_EXT_BEGIN
 
 typedef enum
 {
-    WidgetEventTouchDown           = 1 << 0,
-    WidgetEventTouchDragInside     = 1 << 1,
-    WidgetEventTouchDragOutside    = 1 << 2,
-    WidgetEventTouchDragEnter      = 1 << 3,
-    WidgetEventTouchDragExit       = 1 << 4,
-    WidgetEventTouchUpInside       = 1 << 5,
-    WidgetEventTouchUpOutside      = 1 << 6,
-    WidgetEventTouchCancel         = 1 << 7,
-    WidgetEventDrop                = 1 << 8
-}WidgetEvent;
-
-typedef enum
-{
     WidgetStateNone = -1,
     WidgetStateNormal,
     WidgetStateSelected,
@@ -54,8 +41,8 @@ typedef enum
 
 typedef enum
 {
-    WidgetTypeWidget,
-    WidgetTypeContainer
+    WidgetTypeWidget, //control
+    WidgetTypeContainer //container
 }WidgetType;
 
 typedef enum
