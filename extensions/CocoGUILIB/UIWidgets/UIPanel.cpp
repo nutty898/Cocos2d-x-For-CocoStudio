@@ -46,7 +46,6 @@ m_gEndColor(ccWHITE),
 m_nCOpacity(255),
 m_colorType(PANEL_COLOR_NONE)
 {
-    m_WidgetName = WIDGET_PANEL;
 }
 
 UIPanel* UIPanel::create()
@@ -70,7 +69,7 @@ void UIPanel::initNodes()
     UIContainerWidget::initNodes();
     m_pBackGroundImage = CCSprite::create();
     m_pBackGroundImage->setZOrder(-1);
-    m_pRender->addChild(m_pBackGroundImage);
+    m_pRenderer->addChild(m_pBackGroundImage);
 }
 
 void UIPanel::addBackGroundImage()
@@ -79,19 +78,19 @@ void UIPanel::addBackGroundImage()
     {
         m_pBackGroundImage = CCScale9Sprite::create();
         m_pBackGroundImage->setZOrder(-1);
-        m_pRender->addChild(m_pBackGroundImage);
+        m_pRenderer->addChild(m_pBackGroundImage);
     }
     else
     {
         m_pBackGroundImage = CCSprite::create();
         m_pBackGroundImage->setZOrder(-1);
-        m_pRender->addChild(m_pBackGroundImage);
+        m_pRenderer->addChild(m_pBackGroundImage);
     }
 }
 
 void UIPanel::removeBackGroundImage()
 {
-    m_pRender->removeChild(m_pBackGroundImage,  true);
+    m_pRenderer->removeChild(m_pBackGroundImage,  true);
     m_pBackGroundImage = NULL;
     m_strBackGroundImageFileName = "";
 }
@@ -102,18 +101,18 @@ void UIPanel::setBackGroundImageScale9Enabled(bool able)
     {
         return;
     }
-    m_pRender->removeChild(m_pBackGroundImage, true);
+    m_pRenderer->removeChild(m_pBackGroundImage, true);
     m_pBackGroundImage = NULL;
     m_bBackGroundScale9Enabled = able;
     if (m_bBackGroundScale9Enabled)
     {
         m_pBackGroundImage = CCScale9Sprite::create();
-        m_pRender->addChild(m_pBackGroundImage);
+        m_pRenderer->addChild(m_pBackGroundImage);
     }
     else
     {
         m_pBackGroundImage = CCSprite::create();
-        m_pRender->addChild(m_pBackGroundImage);
+        m_pRenderer->addChild(m_pBackGroundImage);
     }
     m_pBackGroundImage->setZOrder(-1);
     loadBackGroundImage(m_strBackGroundImageFileName.c_str(),m_eBGImageTexType);
@@ -127,10 +126,10 @@ void UIPanel::setSize(const CCSize &size)
     {
         addBackGroundImage();
     }
-    m_pBackGroundImage->setPosition(ccp(m_pRender->getContentSize().width/2.0f, m_pRender->getContentSize().height/2.0f));
+    m_pBackGroundImage->setPosition(ccp(m_size.width / 2.0f, m_size.height / 2.0f));
     if (m_bBackGroundScale9Enabled)
     {
-        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_pRender->getContentSize());
+        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_size);
     }
     if (m_pColorRender)
     {
@@ -167,7 +166,7 @@ void UIPanel::loadBackGroundImage(const char* fileName,TextureResType texType)
             default:
                 break;
         }
-        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_pRender->getContentSize());
+        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_size);
     }
     else
     {
@@ -193,7 +192,7 @@ void UIPanel::loadBackGroundImage(const char* fileName,TextureResType texType)
         dynamic_cast<CCSprite*>(m_pBackGroundImage)->setColor(getColor());
         dynamic_cast<CCSprite*>(m_pBackGroundImage)->setOpacity(getOpacity());
     }
-    m_pBackGroundImage->setPosition(ccp(m_pRender->getContentSize().width/2, m_pRender->getContentSize().height/2));
+    m_pBackGroundImage->setPosition(m_size.width/2, m_size.height/2);
 }
 
 void UIPanel::setBackGroundImageCapInsets(const CCRect &capInsets)
@@ -216,26 +215,26 @@ void UIPanel::setBackGroundColorType(PanelColorType type)
         case PANEL_COLOR_NONE:
             if (m_pColorRender)
             {
-                m_pRender->removeChild(m_pColorRender, true);
+                m_pRenderer->removeChild(m_pColorRender, true);
                 m_pColorRender = NULL;
             }
             if (m_pGradientRender)
             {
-                m_pRender->removeChild(m_pGradientRender, true);
+                m_pRenderer->removeChild(m_pGradientRender, true);
                 m_pGradientRender = NULL;
             }
             break;
         case PANEL_COLOR_SOLID:
             if (m_pColorRender)
             {
-                m_pRender->removeChild(m_pColorRender, true);
+                m_pRenderer->removeChild(m_pColorRender, true);
                 m_pColorRender = NULL;
             }
             break;
         case PANEL_COLOR_GRADIENT:
             if (m_pGradientRender)
             {
-                m_pRender->removeChild(m_pGradientRender, true);
+                m_pRenderer->removeChild(m_pGradientRender, true);
                 m_pGradientRender = NULL;
             }
             break;
@@ -252,7 +251,7 @@ void UIPanel::setBackGroundColorType(PanelColorType type)
             m_pColorRender->setContentSize(getContentSize());
             m_pColorRender->setOpacity(m_nCOpacity);
             m_pColorRender->setColor(m_cColor);
-            m_pRender->addChild(m_pColorRender,-2);
+            m_pRenderer->addChild(m_pColorRender,-2);
             break;
         case PANEL_COLOR_GRADIENT:
             m_pGradientRender = CCLayerGradient::create();
@@ -261,7 +260,7 @@ void UIPanel::setBackGroundColorType(PanelColorType type)
             m_pGradientRender->setStartColor(m_gStartColor);
             m_pGradientRender->setEndColor(m_gEndColor);
             m_pGradientRender->setVector(m_AlongVector);
-            m_pRender->addChild(m_pGradientRender,-2);
+            m_pRenderer->addChild(m_pGradientRender,-2);
             break;
         default:
             break;

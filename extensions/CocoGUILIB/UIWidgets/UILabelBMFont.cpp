@@ -29,7 +29,6 @@ NS_CC_EXT_BEGIN
 UILabelBMFont::UILabelBMFont():
 m_pLabelBMFont(NULL)
 {
-    m_WidgetName = WIDGET_LABELBMFONT;
 }
 
 UILabelBMFont::~UILabelBMFont()
@@ -52,12 +51,14 @@ void UILabelBMFont::initNodes()
 {
     UIWidget::initNodes();
     m_pLabelBMFont = CCLabelBMFont::create();
-    m_pRender->addChild(m_pLabelBMFont);
+    m_pRenderer->addChild(m_pLabelBMFont);
 }
 
 void UILabelBMFont::setFntFile(const char *fileName)
 {
     m_pLabelBMFont->initWithString("", fileName);
+    updateAnchorPoint();
+    labelBMFontScaleChangedWithSize();
 }
 
 void UILabelBMFont::setText(const char* value)
@@ -67,6 +68,7 @@ void UILabelBMFont::setText(const char* value)
 		return;
 	}
 	m_pLabelBMFont->setString(value);
+    labelBMFontScaleChangedWithSize();
 }
 
 const char* UILabelBMFont::getStringValue()
@@ -74,15 +76,26 @@ const char* UILabelBMFont::getStringValue()
     return m_pLabelBMFont->getString();
 }
 
-CCNode* UILabelBMFont::getValidNode()
-{
-    return m_pLabelBMFont;
-}
-
 void UILabelBMFont::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
     m_pLabelBMFont->setAnchorPoint(pt);
+}
+
+void UILabelBMFont::onSizeChanged()
+{
+    m_pLabelBMFont->setScaleX(0.5f);
+//    CCLOG("cs w %f, cs h %f",m_pLabelBMFont->getContentSize().width,m_pLabelBMFont->getContentSize().height);
+    labelBMFontScaleChangedWithSize();
+}
+
+void UILabelBMFont::labelBMFontScaleChangedWithSize()
+{
+    CCSize textureSize = m_pLabelBMFont->getContentSize();
+    float scaleX = m_size.width / textureSize.width;
+    float scaleY = m_size.height / textureSize.height;
+    m_pLabelBMFont->setScaleX(scaleX);
+    m_pLabelBMFont->setScaleY(scaleY);
 }
 
 NS_CC_EXT_END

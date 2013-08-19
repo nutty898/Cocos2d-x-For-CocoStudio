@@ -58,7 +58,6 @@ public:
     virtual bool isFlipY();
     void setGravity(LabelGravity gravity);
     virtual void adaptSize(float xProportion,float yProportion);
-    virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);
 protected:
     virtual bool init();
@@ -66,6 +65,8 @@ protected:
     virtual void onPressStateChangedToNormal();
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();
+    virtual void onSizeChanged();
+    void labelScaleChangedWithSize();
 protected:
     bool m_bTouchScaleChangeAble;
     float m_fNormalScaleValue;

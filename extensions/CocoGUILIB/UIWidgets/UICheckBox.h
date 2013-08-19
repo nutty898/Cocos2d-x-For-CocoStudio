@@ -47,7 +47,6 @@ public:
     void loadFrontCrossDisabledTexture(const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setSelectedState(bool selected);
     bool getSelectedState();
-    virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);
     virtual void addSelectEvent(CCObject* target,SEL_SelectEvent selector);
     virtual void addUnSelectEvent(CCObject* target,SEL_UnSelectEvent selector);
@@ -64,6 +63,12 @@ protected:
     virtual void onPressStateChangedToDisabled();
     void selectedEvent();
     void unSelectedEvent();
+    virtual void onSizeChanged();
+    void backGroundTextureScaleChangedWithSize();
+    void backGroundSelectedTextureScaleChangedWithSize();
+    void frontCrossTextureScaleChangedWithSize();
+    void backGroundDisabledTextureScaleChangedWithSize();
+    void frontCrossDisabledTextureScaleChangedWithSize();
 protected:
     CCSprite* m_pBackGroundBox;
     CCSprite* m_pBackGroundSelectedBox;

@@ -25,7 +25,7 @@
 #ifndef __UISLIDER_H__
 #define __UISLIDER_H__
 
-#include "UIButton.h"
+#include "UIWidget.h"
 
 NS_CC_EXT_BEGIN
 
@@ -40,50 +40,53 @@ public:
     void loadBarTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setScale9Enabled(bool able);
     void setCapInsets(const CCRect &capInsets);
-    void setScale9Size(const CCSize &size);
     void loadSlidBallTextures(const char* normal,const char* pressed,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void loadSlidBallNormalTexture(const char* normal,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void loadSlidBallPressedTexture(const char* pressed,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void loadSlidBallDisabledTexture(const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setBarLength(float length);
-    void setProgressBarVisible(bool show);
-    void setProgressBarTexture(const char* fileName, TextureResType texType = UI_TEX_TYPE_LOCAL);
-    void setProgressBarScale();
-    void setSlidBallPercent(int percent);
-    virtual bool pointAtSelfBody(const CCPoint &pt);
-    virtual CCNode* getValidNode();
+    void loadProgressBarTexture(const char* fileName, TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void setPercent(int percent);
     virtual void addPercentChangedEvent(CCObject* target,SEL_PushEvent selector);
     int getPercent();
-    virtual void onTouchBegan(const CCPoint &touchPoint);
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
     virtual void onTouchMoved(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
     virtual void onTouchCancelled(const CCPoint &touchPoint);
-    void setTouchEnabled(bool enable, bool containChildren = false);
+    virtual void onSizeChanged();
 protected:
-    virtual bool init();
-    int getClickPercent(float location);
+    virtual void initNodes();
     void checkSlidBoundary();
     float getPercentWithBallPos(float px,float py);
     void percentChangedEvent();
+    virtual void onPressStateChangedToNormal();
+    virtual void onPressStateChangedToPressed();
+    virtual void onPressStateChangedToDisabled();
 protected:
     CCNode*  m_pBarNode;
-    float m_fMinLength;
+    CCNode* m_pProgressBarNode;
+//    UIButton* m_pSlidBall;
+    
+    CCSprite* m_pSlidBallNormalRenderer;
+    CCSprite* m_pSlidBallPressedRenderer;
+    CCSprite* m_pSlidBallDisabledRenderer;
+    CCNode* m_pSlidBallRenderer;
+    
     float m_fBarLength;
-    int m_nDirection;
-    int m_nBarPercent;
-    UIButton* m_pSlidBall;
+    int m_nPercent;
+    
     float m_fBarNodeScaleValue;
     float m_fTouchMoveStartLocation;
-    bool m_bBarScale9Enabled;
+    bool m_bScale9Enabled;
     std::string m_strTextureFile;
+    std::string m_strProgressBarTextureFile;
+    std::string m_strSlidBallNormalTextureFile;
+    std::string m_strSlidBallPressedTextureFile;
+    std::string m_strSlidBallDisabledTextureFile;
     CCRect m_capInsets;
-    CCSize m_scale9Size;
-    bool m_bProgressBarVisible;
-    CCNode* m_pProgressBarNode;
     CCObject*       m_pPercentListener;
     SEL_PushEvent    m_pfnPercentSelector;
     TextureResType m_eBarTexType;
-    TextureResType m_eBarTexS9Type;
+    TextureResType m_eProgressBarTexType;
     TextureResType m_eBallNTexType;
     TextureResType m_eBallPTexType;
     TextureResType m_eBallDTexType;

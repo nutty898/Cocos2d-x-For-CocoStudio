@@ -57,7 +57,6 @@ m_pScrollToRightListener(NULL),
 m_pfnScrollToRightSelector(NULL),
 m_pInnerContainer(NULL)
 {
-    m_WidgetName = WIDGET_SCROLLVIEW;
 }
 
 UIScrollView::~UIScrollView()
@@ -429,7 +428,7 @@ void UIScrollView::endRecordSlidAction()
 
 void UIScrollView::handlePressLogic(const CCPoint &touchPoint)
 {        
-    CCPoint nsp = m_pRender->convertToNodeSpace(touchPoint);
+    CCPoint nsp = m_pRenderer->convertToNodeSpace(touchPoint);
     switch (m_eDirection)
     {
         case SCROLLVIEW_DIR_VERTICAL: // vertical
@@ -448,7 +447,7 @@ void UIScrollView::handlePressLogic(const CCPoint &touchPoint)
 
 void UIScrollView::handleMoveLogic(const CCPoint &touchPoint)
 {
-    CCPoint nsp = m_pRender->convertToNodeSpace(touchPoint);
+    CCPoint nsp = m_pRenderer->convertToNodeSpace(touchPoint);
     float offset = 0.0f;
     
     switch (m_eDirection)
@@ -495,7 +494,7 @@ void UIScrollView::handleMoveLogic(const CCPoint &touchPoint)
 
 void UIScrollView::handleReleaseLogic(const CCPoint &touchPoint)
 {
-    CCPoint nsp = m_pRender->convertToNodeSpace(touchPoint);
+    CCPoint nsp = m_pRenderer->convertToNodeSpace(touchPoint);
     switch (m_eDirection)
     {
         case SCROLLVIEW_DIR_VERTICAL: // vertical
@@ -512,10 +511,11 @@ void UIScrollView::handleReleaseLogic(const CCPoint &touchPoint)
     endRecordSlidAction();
 }    
 
-void UIScrollView::onTouchBegan(const CCPoint &touchPoint)
+bool UIScrollView::onTouchBegan(const CCPoint &touchPoint)
 {
-    UIPanel::onTouchBegan(touchPoint);
+    bool pass = UIPanel::onTouchBegan(touchPoint);
     handlePressLogic(touchPoint);
+    return pass;
 }
 
 void UIScrollView::onTouchMoved(const CCPoint &touchPoint)

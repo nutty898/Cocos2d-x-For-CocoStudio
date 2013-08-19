@@ -48,9 +48,10 @@ public:
     int getPercent();
     float getTotalWidth();
     float getTotalHeight();
-    virtual CCNode* getValidNode();
 protected:
     virtual void initNodes();
+    virtual void onSizeChanged();
+    void barRendererScaleChangedWithSize();
 protected:
     LoadingBarType m_nBarType;
     int m_nPercent;

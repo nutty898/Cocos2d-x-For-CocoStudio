@@ -54,12 +54,13 @@ public:
     void setInsetRight(float insetRight);
     void setInsetBottom(float insetBottom);
     void setCapInsets(const CCRect &capInsets);
-    virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);
-    virtual void onTouchBegan(const CCPoint &touchPoint);
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
 protected:
     virtual void initNodes();
+    virtual void onSizeChanged();
+    void imageTextureScaleChangedWithSize();
 protected:
     int m_nViewType;
     int m_nClickCount;

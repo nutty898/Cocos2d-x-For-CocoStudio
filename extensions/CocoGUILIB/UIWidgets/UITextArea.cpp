@@ -28,7 +28,6 @@ NS_CC_EXT_BEGIN
 
 UITextArea::UITextArea()
 {
-    m_WidgetName = WIDGET_TEXTAREA;
 }
 
 UITextArea::~UITextArea()
@@ -51,7 +50,7 @@ void UITextArea::initNodes()
 {
     UIWidget::initNodes();
     m_pRenderLabel = CCLabelTTF::create();
-    m_pRender->addChild(m_pRenderLabel);
+    m_pRenderer->addChild(m_pRenderLabel);
 }
 
 void UITextArea::setText(const char* text)
@@ -123,11 +122,6 @@ bool UITextArea::isFlipX()
 bool UITextArea::isFlipY()
 {
     return m_pRenderLabel->isFlipY();
-}
-
-CCNode* UITextArea::getValidNode()
-{
-    return m_pRenderLabel;
 }
 
 void UITextArea::setAnchorPoint(const CCPoint &pt)

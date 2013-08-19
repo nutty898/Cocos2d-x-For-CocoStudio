@@ -38,10 +38,11 @@ public:
     void setFntFile(const char* fileName);
     void setText(const char* value);
     const char* getStringValue();
-    virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);
 protected:
     virtual void initNodes();
+    virtual void onSizeChanged();
+    void labelBMFontScaleChangedWithSize();
 protected:
     CCLabelBMFont* m_pLabelBMFont;
 };

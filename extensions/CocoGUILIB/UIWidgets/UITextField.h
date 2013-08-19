@@ -57,8 +57,7 @@ public:
     void setFontName(const char* name);
     virtual void didNotSelectSelf();
     const char* getStringValue();
-    virtual void onTouchBegan(const CCPoint &touchPoint);
-    virtual bool pointAtSelfBody(const CCPoint &pt);
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
     void setMaxLengthEnabled(bool enable);
     bool isMaxLengthEnabled();
     void setMaxLength(int length);
@@ -79,7 +78,6 @@ public:
     void addDetachWithIMEEvent(CCObject* target, SEL_TextFieldDetachWithIMEEvent selecor);
     void addInsertTextEvent(CCObject* target, SEL_TextFieldInsertTextEvent selecor);
     void addDeleteBackwardEvent(CCObject* target, SEL_TextFieldDeleteBackwardEvent selecor);
-    virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);
     virtual void setColor(const ccColor3B &color);
     virtual void setOpacity(int opacity);

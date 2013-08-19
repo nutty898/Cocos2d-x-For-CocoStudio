@@ -28,7 +28,6 @@ NS_CC_EXT_BEGIN
 
 UIRootWidget::UIRootWidget()
 {
-    m_WidgetName = WIDGET_ROOTWIDGET;
 }
 
 UIRootWidget::~UIRootWidget()

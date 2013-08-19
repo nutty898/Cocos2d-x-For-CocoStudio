@@ -35,13 +35,11 @@ public:
     UIButton();
     virtual ~UIButton();
     static UIButton* create();
-    virtual void initPressState(WidgetState state);
     void loadTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
     void loadNormalTexture(const char* normal, TextureResType texType = UI_TEX_TYPE_LOCAL);
     void loadPressedTexture(const char* selected, TextureResType texType = UI_TEX_TYPE_LOCAL);
     void loadDisabledTexture(const char* disabled, TextureResType texType = UI_TEX_TYPE_LOCAL);
     void setCapInsets(const CCRect &capInsets);
-    virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);
     virtual void setScale9Enabled(bool able);
     virtual void setScale9Size(const CCSize &size);
@@ -58,6 +56,10 @@ protected:
     virtual void onPressStateChangedToNormal();
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();
+    virtual void onSizeChanged();
+    void normalTextureScaleChangedWithSize();
+    void pressedTextureScaleChangedWithSize();
+    void disabledTextureScaleChangedWithSize();
 protected:
     CCNode* m_pButtonNormal;
     CCNode* m_pButtonClicked;

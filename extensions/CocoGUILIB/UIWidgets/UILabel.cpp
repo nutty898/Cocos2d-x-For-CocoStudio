@@ -35,7 +35,6 @@ m_fOnSelectedScaleOffset(0.5),
 m_fNormalScaleValue(1),
 m_pRenderLabel(NULL)
 {
-    m_WidgetName = WIDGET_LABEL;
 }
 
 UILabel::~UILabel()
@@ -58,7 +57,6 @@ bool UILabel::init()
 {
     if (UIWidget::init())
     {
-        setPressState(WidgetStateNormal);
         return true;
     }
     return false;
@@ -68,7 +66,7 @@ void UILabel::initNodes()
 {
     UIWidget::initNodes();
     m_pRenderLabel = CCLabelTTF::create();
-    m_pRender->addChild(m_pRenderLabel);
+    m_pRenderer->addChild(m_pRenderLabel);
 }
 
 void UILabel::setText(const char* text)
@@ -79,6 +77,7 @@ void UILabel::setText(const char* text)
 	}
     std::string strText(text);
     m_pRenderLabel->setString(strText.c_str());
+    labelScaleChangedWithSize();
 }
 
 const char* UILabel::getStringValue()
@@ -95,11 +94,13 @@ int UILabel::getStringLength()
 void UILabel::setFontSize(int size)
 {
     m_pRenderLabel->setFontSize(size);
+    labelScaleChangedWithSize();
 }
 
 void UILabel::setFontName(const char* name)
 {
     m_pRenderLabel->setFontName(name);
+    labelScaleChangedWithSize();
 }
 
 void UILabel::setTouchScaleChangeAble(bool able)
@@ -115,7 +116,8 @@ bool UILabel::getTouchScaleChangeAble()
 
 void UILabel::onPressStateChangedToNormal()
 {
-    if (!m_bTouchScaleChangeAble){
+    if (!m_bTouchScaleChangeAble)
+    {
         return;
     }
     clickScale(m_fNormalScaleValue);
@@ -123,7 +125,8 @@ void UILabel::onPressStateChangedToNormal()
 
 void UILabel::onPressStateChangedToPressed()
 {
-    if (!m_bTouchScaleChangeAble){
+    if (!m_bTouchScaleChangeAble)
+    {
         return;
     }
     clickScale(m_fNormalScaleValue + m_fOnSelectedScaleOffset);
@@ -136,7 +139,7 @@ void UILabel::onPressStateChangedToDisabled()
 
 void UILabel::clickScale(float scale)
 {
-    m_pRender->setScale(scale);
+    m_pRenderer->setScale(scale);
 }
 
 void UILabel::setFlipX(bool flipX)
@@ -184,15 +187,24 @@ void UILabel::adaptSize(float xProportion, float yProportion)
     m_pRenderLabel->setFontSize(m_pRenderLabel->getFontSize()*res);
 }
 
-CCNode* UILabel::getValidNode()
-{
-    return m_pRenderLabel;
-}
-
 void UILabel::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
     m_pRenderLabel->setAnchorPoint(pt);
+}
+
+void UILabel::onSizeChanged()
+{
+    labelScaleChangedWithSize();
+}
+
+void UILabel::labelScaleChangedWithSize()
+{
+    CCSize textureSize = m_pRenderLabel->getContentSize();
+    float scaleX = m_size.width / textureSize.width;
+    float scaleY = m_size.height / textureSize.height;
+    m_pRenderLabel->setScaleX(scaleX);
+    m_pRenderLabel->setScaleY(scaleY);
 }
 
 NS_CC_EXT_END

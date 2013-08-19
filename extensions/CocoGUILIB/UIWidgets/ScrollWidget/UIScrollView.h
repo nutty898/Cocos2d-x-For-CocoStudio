@@ -26,7 +26,7 @@
 #define __UISCROLLVIEW_H__
 
 #include "../UIPanel.h"
-#include "UIScrollDelegate.h"
+#include "UIScrollInterface.h"
 
 NS_CC_EXT_BEGIN
 
@@ -56,7 +56,7 @@ typedef void (CCObject::*SEL_ScrollToRightEvent)(CCObject*);
 #define coco_ScrollToRightSelector(_SELECTOR) (cocos2d::extension::SEL_ScrollToRightEvent)(&_SELECTOR)
 
 
-class UIScrollView : public UIPanel , public UIScrollDelegate
+class UIScrollView : public UIPanel , public UIScrollInterface
 {
 public:
     UIScrollView();
@@ -79,7 +79,7 @@ public:
     void addScrollToLeftEvent(CCObject* target, SEL_ScrollToLeftEvent selector);
     void addScrollToRightEvent(CCObject* target, SEL_ScrollToRightEvent selector);
     
-    virtual void onTouchBegan(const CCPoint &touchPoint);
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
     virtual void onTouchMoved(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
     virtual void onTouchCancelled(const CCPoint &touchPoint);

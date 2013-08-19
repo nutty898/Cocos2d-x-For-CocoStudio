@@ -36,7 +36,6 @@ m_fBarHeight(0),
 m_pRenderBar(NULL),
 m_eRenderBarTexType(UI_TEX_TYPE_LOCAL)
 {
-    m_WidgetName = WIDGET_LOADINGBAR;
 }
 
 UILoadingBar::~UILoadingBar()
@@ -59,7 +58,7 @@ void UILoadingBar::initNodes()
 {
     UIWidget::initNodes();
     m_pRenderBar = CCSprite::create();
-    m_pRender->addChild(m_pRenderBar);
+    m_pRenderer->addChild(m_pRenderBar);
     m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));
 }
 
@@ -127,6 +126,7 @@ void UILoadingBar::loadTexture(const char* texture,TextureResType texType)
         m_pRenderBar->setFlipX(true);
         break;
     }
+    barRendererScaleChangedWithSize();
 }
 
 void UILoadingBar::setPercent(int percent)
@@ -168,11 +168,6 @@ int UILoadingBar::getPercent()
     return m_nPercent;
 }
 
-CCNode* UILoadingBar::getValidNode()
-{
-    return m_pRenderBar;
-}
-
 float UILoadingBar::getTotalWidth()
 {
     return m_fTotalLength;
@@ -181,6 +176,20 @@ float UILoadingBar::getTotalWidth()
 float UILoadingBar::getTotalHeight()
 {
     return m_fBarHeight;
+}
+
+void UILoadingBar::onSizeChanged()
+{
+    barRendererScaleChangedWithSize();
+}
+
+void UILoadingBar::barRendererScaleChangedWithSize()
+{
+    CCSize textureSize = m_pRenderBar->getContentSize();
+    float scaleX = m_size.width / m_fTotalLength;
+    float scaleY = m_size.height / textureSize.height;
+    m_pRenderBar->setScaleX(scaleX);
+    m_pRenderBar->setScaleY(scaleY);
 }
 
 NS_CC_EXT_END

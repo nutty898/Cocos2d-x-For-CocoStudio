@@ -29,7 +29,6 @@ NS_CC_EXT_BEGIN
 UILabelAtlas::UILabelAtlas():
 m_pRenderLaberAtlas(NULL)
 {
-    m_WidgetName = WIDGET_LABELATLAS;
 }
 
 UILabelAtlas::~UILabelAtlas()
@@ -52,17 +51,20 @@ void UILabelAtlas::initNodes()
 {
     UIWidget::initNodes();
     m_pRenderLaberAtlas = UICCLabelAtlas::create();
-    m_pRender->addChild(m_pRenderLaberAtlas);
+    m_pRenderer->addChild(m_pRenderLaberAtlas);
 }
 
 void UILabelAtlas::setProperty(const char *stringValue, const char *charMapFile, int itemWidth, int itemHeight, const char *startCharMap,bool useSpriteFrame)
 {
     m_pRenderLaberAtlas->setProperty(stringValue, charMapFile, itemWidth, itemHeight, (int)(startCharMap[0]));
+    updateAnchorPoint();
+    labelAtlasScaleChangedWithSize();
 }
 
 void UILabelAtlas::setStringValue(const char *value)
 {
     m_pRenderLaberAtlas->setString(value);
+    labelAtlasScaleChangedWithSize();
 }
 
 const char* UILabelAtlas::getStringValue()
@@ -73,12 +75,21 @@ const char* UILabelAtlas::getStringValue()
 void UILabelAtlas::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
-    m_pRenderLaberAtlas->setAnchorPoint(ccp(pt.x, pt.y-0.25f));
+    m_pRenderLaberAtlas->setAnchorPoint(ccp(pt.x, pt.y));
 }
 
-CCNode* UILabelAtlas::getValidNode()
+void UILabelAtlas::onSizeChanged()
 {
-    return m_pRenderLaberAtlas;
+    labelAtlasScaleChangedWithSize();
+}
+
+void UILabelAtlas::labelAtlasScaleChangedWithSize()
+{
+    CCSize textureSize = m_pRenderLaberAtlas->getContentSize();
+    float scaleX = m_size.width / textureSize.width;
+    float scaleY = m_size.height / textureSize.height;
+    m_pRenderLaberAtlas->setScaleX(scaleX);
+    m_pRenderLaberAtlas->setScaleY(scaleY);
 }
 
 NS_CC_EXT_END

@@ -29,7 +29,6 @@ NS_CC_EXT_BEGIN
 UITextButton::UITextButton():
 m_pTextLable(NULL)
 {
-    m_WidgetName = WIDGET_TEXTBUTTON;
 }
 
 UITextButton::~UITextButton()
@@ -53,7 +52,7 @@ bool UITextButton::init()
     if (UIButton::init())
     {
         m_pTextLable = CCLabelTTF::create();
-        m_pRender->addChild(m_pTextLable);
+        m_pRenderer->addChild(m_pTextLable);
         return true;
     }
     return false;

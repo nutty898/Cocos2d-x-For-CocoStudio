@@ -56,16 +56,15 @@ public:
     virtual bool addChild(UIWidget* child);
     virtual void setClippingEnabled(bool able);
     virtual void setClipRect(const CCRect &rect);
-    virtual void setSize(const CCSize &size);
     virtual float getWidth();
     virtual float getHeight();
     virtual bool isClippingEnabled();
-    virtual bool hitTest(CCNode*node, const CCPoint &pt);
     const CCSize& getWrapSize() const;
 protected:
     virtual bool init();
     virtual void initNodes();
     virtual bool checkChildVisibleInParent(UIWidget* parent, UIWidget* child);
+    virtual void onSizeChanged();
 protected:    
     float m_fWidth;
     float m_fHeight;

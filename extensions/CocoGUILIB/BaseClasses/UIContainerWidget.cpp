@@ -28,7 +28,7 @@
 
 NS_CC_EXT_BEGIN
 
-#define DYNAMIC_CAST_CLIPPINGLAYER dynamic_cast<UIClippingLayer*>(m_pRender)
+#define DYNAMIC_CAST_CLIPPINGLAYER dynamic_cast<UIClippingLayer*>(m_pRenderer)
     
 UIContainerWidget::UIContainerWidget():
 m_fWidth(0.0),
@@ -37,7 +37,6 @@ m_bClippingEnabled(false),
 m_eLayoutType(UI_LAYOUT_ABSOLUTE)
 {
     m_WidgetType = WidgetTypeContainer;
-    m_WidgetName = WIDGET_CONTAINERWIDGET;
 }
 
 UIContainerWidget::~UIContainerWidget()
@@ -62,9 +61,9 @@ bool UIContainerWidget::init()
     m_children = CCArray::create();
     m_children->retain();
     initNodes();
-    m_pRender->retain();
-    m_pRender->setZOrder(m_nWidgetZOrder);
-    CCRGBAProtocol* renderRGBA = dynamic_cast<CCRGBAProtocol*>(m_pRender);
+    m_pRenderer->retain();
+    m_pRenderer->setZOrder(m_nWidgetZOrder);
+    CCRGBAProtocol* renderRGBA = dynamic_cast<CCRGBAProtocol*>(m_pRenderer);
     if (renderRGBA)
     {
         renderRGBA->setCascadeColorEnabled(false);
@@ -333,7 +332,7 @@ void UIContainerWidget::doLayout()
 
 void UIContainerWidget::initNodes()
 {
-    m_pRender = UIClippingLayer::create();
+    m_pRenderer = UIClippingLayer::create();
 }
 
 bool UIContainerWidget::isClippingEnabled()
@@ -381,11 +380,11 @@ void UIContainerWidget::setClipRect(const CCRect &rect)
     DYNAMIC_CAST_CLIPPINGLAYER->setClipRect(rect);
 }
 
-void UIContainerWidget::setSize(const CCSize &size)
+void UIContainerWidget::onSizeChanged()
 {
-    DYNAMIC_CAST_CLIPPINGLAYER->setContentSize(size);
-    m_fWidth = size.width;
-    m_fHeight = size.height;
+    DYNAMIC_CAST_CLIPPINGLAYER->setContentSize(m_size);
+    m_fWidth = m_size.width;
+    m_fHeight = m_size.height;
     doLayout();
 }
 
@@ -397,17 +396,6 @@ float UIContainerWidget::getWidth()
 float UIContainerWidget::getHeight()
 {
     return m_fHeight;
-}
-
-bool UIContainerWidget::hitTest(CCNode *node, const CCPoint &pt)
-{
-    CCPoint nsp = node->convertToNodeSpace(pt);
-    CCSize bb = node->getContentSize();
-    if (nsp.x >= 0.0f && nsp.x <= bb.width && nsp.y >= 0.0f && nsp.y <= bb.height)
-    {
-        return true;
-    }
-    return false;
 }
 
 const CCSize& UIContainerWidget::getWrapSize() const

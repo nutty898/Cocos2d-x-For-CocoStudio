@@ -143,10 +143,11 @@ void UIDragPanel::releaseResoures()
     delete m_pInnerPanel;
 }
 
-void UIDragPanel::onTouchBegan(const CCPoint &touchPoint)
+bool UIDragPanel::onTouchBegan(const CCPoint &touchPoint)
 {
-    UIPanel::onTouchBegan(touchPoint);
+    bool pass = UIPanel::onTouchBegan(touchPoint);
     handlePressLogic(touchPoint);
+    return pass;
 }
 
 void UIDragPanel::onTouchMoved(const CCPoint &touchPoint)
@@ -347,7 +348,7 @@ void UIDragPanel::handleMoveLogic(const CCPoint &touchPoint)
     if (m_bBounceEnabled)
     {
         // bounce
-        if (!pointAtSelfBody(touchPoint))
+        if (!hitTest(touchPoint))
         {
             m_bTouchMoved = false;
             
@@ -424,7 +425,7 @@ void UIDragPanel::handleReleaseLogic(const CCPoint &touchPoint)
         return;
     }
     
-    if (pointAtSelfBody(touchPoint))
+    if (hitTest(touchPoint))
     {
         m_touchEndWorldSpace = touchPoint;
         startAutoMove();

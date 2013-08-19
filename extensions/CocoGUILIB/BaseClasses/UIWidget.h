@@ -31,44 +31,19 @@
 #include "../Layouts/UILayoutUnit.h"
 NS_CC_EXT_BEGIN
 
+
 typedef enum
 {
-    WidgetStateNone = -1,
-    WidgetStateNormal,
-    WidgetStateSelected,
-    WidgetStateDisabled
-}WidgetState;
+    BRIGHT_NONE = -1,
+    BRIGHT_NORMAL,
+    BRIGHT_HIGHLIGHT
+}BrightStyle;
 
 typedef enum
 {
     WidgetTypeWidget, //control
     WidgetTypeContainer //container
 }WidgetType;
-
-typedef enum
-{
-    WIDGET_WIDGET,
-    WIDGET_ROOTWIDGET,
-    WIDGET_CONTAINERWIDGET,
-    WIDGET_BUTTON,
-    WIDGET_CHECKBOX,
-    WIDGET_CONTROLBUTTON,
-    WIDGET_GRADIENTPANEL,
-    WIDGET_IMAGEVIEW,
-    WIDGET_LABEL,
-    WIDGET_LABELATLAS,
-    WIDGET_LABELBMFONT,
-    WIDGET_LISTVIEW,
-    WIDGET_LOADINGBAR,
-    WIDGET_NODECONTAINER,
-    WIDGET_PANEL,
-    WIDGET_SCROLLVIEW,
-    WIDGET_SLIDER,
-    WIDGET_TEXTAREA,
-    WIDGET_TEXTBUTTON,
-    WIDGET_TEXTFIELD,
-    WIDGET_PAGEVIEW
-}WidgetName;
 
 typedef enum
 {
@@ -95,45 +70,55 @@ public:
     virtual ~UIWidget();
     virtual void releaseResoures();
     static UIWidget* create();
-    void initPressState(WidgetState state);
-    void setPressState(WidgetState state);
+    void setBrightStyle(BrightStyle style);
+    
     virtual bool addChild(UIWidget* child);
     virtual bool removeChild(UIWidget* child,bool cleanup);
     virtual void removeFromParentAndCleanup(bool cleanup);
     virtual void removeAllChildrenAndCleanUp(bool cleanup);
+    
     virtual void setWidgetZOrder(int z);
     virtual int getWidgetZOrder();
     virtual void reorderChild(UIWidget* child);
+    
     virtual void setTouchEnabled(bool enable, bool containChildren = false);
     void updateChildrenTouchEnabled(bool enable, bool containChildren);
     bool isTouchEnabled();
+    void updateBeTouchEnabled(bool enable);
+    
     void setUpdateEnabled(bool enable);
     bool isUpdateEnabled();
+    
     bool isFocus();
     void setFocus(bool fucos);
-    virtual void disable(bool containChildren = false);
-    virtual void active(bool containChildren = false);
-    void updateChildrenActive();
-    void updateChildrenDisable();
-    virtual bool isActive();
-    void updateBeTouchEnabled(bool enable);
+    
     void setVisible(bool visible);
-    bool isVisible();
+    bool isVisible() const;
+    void setBright(bool bright);
+    bool isBright() const;
+    void setEnabled(bool enabled);
+    bool isEnabled() const;
+    
     virtual CCRect getRect();
     virtual CCRect getRelativeRect();
-    virtual const CCSize& getContentSize(); 
+    virtual const CCSize& getContentSize();
+    
     void getLocationInWindow();
+    
     virtual float getRelativeLeftPos();
     virtual float getRelativeBottomPos();
     virtual float getRelativeRightPos();
     virtual float getRelativeTopPos();
-    virtual CCNode* getValidNode();
+    
+    
     CCNode* getContainerNode();
+    
 	void setWidgetParent(UIWidget* parent);
     UIWidget* getWidgetParent();
     UIWidget* getChildByName(const char* name);
     UIWidget* getChildByTag(int tag);
     CCArray* getChildren();
+    
     virtual void addPushDownEvent(CCObject* target,SEL_PushEvent selector);
     virtual void addMoveEvent(CCObject* target,SEL_MoveEvent selector);
     virtual void addReleaseEvent(CCObject* target,SEL_ReleaseEvent selector);
@@ -190,14 +175,9 @@ public:
     
     virtual void setNeedCheckVisibleDepandParent(bool need);
     void didNotSelectSelf();
-    virtual void onTouchBegan(const CCPoint &touchPoint);
-    virtual void onTouchMoved(const CCPoint &touchPoint);
-    virtual void onTouchEnded(const CCPoint &touchPoint);
-    virtual void onTouchCancelled(const CCPoint &touchPoint);
-    virtual void onTouchLongClicked(const CCPoint &touchPoint);
+    
     virtual bool isClippingEnabled(){return false;};
     virtual void update(float dt){};
-    virtual bool pointAtSelfBody(const CCPoint &pt);
     bool checkVisibleDependParent(const CCPoint &pt);
     virtual void checkChildInfo(int handleState,UIWidget* sender,const CCPoint &touchPoint);
     //widget prop
@@ -222,10 +202,18 @@ public:
     void setName(const char* name);
     const char* getName();
     WidgetType getWidgetType();
-    WidgetName getWidgetName();
     void setBindingAction(UIActionNode* actionNode);
+    virtual void setSize(const CCSize &size);
+    const CCSize& getSize() const;
     
+    virtual bool hitTest(const CCPoint &pt);
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
+    virtual void onTouchMoved(const CCPoint &touchPoint);
+    virtual void onTouchEnded(const CCPoint &touchPoint);
+    virtual void onTouchCancelled(const CCPoint &touchPoint);
+    virtual void onTouchLongClicked(const CCPoint &touchPoint);
 protected:
+    virtual void onSizeChanged();
     virtual bool init();
     virtual void initNodes();
     virtual void removeChildMoveToTrash(UIWidget* child);
@@ -238,21 +226,22 @@ protected:
     void releaseUpEvent();
     void cancelUpEvent();
     void longClickEvent();
-    virtual bool hitTest(CCNode* node, const CCPoint &pt);
+    
     UIActionNode* m_pBindingAction;
 protected:
     bool m_bEnabled;
     bool m_bVisible;
-    bool m_bActived;
-    bool m_bFocus;
+    bool m_bBright;
     bool m_bTouchEnabled;
+    bool m_bTouchPassedEnabled;
+    bool m_bFocus;
+
     int m_nWidgetZOrder;
     CCPoint m_anchorPoint;
     UIWidget* m_pWidgetParent;
-    WidgetState m_nCurPressState;
-    WidgetState m_nPrevPressstate;
+    BrightStyle m_eBrightStyle;
     bool m_bUpdateEnabled;
-    CCNode* m_pRender;
+    CCNode* m_pRenderer;
     float m_fContentSizeWidth;
     float m_fContentSizeHeight;
     bool m_bIsCreatedFromFile;
@@ -287,11 +276,24 @@ protected:
     int m_nWidgetTag;
     std::string m_strName;
     WidgetType m_WidgetType;
-    WidgetName m_WidgetName;
     UILayer* m_pUILayer;
 	int m_nActionTag;
+    CCSize m_size;
+};
+
+class GUIRenderer : public CCNodeRGBA
+{
+public:
+    GUIRenderer();
+    virtual ~GUIRenderer();
+    virtual void visit(void);
+    static GUIRenderer* create();
+    void setEnabled(bool enabled);
+    bool getEnabled() const;
+protected:
+    bool m_bEnabled;
 };
 
 NS_CC_EXT_END
 
-#endif /* defined(__CocoGUI__UIWidget__) */
+#endif /* defined(__UIWidget__) */

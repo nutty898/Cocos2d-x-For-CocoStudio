@@ -40,7 +40,6 @@ m_fAutoScrollSpeed(0.0f),
 m_nAutoScrollDir(0),
 m_fChildFocusCancelOffset(5.0f)
 {
-    m_WidgetName = WIDGET_PAGEVIEW;
 }
 
 UIPageView::~UIPageView()
@@ -354,10 +353,11 @@ void UIPageView::update(float dt)
     }
 }
 
-void UIPageView::onTouchBegan(const CCPoint &touchPoint)
+bool UIPageView::onTouchBegan(const CCPoint &touchPoint)
 {
-    UIPanel::onTouchBegan(touchPoint);
+    bool pass = UIPanel::onTouchBegan(touchPoint);
     handlePressLogic(touchPoint);
+    return pass;
 }
 
 void UIPageView::onTouchMoved(const CCPoint &touchPoint)
@@ -370,7 +370,7 @@ void UIPageView::onTouchMoved(const CCPoint &touchPoint)
         m_pWidgetParent->checkChildInfo(1,this,touchPoint);
     }
     moveEvent();
-    if (!pointAtSelfBody(touchPoint))
+    if (!hitTest(touchPoint))
     {
         setFocus(false);
         onTouchEnded(touchPoint);
@@ -445,7 +445,7 @@ void UIPageView::onTouchCancelled(const CCPoint &touchPoint)
 
 void UIPageView::handlePressLogic(const CCPoint &touchPoint)
 {
-    CCPoint nsp = m_pRender->convertToNodeSpace(touchPoint);
+    CCPoint nsp = m_pRenderer->convertToNodeSpace(touchPoint);
     m_fTouchMoveStartLocation = nsp.x;
     m_fTouchStartLocation = nsp.x;
 //    startRecordSlidAction();
@@ -453,7 +453,7 @@ void UIPageView::handlePressLogic(const CCPoint &touchPoint)
 
 void UIPageView::handleMoveLogic(const CCPoint &touchPoint)
 {
-    CCPoint nsp = m_pRender->convertToNodeSpace(touchPoint);
+    CCPoint nsp = m_pRenderer->convertToNodeSpace(touchPoint);
     float offset = 0.0;
     float moveX = nsp.x;
     offset = moveX - m_fTouchMoveStartLocation;

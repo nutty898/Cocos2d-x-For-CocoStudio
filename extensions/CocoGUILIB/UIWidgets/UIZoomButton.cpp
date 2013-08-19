@@ -36,7 +36,6 @@ m_pDisabledTitle(NULL),
 m_bZoomOnTouchDown(true),
 m_preferredSize(CCSizeZero)
 {
-    m_WidgetName = WIDGET_CONTROLBUTTON;
 }
 
 UIZoomButton::~UIZoomButton()
@@ -58,13 +57,12 @@ bool UIZoomButton::init()
 {
     if (UIWidget::init())
     {
-        m_pRender->addChild(m_pNormalBackGround);
-        m_pRender->addChild(m_pPressedBackGround);
-        m_pRender->addChild(m_pDisabledBackGround);
-        m_pRender->addChild(m_pNormalTitle);
-        m_pRender->addChild(m_pPressedTitle);
-        m_pRender->addChild(m_pDisabledTitle);
-        setPressState(WidgetStateNormal);
+        m_pRenderer->addChild(m_pNormalBackGround);
+        m_pRenderer->addChild(m_pPressedBackGround);
+        m_pRenderer->addChild(m_pDisabledBackGround);
+        m_pRenderer->addChild(m_pNormalTitle);
+        m_pRenderer->addChild(m_pPressedTitle);
+        m_pRenderer->addChild(m_pDisabledTitle);
         return true;
     }
     return false;
@@ -144,26 +142,6 @@ void UIZoomButton::onPressStateChangedToDisabled()
     m_pNormalBackGround->setVisible(false);
     m_pPressedBackGround->setVisible(false);
     m_pDisabledBackGround->setVisible(true);
-}
-
-CCNode* UIZoomButton::getValidNode()
-{
-    CCNode* validNode = NULL;
-    switch (m_nCurPressState)
-    {
-        case WidgetStateNormal:
-            validNode = m_pNormalBackGround;
-            break;
-        case WidgetStateSelected:
-            validNode = m_pPressedBackGround;
-            break;
-        case WidgetStateDisabled:
-            validNode = m_pDisabledBackGround;
-            break;
-        default:
-            break;
-    }
-    return validNode;
 }
 
 void UIZoomButton::setAnchorPoint(const CCPoint &pt)

@@ -145,7 +145,7 @@ void CocosGUIExamplesScene::ExamplesShowEquip(CCObject* pSender)
     
     // button panel
     UIPanel* button_panel = dynamic_cast<UIPanel*>(example_root->getChildByName("button_panel"));
-    button_panel->disable(true);
+    //button_panel->disable(true);
 }
 
 void CocosGUIExamplesScene::ExamplesShowWeapon(CCObject* pSender)
@@ -155,7 +155,7 @@ void CocosGUIExamplesScene::ExamplesShowWeapon(CCObject* pSender)
     
     // examples button panel
     UIPanel* button_panel = dynamic_cast<UIPanel*>(example_root->getChildByName("button_panel"));
-    button_panel->disable(true);
+    //button_panel->disable(true);
     
     // weapon root
     UIPanel* weapon_root = dynamic_cast<UIPanel*>(example_root->getChildByName("weapon_root"));
@@ -240,7 +240,7 @@ void CocosGUIExamplesScene::EquipInit()
     UITextButton* clothes_btn = dynamic_cast<UITextButton*>(up_panel->getChildByName("I_Button"));
     clothes_btn->addReleaseEvent(this, coco_releaseselector(CocosGUIExamplesScene::EquipSwitchBtnCallBack));
     clothes_btn->setWidgetTag(EQUIP_SWITCH_PANEL_BUTTON_TAG_CLOTHES);
-    clothes_btn->disable();
+    //clothes_btn->disable();
     
     UITextButton* weapons_btn = dynamic_cast<UITextButton*>(up_panel->getChildByName("II_Button"));
     weapons_btn->addReleaseEvent(this, coco_releaseselector(CocosGUIExamplesScene::EquipSwitchBtnCallBack));
@@ -699,9 +699,9 @@ void CocosGUIExamplesScene::EquipSwitchBtnCallBack(CCObject *pSender)
     UITextButton* weapons_btn = dynamic_cast<UITextButton*>(up_panel->getChildByTag(EQUIP_SWITCH_PANEL_BUTTON_TAG_WEAPONS));
     UITextButton* pets_btn = dynamic_cast<UITextButton*>(up_panel->getChildByTag(EQUIP_SWITCH_PANEL_BUTTON_TAG_PETS));
     
-    clothes_btn->active();
-    weapons_btn->active();
-    pets_btn->active();    
+//    clothes_btn->active();
+//    weapons_btn->active();
+//    pets_btn->active();    
     
     switch (button->getWidgetTag())
     {
@@ -709,7 +709,7 @@ void CocosGUIExamplesScene::EquipSwitchBtnCallBack(CCObject *pSender)
         {
             m_eEquipType = EQUIP_TYPE_CLOTHES;
             
-            clothes_btn->disable();
+            //clothes_btn->disable();
             
             clothes_panel->setWidgetZOrder(container_1_Zorder);
             weapons_panel->setWidgetZOrder(container_2_Zorder);
@@ -730,7 +730,7 @@ void CocosGUIExamplesScene::EquipSwitchBtnCallBack(CCObject *pSender)
         {
             m_eEquipType = EQUIP_TYPE_WEAPONS;
             
-            weapons_btn->disable();
+           // weapons_btn->disable();
             
             clothes_panel->setWidgetZOrder(container_3_Zorder);
             weapons_panel->setWidgetZOrder(container_1_Zorder);
@@ -751,7 +751,7 @@ void CocosGUIExamplesScene::EquipSwitchBtnCallBack(CCObject *pSender)
         {
             m_eEquipType = EQUIP_TYPE_PETS;
             
-            pets_btn->disable();
+            //pets_btn->disable();
             
             pets_panel->setWidgetZOrder(container_1_Zorder);
             clothes_panel->setWidgetZOrder(container_2_Zorder);
@@ -957,7 +957,7 @@ void CocosGUIExamplesScene::EquipClose(CCObject* pObject)
     
     // button panel
     UIPanel* button_panel = dynamic_cast<UIPanel*>(example_root->getChildByName("button_panel"));    
-    button_panel->active(true);
+   // button_panel->active(true);
 }
 
 // weapon
@@ -1122,5 +1122,5 @@ void CocosGUIExamplesScene::WeaponClose(CCObject* pObject)
     
     // button panel
     UIPanel* button_panel = dynamic_cast<UIPanel*>(example_root->getChildByName("button_panel"));
-    button_panel->active(true);
+    //button_panel->active(true);
 }

@@ -44,7 +44,7 @@ m_capInsets(CCRectZero),
 m_scale9Size(CCSizeZero),
 m_eImageTexType(UI_TEX_TYPE_LOCAL)
 {
-    m_WidgetName = WIDGET_IMAGEVIEW;
+
 }
 
 UIImageView::~UIImageView()
@@ -67,7 +67,7 @@ void UIImageView::initNodes()
 {
     UIWidget::initNodes();
     m_pImageRender = CCSprite::create();
-    m_pRender->addChild(m_pImageRender);
+    m_pRenderer->addChild(m_pImageRender);
 }
 
 void UIImageView::loadTexture(const char *fileName, TextureResType texType)
@@ -112,6 +112,8 @@ void UIImageView::loadTexture(const char *fileName, TextureResType texType)
         default:
             break;
     }
+    updateAnchorPoint();
+    imageTextureScaleChangedWithSize();
 }
 
 void UIImageView::setTextureRect(const CCRect &rect)
@@ -126,7 +128,7 @@ void UIImageView::setTextureRect(const CCRect &rect)
     }
 }
 
-void UIImageView::onTouchBegan(const CCPoint &touchPoint)
+bool UIImageView::onTouchBegan(const CCPoint &touchPoint)
 {
     setFocus(true);
     m_touchStartPos.x = touchPoint.x;
@@ -141,6 +143,7 @@ void UIImageView::onTouchBegan(const CCPoint &touchPoint)
         m_nClickCount++;
         m_touchRelease = false;
     }
+    return m_bTouchPassedEnabled;
 }
 
 void UIImageView::onTouchEnded(const CCPoint &touchPoint)
@@ -267,11 +270,8 @@ void UIImageView::setScale9Enabled(bool able)
     {
         return;
     }
-    
-    m_nPrevPressstate = WidgetStateNone;
-    m_nCurPressState = WidgetStateNone;
     m_bScale9Enabled = able;
-    m_pRender->removeChild(m_pImageRender, true);
+    m_pRenderer->removeChild(m_pImageRender, true);
     m_pImageRender = NULL;
     if (m_bScale9Enabled)
     {
@@ -282,7 +282,7 @@ void UIImageView::setScale9Enabled(bool able)
         m_pImageRender = CCSprite::create();
     }
     loadTexture(m_strTextureFile.c_str(),m_eImageTexType);
-    m_pRender->addChild(m_pImageRender);
+    m_pRenderer->addChild(m_pImageRender);
     setCapInsets(m_capInsets);
     setScale9Size(m_scale9Size);
 }
@@ -391,15 +391,31 @@ void UIImageView::setCapInsets(const CCRect &capInsets)
     DYNAMIC_CAST_SCALE9SPRITE->setCapInsets(capInsets);
 }
 
-CCNode* UIImageView::getValidNode()
-{
-    return m_pImageRender;
-}
-
 void UIImageView::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
     m_pImageRender->setAnchorPoint(pt);
+}
+
+void UIImageView::onSizeChanged()
+{
+    imageTextureScaleChangedWithSize();
+}
+
+void UIImageView::imageTextureScaleChangedWithSize()
+{
+    if (m_bScale9Enabled)
+    {
+        m_pImageRender->setContentSize(m_size);
+    }
+    else
+    {
+        CCSize textureSize = m_pImageRender->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pImageRender->setScaleX(scaleX);
+        m_pImageRender->setScaleY(scaleY);
+    }
 }
 
 NS_CC_EXT_END

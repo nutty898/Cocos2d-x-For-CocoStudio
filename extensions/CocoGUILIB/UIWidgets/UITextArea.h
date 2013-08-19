@@ -50,7 +50,6 @@ public:
     virtual void setFlipY(bool flipY);
     virtual bool isFlipX();
     virtual bool isFlipY();
-    virtual CCNode* getValidNode();
     virtual void setAnchorPoint(const CCPoint &pt);
 protected:
     CCLabelTTF* m_pRenderLabel;

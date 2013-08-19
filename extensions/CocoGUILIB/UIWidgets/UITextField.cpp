@@ -40,7 +40,6 @@ m_pfnDetachWithIMESelector(NULL),
 m_pfnInsertTextSelector(NULL),
 m_pfnDeleteBackwardSelector(NULL)
 {
-    m_WidgetName = WIDGET_TEXTFIELD;
 }
 
 UITextField::~UITextField()
@@ -73,7 +72,7 @@ void UITextField::initNodes()
 {
     UIWidget::initNodes();
     m_pRenderTextField = UICCTextField::create("input words here", "Thonburi", 20);
-    m_pRender->addChild(m_pRenderTextField);
+    m_pRenderer->addChild(m_pRenderTextField);
 }
 
 void UITextField::setTouchSize(const CCSize &size)
@@ -123,21 +122,11 @@ const char* UITextField::getStringValue()
     return m_pRenderTextField->getString();
 }
 
-void UITextField::onTouchBegan(const CCPoint &touchPoint)
+bool UITextField::onTouchBegan(const CCPoint &touchPoint)
 {
-    UIWidget::onTouchBegan(touchPoint);
+    bool pass = UIWidget::onTouchBegan(touchPoint);
     m_pRenderTextField->attachWithIME();
-}
-
-bool UITextField::pointAtSelfBody(const CCPoint &pt)
-{
-    if (!m_bUseTouchArea){
-        return UIWidget::pointAtSelfBody(pt);
-    }
-    if (!getAbsoluteVisible()) {
-        return false;
-    }
-    return false;
+    return pass;
 }
 
 void UITextField::setMaxLengthEnabled(bool enable)
@@ -293,11 +282,6 @@ void UITextField::addDeleteBackwardEvent(CCObject *target, SEL_TextFieldDeleteBa
 {
     m_pDeleteBackwardListener = target;
     m_pfnDeleteBackwardSelector = selecor;
-}
-
-CCNode* UITextField::getValidNode()
-{
-    return m_pRenderTextField;
 }
 
 void UITextField::setAnchorPoint(const CCPoint &pt)

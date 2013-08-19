@@ -26,7 +26,7 @@
 #define __TestCpp__UIDragPanel__
 
 #include "../UIPanel.h"
-#include "UIScrollDelegate.h"
+#include "UIScrollInterface.h"
 
 NS_CC_EXT_BEGIN
 
@@ -121,7 +121,7 @@ typedef void (CCObject::*SEL_DragPanelBounceToRightEvent)(CCObject*);
 typedef void (CCObject::*SEL_DragPanelBounceToBottomEvent)(CCObject*);
 #define coco_DragPanel_BounceToBottom_selector(_SELECTOR) (SEL_DragPanelBounceToBottomEvent)(&_SELECTOR)
 
-class UIDragPanel : public UIPanel , public UIScrollDelegate
+class UIDragPanel : public UIPanel , public UIScrollInterface
 {
 public:
     UIDragPanel();
@@ -134,7 +134,7 @@ public:
     
     virtual void releaseResoures();
     
-    virtual void onTouchBegan(const CCPoint &touchPoint);
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
     virtual void onTouchMoved(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
     virtual void onTouchCancelled(const CCPoint &touchPoint);

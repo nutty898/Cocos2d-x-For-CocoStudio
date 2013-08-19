@@ -40,20 +40,21 @@ public:
     void sortWidgets(UIWidget* widget);
     void sortRootWidgets(UIWidget* root);
     void removeManageredWidget(UIWidget* widget);
-    UIWidget* checkEventWidget(const CCPoint &touchPoint);
+    bool checkEventWidget(const CCPoint &touchPoint);
     void addCheckedDoubleClickWidget(UIWidget* widget);
     void update(float dt);
     bool onTouchBegan(CCTouch* touch);
-    bool onTouchMoved(CCTouch* touch);
-    bool onTouchEnd(CCTouch* touch);
-    bool onTouchCancelled(CCTouch* touch);
+    void onTouchMoved(CCTouch* touch);
+    void onTouchEnd(CCTouch* touch);
+    void onTouchCancelled(CCTouch* touch);
     
     void setRootWidget(UIWidget* root);
     UIWidget* getRootWidget();
     
 protected:
     CCArray* m_manageredWidget;
-    UIWidget* m_pCurSelectedWidget;
+    CCArray* m_pSelectedWidgets;
+//    UIWidget* m_pCurSelectedWidget;
     CCPoint touchBeganedPoint;
     CCPoint touchMovedPoint;
     CCPoint touchEndedPoint;

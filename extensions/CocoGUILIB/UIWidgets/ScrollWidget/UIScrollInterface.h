@@ -29,7 +29,7 @@
 
 NS_CC_EXT_BEGIN
 
-class UIScrollDelegate
+class UIScrollInterface
 {
 protected:
     virtual void handlePressLogic(const CCPoint &touchPoint) = 0;

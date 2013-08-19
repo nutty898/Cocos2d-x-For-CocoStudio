@@ -40,9 +40,10 @@ public:
     void setStringValue(const char* value);
     const char* getStringValue();
     virtual void setAnchorPoint(const CCPoint &pt);
-    virtual CCNode* getValidNode();
 protected:
     virtual void initNodes();
+    virtual void onSizeChanged();
+    void labelAtlasScaleChangedWithSize();
 protected:
     UICCLabelAtlas* m_pRenderLaberAtlas;
 };
