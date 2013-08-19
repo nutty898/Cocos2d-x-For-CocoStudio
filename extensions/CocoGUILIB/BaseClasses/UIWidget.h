@@ -28,7 +28,7 @@
 #include "cocos2d.h"
 #include "ExtensionMacros.h"
 #include "../Layouts/UILayoutDefine.h"
-#include "../Layouts/UILayoutUnit.h"
+#include "../Layouts/LayoutParameter.h"
 NS_CC_EXT_BEGIN
 
 
@@ -61,9 +61,8 @@ typedef void (CCObject::*SEL_CancelEvent)(CCObject*);
 #define coco_cancelselector(_SELECTOR) (cocos2d::extension::SEL_CancelEvent)(&_SELECTOR)
 
 class UILayer;
-class UIActionNode;
 
-class UIWidget : public CCObject , public UILayoutUnit
+class UIWidget : public CCObject
 {
 public:
     UIWidget();
@@ -72,19 +71,14 @@ public:
     static UIWidget* create();
     void setBrightStyle(BrightStyle style);
     
-    virtual bool addChild(UIWidget* child);
-    virtual bool removeChild(UIWidget* child,bool cleanup);
-    virtual void removeFromParentAndCleanup(bool cleanup);
-    virtual void removeAllChildrenAndCleanUp(bool cleanup);
+
     
     virtual void setWidgetZOrder(int z);
     virtual int getWidgetZOrder();
-    virtual void reorderChild(UIWidget* child);
     
-    virtual void setTouchEnabled(bool enable, bool containChildren = false);
-    void updateChildrenTouchEnabled(bool enable, bool containChildren);
+    
+    virtual void setTouchEnabled(bool enable);
     bool isTouchEnabled();
-    void updateBeTouchEnabled(bool enable);
     
     void setUpdateEnabled(bool enable);
     bool isUpdateEnabled();
@@ -99,10 +93,6 @@ public:
     void setEnabled(bool enabled);
     bool isEnabled() const;
     
-    virtual CCRect getRect();
-    virtual CCRect getRelativeRect();
-    virtual const CCSize& getContentSize();
-    
     void getLocationInWindow();
     
     virtual float getRelativeLeftPos();
@@ -115,9 +105,6 @@ public:
     
 	void setWidgetParent(UIWidget* parent);
     UIWidget* getWidgetParent();
-    UIWidget* getChildByName(const char* name);
-    UIWidget* getChildByTag(int tag);
-    CCArray* getChildren();
     
     virtual void addPushDownEvent(CCObject* target,SEL_PushEvent selector);
     virtual void addMoveEvent(CCObject* target,SEL_MoveEvent selector);
@@ -135,9 +122,6 @@ public:
     float getScaleX();
     virtual void setScaleY(float scaleY);
     float getScaleY();
-    virtual void onScaleDirtyChanged();
-    virtual void onScaleXDirtyChanged();
-    virtual void onScaleYDirtyChanged();
     void setRotation(float rotation);
     float getRotation();
     void setRotationX(float rotationX);
@@ -173,27 +157,16 @@ public:
 	void setActionTag(int tag);
 	int getActionTag();
     
-    virtual void setNeedCheckVisibleDepandParent(bool need);
     void didNotSelectSelf();
     
     virtual bool isClippingEnabled(){return false;};
     virtual void update(float dt){};
     bool checkVisibleDependParent(const CCPoint &pt);
     virtual void checkChildInfo(int handleState,UIWidget* sender,const CCPoint &touchPoint);
-    //widget prop
-    virtual float getAbsoluteScaleX();
-    virtual float getAbsoluteScaleY();
-    virtual bool getAbsoluteVisible();
-    virtual void updateChildrenVisibleDirty(bool dirty);
-    virtual void updateChildrenOpacityDirty(bool dirty);
-    virtual void adaptSize(float xProportion,float yProportion);
-    void setCreateFromFile(bool is);
-    void setFileDesignSize(const CCSize &size);
-    const CCSize& getFileDesignSize();
     void setUILayer(UILayer* uiLayer);
-    void updateChildrenUILayer(UILayer* uiLayer);
+    
     void structureChangedEvent();
-    void disableUpdate();
+    
     const CCPoint& getTouchStartPos();
     const CCPoint& getTouchMovePos();
     const CCPoint& getTouchEndPos();
@@ -202,7 +175,6 @@ public:
     void setName(const char* name);
     const char* getName();
     WidgetType getWidgetType();
-    void setBindingAction(UIActionNode* actionNode);
     virtual void setSize(const CCSize &size);
     const CCSize& getSize() const;
     
@@ -212,12 +184,13 @@ public:
     virtual void onTouchEnded(const CCPoint &touchPoint);
     virtual void onTouchCancelled(const CCPoint &touchPoint);
     virtual void onTouchLongClicked(const CCPoint &touchPoint);
+    
+    void setLayoutParameter(LayoutParameter* parameter);
+    LayoutParameter* getLayoutParameter();
 protected:
     virtual void onSizeChanged();
     virtual bool init();
-    virtual void initNodes();
-    virtual void removeChildMoveToTrash(UIWidget* child);
-    virtual void removeChildReferenceOnly(UIWidget* child);
+    virtual void initRenderer();
     virtual void onPressStateChangedToNormal();
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();
@@ -225,9 +198,7 @@ protected:
     void moveEvent();
     void releaseUpEvent();
     void cancelUpEvent();
-    void longClickEvent();
-    
-    UIActionNode* m_pBindingAction;
+    void longClickEvent();    
 protected:
     bool m_bEnabled;
     bool m_bVisible;
@@ -242,17 +213,7 @@ protected:
     BrightStyle m_eBrightStyle;
     bool m_bUpdateEnabled;
     CCNode* m_pRenderer;
-    float m_fContentSizeWidth;
-    float m_fContentSizeHeight;
-    bool m_bIsCreatedFromFile;
-    CCSize m_fileDesignSize;
-    CCPoint m_locationInWindow;
-    CCSize m_contentSize;
-    CCRect m_rect;
-    CCRect m_relativeRect;
-    bool m_bNeedCheckVisibleDependParent;
-    bool m_bVisibleTouch;
-    CCArray* m_children;
+    
     CCPoint m_touchStartPos;
     CCPoint m_touchMovePos;
     CCPoint m_touchEndPos;
@@ -264,21 +225,15 @@ protected:
     SEL_ReleaseEvent    m_pfnReleaseSelector;
     CCObject*       m_pCancelListener;
     SEL_ReleaseEvent    m_pfnCancelSelector;
-    float m_fAbsoluteScaleX;
-    float m_fAbsoluteScaleY;
-    bool m_bAbsoluteVisible;
-    bool m_bScaleXDirty;
-    bool m_bScaleYDirty;
-    bool m_bVisibleDirty;
     bool m_bOpacityDirty;
-    float m_fAdaptScaleX;
-    float m_fAdaptScaleY;
     int m_nWidgetTag;
     std::string m_strName;
     WidgetType m_WidgetType;
     UILayer* m_pUILayer;
 	int m_nActionTag;
     CCSize m_size;
+    
+    LayoutParameter* m_pLayoutParameter;
 };
 
 class GUIRenderer : public CCNodeRGBA

@@ -47,9 +47,9 @@ UILabelBMFont* UILabelBMFont::create()
     return NULL;
 }
 
-void UILabelBMFont::initNodes()
+void UILabelBMFont::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pLabelBMFont = CCLabelBMFont::create();
     m_pRenderer->addChild(m_pLabelBMFont);
 }

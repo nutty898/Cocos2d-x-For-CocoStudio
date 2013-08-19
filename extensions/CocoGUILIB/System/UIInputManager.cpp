@@ -73,21 +73,32 @@ void UIInputManager::uiSceneHasChanged()
     m_bWidgetBeSorted = false;
 }
 
-void UIInputManager::sortWidgets(UIWidget *widget)
+void UIInputManager::sortWidgets(Layout *widget)
 {
     m_manageredWidget->removeAllObjects();
     sortRootWidgets(widget);
     m_bWidgetBeSorted = true;
 }
 
-void UIInputManager::sortRootWidgets(UIWidget *root)
+void UIInputManager::sortRootWidgets(Layout *root)
 {
     ccArray* arrayRootChildren = root->getChildren()->data;
     int length = arrayRootChildren->num;
     for (int i=length-1; i >= 0; i--)
     {
         UIWidget* widget = (UIWidget*)(arrayRootChildren->arr[i]);
-        sortRootWidgets(widget);
+        Layout* layout = dynamic_cast<Layout*>(widget);
+        if (layout)
+        {
+            sortRootWidgets(layout);
+        }
+        else
+        {
+            if (widget->isTouchEnabled())
+            {
+                registWidget(widget);
+            }
+        }
     }
     if (root->isTouchEnabled())
     {
@@ -224,12 +235,12 @@ void UIInputManager::onTouchCancelled(CCTouch* touch)
     m_pSelectedWidgets->removeAllObjects();
 }
 
-void UIInputManager::setRootWidget(UIWidget *root)
+void UIInputManager::setRootWidget(Layout *root)
 {
     m_pRootWidget = root;
 }
 
-UIWidget* UIInputManager::getRootWidget()
+Layout* UIInputManager::getRootWidget()
 {
     return m_pRootWidget;
 }

@@ -77,7 +77,7 @@ UIScrollView* UIScrollView::create()
 
 void UIScrollView::releaseResoures()
 {
-    UIPanel::releaseResoures();
+    Layout::releaseResoures();
     m_pInnerContainer->structureChangedEvent();
     m_pInnerContainer->releaseResoures();
     m_pInnerContainer->setWidgetParent(NULL);
@@ -87,7 +87,7 @@ void UIScrollView::releaseResoures()
 
 bool UIScrollView::init()
 {
-    if (UIPanel::init())
+    if (Layout::init())
     {
         setUpdateEnabled(true);
         setTouchEnabled(true);
@@ -96,20 +96,21 @@ bool UIScrollView::init()
     return false;
 }
 
-void UIScrollView::initNodes()
+void UIScrollView::initRenderer()
 {
-    UIPanel::initNodes();
-    m_pInnerContainer = UIContainerWidget::create();
-    UIPanel::addChild(m_pInnerContainer);
+    Layout::initRenderer();
+    m_pInnerContainer = Layout::create();
+    Layout::addChild(m_pInnerContainer);
 }
 
 void UIScrollView::setSize(const CCSize &size)
 {
-    UIPanel::setSize(size);
+    Layout::setSize(size);
     m_fTopBoundary = size.height;
     m_fRightBoundary = size.width;
-    float orginInnerSizeWidth = m_pInnerContainer->getWidth();
-    float orginInnerSizeHeight = m_pInnerContainer->getHeight();
+    CCSize innerSize = m_pInnerContainer->getSize();
+    float orginInnerSizeWidth = innerSize.width;
+    float orginInnerSizeHeight = innerSize.height;
     float innerSizeWidth = MAX(orginInnerSizeWidth, m_fWidth);
     float innerSizeHeight = MAX(orginInnerSizeHeight, m_fHeight);
     m_pInnerContainer->setSize(CCSizeMake(innerSizeWidth, innerSizeHeight));
@@ -136,18 +137,17 @@ void UIScrollView::setInnerContainerSize(const cocos2d::CCSize &size)
         innerSizeHeight = size.height;
     }
     m_pInnerContainer->setSize(CCSizeMake(innerSizeWidth, innerSizeHeight));
-    m_pInnerContainer->setPosition(ccp(0, m_fHeight - m_pInnerContainer->getHeight()));
+    m_pInnerContainer->setPosition(ccp(0, m_fHeight - m_pInnerContainer->getSize().height));
 }
 
 const CCSize& UIScrollView::getInerContainerSize() const
 {
-	return m_pInnerContainer->getContentSize();
+	return m_pInnerContainer->getSize();
 }
 
 bool UIScrollView::addChild(UIWidget* widget)
 {
     return m_pInnerContainer->addChild(widget);
-    widget->setVisible(checkChildVisibleInParent(this, widget));
 }
 
 void UIScrollView::removeAllChildrenAndCleanUp(bool cleanup)
@@ -180,13 +180,6 @@ void UIScrollView::moveChildren(float offset)
         }
         default:
             break;
-    }
-    ccArray* arrayChildren = m_pInnerContainer->getChildren()->data;
-    int childrenCount = arrayChildren->num;
-    for (int i=0;i<childrenCount;i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->setVisible(checkChildVisibleInParent(this, child));
     }
 }
 
@@ -383,13 +376,13 @@ bool UIScrollView::scrollChildren(float touchOffset)
 void UIScrollView::scrollToBottom()
 {
     m_eMoveDirection = SCROLLVIEW_MOVE_DIR_UP; // up
-    scrollChildren(m_pInnerContainer->getHeight());
+    scrollChildren(m_pInnerContainer->getSize().height);
 }
 
 void UIScrollView::scrollToTop()
 {
     m_eMoveDirection = SCROLLVIEW_MOVE_DIR_DOWN; // down
-    scrollChildren(-m_pInnerContainer->getHeight());
+    scrollChildren(-m_pInnerContainer->getSize().height);
 }
 
 void UIScrollView::startRecordSlidAction()
@@ -511,26 +504,26 @@ void UIScrollView::handleReleaseLogic(const CCPoint &touchPoint)
 
 bool UIScrollView::onTouchBegan(const CCPoint &touchPoint)
 {
-    bool pass = UIPanel::onTouchBegan(touchPoint);
+    bool pass = Layout::onTouchBegan(touchPoint);
     handlePressLogic(touchPoint);
     return pass;
 }
 
 void UIScrollView::onTouchMoved(const CCPoint &touchPoint)
 {
-    UIPanel::onTouchMoved(touchPoint);
+    Layout::onTouchMoved(touchPoint);
     handleMoveLogic(touchPoint);
 }
 
 void UIScrollView::onTouchEnded(const CCPoint &touchPoint)
 {
-    UIPanel::onTouchEnded(touchPoint);
+    Layout::onTouchEnded(touchPoint);
     handleReleaseLogic(touchPoint);
 }
 
 void UIScrollView::onTouchCancelled(const CCPoint &touchPoint)
 {
-    UIPanel::onTouchCancelled(touchPoint);
+    Layout::onTouchCancelled(touchPoint);
 }
 
 void UIScrollView::onTouchLongClicked(const CCPoint &touchPoint)
@@ -675,18 +668,6 @@ void UIScrollView::setMoveDirection(SCROLLVIEW_MOVE_DIR dir)
 SCROLLVIEW_MOVE_DIR UIScrollView::getMoveDirection()
 {
     return m_eMoveDirection;
-}
-
-void UIScrollView::setLayoutType(LayoutType type)
-{
-    m_pInnerContainer->setLayoutType(type);
-    ccArray* arrayChildren = m_pInnerContainer->getChildren()->data;
-    int childrenCount = arrayChildren->num;
-    for (int i=0;i<childrenCount;i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->setVisible(checkChildVisibleInParent(this, child));
-    }
 }
 
 CCNode* UIScrollView::getInnerContainerNode()

@@ -71,9 +71,9 @@ bool UICheckBox::init()
     return false;
 }
 
-void UICheckBox::initNodes()
+void UICheckBox::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pBackGroundBox = CCSprite::create();
     m_pBackGroundSelectedBox = CCSprite::create();
     m_pFrontCross = CCSprite::create();

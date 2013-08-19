@@ -71,9 +71,9 @@ UISlider* UISlider::create()
     return NULL;
 }
 
-void UISlider::initNodes()
+void UISlider::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pBarNode = CCSprite::create();
     m_pProgressBarNode = CCSprite::create();
     m_pRenderer->addChild(m_pBarNode, -1);

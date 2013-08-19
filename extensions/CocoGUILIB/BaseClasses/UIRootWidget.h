@@ -25,11 +25,11 @@
 #ifndef __UIROOTWIDGET_H__
 #define __UIROOTWIDGET_H__
 
-#include "UIContainerWidget.h"
+#include "../Layouts/Layout.h"
 
 NS_CC_EXT_BEGIN
 
-class UIRootWidget : public UIContainerWidget
+class UIRootWidget : public Layout
 {
 public:
     UIRootWidget();

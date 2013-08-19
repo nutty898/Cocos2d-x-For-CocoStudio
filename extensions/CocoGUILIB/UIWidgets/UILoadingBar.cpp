@@ -54,9 +54,9 @@ UILoadingBar* UILoadingBar::create()
     return NULL;
 }
 
-void UILoadingBar::initNodes()
+void UILoadingBar::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pRenderBar = CCSprite::create();
     m_pRenderer->addChild(m_pRenderBar);
     m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));

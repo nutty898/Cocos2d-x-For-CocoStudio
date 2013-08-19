@@ -54,7 +54,7 @@ public:
     virtual void onTouchCancelled(const CCPoint &touchPoint);
     virtual void onSizeChanged();
 protected:
-    virtual void initNodes();
+    virtual void initRenderer();
     void checkSlidBoundary();
     float getPercentWithBallPos(float px,float py);
     void percentChangedEvent();

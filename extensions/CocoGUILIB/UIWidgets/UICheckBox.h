@@ -57,7 +57,7 @@ public:
     virtual void onTouchEnded(const CCPoint &touchPoint);
 protected:
     virtual bool init();
-    virtual void initNodes();
+    virtual void initRenderer();
     virtual void onPressStateChangedToNormal();
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();

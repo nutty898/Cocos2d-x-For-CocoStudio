@@ -22,43 +22,59 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __UIACTIONFRAME_H__
-#define __UIACTIONFRAME_H__
-
-#include "cocos2d.h"
-#include "ExtensionMacros.h"
-#include "../../CCArmature/external_tool/Json/CSContentJsonDictionary.h"
+#include "LayoutExecutant.h"
 
 NS_CC_EXT_BEGIN
 
-class UIActionFrame:public CCObject
+LinearVerticalLayoutExecutant* LinearVerticalLayoutExecutant::create()
 {
-protected:
+    LinearVerticalLayoutExecutant* executant = new LinearVerticalLayoutExecutant();
+    if (executant)
+    {
+        executant->autorelease();
+        return executant;
+    }
+    CC_SAFE_DELETE(executant);
+    return NULL;
+}
 
-public:
-    UIActionFrame();
-    virtual ~UIActionFrame();
-	//
-	CC_SYNTHESIZE(int, m_frameId, FrameId);
-	//
-	CC_SYNTHESIZE(float, m_startTime, StartTime);
-	//
-	CC_SYNTHESIZE(CCPoint, m_position, Position);
-	//
-	CC_SYNTHESIZE(float, m_scaleX, ScaleX);
-	//
-	CC_SYNTHESIZE(float, m_scaleY, ScaleY);
-	//
-	CC_SYNTHESIZE(float, m_rotation, Rotation);
-	//
-	CC_SYNTHESIZE(float, m_opacity, Opacity);
-	//
-	CC_SYNTHESIZE(ccColor3B, m_color, Color);
-    
-    void initWithDictionary(cs::CSJsonDictionary* dic);
+LinearHorizontalLayoutExecutant* LinearHorizontalLayoutExecutant::create()
+{
+    LinearHorizontalLayoutExecutant* executant = new LinearHorizontalLayoutExecutant();
+    if (executant)
+    {
+        executant->autorelease();
+        return executant;
+    }
+    CC_SAFE_DELETE(executant);
+    return NULL;
+}
 
-};
+RelativeLayoutExecutant* RelativeLayoutExecutant::create()
+{
+    RelativeLayoutExecutant* executant = new RelativeLayoutExecutant();
+    if (executant)
+    {
+        executant->autorelease();
+        return executant;
+    }
+    CC_SAFE_DELETE(executant);
+    return NULL;
+}
+
+void LinearVerticalLayoutExecutant::doLayout()
+{
+    CCLOG("Linear V dolayout");
+}
+
+void LinearHorizontalLayoutExecutant::doLayout()
+{
+    CCLOG("Linear H dolayout");
+}
+
+void RelativeLayoutExecutant::doLayout()
+{
+    CCLOG("Relative dolayout");   
+}
 
 NS_CC_EXT_END
-
-#endif

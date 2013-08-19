@@ -40,7 +40,7 @@ public:
     const char* getStringValue();
     virtual void setAnchorPoint(const CCPoint &pt);
 protected:
-    virtual void initNodes();
+    virtual void initRenderer();
     virtual void onSizeChanged();
     void labelBMFontScaleChangedWithSize();
 protected:

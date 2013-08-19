@@ -69,9 +69,9 @@ bool UIButton::init()
     return false;
 }
 
-void UIButton::initNodes()
+void UIButton::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pButtonNormal = CCSprite::create();
     m_pButtonClicked = CCSprite::create();
     m_pButtonDisable = CCSprite::create();

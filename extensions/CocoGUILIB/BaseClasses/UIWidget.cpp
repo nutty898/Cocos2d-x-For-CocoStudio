@@ -23,9 +23,8 @@
  ****************************************************************************/
 
 #include "UIWidget.h"
-#include "../System/UIHelper.h"
 #include "../System/UILayer.h"
-#include "../Action/UIActionNode.h"
+#include "../Layouts/Layout.h"
 
 NS_CC_EXT_BEGIN
 
@@ -48,10 +47,8 @@ m_nWidgetTag(-1),
 m_bUpdateEnabled(false),
 m_pRenderer(NULL),
 m_strName("default"),
-m_children(NULL),
 m_WidgetType(WidgetTypeWidget),
 m_bVisible(true),
-m_bNeedCheckVisibleDependParent(false),
 m_pPushListener(NULL),
 m_pfnPushSelector(NULL),
 m_pMoveListener(NULL),
@@ -60,23 +57,11 @@ m_pReleaseListener(NULL),
 m_pfnReleaseSelector(NULL),
 m_pCancelListener(NULL),
 m_pfnCancelSelector(NULL),
-m_fContentSizeHeight(0),
-m_fContentSizeWidth(0),
 //m_bUseMergedTexture(false),
-m_fAbsoluteScaleX(1.0f),
-m_fAbsoluteScaleY(1.0f),
-m_bScaleXDirty(true),
-m_bScaleYDirty(true),
-m_bAbsoluteVisible(true),
-m_bVisibleDirty(true),
-m_fAdaptScaleX(1.0f),
-m_fAdaptScaleY(1.0f),
 m_anchorPoint(ccp(0.5f, 0.5f)),
 m_pUILayer(NULL),
-m_bIsCreatedFromFile(false),
 m_nActionTag(0),
-m_fileDesignSize(CCSizeZero),
-m_pBindingAction(NULL),
+m_pLayoutParameter(NULL),
 m_size(CCSizeMake(50.0f, 50.0f))
 {
 }
@@ -99,9 +84,7 @@ UIWidget* UIWidget::create()
 
 bool UIWidget::init()
 {
-    m_children = CCArray::create();
-    m_children->retain();
-    initNodes();
+    initRenderer();
     m_pRenderer->retain();
     m_pRenderer->setZOrder(m_nWidgetZOrder);
     CCRGBAProtocol* renderRGBA = DYNAMIC_CAST_CCRGBAPROTOCOL;
@@ -118,10 +101,6 @@ bool UIWidget::init()
 
 void UIWidget::releaseResoures()
 {
-    if (m_pBindingAction)
-    {
-        m_pBindingAction->releaseBindingWidget();
-    }
     m_pPushListener = NULL;
     m_pfnPushSelector = NULL;
     m_pMoveListener = NULL;
@@ -136,76 +115,15 @@ void UIWidget::releaseResoures()
         m_pUILayer->getInputManager()->removeManageredWidget(this);
         setUILayer(NULL);
     }
-    removeAllChildrenAndCleanUp(true);
+//    removeAllChildrenAndCleanUp(true);
     m_pRenderer->removeAllChildrenWithCleanup(true);
     m_pRenderer->removeFromParentAndCleanup(true);
     m_pRenderer->release();
-    m_children->release();
 }
 
-void UIWidget::initNodes()
+void UIWidget::initRenderer()
 {
     m_pRenderer = GUIRenderer::create();
-}
-
-bool UIWidget::addChild(UIWidget *child)
-{
-    if (!child)
-    {
-        return false;
-    }
-    if (m_children->containsObject(child))
-    {
-        return false;
-    }
-    child->m_pWidgetParent = this;
-    int childrenCount = m_children->data->num;
-    if (childrenCount <= 0)
-    {
-        m_children->addObject(child);
-    }
-    else
-    {
-        bool seekSucceed = false;
-        ccArray* arrayChildren = m_children->data;
-        for (int i=childrenCount-1; i>=0; --i)
-        {
-            UIWidget* widget = (UIWidget*)(arrayChildren->arr[i]);
-            if (child->getWidgetZOrder() >= widget->getWidgetZOrder())
-            {
-                if (i == childrenCount-1)
-                {
-                    m_children->addObject(child);
-                    seekSucceed = true;
-                    break;
-                }
-                else
-                {
-                    m_children->insertObject(child, i+1);
-                    seekSucceed = true;
-                    break;
-                }
-            }
-        }
-        if (!seekSucceed)
-        {
-            m_children->insertObject(child,0);
-        }
-    }
-    child->m_pRenderer->setZOrder(child->getWidgetZOrder());
-    m_pRenderer->addChild(child->m_pRenderer);
-    
-    if (m_pUILayer)
-    {
-        int childrenCount = m_children->data->num;
-        ccArray* arrayChildren = m_children->data;
-        for (int i=0; i<childrenCount; i++) {
-            UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-            child->updateChildrenUILayer(m_pUILayer);
-        }
-    }
-    structureChangedEvent();
-    return true;
 }
 
 void UIWidget::setSize(const CCSize &size)
@@ -229,118 +147,11 @@ void UIWidget::setUILayer(UILayer *uiLayer)
     m_pUILayer = uiLayer;
 }
 
-void UIWidget::updateChildrenUILayer(UILayer* uiLayer)
-{
-    setUILayer(uiLayer);
-    setUpdateEnabled(isUpdateEnabled());
-    int childrenCount = m_children->data->num;
-    ccArray* arrayChildren = m_children->data;
-    for (int i=0; i<childrenCount; i++) {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->updateChildrenUILayer(m_pUILayer);
-    }
-}
-
-void UIWidget::disableUpdate()
-{
-    if (m_pUILayer)
-    {
-        m_pUILayer->removeUpdateEnableWidget(this);
-    }
-    int childrenCount = m_children->data->num;
-    ccArray* arrayChildren = m_children->data;
-    for (int i=0; i<childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->disableUpdate();
-    }
-}
-
 void UIWidget::structureChangedEvent()
 {
     if (m_pUILayer)
     {
         m_pUILayer->getInputManager()->uiSceneHasChanged();
-    }
-}
-
-bool UIWidget::removeChild(UIWidget *child, bool cleanup)
-{
-    if (!child)
-    {
-        return false;
-    }
-    if (cleanup)
-    {
-        removeChildMoveToTrash(child);
-    }
-    else
-    {
-        removeChildReferenceOnly(child);
-    }
-    return true;
-}
-
-void UIWidget::removeChildMoveToTrash(UIWidget *child)
-{
-    if (!child)
-    {
-        return;
-    }
-    if (m_children->containsObject(child))
-    {
-        m_children->removeObject(child);
-        child->structureChangedEvent();
-        child->releaseResoures();
-        child->m_pWidgetParent = NULL;
-        delete child;
-    }
-}
-
-void UIWidget::removeChildReferenceOnly(UIWidget *child)
-{
-    if (!child)
-    {
-        return;
-    }
-    if (m_children->containsObject(child))
-    {
-        child->structureChangedEvent();
-        child->disableUpdate();
-        child->updateChildrenUILayer(NULL);
-        m_pRenderer->removeChild(child->m_pRenderer, false);
-        child->setNeedCheckVisibleDepandParent(false);
-        m_children->removeObject(child);
-        child->m_pWidgetParent = NULL;
-    }
-}
-
-void UIWidget::removeFromParentAndCleanup(bool cleanup)
-{
-    if (m_pWidgetParent)
-    {
-        m_pWidgetParent->removeChild(this, cleanup);
-    }
-    else
-    {
-        structureChangedEvent();
-        releaseResoures();
-        m_pWidgetParent = NULL;
-        delete this;
-    }
-}
-
-void UIWidget::removeAllChildrenAndCleanUp(bool cleanup)
-{
-    int times = m_children->data->num;
-    for (int i=0;i<times;i++)
-    {
-        UIWidget* child = (UIWidget*)(m_children->lastObject());
-        m_children->removeObject(child);
-        child->structureChangedEvent();
-        child->releaseResoures();
-        delete child;
-        child = NULL;
     }
 }
 
@@ -350,7 +161,7 @@ void UIWidget::setWidgetZOrder(int z)
     m_pRenderer->setZOrder(z);
     if (m_pWidgetParent)
     {
-        m_pWidgetParent->reorderChild(this);
+        ((Layout*)m_pWidgetParent)->reorderChild(this);
     }
 }
 
@@ -359,79 +170,10 @@ int UIWidget::getWidgetZOrder()
     return m_nWidgetZOrder;
 }
 
-void UIWidget::reorderChild(UIWidget* child)
-{
-    m_children->removeObject(child);
-    int childrenCount = m_children->data->num;
-    if (childrenCount <= 0)
-    {
-        m_children->addObject(child);
-    }
-    else
-    {
-        bool seekSucceed = false;
-        ccArray* arrayChildren = m_children->data;
-        for (int i=childrenCount-1; i>=0; --i)
-        {
-            UIWidget* widget = (UIWidget*)(arrayChildren->arr[i]);
-            if (child->getWidgetZOrder() >= widget->getWidgetZOrder())
-            {
-                if (i == childrenCount-1)
-                {
-                    m_children->addObject(child);
-                    seekSucceed = true;
-                    break;
-                }
-                else
-                {
-                    m_children->insertObject(child, i+1);
-                    seekSucceed = true;
-                    break;
-                }
-            }
-        }
-        if (!seekSucceed)
-        {
-            m_children->insertObject(child,0);
-        }
-    }
-    structureChangedEvent();
-}
-
-void UIWidget::setNeedCheckVisibleDepandParent(bool need)
-{
-    m_bNeedCheckVisibleDependParent = need;
-    if (m_children)
-    {
-        ccArray* arrayChildren = m_children->data;
-        int childrenCount = arrayChildren->num;
-        for (int i=0;i<childrenCount;i++)
-        {
-            UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-            child->setNeedCheckVisibleDepandParent(need);
-        }
-    }
-}
-
-void UIWidget::setTouchEnabled(bool enable, bool containChildren)
+void UIWidget::setTouchEnabled(bool enable)
 {
     m_bTouchEnabled = enable;
-    if (containChildren)
-    {
-        updateChildrenTouchEnabled(enable, containChildren);
-    }
     structureChangedEvent();
-}
-
-void UIWidget::updateChildrenTouchEnabled(bool enable, bool containChildren)
-{
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i = 0; i < childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->setTouchEnabled(enable, containChildren);
-    }
 }
 
 bool UIWidget::isTouchEnabled()
@@ -523,17 +265,6 @@ void UIWidget::setBrightStyle(BrightStyle style)
             break;
         default:
             break;
-    }
-}
-
-void UIWidget::updateBeTouchEnabled(bool enable)
-{
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i = 0; i < childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->setTouchEnabled(enable);
     }
 }
 
@@ -673,76 +404,6 @@ void UIWidget::addCancelEvent(CCObject *target, SEL_CancelEvent selector)
     m_pfnCancelSelector = selector;
 }
 
-void UIWidget::getLocationInWindow()
-{
-    m_locationInWindow = m_pRenderer->convertToWorldSpace(CCPointZero);
-}
-
-CCRect UIWidget::getRect()
-{
-    CCNode* validNode = NULL;
-    float width = 0.0f;
-    float height = 0.0f;
-    float anchorPointX = 0.0f;
-    float anchorPointY = 0.0f;
-    getLocationInWindow();
-    CCSize nodeSize = validNode->getContentSize();
-    width = nodeSize.width*getAbsoluteScaleX();
-    height = nodeSize.height*getAbsoluteScaleY();
-    CCPoint nodeAnchorPoint = validNode->getAnchorPoint();
-    anchorPointX = nodeAnchorPoint.x;
-    anchorPointY = nodeAnchorPoint.y;
-    switch (m_WidgetType)
-    {
-        case WidgetTypeWidget:
-            m_rect.origin.x = m_locationInWindow.x - width * anchorPointX;
-            m_rect.origin.y = m_locationInWindow.y - height * anchorPointY;
-            break;
-        case WidgetTypeContainer:
-            m_rect.origin.x = m_locationInWindow.x;
-            m_rect.origin.y = m_locationInWindow.y;
-            break;
-    }
-    m_rect.size.width = width;
-    m_rect.size.height = height;
-    
-    return m_rect;
-}
-
-CCRect UIWidget::getRelativeRect()
-{
-    CCNode* validNode = NULL;
-    float width = 0.0f;
-    float height = 0.0f;
-    float anchorPointX = 0.0f;
-    float anchorPointY = 0.0f;
-    CCSize nodeSize = validNode->getContentSize();
-    width = nodeSize.width*getScaleX();
-    height = nodeSize.height*getScaleY();
-    CCPoint nodeAnchorPoint = validNode->getAnchorPoint();
-    anchorPointX = nodeAnchorPoint.x;
-    anchorPointY = nodeAnchorPoint.y;
-    switch (m_WidgetType)
-    {
-        case WidgetTypeWidget:
-            m_relativeRect.origin.x = getPosition().x - width * anchorPointX;
-            m_relativeRect.origin.y = getPosition().y - height * anchorPointY;
-            break;
-        case WidgetTypeContainer:
-            m_relativeRect.origin.x = getPosition().x;
-            m_relativeRect.origin.y = getPosition().y;
-            break;
-    }
-    m_relativeRect.size.width = width;
-    m_relativeRect.size.height = height;
-    return m_relativeRect;
-}
-
-const CCSize& UIWidget::getContentSize()
-{
-    return CCSizeZero;
-}
-
 CCNode* UIWidget::getContainerNode()
 {
     return m_pRenderer;
@@ -761,10 +422,6 @@ bool UIWidget::hitTest(const CCPoint &pt)
 
 bool UIWidget::checkVisibleDependParent(const CCPoint &pt)
 {
-    if (!m_bNeedCheckVisibleDependParent)
-    {
-        return true;
-    }
     if (m_pWidgetParent)
     {
         bool bRet = false;
@@ -818,43 +475,6 @@ const CCPoint& UIWidget::getAnchorPoint()
 void UIWidget::setScale(float scale)
 {
     m_pRenderer->setScale(scale);
-    onScaleDirtyChanged();
-}
-
-void UIWidget::onScaleDirtyChanged()
-{
-    m_bScaleXDirty = m_bScaleYDirty = true;
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i=0; i<childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->onScaleDirtyChanged();
-    }
-}
-
-void UIWidget::onScaleXDirtyChanged()
-{
-    m_bScaleXDirty = true;
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i=0; i<childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->onScaleXDirtyChanged();
-    }
-}
-
-void UIWidget::onScaleYDirtyChanged()
-{
-    m_bScaleYDirty = true;
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i=0; i<childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->onScaleYDirtyChanged();
-    }
 }
 
 float UIWidget::getScale()
@@ -865,7 +485,6 @@ float UIWidget::getScale()
 void UIWidget::setScaleX(float scaleX)
 {
     m_pRenderer->setScaleX(scaleX);
-    onScaleXDirtyChanged();
 }
 
 float UIWidget::getScaleX()
@@ -876,7 +495,6 @@ float UIWidget::getScaleX()
 void UIWidget::setScaleY(float scaleY)
 {
     m_pRenderer->setScaleY(scaleY);
-    onScaleYDirtyChanged();
 }
 
 float UIWidget::getScaleY()
@@ -936,8 +554,6 @@ float UIWidget::getSkewY()
 
 void UIWidget::setVisible(bool visible)
 {
-    m_bVisibleDirty = true;
-    updateChildrenVisibleDirty(m_bVisibleDirty);
     m_bVisible = visible;
     m_pRenderer->setVisible(visible);
 }
@@ -956,13 +572,6 @@ void UIWidget::setEnabled(bool enabled)
 {
     m_bEnabled = enabled;
     DYNAMIC_CAST_CCNODERGBA->setEnabled(enabled);
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i = 0; i < childrenCount; i++)
-    {
-        UIWidget* child = dynamic_cast<UIWidget*>(arrayChildren->arr[i]);
-        child->setEnabled(enabled);
-    }
 }
 
 bool UIWidget::isEnabled() const
@@ -972,24 +581,22 @@ bool UIWidget::isEnabled() const
 
 float UIWidget::getRelativeLeftPos()
 {
-    return getRelativeRect().origin.x;
+    
 }
 
 float UIWidget::getRelativeBottomPos()
 {
-    return getRelativeRect().origin.y;
+
 }
 
 float UIWidget::getRelativeRightPos()
 {
-    CCRect rect = getRelativeRect();
-    return rect.origin.x + rect.size.width;
+
 }
 
 float UIWidget::getRelativeTopPos()
 {
-    CCRect rect = getRelativeRect();
-    return rect.origin.y + rect.size.height;
+
 }
 
 UIWidget* UIWidget::getWidgetParent()
@@ -1000,21 +607,6 @@ UIWidget* UIWidget::getWidgetParent()
 void UIWidget::setWidgetParent(UIWidget* parent)
 {
 	m_pWidgetParent = parent;
-}
-
-UIWidget* UIWidget::getChildByName(const char *name)
-{
-    return CCUIHELPER->seekWidgetByName(this, name);
-}
-
-UIWidget* UIWidget::getChildByTag(int tag)
-{
-    return CCUIHELPER->seekWidgetByTag(this, tag);
-}
-
-CCArray* UIWidget::getChildren()
-{
-    return m_children;
 }
 
 CCAction* UIWidget::runAction(CCAction *action)
@@ -1050,108 +642,7 @@ void UIWidget::stopActionByTag(int tag)
 CCAction* UIWidget::getActionByTag(int tag)
 {
     return m_pRenderer->getActionByTag(tag);
-}
-
-float UIWidget::getAbsoluteScaleX()
-{
-    if (m_bScaleXDirty)
-    {
-        float scaleX = getScaleX();
-        UIWidget* parent = getWidgetParent();
-        while (parent)
-        {
-            scaleX *= parent->getScaleX();
-            parent = parent->getWidgetParent();
-        }
-        m_fAbsoluteScaleX = scaleX;
-        m_bScaleXDirty = false;
-    }
-    return m_fAbsoluteScaleX;
-}
-
-float UIWidget::getAbsoluteScaleY()
-{
-    if (m_bScaleYDirty)
-    {
-        float scaleY = getScaleY();
-        UIWidget* parent = getWidgetParent();
-        while (parent)
-        {
-            scaleY *= parent->getScaleY();
-            parent = parent->getWidgetParent();
-        }
-        m_fAbsoluteScaleY = scaleY;
-        m_bScaleYDirty = false;
-    }
-    return m_fAbsoluteScaleY;
-}
-
-bool UIWidget::getAbsoluteVisible()
-{
-    if (m_bVisibleDirty)
-    {
-        UIWidget* parent = this;
-        bool visible = isVisible();
-        while (parent){
-            visible &= parent->isVisible();
-            if (!visible)
-            {
-                break;
-            }
-            parent = parent->getWidgetParent();
-        }
-        m_bAbsoluteVisible = visible;
-        m_bVisibleDirty = false;
-    }
-    return m_bAbsoluteVisible;
-}
-
-void UIWidget::updateChildrenVisibleDirty(bool dirty)
-{
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i=0; i<childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->m_bVisibleDirty = dirty;
-        child->updateChildrenVisibleDirty(dirty);
-    }
-}
-
-void UIWidget::updateChildrenOpacityDirty(bool dirty)
-{
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i = 0; i < childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        child->m_bOpacityDirty = dirty;
-        child->updateChildrenOpacityDirty(dirty);
-    }
-}    
-
-void UIWidget::adaptSize(float xProportion,float yProportion)
-{
-    m_fAdaptScaleX = xProportion;
-    m_fAdaptScaleY = yProportion;
-    setScaleX(m_fAdaptScaleX*getScaleX());
-    setScaleY(m_fAdaptScaleY*getScaleY());
-}
-
-void UIWidget::setCreateFromFile(bool is)
-{
-    m_bIsCreatedFromFile = is;
-}
-
-void UIWidget::setFileDesignSize(const CCSize &size)
-{
-    m_fileDesignSize = size;
-}
-
-const CCSize& UIWidget::getFileDesignSize()
-{
-    return m_fileDesignSize;
-}
+}  
 
 void UIWidget::setColor(const ccColor3B &color)
 {
@@ -1288,9 +779,19 @@ int UIWidget::getActionTag()
 	return m_nActionTag;
 }
 
-void UIWidget::setBindingAction(UIActionNode *actionNode)
+void UIWidget::setLayoutParameter(LayoutParameter *parameter)
 {
-    m_pBindingAction = actionNode;
+    if (m_pLayoutParameter)
+    {
+        CC_SAFE_RELEASE_NULL(m_pLayoutParameter);
+    }
+    m_pLayoutParameter = parameter;
+    CC_SAFE_RETAIN(m_pLayoutParameter);
+}
+
+LayoutParameter* UIWidget::getLayoutParameter()
+{
+    return m_pLayoutParameter;
 }
 
 GUIRenderer::GUIRenderer():

@@ -22,56 +22,63 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __UICONTAINERWIDGET_H__
-#define __UICONTAINERWIDGET_H__
+#ifndef __LAYOUTEXECUTANT_H__
+#define __LAYOUTEXECUTANT_H__
 
-#include "UIWidget.h"
+#include "LayoutParameter.h"
 
 NS_CC_EXT_BEGIN
 
 typedef enum
 {
-    UI_LAYOUT_ABSOLUTE,
-    UI_LAYOUT_LINEAR_VERTICAL,
-    UI_LAYOUT_LINEAR_HORIZONTAL,
-    UI_LAYOUT_RELATIVE,
-    UI_LAYOUT_GRID,
-    UI_LAYOUT_BORDER,
-    UI_LAYOUT_TABLE
+    LAYOUT_DEFAULT,
+    LAYOUT_LINEAR_VERTICAL,
+    LAYOUT_LINEAR_HORIZONTAL,
+    LAYOUT_RELATIVE
 }LayoutType;
 
-
-class UIContainerWidget : public UIWidget
+class LayoutExecutant : public CCObject
 {
 public:
-    UIContainerWidget();
-    virtual ~UIContainerWidget();
-    static UIContainerWidget* create();
-    
-    //Only containerWidget can use the LayoutType for doing layout to child widget
-    virtual void setLayoutType(LayoutType type);
-    virtual LayoutType getLayoutType();
-    virtual void doLayout();
-    
-    virtual bool addChild(UIWidget* child);
-    virtual void setClippingEnabled(bool able);
-    virtual void setClipRect(const CCRect &rect);
-    virtual float getWidth();
-    virtual float getHeight();
-    virtual bool isClippingEnabled();
-    const CCSize& getWrapSize() const;
+    LayoutExecutant(){m_eLayoutType = LAYOUT_DEFAULT;};
+    virtual ~LayoutExecutant(){};
+    virtual void doLayout()=0;
+    LayoutType getLayoutType(){return m_eLayoutType;};
 protected:
-    virtual bool init();
-    virtual void initNodes();
-    virtual bool checkChildVisibleInParent(UIWidget* parent, UIWidget* child);
-    virtual void onSizeChanged();
-protected:    
-    float m_fWidth;
-    float m_fHeight;
-    bool m_bClippingEnabled;
+    LayoutType m_eLayoutType;
+};
+
+class LinearVerticalLayoutExecutant : public LayoutExecutant
+{
+public:
+    LinearVerticalLayoutExecutant(){m_eLayoutType = LAYOUT_LINEAR_VERTICAL;};
+    virtual ~LinearVerticalLayoutExecutant(){};
+    static LinearVerticalLayoutExecutant* create();
+    virtual void doLayout();
+};
+
+class LinearHorizontalLayoutExecutant : public LayoutExecutant
+{
+public:
+    LinearHorizontalLayoutExecutant(){m_eLayoutType = LAYOUT_LINEAR_HORIZONTAL;};
+    virtual ~LinearHorizontalLayoutExecutant(){};
+    static LinearHorizontalLayoutExecutant* create();
+    virtual void doLayout();
+protected:
+    LayoutType m_eLayoutType;
+};
+
+class RelativeLayoutExecutant : public LayoutExecutant
+{
+public:
+    RelativeLayoutExecutant(){m_eLayoutType = LAYOUT_RELATIVE;};
+    virtual ~RelativeLayoutExecutant(){};
+    static RelativeLayoutExecutant* create();
+    virtual void doLayout();
+protected:
     LayoutType m_eLayoutType;
 };
 
 NS_CC_EXT_END
 
-#endif /* defined(__CocoGUI__CocoContainerWidget__) */
+#endif /* defined(__LayoutExecutant__) */

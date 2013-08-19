@@ -68,9 +68,9 @@ bool UIZoomButton::init()
     return false;
 }
 
-void UIZoomButton::initNodes()
+void UIZoomButton::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pNormalTitle = CCLabelTTF::create();
     m_pPressedTitle = CCLabelTTF::create();
     m_pDisabledTitle = CCLabelTTF::create();

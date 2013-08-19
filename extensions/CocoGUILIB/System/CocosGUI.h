@@ -27,7 +27,7 @@
 
 
 #include "../BaseClasses/UIWidget.h"
-#include "../BaseClasses/UIContainerWidget.h"
+#include "../Layouts/Layout.h"
 #include "../BaseClasses/UIRootWidget.h"
 #include "../UIWidgets/UIButton.h"
 #include "../UIWidgets/UICheckBox.h"
@@ -35,7 +35,7 @@
 #include "../UIWidgets/UILabel.h"
 #include "../UIWidgets/UILabelAtlas.h"
 #include "../UIWidgets/UILoadingBar.h"
-#include "../UIWidgets/UIPanel.h"
+//#include "../UIWidgets/UIPanel.h"
 #include "../UIWidgets/ScrollWidget/UIScrollView.h"
 #include "../UIWidgets/UISlider.h"
 #include "../UIWidgets/UITextArea.h"
@@ -46,12 +46,10 @@
 #include "../UIWidgets/UIZoomButton.h"
 #include "../UIWidgets/UILabelBMFont.h"
 #include "../UIWidgets/ScrollWidget/UIPageView.h"
-#include "../UIWidgets/ScrollWidget/UIDragPanel.h"
 #include "UIHelper.h"
 #include "CCSReader.h"
 #include "UILayer.h"
-#include "../Action/UIActionManager.h"
-    
+#include "../Layouts/LayoutExecutant.h"
 NS_CC_EXT_BEGIN
 
 const char* CocosGUIVersion();

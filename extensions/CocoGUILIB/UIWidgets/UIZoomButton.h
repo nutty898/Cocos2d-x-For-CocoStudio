@@ -66,7 +66,7 @@ public:
     bool getZoomOnTouchDown();
 protected:
     virtual bool init();
-    virtual void initNodes();
+    virtual void initRenderer();
     virtual void onPressStateChangedToNormal();
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();

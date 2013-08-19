@@ -10,7 +10,7 @@ CocosGUITestScene::CocosGUITestScene(bool bPortrait)
 CocosGUITestScene::~CocosGUITestScene()
 {
 	cocos2d::extension::CCJsonReader::purgeJsonReader();
-	cocos2d::extension::UIActionManager::purgeUIActionManager();
+//	cocos2d::extension::UIActionManager::purgeUIActionManager();
 	cocos2d::extension::UIHelper::purgeUIHelper();
 }
 
@@ -45,16 +45,28 @@ void CocosGUITestScene::runThisTest()
     
     btn->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
     btn->setPosition(ccp(100, 100));
-    btn->setAnchorPoint(ccp(0, 0));
+//    btn->setAnchorPoint(ccp(0, 0));
 //    btn->setScale(0.5f);
     btn->setSize(CCSizeMake(100, 100));
-    ul->addWidget(btn);
+//    ul->addWidget(btn);
     btn->setTouchEnabled(true);
     btn->setScale9Enabled(true);
     
-    btn->setBright(false);
+//    btn->setBright(false);
     
     btn->addReleaseEvent(this, coco_releaseselector(CocosGUITestScene::MainMenuCallback));
+    
+    Layout* l = Layout::create();
+    l->addChild(btn);
+    ul->addWidget(l);
+    l->setSize(CCSizeMake(100, 100));
+    
+    LinearHorizontalLayoutExecutant* le = LinearHorizontalLayoutExecutant::create();
+    
+    l->setLayoutExecutant(le);
+    l->getLayoutExecutant()->doLayout();
+    
+//    l->setClippingEnabled(true);
     
 //    UICheckBox* cb = UICheckBox::create();
 //    cb->loadTextures("cocosgui/check_box_normal.png", "cocosgui/check_box_normal_press.png", "cocosgui/check_box_active.png", "cocosgui/check_box_normal_disable.png", "cocosgui/check_box_active_disable.png");

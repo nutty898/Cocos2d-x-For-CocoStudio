@@ -22,47 +22,66 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __UILayoutUnit_H__
-#define __UILayoutUnit_H__
+#ifndef __LAYOUTPARMETER_H__
+#define __LAYOUTPARMETER_H__
 
 #include "UILayoutDefine.h"
 
 NS_CC_EXT_BEGIN
 
-class UILayoutUnit
+typedef enum
+{
+    LAYOUT_PARAMETER_NONE,
+    LAYOUT_PARAMETER_LINEAR,
+    LAYOUT_PARAMETER_RELATIVE
+}LayoutParameterType;
+
+class LayoutParameter : public CCObject
 {
 public:
-    UILayoutUnit();
-    virtual ~UILayoutUnit();
-    //layout
+    LayoutParameter() : m_margin(UIMargin()){m_eLayoutParameterType = LAYOUT_PARAMETER_NONE;};
+    virtual ~LayoutParameter(){};
+    static LayoutParameter* create();
     void setMargin(const UIMargin& margin);
     const UIMargin& getMargin() const;
-    void setLinearGravity(UILinearGravity gravity);
-    UILinearGravity getLinearGravity() const;
-    
-    void setRelativeAlign(UIRelativeAlign align);
-    UIRelativeAlign getRelativeAlign() const;
-    
-    void setRelativeAlignWidget(UIRelativeAlignWidget align);
-    UIRelativeAlignWidget getRelativeAlignWidget() const;
-    
-    void setRelativeWidgetName(const char* name);
-    const char* getRelativeWidgetName() const;
-    
-    void setRelativeLayoutName(const char* name);
-    const char* getRelativeLayoutName() const;
+    LayoutParameterType getLayoutType() const;
 protected:
-    //layout
     UIMargin m_margin;
-    //linear
+    LayoutParameterType m_eLayoutParameterType;
+};
+
+class LinearLayoutParameter : public LayoutParameter
+{
+public:
+    LinearLayoutParameter() : m_eLinearGravity(LINEAR_GRAVITY_NONE){m_eLayoutParameterType = LAYOUT_PARAMETER_LINEAR;};
+    virtual ~LinearLayoutParameter(){};
+    static LinearLayoutParameter* create();
+    void setGravity(UILinearGravity gravity);
+    UILinearGravity getGravity() const;
+protected:
     UILinearGravity m_eLinearGravity;
-    //relative
+};
+
+class RelativeLayoutParameter : public LayoutParameter
+{
+public:
+    RelativeLayoutParameter() : m_eRelativeAlign(RELATIVE_ALIGN_NONE),m_strRelativeWidgetName(""),m_strRelativeLayoutName(""){m_eLayoutParameterType = LAYOUT_PARAMETER_RELATIVE;};
+    virtual ~RelativeLayoutParameter(){};
+    static RelativeLayoutParameter* create();
+    void setAlign(UIRelativeAlign align);
+    UIRelativeAlign getAlign() const;
+    
+    void setRelativeToWidgetName(const char* name);
+    const char* getRelativeToWidgetName() const;
+    
+    void setRelativeName(const char* name);
+    const char* getRelativeName() const;
+protected:
     UIRelativeAlign m_eRelativeAlign;
-    UIRelativeAlignWidget m_eRelativeAlignWidget;
     std::string m_strRelativeWidgetName;
     std::string m_strRelativeLayoutName;
 };
 
 NS_CC_EXT_END
 
-#endif /* defined(__UILayoutUnit__) */
+#endif /* defined(__TestCpp__LayoutParameter__) */

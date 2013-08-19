@@ -62,9 +62,9 @@ bool UILabel::init()
     return false;
 }
 
-void UILabel::initNodes()
+void UILabel::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pRenderLabel = CCLabelTTF::create();
     m_pRenderer->addChild(m_pRenderLabel);
 }

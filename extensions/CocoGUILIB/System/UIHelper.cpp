@@ -123,7 +123,7 @@ void UIHelper::removeAllSpriteFrame()
     m_textureFiles->removeAllObjects();
 }
 
-UIWidget* UIHelper::seekWidgetByTag(UIWidget* root, int tag)
+UIWidget* UIHelper::seekWidgetByTag(Layout* root, int tag)
 {
     if (!root)
     {
@@ -138,7 +138,13 @@ UIWidget* UIHelper::seekWidgetByTag(UIWidget* root, int tag)
     for (int i=0;i<length;i++)
     {
         UIWidget* child = (UIWidget*)(arrayRootChildren->arr[i]);
-        UIWidget* res = seekWidgetByTag(child,tag);
+        Layout* layout = dynamic_cast<Layout*>(child);
+        UIWidget* res = NULL;
+        if (layout)
+        {
+            res = seekWidgetByTag(layout,tag);
+        }
+        
         if (res != NULL)
         {
             return res;
@@ -147,7 +153,7 @@ UIWidget* UIHelper::seekWidgetByTag(UIWidget* root, int tag)
     return NULL;
 }
 
-UIWidget* UIHelper::seekWidgetByName(UIWidget* root, const char *name)
+UIWidget* UIHelper::seekWidgetByName(Layout* root, const char *name)
 {
     if (!root)
     {
@@ -162,7 +168,12 @@ UIWidget* UIHelper::seekWidgetByName(UIWidget* root, const char *name)
     for (int i=0;i<length;i++)
     {
         UIWidget* child = (UIWidget*)(arrayRootChildren->arr[i]);
-        UIWidget* res = seekWidgetByName(child,name);
+        Layout* layout = dynamic_cast<Layout*>(child);
+        UIWidget* res = NULL;
+        if (layout)
+        {
+            res = seekWidgetByName(layout,name);
+        }
         if (res != NULL)
         {
             return res;
@@ -171,31 +182,7 @@ UIWidget* UIHelper::seekWidgetByName(UIWidget* root, const char *name)
     return NULL;
 }
 
-UIWidget* UIHelper::seekActionWidgetByActionTag(UIWidget* root, int tag)
-{
-	if (!root)
-	{
-		return NULL;
-	}
-	if (root->getActionTag() == tag)
-	{
-		return root;
-	}
-    ccArray* arrayRootChildren = root->getChildren()->data;
-    int length = arrayRootChildren->num;
-	for (int i=0;i<length;i++)
-	{
-		UIWidget* child = (UIWidget*)(arrayRootChildren->arr[i]);
-		UIWidget* res = seekActionWidgetByActionTag(child,tag);
-		if (res != NULL)
-		{
-			return res;
-		}
-	}
-	return NULL;
-}
-
-UIWidget* UIHelper::seekWidgetByRelativeName(UIWidget *root, const char *name)
+UIWidget* UIHelper::seekWidgetByRelativeName(Layout *root, const char *name)
 {
     if (!root)
     {
@@ -206,7 +193,8 @@ UIWidget* UIHelper::seekWidgetByRelativeName(UIWidget *root, const char *name)
     for (int i=0;i<length;i++)
     {
         UIWidget* child = (UIWidget*)(arrayRootChildren->arr[i]);
-        if (strcmp(child->getRelativeLayoutName(), name) == 0)
+        RelativeLayoutParameter* layoutParameter = dynamic_cast<RelativeLayoutParameter*>(child->getLayoutParameter());
+        if (layoutParameter && strcmp(layoutParameter->getRelativeName(), name) == 0)
         {
             return child;
         }

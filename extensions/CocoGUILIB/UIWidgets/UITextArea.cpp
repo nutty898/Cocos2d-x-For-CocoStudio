@@ -46,9 +46,9 @@ UITextArea* UITextArea::create()
     return NULL;
 }
 
-void UITextArea::initNodes()
+void UITextArea::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pRenderLabel = CCLabelTTF::create();
     m_pRenderer->addChild(m_pRenderLabel);
 }

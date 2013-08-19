@@ -24,7 +24,6 @@
 
 #include "CocosGUI.h"
 #include "../../CocostudioReader/DictionaryHelper.h"
-#include "../Action/UIActionManager.h"
 #include <fstream>
 #include <iostream>
 
@@ -148,8 +147,8 @@ UIWidget* CCSReader::widgetFromJsonDictionary(cs::CSJsonDictionary* data)
     }
     else if (classname && strcmp(classname, "Panel") == 0)
     {
-        widget = UIPanel::create();
-        setPropsForPanelFromJsonDictionary(widget, uiOptions);
+//        widget = UIPanel::create();
+//        setPropsForPanelFromJsonDictionary(widget, uiOptions);
     }
     else if (classname && strcmp(classname, "Slider") == 0)
     {
@@ -173,22 +172,25 @@ UIWidget* CCSReader::widgetFromJsonDictionary(cs::CSJsonDictionary* data)
     }
     else if (classname && strcmp(classname, "DragPanel") == 0)
     {
-        widget = UIDragPanel::create();
-        setPropsForDragPanelFromJsonDictionary(widget, uiOptions);
+//        widget = UIDragPanel::create();
+//        setPropsForDragPanelFromJsonDictionary(widget, uiOptions);
     }
     
-    int childrenCount = DICTOOL->getArrayCount_json(data, "children");
-    for (int i=0;i<childrenCount;i++)
+    Layout* layout = dynamic_cast<Layout*>(widget);
+    if (layout)
     {
-        cs::CSJsonDictionary* subData = DICTOOL->getDictionaryFromArray_json(data, "children", i);
-        UIWidget* child = widgetFromJsonDictionary(subData);
-        if (child)
+        int childrenCount = DICTOOL->getArrayCount_json(data, "children");
+        for (int i=0;i<childrenCount;i++)
         {
-            widget->addChild(child);
+            cs::CSJsonDictionary* subData = DICTOOL->getDictionaryFromArray_json(data, "children", i);
+            UIWidget* child = widgetFromJsonDictionary(subData);
+            if (child)
+            {
+                layout->addChild(child);
+            }
+            CC_SAFE_DELETE(subData);
         }
-		CC_SAFE_DELETE(subData);
     }
-    
 	CC_SAFE_DELETE(uiOptions);
     return widget;
 }
@@ -247,22 +249,15 @@ UIWidget* CCSReader::widgetFromJsonFile(const char *fileName)
     UIWidget* widget = widgetFromJsonDictionary(widgetTree);
     
     /* *********temp********* */
-    if (widget->getContentSize().equals(CCSizeZero))
+    if (widget->getSize().equals(CCSizeZero))
     {
-        UIContainerWidget* rootWidget = dynamic_cast<UIContainerWidget*>(widget);
+        Layout* rootWidget = dynamic_cast<Layout*>(widget);
         rootWidget->setSize(CCSizeMake(fileDesignWidth, fileDesignHeight));
     }
     /* ********************** */
     
-    widget->setFileDesignSize(CCSizeMake(fileDesignWidth, fileDesignHeight));
-    cs::CSJsonDictionary* actions = DICTOOL->getSubDictionary_json(jsonDict, "animation");
-    /* *********temp********* */
-    //    UIActionManager::shareManager()->releaseActions();
-    /* ********************** */
-    UIActionManager::shareManager()->initWithDictionary(fileName,actions,widget);
     
 	CC_SAFE_DELETE(widgetTree);
-	CC_SAFE_DELETE(actions);
 	CC_SAFE_DELETE(jsonDict);
     CC_SAFE_DELETE_ARRAY(des);
     return widget;
@@ -863,147 +858,147 @@ void CCSReader::setPropsForLabelAtlasFromJsonDictionary(UIWidget*widget,cs::CSJs
 void CCSReader::setPropsForContainerWidgetFromJsonDictionary(UIWidget *widget, cs::CSJsonDictionary *options)
 {
     setPropsForWidgetFromJsonDictionary(widget, options);
-    UIContainerWidget* containerWidget = (UIContainerWidget*)widget;
-    containerWidget->setClippingEnabled(DICTOOL->getBooleanValue_json(options, "clipAble"));
+//    UIContainerWidget* containerWidget = (UIContainerWidget*)widget;
+//    containerWidget->setClippingEnabled(DICTOOL->getBooleanValue_json(options, "clipAble"));
     setColorPropsForWidgetFromJsonDictionary(widget,options);
 }
 
 void CCSReader::setPropsForPanelFromJsonDictionary(UIWidget*widget,cs::CSJsonDictionary* options)
 {
-    if (m_bOlderVersion)
-    {
-        setPropsForContainerWidgetFromJsonDictionary(widget, options);
-        UIPanel* panel = (UIPanel*)widget;
-        bool backGroundScale9Enable = DICTOOL->getBooleanValue_json(options, "backGroundScale9Enable");
-        panel->setBackGroundImageScale9Enabled(backGroundScale9Enable);
-        int cr = DICTOOL->getIntValue_json(options, "bgColorR");
-        int cg = DICTOOL->getIntValue_json(options, "bgColorG");
-        int cb = DICTOOL->getIntValue_json(options, "bgColorB");
-        
-        int scr = DICTOOL->getIntValue_json(options, "bgStartColorR");
-        int scg = DICTOOL->getIntValue_json(options, "bgStartColorG");
-        int scb = DICTOOL->getIntValue_json(options, "bgStartColorB");
-        
-        int ecr = DICTOOL->getIntValue_json(options, "bgEndColorR");
-        int ecg = DICTOOL->getIntValue_json(options, "bgEndColorG");
-        int ecb = DICTOOL->getIntValue_json(options, "bgEndColorB");
-        
-        float bgcv1 = DICTOOL->getFloatValue_json(options, "vectorX");
-        float bgcv2 = DICTOOL->getFloatValue_json(options, "vectorY");
-        panel->setBackGroundColorVector(ccp(bgcv1, bgcv2));
-        
-        int co = DICTOOL->getIntValue_json(options, "bgColorOpacity");
-        
-        int colorType = DICTOOL->getIntValue_json(options, "colorType");
-        panel->setBackGroundColorType(PanelColorType(colorType));
-        float w = DICTOOL->getFloatValue_json(options, "width");
-        float h = DICTOOL->getFloatValue_json(options, "height");
-        panel->setBackGroundColor(ccc3(scr, scg, scb),ccc3(ecr, ecg, ecb));
-        panel->setBackGroundColor(ccc3(cr, cg, cb));
-        panel->setBackGroundColorOpacity(co);
-        panel->setSize(CCSizeMake(w, h));
-        
-        std::string tp_b = m_strFilePath;
-        const char* imageFileName = DICTOOL->getStringValue_json(options, "backGroundImage");
-        const char* imageFileName_tp = (imageFileName && (strcmp(imageFileName, "") != 0))?tp_b.append(imageFileName).c_str():NULL;
-        bool useMergedTexture = DICTOOL->getBooleanValue_json(options, "useMergedTexture");
-        if (backGroundScale9Enable)
-        {
-            float cx = DICTOOL->getFloatValue_json(options, "capInsetsX");
-            float cy = DICTOOL->getFloatValue_json(options, "capInsetsY");
-            float cw = DICTOOL->getFloatValue_json(options, "capInsetsWidth");
-            float ch = DICTOOL->getFloatValue_json(options, "capInsetsHeight");
-            if (useMergedTexture)
-            {
-                panel->loadBackGroundImage(imageFileName,UI_TEX_TYPE_PLIST);
-            }
-            else
-            {
-                panel->loadBackGroundImage(imageFileName_tp);
-            }
-            panel->setBackGroundImageCapInsets(CCRectMake(cx, cy, cw, ch));
-        }
-        else
-        {
-            
-            if (useMergedTexture)
-            {
-                panel->loadBackGroundImage(imageFileName,UI_TEX_TYPE_PLIST);
-            }
-            else
-            {
-                panel->loadBackGroundImage(imageFileName_tp);
-            }
-        }
-        setColorPropsForWidgetFromJsonDictionary(widget,options);
-    }
-    else
-    {
-        setPropsForContainerWidgetFromJsonDictionary(widget, options);
-        UIPanel* panel = (UIPanel*)widget;
-        bool backGroundScale9Enable = DICTOOL->getBooleanValue_json(options, "backGroundScale9Enable");
-        panel->setBackGroundImageScale9Enabled(backGroundScale9Enable);
-        int cr = DICTOOL->getIntValue_json(options, "bgColorR");
-        int cg = DICTOOL->getIntValue_json(options, "bgColorG");
-        int cb = DICTOOL->getIntValue_json(options, "bgColorB");
-        
-        int scr = DICTOOL->getIntValue_json(options, "bgStartColorR");
-        int scg = DICTOOL->getIntValue_json(options, "bgStartColorG");
-        int scb = DICTOOL->getIntValue_json(options, "bgStartColorB");
-        
-        int ecr = DICTOOL->getIntValue_json(options, "bgEndColorR");
-        int ecg = DICTOOL->getIntValue_json(options, "bgEndColorG");
-        int ecb = DICTOOL->getIntValue_json(options, "bgEndColorB");
-        
-        float bgcv1 = DICTOOL->getFloatValue_json(options, "vectorX");
-        float bgcv2 = DICTOOL->getFloatValue_json(options, "vectorY");
-        panel->setBackGroundColorVector(ccp(bgcv1, bgcv2));
-        
-        int co = DICTOOL->getIntValue_json(options, "bgColorOpacity");
-        
-        int colorType = DICTOOL->getIntValue_json(options, "colorType");
-        panel->setBackGroundColorType(PanelColorType(colorType));
-        float w = DICTOOL->getFloatValue_json(options, "width");
-        float h = DICTOOL->getFloatValue_json(options, "height");
-        panel->setBackGroundColor(ccc3(scr, scg, scb),ccc3(ecr, ecg, ecb));
-        panel->setBackGroundColor(ccc3(cr, cg, cb));
-        panel->setBackGroundColorOpacity(co);
-        panel->setSize(CCSizeMake(w, h));
-        
-        
-        cs::CSJsonDictionary* imageFileNameDic = DICTOOL->getSubDictionary_json(options, "backGroundImageData");
-        int imageFileNameType = DICTOOL->getIntValue_json(imageFileNameDic, "resourceType");
-        switch (imageFileNameType)
-        {
-            case 0:
-            {
-                std::string tp_b = m_strFilePath;
-                const char* imageFileName = DICTOOL->getStringValue_json(imageFileNameDic, "path");
-                const char* imageFileName_tp = (imageFileName && (strcmp(imageFileName, "") != 0))?tp_b.append(imageFileName).c_str():NULL;
-                panel->loadBackGroundImage(imageFileName_tp);
-                break;
-            }
-            case 1:
-            {
-                const char* imageFileName = DICTOOL->getStringValue_json(imageFileNameDic, "path");
-                panel->loadBackGroundImage(imageFileName,UI_TEX_TYPE_PLIST);
-                break;
-            }
-            default:
-                break;
-        }
-		CC_SAFE_DELETE(imageFileNameDic);
-        
-        if (backGroundScale9Enable)
-        {
-            float cx = DICTOOL->getFloatValue_json(options, "capInsetsX");
-            float cy = DICTOOL->getFloatValue_json(options, "capInsetsY");
-            float cw = DICTOOL->getFloatValue_json(options, "capInsetsWidth");
-            float ch = DICTOOL->getFloatValue_json(options, "capInsetsHeight");
-            panel->setBackGroundImageCapInsets(CCRectMake(cx, cy, cw, ch));
-        }
-        setColorPropsForWidgetFromJsonDictionary(widget,options);
-    }
+//    if (m_bOlderVersion)
+//    {
+//        setPropsForContainerWidgetFromJsonDictionary(widget, options);
+////        UIPanel* panel = (UIPanel*)widget;
+//        bool backGroundScale9Enable = DICTOOL->getBooleanValue_json(options, "backGroundScale9Enable");
+//        panel->setBackGroundImageScale9Enabled(backGroundScale9Enable);
+//        int cr = DICTOOL->getIntValue_json(options, "bgColorR");
+//        int cg = DICTOOL->getIntValue_json(options, "bgColorG");
+//        int cb = DICTOOL->getIntValue_json(options, "bgColorB");
+//        
+//        int scr = DICTOOL->getIntValue_json(options, "bgStartColorR");
+//        int scg = DICTOOL->getIntValue_json(options, "bgStartColorG");
+//        int scb = DICTOOL->getIntValue_json(options, "bgStartColorB");
+//        
+//        int ecr = DICTOOL->getIntValue_json(options, "bgEndColorR");
+//        int ecg = DICTOOL->getIntValue_json(options, "bgEndColorG");
+//        int ecb = DICTOOL->getIntValue_json(options, "bgEndColorB");
+//        
+//        float bgcv1 = DICTOOL->getFloatValue_json(options, "vectorX");
+//        float bgcv2 = DICTOOL->getFloatValue_json(options, "vectorY");
+//        panel->setBackGroundColorVector(ccp(bgcv1, bgcv2));
+//        
+//        int co = DICTOOL->getIntValue_json(options, "bgColorOpacity");
+//        
+//        int colorType = DICTOOL->getIntValue_json(options, "colorType");
+//        panel->setBackGroundColorType(PanelColorType(colorType));
+//        float w = DICTOOL->getFloatValue_json(options, "width");
+//        float h = DICTOOL->getFloatValue_json(options, "height");
+//        panel->setBackGroundColor(ccc3(scr, scg, scb),ccc3(ecr, ecg, ecb));
+//        panel->setBackGroundColor(ccc3(cr, cg, cb));
+//        panel->setBackGroundColorOpacity(co);
+//        panel->setSize(CCSizeMake(w, h));
+//        
+//        std::string tp_b = m_strFilePath;
+//        const char* imageFileName = DICTOOL->getStringValue_json(options, "backGroundImage");
+//        const char* imageFileName_tp = (imageFileName && (strcmp(imageFileName, "") != 0))?tp_b.append(imageFileName).c_str():NULL;
+//        bool useMergedTexture = DICTOOL->getBooleanValue_json(options, "useMergedTexture");
+//        if (backGroundScale9Enable)
+//        {
+//            float cx = DICTOOL->getFloatValue_json(options, "capInsetsX");
+//            float cy = DICTOOL->getFloatValue_json(options, "capInsetsY");
+//            float cw = DICTOOL->getFloatValue_json(options, "capInsetsWidth");
+//            float ch = DICTOOL->getFloatValue_json(options, "capInsetsHeight");
+//            if (useMergedTexture)
+//            {
+//                panel->loadBackGroundImage(imageFileName,UI_TEX_TYPE_PLIST);
+//            }
+//            else
+//            {
+//                panel->loadBackGroundImage(imageFileName_tp);
+//            }
+//            panel->setBackGroundImageCapInsets(CCRectMake(cx, cy, cw, ch));
+//        }
+//        else
+//        {
+//            
+//            if (useMergedTexture)
+//            {
+//                panel->loadBackGroundImage(imageFileName,UI_TEX_TYPE_PLIST);
+//            }
+//            else
+//            {
+//                panel->loadBackGroundImage(imageFileName_tp);
+//            }
+//        }
+//        setColorPropsForWidgetFromJsonDictionary(widget,options);
+//    }
+//    else
+//    {
+//        setPropsForContainerWidgetFromJsonDictionary(widget, options);
+//        UIPanel* panel = (UIPanel*)widget;
+//        bool backGroundScale9Enable = DICTOOL->getBooleanValue_json(options, "backGroundScale9Enable");
+//        panel->setBackGroundImageScale9Enabled(backGroundScale9Enable);
+//        int cr = DICTOOL->getIntValue_json(options, "bgColorR");
+//        int cg = DICTOOL->getIntValue_json(options, "bgColorG");
+//        int cb = DICTOOL->getIntValue_json(options, "bgColorB");
+//        
+//        int scr = DICTOOL->getIntValue_json(options, "bgStartColorR");
+//        int scg = DICTOOL->getIntValue_json(options, "bgStartColorG");
+//        int scb = DICTOOL->getIntValue_json(options, "bgStartColorB");
+//        
+//        int ecr = DICTOOL->getIntValue_json(options, "bgEndColorR");
+//        int ecg = DICTOOL->getIntValue_json(options, "bgEndColorG");
+//        int ecb = DICTOOL->getIntValue_json(options, "bgEndColorB");
+//        
+//        float bgcv1 = DICTOOL->getFloatValue_json(options, "vectorX");
+//        float bgcv2 = DICTOOL->getFloatValue_json(options, "vectorY");
+//        panel->setBackGroundColorVector(ccp(bgcv1, bgcv2));
+//        
+//        int co = DICTOOL->getIntValue_json(options, "bgColorOpacity");
+//        
+//        int colorType = DICTOOL->getIntValue_json(options, "colorType");
+//        panel->setBackGroundColorType(PanelColorType(colorType));
+//        float w = DICTOOL->getFloatValue_json(options, "width");
+//        float h = DICTOOL->getFloatValue_json(options, "height");
+//        panel->setBackGroundColor(ccc3(scr, scg, scb),ccc3(ecr, ecg, ecb));
+//        panel->setBackGroundColor(ccc3(cr, cg, cb));
+//        panel->setBackGroundColorOpacity(co);
+//        panel->setSize(CCSizeMake(w, h));
+//        
+//        
+//        cs::CSJsonDictionary* imageFileNameDic = DICTOOL->getSubDictionary_json(options, "backGroundImageData");
+//        int imageFileNameType = DICTOOL->getIntValue_json(imageFileNameDic, "resourceType");
+//        switch (imageFileNameType)
+//        {
+//            case 0:
+//            {
+//                std::string tp_b = m_strFilePath;
+//                const char* imageFileName = DICTOOL->getStringValue_json(imageFileNameDic, "path");
+//                const char* imageFileName_tp = (imageFileName && (strcmp(imageFileName, "") != 0))?tp_b.append(imageFileName).c_str():NULL;
+//                panel->loadBackGroundImage(imageFileName_tp);
+//                break;
+//            }
+//            case 1:
+//            {
+//                const char* imageFileName = DICTOOL->getStringValue_json(imageFileNameDic, "path");
+//                panel->loadBackGroundImage(imageFileName,UI_TEX_TYPE_PLIST);
+//                break;
+//            }
+//            default:
+//                break;
+//        }
+//		CC_SAFE_DELETE(imageFileNameDic);
+//        
+//        if (backGroundScale9Enable)
+//        {
+//            float cx = DICTOOL->getFloatValue_json(options, "capInsetsX");
+//            float cy = DICTOOL->getFloatValue_json(options, "capInsetsY");
+//            float cw = DICTOOL->getFloatValue_json(options, "capInsetsWidth");
+//            float ch = DICTOOL->getFloatValue_json(options, "capInsetsHeight");
+//            panel->setBackGroundImageCapInsets(CCRectMake(cx, cy, cw, ch));
+//        }
+//        setColorPropsForWidgetFromJsonDictionary(widget,options);
+//    }
 }
 
 void CCSReader::setPropsForScrollViewFromJsonDictionary(UIWidget*widget,cs::CSJsonDictionary* options)
@@ -1539,14 +1534,14 @@ void CCSReader::setPropsForLabelBMFontFromJsonDictionary(UIWidget *widget, cs::C
 
 void CCSReader::setPropsForDragPanelFromJsonDictionary(UIWidget *widget, cs::CSJsonDictionary *options)
 {
-    setPropsForPanelFromJsonDictionary(widget, options);
-    
-    UIDragPanel* dragPanel = (UIDragPanel*)widget;
-    
-    bool bounceEnable = DICTOOL->getBooleanValue_json(options, "bounceEnable");
-    dragPanel->setBounceEnabled(bounceEnable);
-    
-    setColorPropsForWidgetFromJsonDictionary(widget, options);
+//    setPropsForPanelFromJsonDictionary(widget, options);
+//    
+//    UIDragPanel* dragPanel = (UIDragPanel*)widget;
+//    
+//    bool bounceEnable = DICTOOL->getBooleanValue_json(options, "bounceEnable");
+//    dragPanel->setBounceEnabled(bounceEnable);
+//    
+//    setColorPropsForWidgetFromJsonDictionary(widget, options);
 }
 
 NS_CC_EXT_END

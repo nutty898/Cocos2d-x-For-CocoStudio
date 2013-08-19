@@ -47,9 +47,9 @@ UILabelAtlas* UILabelAtlas::create()
     return NULL;
 }
 
-void UILabelAtlas::initNodes()
+void UILabelAtlas::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pRenderLaberAtlas = UICCLabelAtlas::create();
     m_pRenderer->addChild(m_pRenderLaberAtlas);
 }

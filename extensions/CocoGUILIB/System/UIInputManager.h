@@ -26,7 +26,7 @@
 #define __UIINPUTMANAGER_H__
 
 #include "cocos2d.h"
-#include "../BaseClasses/UIWidget.h"
+#include "../Layouts/Layout.h"
 
 NS_CC_EXT_BEGIN
 
@@ -37,8 +37,8 @@ public:
     ~UIInputManager();
     void registWidget(UIWidget* widget);
     void uiSceneHasChanged();
-    void sortWidgets(UIWidget* widget);
-    void sortRootWidgets(UIWidget* root);
+    void sortWidgets(Layout* widget);
+    void sortRootWidgets(Layout* root);
     void removeManageredWidget(UIWidget* widget);
     bool checkEventWidget(const CCPoint &touchPoint);
     void addCheckedDoubleClickWidget(UIWidget* widget);
@@ -48,8 +48,8 @@ public:
     void onTouchEnd(CCTouch* touch);
     void onTouchCancelled(CCTouch* touch);
     
-    void setRootWidget(UIWidget* root);
-    UIWidget* getRootWidget();
+    void setRootWidget(Layout* root);
+    Layout* getRootWidget();
     
 protected:
     CCArray* m_manageredWidget;
@@ -64,7 +64,7 @@ protected:
     float m_fLongClickTime;
     float m_fLongClickRecordTime;
     CCArray* checkedDoubleClickWidget;
-    UIWidget* m_pRootWidget;
+    Layout* m_pRootWidget;
 };
 
 NS_CC_EXT_END

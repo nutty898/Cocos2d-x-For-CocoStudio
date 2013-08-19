@@ -63,9 +63,9 @@ UIImageView* UIImageView::create()
     return NULL;
 }
 
-void UIImageView::initNodes()
+void UIImageView::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pImageRender = CCSprite::create();
     m_pRenderer->addChild(m_pImageRender);
 }

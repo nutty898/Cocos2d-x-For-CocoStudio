@@ -33,8 +33,8 @@ bool UIButtonTest::init()
         alert->setFontName("Marker Felt");
         alert->setFontSize(30);
         alert->setColor(ccc3(159, 168, 176));
-        alert->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f - alert->getRect().size.height * 1.75));
-        m_pUiLayer->addWidget(alert);        
+//        alert->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f - alert->getRect().size.height * 1.75));
+        m_pUiLayer->addWidget(alert);
         
         // Create the button
         UIButton *button = UIButton::create();
@@ -100,8 +100,8 @@ bool UIButtonTest_Scale9::init()
         alert->setFontName("Marker Felt");
         alert->setFontSize(30);
         alert->setColor(ccc3(159, 168, 176));
-        alert->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f - alert->getRect().size.height * 1.75));
-        m_pUiLayer->addWidget(alert);        
+//        alert->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f - alert->getRect().size.height * 1.75));
+        m_pUiLayer->addWidget(alert);
         
         // Create the button
         UIButton *button = UIButton::create();
@@ -110,7 +110,7 @@ bool UIButtonTest_Scale9::init()
         button->setScale9Enabled(true);
         button->loadTextures("cocosgui/button.png", "cocosgui/buttonHighlighted.png", "");
         button->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f));
-        button->setScale9Size(CCSizeMake(150, button->getContentSize().height * 1.5f));
+//        button->setScale9Size(CCSizeMake(150, button->getContentSize().height * 1.5f));
         button->addPushDownEvent(this, coco_pushselector(UIButtonTest_Scale9::touchBeganEvent));
         button->addMoveEvent(this, coco_moveselector(UIButtonTest_Scale9::touchMovedEvent));
         button->addReleaseEvent(this, coco_releaseselector(UIButtonTest_Scale9::touchEndedEvent));

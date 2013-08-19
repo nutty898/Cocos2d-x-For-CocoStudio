@@ -58,7 +58,7 @@ public:
     virtual bool onTouchBegan(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
 protected:
-    virtual void initNodes();
+    virtual void initRenderer();
     virtual void onSizeChanged();
     void imageTextureScaleChangedWithSize();
 protected:

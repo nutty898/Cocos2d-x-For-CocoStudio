@@ -29,14 +29,14 @@ bool UILoadingBarTest::init()
         alert->setFontName("Marker Felt");
         alert->setFontSize(30);
         alert->setColor(ccc3(159, 168, 176));
-        alert->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f - alert->getRect().size.height * 1.75));
+//        alert->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f - alert->getRect().size.height * 1.75));
         m_pUiLayer->addWidget(alert);
         
         // Create the loading bar
         UILoadingBar* loadingBar = UILoadingBar::create();
         loadingBar->setName("LoadingBar");
         loadingBar->loadTexture("cocosgui/sliderProgress.png");
-        loadingBar->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f + loadingBar->getRect().size.height / 4.0f));
+//        loadingBar->setPosition(ccp(screenSize.width / 2.0f, screenSize.height / 2.0f + loadingBar->getRect().size.height / 4.0f));
         m_pUiLayer->addWidget(loadingBar);
         
         return true;

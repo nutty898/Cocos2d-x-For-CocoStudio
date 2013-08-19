@@ -25,6 +25,47 @@
 #ifndef __LAYOUT_H__
 #define __LAYOUT_H__
 
-#include <iostream>
+#include "../BaseClasses/UIWidget.h"
+#include "LayoutExecutant.h"
+
+NS_CC_EXT_BEGIN
+
+class Layout : public UIWidget
+{
+public:
+    Layout();
+    virtual ~Layout();
+    static Layout* create();    
+    void setLayoutExecutant(LayoutExecutant* exe);
+    LayoutExecutant* getLayoutExecutant() const;
+    virtual bool addChild(UIWidget* child);
+    virtual bool removeChild(UIWidget* child,bool cleanup);
+    virtual void removeFromParentAndCleanup(bool cleanup);
+    virtual void removeAllChildrenAndCleanUp(bool cleanup);
+    virtual void releaseResoures();
+    void updateChildrenUILayer(UILayer* uiLayer);
+    void disableUpdate();
+    virtual void reorderChild(UIWidget* child);
+    void setEnabled(bool enabled);
+    UIWidget* getChildByName(const char* name);
+    UIWidget* getChildByTag(int tag);
+    CCArray* getChildren();
+    virtual bool hitTest(const CCPoint &pt);
+protected:
+    virtual bool init();
+    virtual void initRenderer();
+    virtual void onSizeChanged();
+    virtual void setClippingEnabled(bool able);
+    virtual bool isClippingEnabled();
+    
+protected:
+    float m_fWidth;
+    float m_fHeight;
+    bool m_bClippingEnabled;
+    CCArray* m_children;
+    LayoutExecutant* m_pLayoutExecutant;
+};
+
+NS_CC_EXT_END
 
 #endif /* defined(__Layout__) */

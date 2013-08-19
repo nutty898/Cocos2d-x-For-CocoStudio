@@ -49,7 +49,7 @@ public:
     float getTotalWidth();
     float getTotalHeight();
 protected:
-    virtual void initNodes();
+    virtual void initRenderer();
     virtual void onSizeChanged();
     void barRendererScaleChangedWithSize();
 protected:

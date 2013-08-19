@@ -25,7 +25,7 @@
 #ifndef __UIPAGEVIEW_H__
 #define __UIPAGEVIEW_H__
 
-#include "../UIPanel.h"
+#include "../../Layouts/Layout.h"
 #include "UIScrollInterface.h"
 
 NS_CC_EXT_BEGIN
@@ -35,7 +35,7 @@ typedef enum {
     PAGEVIEW_TOUCHRIGHT
 }PVTouchDir;
 
-class UIPageView : public UIPanel , public UIScrollInterface
+class UIPageView : public Layout , public UIScrollInterface
 {
     
 public:
@@ -43,10 +43,10 @@ public:
     virtual ~UIPageView();
     static UIPageView* create();
     void addWidgetToPage(UIWidget* widget, int pageIdx, bool forceCreate);
-    UIPanel* createPage();
-    void addPage(UIContainerWidget* page);
-    void insertPage(UIContainerWidget* page, int idx);
-    void removePage(UIContainerWidget* page, bool cleanup);
+    Layout* createPage();
+    void addPage(Layout* page);
+    void insertPage(Layout* page, int idx);
+    void removePage(Layout* page, bool cleanup);
     void removePageAtIndex(int index, bool cleanup);
     virtual void setSize(const CCSize &size);
     void updateChildrenSize();

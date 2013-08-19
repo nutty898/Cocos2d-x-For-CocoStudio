@@ -68,9 +68,9 @@ bool UITextField::init()
     return false;
 }
 
-void UITextField::initNodes()
+void UITextField::initRenderer()
 {
-    UIWidget::initNodes();
+    UIWidget::initRenderer();
     m_pRenderTextField = UICCTextField::create("input words here", "Thonburi", 20);
     m_pRenderer->addChild(m_pRenderTextField);
 }

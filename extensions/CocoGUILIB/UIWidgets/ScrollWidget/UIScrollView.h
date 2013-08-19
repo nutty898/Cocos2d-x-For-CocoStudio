@@ -25,7 +25,7 @@
 #ifndef __UISCROLLVIEW_H__
 #define __UISCROLLVIEW_H__
 
-#include "../UIPanel.h"
+#include "../../Layouts/Layout.h"
 #include "UIScrollInterface.h"
 
 NS_CC_EXT_BEGIN
@@ -56,7 +56,7 @@ typedef void (CCObject::*SEL_ScrollToRightEvent)(CCObject*);
 #define coco_ScrollToRightSelector(_SELECTOR) (cocos2d::extension::SEL_ScrollToRightEvent)(&_SELECTOR)
 
 
-class UIScrollView : public UIPanel , public UIScrollInterface
+class UIScrollView : public Layout , public UIScrollInterface
 {
 public:
     UIScrollView();
@@ -87,10 +87,10 @@ public:
     void setDirection(SCROLLVIEW_DIR dir);
     SCROLLVIEW_DIR getDirection();
     
-    virtual void setLayoutType(LayoutType type);
+//    virtual void setLayoutType(LayoutType type);
 protected:
     virtual bool init();
-    virtual void initNodes();
+    virtual void initRenderer();
     void moveChildren(float offset);
     void autoScrollChildren(float dt);
     void startAutoScrollChildren(float v);
@@ -151,7 +151,7 @@ protected:
     CCObject* m_pScrollToRightListener;
     SEL_ScrollToRightEvent m_pfnScrollToRightSelector;
     
-    UIContainerWidget* m_pInnerContainer;
+    Layout* m_pInnerContainer;
     
 };
 

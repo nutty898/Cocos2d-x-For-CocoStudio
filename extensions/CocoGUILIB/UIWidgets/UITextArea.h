@@ -36,7 +36,7 @@ public:
     UITextArea();
     virtual ~UITextArea();
     static UITextArea* create();
-    virtual void initNodes();
+    virtual void initRenderer();
     void setText(const char* text);
     void setTextAreaSize(const CCSize &size);
     void setTextHorizontalAlignment(CCTextAlignment alignment);
