@@ -386,6 +386,7 @@
 		501A005F17B370CE000E0DB2 /* UITextFieldTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 501A004617B370CE000E0DB2 /* UITextFieldTest.cpp */; };
 		501A006017B370CE000E0DB2 /* UIZoomButtonTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 501A004917B370CE000E0DB2 /* UIZoomButtonTest.cpp */; };
 		504D893B1793A77D00E8ED0D /* UISwitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 504D89391793A77D00E8ED0D /* UISwitch.cpp */; };
+		5098569317C1D167009C4C6B /* Layout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5098569117C1D167009C4C6B /* Layout.cpp */; };
 		50C3616B17A0274F004F27FF /* UILayoutDefine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50C3616917A0274F004F27FF /* UILayoutDefine.cpp */; };
 		50ED4D2717ABB4ED00532AA0 /* UIPageView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50ED4D2317ABB4ED00532AA0 /* UIPageView.cpp */; };
 		50ED4D2817ABB4ED00532AA0 /* UIScrollView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50ED4D2517ABB4ED00532AA0 /* UIScrollView.cpp */; };
@@ -1214,6 +1215,8 @@
 		501A004A17B370CE000E0DB2 /* UIZoomButtonTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIZoomButtonTest.h; sourceTree = "<group>"; };
 		504D89391793A77D00E8ED0D /* UISwitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UISwitch.cpp; sourceTree = "<group>"; };
 		504D893A1793A77D00E8ED0D /* UISwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISwitch.h; sourceTree = "<group>"; };
+		5098569117C1D167009C4C6B /* Layout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layout.cpp; sourceTree = "<group>"; };
+		5098569217C1D167009C4C6B /* Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layout.h; sourceTree = "<group>"; };
 		50C3616917A0274F004F27FF /* UILayoutDefine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UILayoutDefine.cpp; sourceTree = "<group>"; };
 		50C3616A17A0274F004F27FF /* UILayoutDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILayoutDefine.h; sourceTree = "<group>"; };
 		50ED4D2317ABB4ED00532AA0 /* UIPageView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIPageView.cpp; sourceTree = "<group>"; };
@@ -3059,6 +3062,8 @@
 				50C3616A17A0274F004F27FF /* UILayoutDefine.h */,
 				5013E5F917A75A230085BB3B /* UILayoutUnit.cpp */,
 				5013E5FA17A75A230085BB3B /* UILayoutUnit.h */,
+				5098569117C1D167009C4C6B /* Layout.cpp */,
+				5098569217C1D167009C4C6B /* Layout.h */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -3776,6 +3781,7 @@
 				501A005E17B370CE000E0DB2 /* UITextButtonTest.cpp in Sources */,
 				501A005F17B370CE000E0DB2 /* UITextFieldTest.cpp in Sources */,
 				501A006017B370CE000E0DB2 /* UIZoomButtonTest.cpp in Sources */,
+				5098569317C1D167009C4C6B /* Layout.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

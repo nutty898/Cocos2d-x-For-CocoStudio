@@ -211,7 +211,6 @@ void UIScrollView::autoScrollChildren(float dt)
                         }
                     }
                     break;
-                    
                 case SCROLLVIEW_MOVE_DIR_DOWN: // down
                     {
                         float curDis = getCurAutoScrollDistance(dt);
@@ -226,7 +225,6 @@ void UIScrollView::autoScrollChildren(float dt)
                         }
                     }
                     break;
-                    
                 default:
                     break;
             }
