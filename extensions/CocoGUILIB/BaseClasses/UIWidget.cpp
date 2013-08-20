@@ -581,22 +581,46 @@ bool UIWidget::isEnabled() const
 
 float UIWidget::getRelativeLeftPos()
 {
-    
+    float leftPos = 0.0f;
+    switch (m_WidgetType)
+    {
+        case WidgetTypeWidget:
+            leftPos = getPosition().x - getAnchorPoint().x * m_size.width;
+            break;
+        case WidgetTypeContainer:
+            leftPos = getPosition().x;
+            break;
+        default:
+            break;
+    }
+    return leftPos;
 }
 
 float UIWidget::getRelativeBottomPos()
 {
-
+    float bottomPos = 0.0f;
+    switch (m_WidgetType)
+    {
+        case WidgetTypeWidget:
+            bottomPos = getPosition().y - getAnchorPoint().y * m_size.height;
+            break;
+        case WidgetTypeContainer:
+            bottomPos = getPosition().y;
+            break;
+        default:
+            break;
+    }
+    return bottomPos;
 }
 
 float UIWidget::getRelativeRightPos()
 {
-
+    return getRelativeLeftPos() + m_size.width;
 }
 
 float UIWidget::getRelativeTopPos()
 {
-
+    return getRelativeBottomPos() + m_size.height;
 }
 
 UIWidget* UIWidget::getWidgetParent()

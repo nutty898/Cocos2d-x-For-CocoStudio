@@ -37,15 +37,20 @@ typedef enum
     LAYOUT_RELATIVE
 }LayoutType;
 
+class Layout;
+
 class LayoutExecutant : public CCObject
 {
 public:
-    LayoutExecutant(){m_eLayoutType = LAYOUT_DEFAULT;};
-    virtual ~LayoutExecutant(){};
+    LayoutExecutant() : m_pLayout(NULL){m_eLayoutType = LAYOUT_DEFAULT;};
+    virtual ~LayoutExecutant(){m_pLayout = NULL;};
     virtual void doLayout()=0;
     LayoutType getLayoutType(){return m_eLayoutType;};
+    void setLayout(Layout* layout);
+    Layout* getLayout() const;
 protected:
     LayoutType m_eLayoutType;
+    Layout* m_pLayout;
 };
 
 class LinearVerticalLayoutExecutant : public LayoutExecutant

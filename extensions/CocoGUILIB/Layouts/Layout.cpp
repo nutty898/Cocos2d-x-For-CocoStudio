@@ -105,6 +105,7 @@ void Layout::setLayoutExecutant(LayoutExecutant *exe)
         CC_SAFE_RELEASE_NULL(m_pLayoutExecutant);
     }
     m_pLayoutExecutant = exe;
+    m_pLayoutExecutant->setLayout(this);
     CC_SAFE_RETAIN(m_pLayoutExecutant);
 }
 

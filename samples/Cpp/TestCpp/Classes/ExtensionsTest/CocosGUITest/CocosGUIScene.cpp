@@ -41,30 +41,69 @@ void CocosGUITestScene::runThisTest()
 ////    UIButton* exitBtn = dynamic_cast<UIButton*>(ul->getWidgetByName("exitbutton"));
 ////    exitBtn->addReleaseEvent(this, coco_releaseselector(CocosGUITestScene::toCocosGUIExampleScene));
     
-    UIButton* btn = UIButton::create();
-    
-    btn->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
-    btn->setPosition(ccp(100, 100));
-//    btn->setAnchorPoint(ccp(0, 0));
-//    btn->setScale(0.5f);
-    btn->setSize(CCSizeMake(100, 100));
-//    ul->addWidget(btn);
-    btn->setTouchEnabled(true);
-    btn->setScale9Enabled(true);
-    
-//    btn->setBright(false);
-    
-    btn->addReleaseEvent(this, coco_releaseselector(CocosGUITestScene::MainMenuCallback));
     
     Layout* l = Layout::create();
-    l->addChild(btn);
+    
     ul->addWidget(l);
-    l->setSize(CCSizeMake(100, 100));
+    l->setSize(CCSizeMake(480, 320));
     
-    LinearHorizontalLayoutExecutant* le = LinearHorizontalLayoutExecutant::create();
+
+//    LinearHorizontalLayoutExecutant* le = LinearHorizontalLayoutExecutant::create();
+//    l->setLayoutExecutant(le);
+//    
+//    
+//    for (int i=0; i<10; i++)
+//    {
+//        UIButton* btn = UIButton::create();
+//        
+//        btn->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
+//        btn->setPosition(ccp(100, 100));
+//        //    btn->setAnchorPoint(ccp(0, 0));
+//        //    btn->setScale(0.5f);
+//        btn->setSize(CCSizeMake(50, 50));
+//        //    ul->addWidget(btn);
+//        btn->setTouchEnabled(true);
+//        btn->setScale9Enabled(true);
+//        
+//        //    btn->setBright(false);
+//        
+//        btn->addReleaseEvent(this, coco_releaseselector(CocosGUITestScene::MainMenuCallback));
+//        LinearLayoutParameter* lp = LinearLayoutParameter::create();
+//        lp->setGravity(LINEAR_GRAVITY_CENTER_VERTICAL);
+//        btn->setLayoutParameter(lp);
+//        l->addChild(btn);
+//    }
+//    l->getLayoutExecutant()->doLayout();
     
+    
+    RelativeLayoutExecutant* le = RelativeLayoutExecutant::create();
     l->setLayoutExecutant(le);
-    l->getLayoutExecutant()->doLayout();
+    
+    UIButton* btn1 = UIButton::create();
+    btn1->setScale9Enabled(true);
+    btn1->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
+    RelativeLayoutParameter* lp = RelativeLayoutParameter::create();
+    lp->setAlign(RELATIVE_ALIGN_PARENT_RIGHT);
+    lp->setRelativeName("btn1");
+    lp->setMargin(UIMargin(10,0,0,10));
+    btn1->setLayoutParameter(lp);
+    l->addChild(btn1);
+    
+    UIButton* btn2 = UIButton::create();
+    btn2->setScale9Enabled(true);
+    btn2->setSize(CCSizeMake(100, 100));
+    btn2->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
+    RelativeLayoutParameter* lp2 = RelativeLayoutParameter::create();
+    lp2->setAlign(RELATIVE_CENTER_IN_PARENT);
+    lp2->setRelativeToWidgetName("btn1");
+    lp2->setAlign(RELATIVE_LOCATION_BELOW_RIGHTALIGN);
+    lp2->setRelativeName("btn2");
+    btn2->setLayoutParameter(lp2);
+    lp2->setMargin(UIMargin(0,10,0,0));
+    l->addChild(btn2);
+    
+    le->doLayout();
+    
     
 //    l->setClippingEnabled(true);
     
