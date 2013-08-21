@@ -30,6 +30,13 @@
 
 NS_CC_EXT_BEGIN
 
+typedef enum
+{
+    LAYOUT_COLOR_NONE,
+    LAYOUT_COLOR_SOLID,
+    LAYOUT_COLOR_GRADIENT
+}LayoutBackGroundColorType;
+
 class Layout : public UIWidget
 {
 public:
@@ -51,19 +58,47 @@ public:
     UIWidget* getChildByTag(int tag);
     CCArray* getChildren();
     virtual bool hitTest(const CCPoint &pt);
+    
+    //background
+    void setBackGroundImage(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    void setBackGroundImageCapInsets(const CCRect& capInsets);
+    virtual void setBackGroundColorType(LayoutBackGroundColorType type);
+    void setBackGroundImageScale9Enabled(bool able);
+    void setBackGroundColor(const ccColor3B &color);
+    void setBackGroundColor(const ccColor3B &startColor, const ccColor3B &endColor);
+    void setBackGroundColorOpacity(int opacity);
+    void setBackGroundColorVector(const CCPoint &vector);
+    virtual void setColor(const ccColor3B &color);
+    virtual void setOpacity(int opacity);
+    void removeBackGroundImage();
 protected:
     virtual bool init();
     virtual void initRenderer();
     virtual void onSizeChanged();
     virtual void setClippingEnabled(bool able);
     virtual bool isClippingEnabled();
-    
+    void addBackGroundImage();
 protected:
     float m_fWidth;
     float m_fHeight;
     bool m_bClippingEnabled;
     CCArray* m_children;
     LayoutExecutant* m_pLayoutExecutant;
+    
+    //background
+    bool m_bBackGroundScale9Enable;
+    CCNode* m_pBackGroundImage;
+    std::string m_strBackGroundImageFileName;
+    CCRect m_backGroundImageCapInsets;
+    LayoutBackGroundColorType m_colorType;
+    TextureResType m_eBGImageTexType;
+    CCLayerColor* m_pColorRender;
+    CCLayerGradient* m_pGradientRender;
+    ccColor3B m_cColor;
+    ccColor3B m_gStartColor;
+    ccColor3B m_gEndColor;
+    CCPoint m_AlongVector;
+    int m_nCOpacity;
 };
 
 NS_CC_EXT_END

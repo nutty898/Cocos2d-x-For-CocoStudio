@@ -43,9 +43,9 @@ void CocosGUITestScene::runThisTest()
     
     
     Layout* l = Layout::create();
-    
+    l->setName("layout");
     ul->addWidget(l);
-    l->setSize(CCSizeMake(480, 320));
+    l->setSize(CCSizeMake(300, 320));
     
 
 //    LinearHorizontalLayoutExecutant* le = LinearHorizontalLayoutExecutant::create();
@@ -104,6 +104,14 @@ void CocosGUITestScene::runThisTest()
     
     le->doLayout();
     
+    l->setBackGroundColorType(LAYOUT_COLOR_SOLID);
+    l->setBackGroundColor(ccGREEN);
+    
+    
+    btn2->addReleaseEvent(this, coco_releaseselector(CocosGUITestScene::MainMenuCallback));
+    
+    l->setBackGroundImage("cocosgui/animationbuttonnormal.png");
+    l->setBackGroundImageScale9Enabled(true);
     
 //    l->setClippingEnabled(true);
     
@@ -228,13 +236,14 @@ void CocosGUITestScene::runThisTest()
 void CocosGUITestScene::MainMenuCallback(CCObject* pSender)
 {
     CCLOG("fuck");
-    ((UIWidget*)pSender)->setBright(true);
+    ((UIWidget*)pSender)->setBright(false);
 //    UISlider* sl = (UISlider*)pSender;
 //    char aa[128];
 //    sprintf(aa, "percent %d",sl->getPercent());
 //    ((UILabel*)(ul->getWidgetByName("nnn")))->setText(aa);
 //    ul->removeFromParent();
 //    TestScene::MainMenuCallback(pSender);
+    ((Layout*)ul->getWidgetByName("layout"))->removeBackGroundImage();
 }
 
 void CocosGUITestScene::toCocosGUIExampleScene(CCObject* pSender)

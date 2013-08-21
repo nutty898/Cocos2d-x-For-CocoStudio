@@ -70,31 +70,20 @@ public:
     virtual void releaseResoures();
     static UIWidget* create();
     void setBrightStyle(BrightStyle style);
-    
-
-    
     virtual void setWidgetZOrder(int z);
     virtual int getWidgetZOrder();
-    
-    
     virtual void setTouchEnabled(bool enable);
     bool isTouchEnabled();
-    
     void setUpdateEnabled(bool enable);
     bool isUpdateEnabled();
-    
     bool isFocus();
     void setFocus(bool fucos);
-    
     void setVisible(bool visible);
     bool isVisible() const;
     void setBright(bool bright);
     bool isBright() const;
     void setEnabled(bool enabled);
     bool isEnabled() const;
-    
-    void getLocationInWindow();
-    
     virtual float getRelativeLeftPos();
     virtual float getRelativeBottomPos();
     virtual float getRelativeRightPos();
@@ -159,7 +148,6 @@ public:
     
     void didNotSelectSelf();
     
-    virtual bool isClippingEnabled(){return false;};
     virtual void update(float dt){};
     bool checkVisibleDependParent(const CCPoint &pt);
     virtual void checkChildInfo(int handleState,UIWidget* sender,const CCPoint &touchPoint);
