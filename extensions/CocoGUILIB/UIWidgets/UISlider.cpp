@@ -133,7 +133,7 @@ void UISlider::loadBarTexture(const char* fileName, TextureResType texType)
         dynamic_cast<CCSprite*>(m_pBarNode)->setColor(getColor());
         dynamic_cast<CCSprite*>(m_pBarNode)->setOpacity(getOpacity());
     }
-    setPercent(m_nPercent);
+    barRendererScaleChangedWithSize();
 }
 
 void UISlider::loadProgressBarTexture(const char *fileName, TextureResType texType)
@@ -374,18 +374,36 @@ int UISlider::getPercent()
 
 void UISlider::onSizeChanged()
 {
-    m_fBarLength = m_size.width;
-    if (m_bScale9Enabled)
+    barRendererScaleChangedWithSize();
+}
+
+const CCSize& UISlider::getContentSize() const
+{
+    return m_pBarNode->getContentSize();
+}
+
+void UISlider::barRendererScaleChangedWithSize()
+{
+    if (m_bIgnoreSize)
     {
-        m_pBarNode->setContentSize(m_size);
+        m_fBarLength = m_pBarNode->getContentSize().width;
+        m_pBarNode->setScale(1.0f);
     }
     else
     {
-        CCSize textureSize = m_pBarNode->getContentSize();
-        float scaleX = m_size.width / textureSize.width;
-        float scaleY = m_size.height / textureSize.height;
-        m_pBarNode->setScaleX(scaleX);
-        m_pBarNode->setScaleY(scaleY);
+        m_fBarLength = m_size.width;
+        if (m_bScale9Enabled)
+        {
+            m_pBarNode->setContentSize(m_size);
+        }
+        else
+        {
+            CCSize textureSize = m_pBarNode->getContentSize();
+            float scaleX = m_size.width / textureSize.width;
+            float scaleY = m_size.height / textureSize.height;
+            m_pBarNode->setScaleX(scaleX);
+            m_pBarNode->setScaleY(scaleY);
+        }
     }
     setPercent(m_nPercent);
 }

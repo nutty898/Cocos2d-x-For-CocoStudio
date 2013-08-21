@@ -52,7 +52,6 @@ public:
     virtual void onTouchMoved(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
     virtual void onTouchCancelled(const CCPoint &touchPoint);
-    virtual void onSizeChanged();
 protected:
     virtual void initRenderer();
     void checkSlidBoundary();
@@ -61,6 +60,9 @@ protected:
     virtual void onPressStateChangedToNormal();
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();
+    virtual void onSizeChanged();
+    virtual const CCSize& getContentSize() const;
+    void barRendererScaleChangedWithSize();
 protected:
     CCNode*  m_pBarNode;
     CCNode* m_pProgressBarNode;

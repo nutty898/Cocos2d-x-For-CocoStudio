@@ -181,12 +181,6 @@ void UILabel::setGravity(LabelGravity gravity)
     }
 }
 
-void UILabel::adaptSize(float xProportion, float yProportion)
-{
-    float res = xProportion > yProportion ? xProportion : yProportion;
-    m_pRenderLabel->setFontSize(m_pRenderLabel->getFontSize()*res);
-}
-
 void UILabel::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
@@ -198,13 +192,25 @@ void UILabel::onSizeChanged()
     labelScaleChangedWithSize();
 }
 
+const CCSize& UILabel::getContentSize() const
+{
+    return m_pRenderLabel->getContentSize();
+}
+
 void UILabel::labelScaleChangedWithSize()
 {
-    CCSize textureSize = m_pRenderLabel->getContentSize();
-    float scaleX = m_size.width / textureSize.width;
-    float scaleY = m_size.height / textureSize.height;
-    m_pRenderLabel->setScaleX(scaleX);
-    m_pRenderLabel->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pRenderLabel->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pRenderLabel->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pRenderLabel->setScaleX(scaleX);
+        m_pRenderLabel->setScaleY(scaleY);
+    }
 }
 
 NS_CC_EXT_END

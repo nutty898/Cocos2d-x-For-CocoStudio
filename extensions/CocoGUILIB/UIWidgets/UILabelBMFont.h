@@ -42,6 +42,7 @@ public:
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();
+    virtual const CCSize& getContentSize() const;
     void labelBMFontScaleChangedWithSize();
 protected:
     CCLabelBMFont* m_pLabelBMFont;

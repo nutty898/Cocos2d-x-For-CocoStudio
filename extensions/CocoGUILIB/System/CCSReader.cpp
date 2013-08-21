@@ -367,7 +367,7 @@ void CCSReader::setPropsForButtonFromJsonDictionary(UIWidget*widget,cs::CSJsonDi
             {
                 float swf = DICTOOL->getFloatValue_json(options, "scale9Width");
                 float shf = DICTOOL->getFloatValue_json(options, "scale9Height");
-                button->setScale9Size(CCSizeMake(swf, shf));
+//                button->setScale9Size(CCSizeMake(swf, shf));
             }
         }
         else
@@ -470,7 +470,7 @@ void CCSReader::setPropsForButtonFromJsonDictionary(UIWidget*widget,cs::CSJsonDi
             {
                 float swf = DICTOOL->getFloatValue_json(options, "scale9Width");
                 float shf = DICTOOL->getFloatValue_json(options, "scale9Height");
-                button->setScale9Size(CCSizeMake(swf, shf));
+//                button->setScale9Size(CCSizeMake(swf, shf));
             }
         }
         setColorPropsForWidgetFromJsonDictionary(widget,options);
@@ -679,7 +679,7 @@ void CCSReader::setPropsForImageViewFromJsonDictionary(UIWidget*widget,cs::CSJso
             {
                 float swf = DICTOOL->getFloatValue_json(options, "scale9Width");
                 float shf = DICTOOL->getFloatValue_json(options, "scale9Height");
-                imageView->setScale9Size(CCSizeMake(swf, shf));
+//                imageView->setScale9Size(CCSizeMake(swf, shf));
             }
             
             float cx = DICTOOL->getFloatValue_json(options, "capInsetsX");
@@ -753,7 +753,7 @@ void CCSReader::setPropsForImageViewFromJsonDictionary(UIWidget*widget,cs::CSJso
             {
                 float swf = DICTOOL->getFloatValue_json(options, "scale9Width");
                 float shf = DICTOOL->getFloatValue_json(options, "scale9Height");
-                imageView->setScale9Size(CCSizeMake(swf, shf));
+//                imageView->setScale9Size(CCSizeMake(swf, shf));
             }
             
             float cx = DICTOOL->getFloatValue_json(options, "capInsetsX");

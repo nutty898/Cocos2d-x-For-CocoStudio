@@ -84,18 +84,28 @@ void UILabelBMFont::setAnchorPoint(const CCPoint &pt)
 
 void UILabelBMFont::onSizeChanged()
 {
-    m_pLabelBMFont->setScaleX(0.5f);
-//    CCLOG("cs w %f, cs h %f",m_pLabelBMFont->getContentSize().width,m_pLabelBMFont->getContentSize().height);
     labelBMFontScaleChangedWithSize();
+}
+
+const CCSize& UILabelBMFont::getContentSize() const
+{
+    return m_pLabelBMFont->getContentSize();
 }
 
 void UILabelBMFont::labelBMFontScaleChangedWithSize()
 {
-    CCSize textureSize = m_pLabelBMFont->getContentSize();
-    float scaleX = m_size.width / textureSize.width;
-    float scaleY = m_size.height / textureSize.height;
-    m_pLabelBMFont->setScaleX(scaleX);
-    m_pLabelBMFont->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pLabelBMFont->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pLabelBMFont->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pLabelBMFont->setScaleX(scaleX);
+        m_pLabelBMFont->setScaleY(scaleY);
+    }
 }
 
 NS_CC_EXT_END

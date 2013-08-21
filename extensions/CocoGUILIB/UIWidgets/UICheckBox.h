@@ -64,6 +64,7 @@ protected:
     void selectedEvent();
     void unSelectedEvent();
     virtual void onSizeChanged();
+    virtual const CCSize& getContentSize() const;
     void backGroundTextureScaleChangedWithSize();
     void backGroundSelectedTextureScaleChangedWithSize();
     void frontCrossTextureScaleChangedWithSize();

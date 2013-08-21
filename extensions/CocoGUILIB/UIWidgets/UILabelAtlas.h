@@ -43,6 +43,7 @@ public:
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();
+    virtual const CCSize& getContentSize() const;
     void labelAtlasScaleChangedWithSize();
 protected:
     UICCLabelAtlas* m_pRenderLaberAtlas;

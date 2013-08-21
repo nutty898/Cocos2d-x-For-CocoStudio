@@ -51,6 +51,7 @@ public:
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();
+    virtual const CCSize& getContentSize() const;
     void barRendererScaleChangedWithSize();
 protected:
     LoadingBarType m_nBarType;

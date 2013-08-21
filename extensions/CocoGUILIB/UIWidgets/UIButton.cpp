@@ -36,10 +36,12 @@ m_strClickedFileName(""),
 m_strDisabledFileName(""),
 m_strNormalFileName(""),
 m_capInsets(CCRectZero),
-m_scale9Size(CCSizeZero),
 m_eNormalTexType(UI_TEX_TYPE_LOCAL),
 m_ePressedTexType(UI_TEX_TYPE_LOCAL),
-m_eDisabledTexType(UI_TEX_TYPE_LOCAL)
+m_eDisabledTexType(UI_TEX_TYPE_LOCAL),
+m_normalTextureSize(m_size),
+m_pressedTextureSize(m_size),
+m_disabledTextureSize(m_size)
 {
     
 }
@@ -116,27 +118,7 @@ void UIButton::setScale9Enabled(bool able)
     m_pRenderer->addChild(m_pButtonClicked,-1);
     m_pRenderer->addChild(m_pButtonDisable,-1);
     setCapInsets(m_capInsets);
-    setScale9Size(m_scale9Size);
     setBright(m_bBright);
-}
-
-void UIButton::setScale9Size(const CCSize &size)
-{
-    if (size.equals(CCSizeZero))
-    {
-        return;
-    }
-    else
-    {
-        m_scale9Size = size;
-    }
-    if (!m_bScale9Enabled)
-    {
-        return;
-    }
-    dynamic_cast<CCScale9Sprite*>(m_pButtonNormal)->setContentSize(size);
-    dynamic_cast<CCScale9Sprite*>(m_pButtonClicked)->setContentSize(size);
-    dynamic_cast<CCScale9Sprite*>(m_pButtonDisable)->setContentSize(size);
 }
 
 void UIButton::loadTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType)
@@ -187,6 +169,7 @@ void UIButton::loadNormalTexture(const char* normal,TextureResType texType)
         dynamic_cast<CCSprite*>(m_pButtonNormal)->setColor(getColor());
         dynamic_cast<CCSprite*>(m_pButtonNormal)->setOpacity(getOpacity());
     }
+    m_normalTextureSize = m_pButtonNormal->getContentSize();
     updateAnchorPoint();
     normalTextureScaleChangedWithSize();
 }
@@ -232,6 +215,7 @@ void UIButton::loadPressedTexture(const char* selected,TextureResType texType)
         dynamic_cast<CCSprite*>(m_pButtonClicked)->setColor(getColor());
         dynamic_cast<CCSprite*>(m_pButtonClicked)->setOpacity(getOpacity());
     }
+    m_pressedTextureSize = m_pButtonClicked->getContentSize();
     updateAnchorPoint();
     pressedTextureScaleChangedWithSize();
 }
@@ -277,6 +261,7 @@ void UIButton::loadDisabledTexture(const char* disabled,TextureResType texType)
         dynamic_cast<CCSprite*>(m_pButtonDisable)->setColor(getColor());
         dynamic_cast<CCSprite*>(m_pButtonDisable)->setOpacity(getOpacity());
     }
+    m_disabledTextureSize = m_pButtonDisable->getContentSize();
     updateAnchorPoint();
     disabledTextureScaleChangedWithSize();
 }
@@ -417,51 +402,95 @@ void UIButton::onSizeChanged()
     disabledTextureScaleChangedWithSize();
 }
 
+const CCSize& UIButton::getContentSize() const
+{
+    return m_normalTextureSize;
+}
+
 void UIButton::normalTextureScaleChangedWithSize()
 {
-    if (m_bScale9Enabled)
+    if (m_bIgnoreSize)
     {
-        m_pButtonNormal->setContentSize(m_size);
+        if (m_bScale9Enabled)
+        {
+            m_pButtonNormal->setContentSize(m_normalTextureSize);
+        }
+        else
+        {
+            m_pButtonNormal->setScale(1.0f);
+        }
     }
     else
     {
-        CCSize textureSize = m_pButtonNormal->getContentSize();
-        float scaleX = m_size.width / textureSize.width;
-        float scaleY = m_size.height / textureSize.height;
-        m_pButtonNormal->setScaleX(scaleX);
-        m_pButtonNormal->setScaleY(scaleY);
+        if (m_bScale9Enabled)
+        {
+            m_pButtonNormal->setContentSize(m_size);
+        }
+        else
+        {
+            float scaleX = m_size.width / m_normalTextureSize.width;
+            float scaleY = m_size.height / m_normalTextureSize.height;
+            m_pButtonNormal->setScaleX(scaleX);
+            m_pButtonNormal->setScaleY(scaleY);
+        }
     }
 }
 
 void UIButton::pressedTextureScaleChangedWithSize()
 {
-    if (m_bScale9Enabled)
+    if (m_bIgnoreSize)
     {
-        m_pButtonClicked->setContentSize(m_size);
+        if (m_bScale9Enabled)
+        {
+            m_pButtonClicked->setContentSize(m_pressedTextureSize);
+        }
+        else
+        {
+            m_pButtonClicked->setScale(1.0f);
+        }
     }
     else
     {
-        CCSize textureSize = m_pButtonClicked->getContentSize();
-        float scaleX = m_size.width / textureSize.width;
-        float scaleY = m_size.height / textureSize.height;
-        m_pButtonClicked->setScaleX(scaleX);
-        m_pButtonClicked->setScaleY(scaleY);
+        if (m_bScale9Enabled)
+        {
+            m_pButtonClicked->setContentSize(m_size);
+        }
+        else
+        {
+            float scaleX = m_size.width / m_pressedTextureSize.width;
+            float scaleY = m_size.height / m_pressedTextureSize.height;
+            m_pButtonClicked->setScaleX(scaleX);
+            m_pButtonClicked->setScaleY(scaleY);
+        }
     }
 }
 
 void UIButton::disabledTextureScaleChangedWithSize()
 {
-    if (m_bScale9Enabled)
+    if (m_bIgnoreSize)
     {
-        m_pButtonDisable->setContentSize(m_size);
+        if (m_bScale9Enabled)
+        {
+            m_pButtonDisable->setContentSize(m_disabledTextureSize);
+        }
+        else
+        {
+            m_pButtonDisable->setScale(1.0f);
+        }
     }
     else
     {
-        CCSize textureSize = m_pButtonDisable->getContentSize();
-        float scaleX = m_size.width / textureSize.width;
-        float scaleY = m_size.height / textureSize.height;
-        m_pButtonDisable->setScaleX(scaleX);
-        m_pButtonDisable->setScaleY(scaleY);
+        if (m_bScale9Enabled)
+        {
+            m_pButtonDisable->setContentSize(m_size);
+        }
+        else
+        {
+            float scaleX = m_size.width / m_disabledTextureSize.width;
+            float scaleY = m_size.height / m_disabledTextureSize.height;
+            m_pButtonDisable->setScaleX(scaleX);
+            m_pButtonDisable->setScaleY(scaleY);
+        }
     }
 }
 

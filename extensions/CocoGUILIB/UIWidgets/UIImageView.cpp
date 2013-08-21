@@ -41,8 +41,8 @@ m_bScale9Enabled(false),
 m_pImageRender(NULL),
 m_strTextureFile(""),
 m_capInsets(CCRectZero),
-m_scale9Size(CCSizeZero),
-m_eImageTexType(UI_TEX_TYPE_LOCAL)
+m_eImageTexType(UI_TEX_TYPE_LOCAL),
+m_imageTextureSize(m_size)
 {
 
 }
@@ -112,6 +112,7 @@ void UIImageView::loadTexture(const char *fileName, TextureResType texType)
         default:
             break;
     }
+    m_imageTextureSize = m_pImageRender->getContentSize();
     updateAnchorPoint();
     imageTextureScaleChangedWithSize();
 }
@@ -284,24 +285,6 @@ void UIImageView::setScale9Enabled(bool able)
     loadTexture(m_strTextureFile.c_str(),m_eImageTexType);
     m_pRenderer->addChild(m_pImageRender);
     setCapInsets(m_capInsets);
-    setScale9Size(m_scale9Size);
-}
-
-void UIImageView::setScale9Size(const CCSize &size)
-{
-    if (size.equals(CCSizeZero))
-    {
-        return;
-    }
-    else
-    {
-        m_scale9Size = size;
-    }
-    if (!m_bScale9Enabled)
-    {
-        return;
-    }
-    DYNAMIC_CAST_SCALE9SPRITE->setContentSize(size);
 }
 
 void UIImageView::setDisplayFrame(CCSpriteFrame *pNewFrame)
@@ -402,19 +385,38 @@ void UIImageView::onSizeChanged()
     imageTextureScaleChangedWithSize();
 }
 
+const CCSize& UIImageView::getContentSize() const
+{
+    return m_imageTextureSize;
+}
+
 void UIImageView::imageTextureScaleChangedWithSize()
 {
-    if (m_bScale9Enabled)
+    if (m_bIgnoreSize)
     {
-        m_pImageRender->setContentSize(m_size);
+        if (m_bScale9Enabled)
+        {
+            m_pImageRender->setContentSize(m_imageTextureSize);
+        }
+        else
+        {
+            m_pImageRender->setScale(1.0f);
+        }
     }
     else
     {
-        CCSize textureSize = m_pImageRender->getContentSize();
-        float scaleX = m_size.width / textureSize.width;
-        float scaleY = m_size.height / textureSize.height;
-        m_pImageRender->setScaleX(scaleX);
-        m_pImageRender->setScaleY(scaleY);
+        if (m_bScale9Enabled)
+        {
+            m_pImageRender->setContentSize(m_size);
+        }
+        else
+        {
+            CCSize textureSize = m_pImageRender->getContentSize();
+            float scaleX = m_size.width / textureSize.width;
+            float scaleY = m_size.height / textureSize.height;
+            m_pImageRender->setScaleX(scaleX);
+            m_pImageRender->setScaleY(scaleY);
+        }
     }
 }
 

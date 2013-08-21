@@ -42,7 +42,6 @@ public:
     void setCapInsets(const CCRect &capInsets);
     virtual void setAnchorPoint(const CCPoint &pt);
     virtual void setScale9Enabled(bool able);
-    virtual void setScale9Size(const CCSize &size);
     virtual void setFlipX(bool flipX);
     virtual void setFlipY(bool flipY);
     virtual bool isFlipX();
@@ -57,6 +56,7 @@ protected:
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();
     virtual void onSizeChanged();
+    virtual const CCSize& getContentSize() const;
     void normalTextureScaleChangedWithSize();
     void pressedTextureScaleChangedWithSize();
     void disabledTextureScaleChangedWithSize();
@@ -69,10 +69,12 @@ protected:
     std::string m_strDisabledFileName;
     bool m_bScale9Enabled;
     CCRect m_capInsets;
-    CCSize m_scale9Size;
     TextureResType m_eNormalTexType;
     TextureResType m_ePressedTexType;
     TextureResType m_eDisabledTexType;
+    CCSize m_normalTextureSize;
+    CCSize m_pressedTextureSize;
+    CCSize m_disabledTextureSize;
 };
 
 NS_CC_EXT_END

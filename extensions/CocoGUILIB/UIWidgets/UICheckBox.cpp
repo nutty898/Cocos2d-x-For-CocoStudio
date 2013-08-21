@@ -352,49 +352,90 @@ void UICheckBox::onSizeChanged()
     frontCrossDisabledTextureScaleChangedWithSize();
 }
 
+const CCSize& UICheckBox::getContentSize() const
+{
+    return m_pBackGroundBox->getContentSize();
+}
+
 void UICheckBox::backGroundTextureScaleChangedWithSize()
 {
-    CCSize textureSize = m_pBackGroundBox->getContentSize();
-    float scaleX = m_size.width / textureSize.width;
-    float scaleY = m_size.height / textureSize.height;
-    m_pBackGroundBox->setScaleX(scaleX);
-    m_pBackGroundBox->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pBackGroundBox->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pBackGroundBox->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pBackGroundBox->setScaleX(scaleX);
+        m_pBackGroundBox->setScaleY(scaleY);
+    }
 }
 
 void UICheckBox::backGroundSelectedTextureScaleChangedWithSize()
 {
-    CCSize textureSize = m_pBackGroundSelectedBox->getContentSize();
-    float scaleX = m_size.width / textureSize.width;
-    float scaleY = m_size.height / textureSize.height;
-    m_pBackGroundSelectedBox->setScaleX(scaleX);
-    m_pBackGroundSelectedBox->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pBackGroundSelectedBox->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pBackGroundSelectedBox->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pBackGroundSelectedBox->setScaleX(scaleX);
+        m_pBackGroundSelectedBox->setScaleY(scaleY);
+
+    }
 }
 
 void UICheckBox::frontCrossTextureScaleChangedWithSize()
 {
-    CCSize textureSize = m_pFrontCross->getContentSize();
-    float scaleX = m_size.width / textureSize.width;
-    float scaleY = m_size.height / textureSize.height;
-    m_pFrontCross->setScaleX(scaleX);
-    m_pFrontCross->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pFrontCross->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pFrontCross->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pFrontCross->setScaleX(scaleX);
+        m_pFrontCross->setScaleY(scaleY);
+    }
 }
 
 void UICheckBox::backGroundDisabledTextureScaleChangedWithSize()
 {
-    CCSize textureSize = m_pBackGroundBoxDisabled->getContentSize();
-    float scaleX = m_size.width / textureSize.width;
-    float scaleY = m_size.height / textureSize.height;
-    m_pBackGroundBoxDisabled->setScaleX(scaleX);
-    m_pBackGroundBoxDisabled->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pBackGroundBoxDisabled->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pBackGroundBoxDisabled->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pBackGroundBoxDisabled->setScaleX(scaleX);
+        m_pBackGroundBoxDisabled->setScaleY(scaleY);
+    }
 }
 
 void UICheckBox::frontCrossDisabledTextureScaleChangedWithSize()
 {
-    CCSize textureSize = m_pFrontCrossDisabled->getContentSize();
-    float scaleX = m_size.width / textureSize.width;
-    float scaleY = m_size.height / textureSize.height;
-    m_pFrontCrossDisabled->setScaleX(scaleX);
-    m_pFrontCrossDisabled->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pFrontCrossDisabled->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pFrontCrossDisabled->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pFrontCrossDisabled->setScaleX(scaleX);
+        m_pFrontCrossDisabled->setScaleY(scaleY);
+    }
 }
 
 NS_CC_EXT_END

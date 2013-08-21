@@ -62,7 +62,8 @@ m_anchorPoint(ccp(0.5f, 0.5f)),
 m_pUILayer(NULL),
 m_nActionTag(0),
 m_pLayoutParameter(NULL),
-m_size(CCSizeMake(50.0f, 50.0f))
+m_size(CCSizeMake(50.0f, 50.0f)),
+m_bIgnoreSize(false)
 {
 }
 
@@ -132,6 +133,19 @@ void UIWidget::setSize(const CCSize &size)
     onSizeChanged();
 }
 
+void UIWidget::ignoreContentAdaptWithSize(bool ignore)
+{
+    m_bIgnoreSize = ignore;
+    if (m_bIgnoreSize)
+    {
+        onIgnoreSize();
+    }
+    else
+    {
+        onSizeChanged();
+    }
+}
+
 const CCSize& UIWidget::getSize() const
 {
     return m_size;
@@ -139,7 +153,17 @@ const CCSize& UIWidget::getSize() const
 
 void UIWidget::onSizeChanged()
 {
-    
+
+}
+
+void UIWidget::onIgnoreSize()
+{
+    setSize(getContentSize());
+}
+
+const CCSize& UIWidget::getContentSize() const
+{
+    return m_size;
 }
 
 void UIWidget::setUILayer(UILayer *uiLayer)
@@ -817,6 +841,65 @@ LayoutParameter* UIWidget::getLayoutParameter()
 {
     return m_pLayoutParameter;
 }
+
+/*******to be removed*******/
+
+void UIWidget::setTouchEnabled(bool enabled, bool containChildren)
+{
+    setTouchEnabled(enabled);
+    if (containChildren)
+    {
+        Layout* layout = dynamic_cast<Layout*>(this);
+        if (layout)
+        {
+            ccArray* childrenArray = layout->getChildren()->data;
+            int length = childrenArray->num;
+            for (int i=0; i<length; ++i)
+            {
+                UIWidget* child = (UIWidget*)childrenArray->arr[i];
+                child->setTouchEnabled(enabled,true);
+            }
+        }
+    }
+}
+
+void UIWidget::disable(bool containChildren)
+{
+    setBright(false,containChildren);
+    setTouchEnabled(false,containChildren);
+}
+
+void UIWidget::active(bool containChildren)
+{
+    setBright(true,containChildren);
+    setTouchEnabled(true,containChildren);
+}
+
+bool UIWidget::isActive()
+{
+    return isBright();
+}
+
+void UIWidget::setBright(bool bright, bool containChild)
+{
+    setBright(bright);
+    if (containChild)
+    {
+        Layout* layout = dynamic_cast<Layout*>(this);
+        if (layout)
+        {
+            ccArray* childrenArray = layout->getChildren()->data;
+            int length = childrenArray->num;
+            for (int i=0; i<length; ++i)
+            {
+                UIWidget* child = (UIWidget*)childrenArray->arr[i];
+                child->setBright(bright,containChild);
+            }
+        }
+    }
+}
+
+/***************************/
 
 GUIRenderer::GUIRenderer():
 m_bEnabled(true)

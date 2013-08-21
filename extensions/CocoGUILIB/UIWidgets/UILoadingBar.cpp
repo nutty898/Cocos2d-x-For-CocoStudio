@@ -76,13 +76,14 @@ void UILoadingBar::setDirection(LoadingBarType dir)
             m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));
             m_pRenderBar->setPosition(ccp(-m_fTotalLength*0.5f,0.0f));
             m_pRenderBar->setFlipX(false);
+            setAnchorPoint(ccp(0.0,0.5));
             break;
         case LoadingBarTypeRight:
             
             m_pRenderBar->setAnchorPoint(ccp(1.0,0.5));
             m_pRenderBar->setPosition(ccp(m_fTotalLength*0.5f,0.0f));
             m_pRenderBar->setFlipX(true);
-
+            setAnchorPoint(ccp(1.0,0.5));
             break;
     }
 }
@@ -119,11 +120,13 @@ void UILoadingBar::loadTexture(const char* texture,TextureResType texType)
         m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));
         m_pRenderBar->setPosition(ccp(-m_fTotalLength*0.5f,0.0f));
         m_pRenderBar->setFlipX(false);
+        setAnchorPoint(ccp(0.0,0.5));
         break;
     case LoadingBarTypeRight:
         m_pRenderBar->setAnchorPoint(ccp(1.0,0.5));
         m_pRenderBar->setPosition(ccp(m_fTotalLength*0.5f,0.0f));
         m_pRenderBar->setFlipX(true);
+        setAnchorPoint(ccp(1.0,0.5));
         break;
     }
     barRendererScaleChangedWithSize();
@@ -183,13 +186,25 @@ void UILoadingBar::onSizeChanged()
     barRendererScaleChangedWithSize();
 }
 
+const CCSize& UILoadingBar::getContentSize() const
+{
+    return CCSizeMake(m_fTotalLength, m_pRenderBar->getContentSize().height);
+}
+
 void UILoadingBar::barRendererScaleChangedWithSize()
 {
-    CCSize textureSize = m_pRenderBar->getContentSize();
-    float scaleX = m_size.width / m_fTotalLength;
-    float scaleY = m_size.height / textureSize.height;
-    m_pRenderBar->setScaleX(scaleX);
-    m_pRenderBar->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pRenderBar->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pRenderBar->getContentSize();
+        float scaleX = m_size.width / m_fTotalLength;
+        float scaleY = m_size.height / textureSize.height;
+        m_pRenderBar->setScaleX(scaleX);
+        m_pRenderBar->setScaleY(scaleY);
+    }
 }
 
 NS_CC_EXT_END

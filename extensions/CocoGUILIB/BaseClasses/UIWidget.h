@@ -166,6 +166,7 @@ public:
     virtual void setSize(const CCSize &size);
     const CCSize& getSize() const;
     
+    
     virtual bool hitTest(const CCPoint &pt);
     virtual bool onTouchBegan(const CCPoint &touchPoint);
     virtual void onTouchMoved(const CCPoint &touchPoint);
@@ -175,8 +176,21 @@ public:
     
     void setLayoutParameter(LayoutParameter* parameter);
     LayoutParameter* getLayoutParameter();
+    
+    void ignoreContentAdaptWithSize(bool ignore);
+    
+    /*******to be removed*******/
+    virtual void setTouchEnabled(bool enabled, bool containChildren);
+    void disable(bool containChildren = false);
+    void active(bool containChildren = false);
+    bool isActive();
+    void setBright(bool bright, bool containChild);
+    /***************************/
+    
 protected:
     virtual void onSizeChanged();
+    virtual void onIgnoreSize();
+    virtual const CCSize& getContentSize() const;
     virtual bool init();
     virtual void initRenderer();
     virtual void onPressStateChangedToNormal();
@@ -222,6 +236,8 @@ protected:
     CCSize m_size;
     
     LayoutParameter* m_pLayoutParameter;
+    
+    bool m_bIgnoreSize;
 };
 
 class GUIRenderer : public CCNodeRGBA

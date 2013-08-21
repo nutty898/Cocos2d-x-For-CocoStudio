@@ -83,13 +83,25 @@ void UILabelAtlas::onSizeChanged()
     labelAtlasScaleChangedWithSize();
 }
 
+const CCSize& UILabelAtlas::getContentSize() const
+{
+    return m_pRenderLaberAtlas->getContentSize();
+}
+
 void UILabelAtlas::labelAtlasScaleChangedWithSize()
 {
-    CCSize textureSize = m_pRenderLaberAtlas->getContentSize();
-    float scaleX = m_size.width / textureSize.width;
-    float scaleY = m_size.height / textureSize.height;
-    m_pRenderLaberAtlas->setScaleX(scaleX);
-    m_pRenderLaberAtlas->setScaleY(scaleY);
+    if (m_bIgnoreSize)
+    {
+        m_pRenderLaberAtlas->setScale(1.0f);
+    }
+    else
+    {
+        CCSize textureSize = m_pRenderLaberAtlas->getContentSize();
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
+        m_pRenderLaberAtlas->setScaleX(scaleX);
+        m_pRenderLaberAtlas->setScaleY(scaleY);
+    }
 }
 
 NS_CC_EXT_END

@@ -45,7 +45,6 @@ public:
     virtual bool isFlipX();
     virtual bool isFlipY();
     void setScale9Enabled(bool able);
-    void setScale9Size(const CCSize &size);
     void setDisplayFrame(CCSpriteFrame *pNewFrame);
     void setSpriteFrame(CCSpriteFrame *pNewFrame);
     void setPreferredSize(const CCSize& pSize);
@@ -60,6 +59,7 @@ public:
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();
+    virtual const CCSize& getContentSize() const;
     void imageTextureScaleChangedWithSize();
 protected:
     int m_nViewType;
@@ -71,10 +71,10 @@ protected:
     
     bool m_bScale9Enabled;
     CCRect m_capInsets;
-    CCSize m_scale9Size;
     CCNode* m_pImageRender;
     std::string m_strTextureFile;
     TextureResType m_eImageTexType;
+    CCSize m_imageTextureSize;
 };
 
 NS_CC_EXT_END
