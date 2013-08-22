@@ -79,47 +79,47 @@ void CocosGUITestScene::runThisTest()
     RelativeLayoutExecutant* le = RelativeLayoutExecutant::create();
     l->setLayoutExecutant(le);
     
-    UIButton* btn1 = UIButton::create();
-    btn1->setScale9Enabled(true);
-    btn1->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
-    RelativeLayoutParameter* lp = RelativeLayoutParameter::create();
-    lp->setAlign(RELATIVE_ALIGN_PARENT_RIGHT);
-    lp->setRelativeName("btn1");
-    lp->setMargin(UIMargin(10,0,0,10));
-    btn1->setLayoutParameter(lp);
-    l->addChild(btn1);
-    
-    UIButton* btn2 = UIButton::create();
-    
-    btn2->setSize(CCSizeMake(100, 100));
-    btn2->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
-    RelativeLayoutParameter* lp2 = RelativeLayoutParameter::create();
-    lp2->setAlign(RELATIVE_CENTER_IN_PARENT);
-    lp2->setRelativeToWidgetName("btn1");
-    lp2->setAlign(RELATIVE_LOCATION_BELOW_RIGHTALIGN);
-    lp2->setRelativeName("btn2");
-    btn2->setLayoutParameter(lp2);
-    lp2->setMargin(UIMargin(0,10,0,0));
-    l->addChild(btn2);
-    btn2->setScale9Enabled(true);
-    
-    
-    
+//    UIButton* btn1 = UIButton::create();
+//    btn1->setScale9Enabled(true);
+//    btn1->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
+//    RelativeLayoutParameter* lp = RelativeLayoutParameter::create();
+//    lp->setAlign(RELATIVE_ALIGN_PARENT_RIGHT);
+//    lp->setRelativeName("btn1");
+//    lp->setMargin(UIMargin(10,0,0,10));
+//    btn1->setLayoutParameter(lp);
+//    l->addChild(btn1);
+//    
+//    UIButton* btn2 = UIButton::create();
+//    
+//    btn2->setSize(CCSizeMake(100, 100));
+//    btn2->loadTextures("cocosgui/animationbuttonnormal.png", "cocosgui/animationbuttonpressed.png", "cocosgui/CloseNormal.png");
+//    RelativeLayoutParameter* lp2 = RelativeLayoutParameter::create();
+//    lp2->setAlign(RELATIVE_CENTER_IN_PARENT);
+//    lp2->setRelativeToWidgetName("btn1");
+//    lp2->setAlign(RELATIVE_LOCATION_BELOW_RIGHTALIGN);
+//    lp2->setRelativeName("btn2");
+//    btn2->setLayoutParameter(lp2);
+//    lp2->setMargin(UIMargin(0,10,0,0));
+//    l->addChild(btn2);
+//    btn2->setScale9Enabled(true);
+//    
+//    
+//    
     l->setBackGroundColorType(LAYOUT_COLOR_SOLID);
     l->setBackGroundColor(ccGREEN);
-    
-    
-    btn2->addReleaseEvent(this, coco_releaseselector(CocosGUITestScene::MainMenuCallback));
-    
-    l->setBackGroundImage("cocosgui/animationbuttonnormal.png");
-    l->setBackGroundImageScale9Enabled(true);
-//    l->disable(true);
-    
-    btn1->ignoreContentAdaptWithSize(true);
-    btn2->ignoreContentAdaptWithSize(true);
-    btn2->setSize(CCSizeMake(100, 100));
-    btn2->ignoreContentAdaptWithSize(false);
-    
+//
+//    
+//    btn2->addReleaseEvent(this, coco_releaseselector(CocosGUITestScene::MainMenuCallback));
+//    
+//    l->setBackGroundImage("cocosgui/animationbuttonnormal.png");
+//    l->setBackGroundImageScale9Enabled(true);
+////    l->disable(true);
+//    
+//    btn1->ignoreContentAdaptWithSize(true);
+//    btn2->ignoreContentAdaptWithSize(true);
+//    btn2->setSize(CCSizeMake(100, 100));
+//    btn2->ignoreContentAdaptWithSize(false);
+//    
     
 //    UICheckBox* cb = UICheckBox::create();
 //    cb->loadTextures("cocosgui/check_box_normal.png", "cocosgui/check_box_normal_press.png", "cocosgui/check_box_active.png", "cocosgui/check_box_normal_disable.png", "cocosgui/check_box_active_disable.png");
@@ -141,20 +141,61 @@ void CocosGUITestScene::runThisTest()
 ////    iv->ignoreContentAdaptWithSize(false);
 //    l->addChild(iv);
     
-    UILoadingBar* lb = UILoadingBar::create();
-    lb->loadTexture("cocosgui/backtotopnormal.png");
-    l->addChild(lb);
-//    lb->setDirection(LoadingBarTypeRight);
-    RelativeLayoutParameter* lp3 = RelativeLayoutParameter::create();
-    lb->setLayoutParameter(lp3);
-    lb->setPercent(100);
+//    UILoadingBar* lb = UILoadingBar::create();
+//    lb->loadTexture("cocosgui/backtotopnormal.png");
+//    lb->setName("aaa");
+//    l->addChild(lb);
+////    lb->setDirection(LoadingBarTypeRight);
+//    RelativeLayoutParameter* lp3 = RelativeLayoutParameter::create();
+//    lb->setLayoutParameter(lp3);
+//    lb->setPercent(100);
 //    lb->ignoreContentAdaptWithSize(true);
 //    lb->setSize(CCSizeMake(50, 50));
 //    lb->ignoreContentAdaptWithSize(false);
     
+//    UISlider* sld = UISlider::create();
+//    sld->loadSlidBallTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
+//    sld->loadBarTexture("cocosgui/loadingbar.png");
+//    RelativeLayoutParameter* lp3 = RelativeLayoutParameter::create();
+//    sld->setLayoutParameter(lp3);
+//    sld->ignoreContentAdaptWithSize(true);
+//    sld->setSize(CCSizeMake(50, 50));
+//    sld->ignoreContentAdaptWithSize(false);
+//    l->addChild(sld);
     
+//    UILabel* lb = UILabel::create();
+//    lb->setText("dsadasdsahufdsahfklsdafhdasfhdkslfdhfiludashfuildhfuidsalhfuidalfhiuadsl");
+//    lb->setTextAreaSize(CCSizeMake(100, 100));
+//    RelativeLayoutParameter* lp3 = RelativeLayoutParameter::create();
+//    lb->setLayoutParameter(lp3);
+////    lb->ignoreContentAdaptWithSize(true);
+//    lb->setSize(CCSizeMake(100, 100));
+//    l->addChild(lb);
+    
+    UIScrollView* sc = UIScrollView::create();
+    
+    sc->setSize(CCSizeMake(200, 200));
+    sc->setBackGroundColorType(LAYOUT_COLOR_SOLID);
+    sc->setBackGroundColor(ccBLUE);
+    l->addChild(sc);
+    RelativeLayoutParameter* lp3 = RelativeLayoutParameter::create();
+    sc->setLayoutParameter(lp3);
     le->doLayout();
-    lb->setPosition(ccp(100, 100));
+    sc->setInnerContainerSize(CCSizeMake(100, 500));
+    
+//    sc->setSize(CCSizeMake(200, 200));
+    
+    for (int i=0; i<10; i++)
+    {
+        UICheckBox* cb = UICheckBox::create();
+        cb->loadTextures("cocosgui/check_box_normal.png", "cocosgui/check_box_normal_press.png", "cocosgui/check_box_active.png", "cocosgui/check_box_normal_disable.png", "cocosgui/check_box_active_disable.png");
+        sc->addChild(cb);
+        cb->setPosition(ccp(50, i*50));
+    }
+    
+    
+    
+//    lb->setPosition(ccp(50, 100));
 //    l->active(true);
 //    l->setClippingEnabled(true);
     
@@ -279,14 +320,24 @@ void CocosGUITestScene::runThisTest()
 void CocosGUITestScene::MainMenuCallback(CCObject* pSender)
 {
     CCLOG("fuck");
-    ((UIWidget*)pSender)->setBright(false);
+//    ((UIWidget*)pSender)->setBright(false);
 //    UISlider* sl = (UISlider*)pSender;
 //    char aa[128];
 //    sprintf(aa, "percent %d",sl->getPercent());
 //    ((UILabel*)(ul->getWidgetByName("nnn")))->setText(aa);
 //    ul->removeFromParent();
 //    TestScene::MainMenuCallback(pSender);
-    ((Layout*)ul->getWidgetByName("layout"))->removeBackGroundImage();
+    UILoadingBar* lb = ((UILoadingBar*)ul->getWidgetByName("aaa"));
+    if (lb)
+    {
+        
+        CCLOG("mabi position x %f y %f",lb->getPosition().x,lb->getPosition().y);  
+    }
+    else
+    {
+        CCLOG("nimabi");
+    }
+//
 }
 
 void CocosGUITestScene::toCocosGUIExampleScene(CCObject* pSender)

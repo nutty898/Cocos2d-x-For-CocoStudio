@@ -68,7 +68,6 @@ public:
 	virtual bool removeChild(UIWidget* child,bool cleanup);
     void scrollToBottom();
     void scrollToTop();
-    virtual void setSize(const CCSize &size);
     void setInnerContainerSize(const CCSize &size);
 	const CCSize& getInerContainerSize() const;
     
@@ -113,6 +112,7 @@ protected:
     void scrollToRightEvent();
     void setMoveDirection(SCROLLVIEW_MOVE_DIR dir);
     SCROLLVIEW_MOVE_DIR getMoveDirection();
+    virtual void onSizeChanged();
 protected:
     SCROLLVIEW_DIR m_eDirection;
     SCROLLVIEW_MOVE_DIR m_eMoveDirection;

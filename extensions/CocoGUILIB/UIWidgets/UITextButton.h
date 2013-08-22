@@ -50,4 +50,4 @@ protected:
 
 NS_CC_EXT_END
 
-#endif /* defined(__CocoGUI__TextButton__) */
+#endif /* defined(__TextButton__) */

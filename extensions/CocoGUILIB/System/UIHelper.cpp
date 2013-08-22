@@ -144,7 +144,13 @@ UIWidget* UIHelper::seekWidgetByTag(Layout* root, int tag)
         {
             res = seekWidgetByTag(layout,tag);
         }
-        
+        else
+        {
+            if (child->getWidgetTag() == tag)
+            {
+                return child;
+            }
+        }
         if (res != NULL)
         {
             return res;
@@ -173,6 +179,13 @@ UIWidget* UIHelper::seekWidgetByName(Layout* root, const char *name)
         if (layout)
         {
             res = seekWidgetByName(layout,name);
+        }
+        else
+        {
+            if (strcmp(child->getName(), name) == 0)
+            {
+                return child;
+            }
         }
         if (res != NULL)
         {

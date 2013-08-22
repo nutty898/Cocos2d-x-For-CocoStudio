@@ -131,6 +131,7 @@ void UIClippingLayer::visit()
             glEnable(GL_SCISSOR_TEST);
         }
         CCRect clippingRect = getClippingRect();
+        CCLOG("pcr x %f y %f w %f h %f",m_parentClippingRect.origin.x,m_parentClippingRect.origin.y,m_parentClippingRect.size.width,m_parentClippingRect.size.height);
         CCEGLView::sharedOpenGLView()->setScissorInPoints(clippingRect.origin.x, clippingRect.origin.y, clippingRect.size.width, clippingRect.size.height);
         CCLayerRGBA::visit();
         if (m_bHandleScissor)
@@ -141,7 +142,7 @@ void UIClippingLayer::visit()
         {
             if (m_pClippingParent)
             {
-                CCEGLView::sharedOpenGLView()->setScissorInPoints(m_parentClippingRect.origin.x, m_parentClippingRect.origin.y, m_parentClippingRect.size.width, m_parentClippingRect.size.height);
+//                CCEGLView::sharedOpenGLView()->setScissorInPoints(m_parentClippingRect.origin.x, m_parentClippingRect.origin.y, m_parentClippingRect.size.width, m_parentClippingRect.size.height);
             }
         }
     }

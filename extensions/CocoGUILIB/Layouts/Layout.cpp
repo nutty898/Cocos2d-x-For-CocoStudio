@@ -30,11 +30,9 @@
 
 NS_CC_EXT_BEGIN
 
-#define DYNAMIC_CAST_CLIPPINGLAYER dynamic_cast<UIClippingLayer*>(m_pRenderer)
+#define DYNAMIC_CAST_CLIPPINGLAYER dynamic_cast<RectClippingNode*>(m_pRenderer)
 
 Layout::Layout():
-m_fWidth(0.0),
-m_fHeight(0.0),
 m_bClippingEnabled(false),
 m_children(NULL),
 m_pLayoutExecutant(NULL),
@@ -129,7 +127,7 @@ LayoutExecutant* Layout::getLayoutExecutant() const
 
 void Layout::initRenderer()
 {
-    m_pRenderer = UIClippingLayer::create();
+    m_pRenderer = RectClippingNode::create();
 }
 
 bool Layout::isClippingEnabled()
@@ -383,12 +381,12 @@ bool Layout::hitTest(const CCPoint &pt)
 void Layout::setClippingEnabled(bool able)
 {
     m_bClippingEnabled = able;
-    DYNAMIC_CAST_CLIPPINGLAYER->setClippingEnabled(able);
+//    DYNAMIC_CAST_CLIPPINGLAYER->setClippingEnabled(able);
 }
 
 void Layout::onSizeChanged()
 {
-    DYNAMIC_CAST_CLIPPINGLAYER->setContentSize(m_size);
+    DYNAMIC_CAST_CLIPPINGLAYER->setClippingSize(m_size);
     if (m_pLayoutExecutant)
     {
         m_pLayoutExecutant->doLayout();
@@ -665,5 +663,62 @@ void Layout::setOpacity(int opacity)
         }
     }
 }
+
+RectClippingNode::RectClippingNode():
+m_pInnerStencil(NULL),
+m_clippingSize(CCSizeMake(50.0f, 50.0f))
+{
+    
+}
+
+RectClippingNode::~RectClippingNode()
+{
+    
+}
+
+RectClippingNode* RectClippingNode::create()
+{
+    RectClippingNode *pRet = new RectClippingNode();
+    if (pRet && pRet->init())
+    {
+        pRet->autorelease();
+    }
+    else
+    {
+        CC_SAFE_DELETE(pRet);
+    }
+    
+    return pRet;
+}
+
+bool RectClippingNode::init()
+{
+    m_pInnerStencil = CCDrawNode::create();
+    rect[0] = ccp(0, 0);
+    rect[1] = ccp(m_clippingSize.width, 0);
+    rect[2] = ccp(m_clippingSize.width, m_clippingSize.height);
+    rect[3] = ccp(0, m_clippingSize.height);
+    
+    ccColor4F green = {0, 1, 0, 1};
+    m_pInnerStencil->drawPolygon(rect, 4, green, 0, green);
+    if (CCClippingNode::init(m_pInnerStencil))
+    {
+        return true;
+    }
+    return false;
+}
+
+
+void RectClippingNode::setClippingSize(const cocos2d::CCSize &size)
+{
+    m_clippingSize = size;
+    rect[0] = ccp(0, 0);
+    rect[1] = ccp(m_clippingSize.width, 0);
+    rect[2] = ccp(m_clippingSize.width, m_clippingSize.height);
+    rect[3] = ccp(0, m_clippingSize.height);
+    ccColor4F green = {0, 1, 0, 1};
+    m_pInnerStencil->drawPolygon(rect, 4, green, 0, green);
+}
+
 
 NS_CC_EXT_END

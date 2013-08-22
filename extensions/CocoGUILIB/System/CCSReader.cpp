@@ -127,8 +127,8 @@ UIWidget* CCSReader::widgetFromJsonDictionary(cs::CSJsonDictionary* data)
     }
     else if (classname && strcmp(classname, "TextArea") == 0)
     {
-        widget = UITextArea::create();
-        setPropsForTextAreaFromJsonDictionary(widget, uiOptions);
+//        widget = UITextArea::create();
+//        setPropsForTextAreaFromJsonDictionary(widget, uiOptions);
     }
     else if (classname && strcmp(classname, "TextButton") == 0)
     {
@@ -1314,37 +1314,37 @@ void CCSReader::setPropsForSliderFromJsonDictionary(UIWidget*widget,cs::CSJsonDi
 
 void CCSReader::setPropsForTextAreaFromJsonDictionary(UIWidget*widget,cs::CSJsonDictionary* options)
 {
-    setPropsForWidgetFromJsonDictionary(widget, options);
-    UITextArea* textArea = (UITextArea*)widget;
-    textArea->setText(DICTOOL->getStringValue_json(options, "text"));
-    bool fs = DICTOOL->checkObjectExist_json(options, "fontSize");
-    if (fs)
-    {
-        textArea->setFontSize(DICTOOL->getIntValue_json(options, "fontSize"));
-    }
-    int cr = DICTOOL->getIntValue_json(options, "colorR");
-    int cg = DICTOOL->getIntValue_json(options, "colorG");
-    int cb = DICTOOL->getIntValue_json(options, "colorB");
-    textArea->setTextColor(cr, cg, cb);
-    textArea->setFontName(DICTOOL->getStringValue_json(options, "fontName"));
-    bool aw = DICTOOL->checkObjectExist_json(options, "areaWidth");
-    bool ah = DICTOOL->checkObjectExist_json(options, "areaHeight");
-    if (aw && ah)
-    {
-        CCSize size = CCSize(DICTOOL->getFloatValue_json(options, "areaWidth"),DICTOOL->getFloatValue_json(options,"areaHeight"));
-        textArea->setTextAreaSize(size);
-    }
-    bool ha = DICTOOL->checkObjectExist_json(options, "hAlignment");
-    if (ha)
-    {
-        textArea->setTextHorizontalAlignment((CCTextAlignment)DICTOOL->getIntValue_json(options, "hAlignment"));
-    }
-    bool va = DICTOOL->checkObjectExist_json(options, "vAlignment");
-    if (va)
-    {
-        textArea->setTextVerticalAlignment((CCVerticalTextAlignment)DICTOOL->getIntValue_json(options, "vAlignment"));
-    }
-    setColorPropsForWidgetFromJsonDictionary(widget,options);
+//    setPropsForWidgetFromJsonDictionary(widget, options);
+//    UITextArea* textArea = (UITextArea*)widget;
+//    textArea->setText(DICTOOL->getStringValue_json(options, "text"));
+//    bool fs = DICTOOL->checkObjectExist_json(options, "fontSize");
+//    if (fs)
+//    {
+//        textArea->setFontSize(DICTOOL->getIntValue_json(options, "fontSize"));
+//    }
+//    int cr = DICTOOL->getIntValue_json(options, "colorR");
+//    int cg = DICTOOL->getIntValue_json(options, "colorG");
+//    int cb = DICTOOL->getIntValue_json(options, "colorB");
+//    textArea->setTextColor(cr, cg, cb);
+//    textArea->setFontName(DICTOOL->getStringValue_json(options, "fontName"));
+//    bool aw = DICTOOL->checkObjectExist_json(options, "areaWidth");
+//    bool ah = DICTOOL->checkObjectExist_json(options, "areaHeight");
+//    if (aw && ah)
+//    {
+//        CCSize size = CCSize(DICTOOL->getFloatValue_json(options, "areaWidth"),DICTOOL->getFloatValue_json(options,"areaHeight"));
+//        textArea->setTextAreaSize(size);
+//    }
+//    bool ha = DICTOOL->checkObjectExist_json(options, "hAlignment");
+//    if (ha)
+//    {
+//        textArea->setTextHorizontalAlignment((CCTextAlignment)DICTOOL->getIntValue_json(options, "hAlignment"));
+//    }
+//    bool va = DICTOOL->checkObjectExist_json(options, "vAlignment");
+//    if (va)
+//    {
+//        textArea->setTextVerticalAlignment((CCVerticalTextAlignment)DICTOOL->getIntValue_json(options, "vAlignment"));
+//    }
+//    setColorPropsForWidgetFromJsonDictionary(widget,options);
 }
 
 void CCSReader::setPropsForTextButtonFromJsonDictionary(UIWidget*widget,cs::CSJsonDictionary* options)

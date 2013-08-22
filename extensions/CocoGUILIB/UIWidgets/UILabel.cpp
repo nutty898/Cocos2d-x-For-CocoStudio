@@ -28,7 +28,6 @@ NS_CC_EXT_BEGIN
 
 UILabel::UILabel():
 m_bTouchScaleChangeAble(false),
-m_nGravity(LabelGravityCenter),
 m_sFontName("Thonburi"),
 m_nFontSize(10),
 m_fOnSelectedScaleOffset(0.5),
@@ -103,6 +102,21 @@ void UILabel::setFontName(const char* name)
     labelScaleChangedWithSize();
 }
 
+void UILabel::setTextAreaSize(const CCSize &size)
+{
+    m_pRenderLabel->setDimensions(size);
+}
+
+void UILabel::setTextHorizontalAlignment(CCTextAlignment alignment)
+{
+    m_pRenderLabel->setHorizontalAlignment(alignment);
+}
+
+void UILabel::setTextVerticalAlignment(CCVerticalTextAlignment alignment)
+{
+    m_pRenderLabel->setVerticalAlignment(alignment);
+}
+
 void UILabel::setTouchScaleChangeAble(bool able)
 {
     m_bTouchScaleChangeAble = able;
@@ -160,25 +174,6 @@ bool UILabel::isFlipX()
 bool UILabel::isFlipY()
 {
     return m_pRenderLabel->isFlipY();
-}
-
-void UILabel::setGravity(LabelGravity gravity)
-{
-    m_nGravity = gravity;
-    switch (m_nGravity)
-    {
-        case LabelGravityCenter:
-            m_pRenderLabel->setAnchorPoint(ccp(0.5f, 0.5f));
-            break;
-        case LabelGravityLelf:
-            m_pRenderLabel->setAnchorPoint(ccp(0.0f, 0.5f));
-            break;
-        case LabelGravityRight:
-            m_pRenderLabel->setAnchorPoint(ccp(1.0f, 0.5f));
-            break;
-        default:
-            break;
-    }
 }
 
 void UILabel::setAnchorPoint(const CCPoint &pt)

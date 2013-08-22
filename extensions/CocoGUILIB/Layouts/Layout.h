@@ -79,8 +79,8 @@ protected:
     virtual bool isClippingEnabled();
     void addBackGroundImage();
 protected:
-    float m_fWidth;
-    float m_fHeight;
+//    float m_fWidth;
+//    float m_fHeight;
     bool m_bClippingEnabled;
     CCArray* m_children;
     LayoutExecutant* m_pLayoutExecutant;
@@ -99,6 +99,21 @@ protected:
     ccColor3B m_gEndColor;
     CCPoint m_AlongVector;
     int m_nCOpacity;
+};
+
+class RectClippingNode : public CCClippingNode
+{
+public:
+    virtual ~RectClippingNode();
+    virtual bool init();
+    static RectClippingNode* create();
+    void setClippingSize(const CCSize& size);
+protected:
+    CCDrawNode* m_pInnerStencil;
+private:
+    RectClippingNode();
+    CCPoint rect[4];
+    CCSize m_clippingSize;
 };
 
 NS_CC_EXT_END

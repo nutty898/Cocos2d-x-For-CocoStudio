@@ -29,15 +29,6 @@
 
 NS_CC_EXT_BEGIN
 
-typedef enum
-{
-    LabelGravityNone = -1,
-    LabelGravityCenter,
-    LabelGravityLelf,
-    LabelGravityRight,
-    
-}LabelGravity;
-
 class UILabel : public UIWidget
 {
 public:
@@ -56,8 +47,10 @@ public:
     virtual void setFlipY(bool flipY);
     virtual bool isFlipX();
     virtual bool isFlipY();
-    void setGravity(LabelGravity gravity);
     virtual void setAnchorPoint(const CCPoint &pt);
+    void setTextAreaSize(const CCSize &size);
+    void setTextHorizontalAlignment(CCTextAlignment alignment);
+    void setTextVerticalAlignment(CCVerticalTextAlignment alignment);
 protected:
     virtual bool init();
     virtual void initRenderer();
@@ -70,7 +63,6 @@ protected:
 protected:
     bool m_bTouchScaleChangeAble;
     float m_fNormalScaleValue;
-    LabelGravity m_nGravity;
     std::string m_sFontName;
     int m_nFontSize;
     float m_fOnSelectedScaleOffset;

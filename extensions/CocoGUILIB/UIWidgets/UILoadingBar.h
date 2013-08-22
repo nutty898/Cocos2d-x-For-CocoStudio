@@ -57,9 +57,9 @@ protected:
     LoadingBarType m_nBarType;
     int m_nPercent;
     float m_fTotalLength;
-    float m_fBarHeight;
     CCSprite* m_pRenderBar;
     TextureResType m_eRenderBarTexType;
+    CCSize m_barRendererTextureSize;
 //    bool m_bUseSpriteFrame;
 };
 

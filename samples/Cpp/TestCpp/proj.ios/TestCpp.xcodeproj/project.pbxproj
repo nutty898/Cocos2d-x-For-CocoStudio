@@ -304,7 +304,6 @@
 		37799333178C272000C68990 /* UILoadingBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37799309178C272000C68990 /* UILoadingBar.cpp */; };
 		37799334178C272000C68990 /* UINodeContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3779930B178C272000C68990 /* UINodeContainer.cpp */; };
 		37799338178C272000C68990 /* UISlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37799313178C272000C68990 /* UISlider.cpp */; };
-		37799339178C272000C68990 /* UITextArea.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37799315178C272000C68990 /* UITextArea.cpp */; };
 		3779933A178C272000C68990 /* UITextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37799317178C272000C68990 /* UITextButton.cpp */; };
 		3779933B178C272000C68990 /* UITextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37799319178C272000C68990 /* UITextField.cpp */; };
 		37799346178C279A00C68990 /* SceneEditorTestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37799342178C279A00C68990 /* SceneEditorTestScene.cpp */; };
@@ -1082,8 +1081,6 @@
 		3779930C178C272000C68990 /* UINodeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UINodeContainer.h; sourceTree = "<group>"; };
 		37799313178C272000C68990 /* UISlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UISlider.cpp; sourceTree = "<group>"; };
 		37799314178C272000C68990 /* UISlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UISlider.h; sourceTree = "<group>"; };
-		37799315178C272000C68990 /* UITextArea.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UITextArea.cpp; sourceTree = "<group>"; };
-		37799316178C272000C68990 /* UITextArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextArea.h; sourceTree = "<group>"; };
 		37799317178C272000C68990 /* UITextButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UITextButton.cpp; sourceTree = "<group>"; };
 		37799318178C272000C68990 /* UITextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextButton.h; sourceTree = "<group>"; };
 		37799319178C272000C68990 /* UITextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UITextField.cpp; sourceTree = "<group>"; };
@@ -2924,8 +2921,6 @@
 				3779930C178C272000C68990 /* UINodeContainer.h */,
 				37799313178C272000C68990 /* UISlider.cpp */,
 				37799314178C272000C68990 /* UISlider.h */,
-				37799315178C272000C68990 /* UITextArea.cpp */,
-				37799316178C272000C68990 /* UITextArea.h */,
 				37799317178C272000C68990 /* UITextButton.cpp */,
 				37799318178C272000C68990 /* UITextButton.h */,
 				37799319178C272000C68990 /* UITextField.cpp */,
@@ -3703,7 +3698,6 @@
 				37799333178C272000C68990 /* UILoadingBar.cpp in Sources */,
 				37799334178C272000C68990 /* UINodeContainer.cpp in Sources */,
 				37799338178C272000C68990 /* UISlider.cpp in Sources */,
-				37799339178C272000C68990 /* UITextArea.cpp in Sources */,
 				3779933A178C272000C68990 /* UITextButton.cpp in Sources */,
 				3779933B178C272000C68990 /* UITextField.cpp in Sources */,
 				37799346178C279A00C68990 /* SceneEditorTestScene.cpp in Sources */,

@@ -38,7 +38,6 @@
 //#include "../UIWidgets/UIPanel.h"
 #include "../UIWidgets/ScrollWidget/UIScrollView.h"
 #include "../UIWidgets/UISlider.h"
-#include "../UIWidgets/UITextArea.h"
 #include "../UIWidgets/UITextButton.h"
 #include "../UIWidgets/UITextField.h"
 //#include "../UIWidgets/UIListView.h"

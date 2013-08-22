@@ -32,7 +32,6 @@ UILoadingBar::UILoadingBar():
 m_nBarType(LoadingBarTypeLeft),
 m_nPercent(100),
 m_fTotalLength(0),
-m_fBarHeight(0),
 m_pRenderBar(NULL),
 m_eRenderBarTexType(UI_TEX_TYPE_LOCAL)
 {
@@ -76,14 +75,12 @@ void UILoadingBar::setDirection(LoadingBarType dir)
             m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));
             m_pRenderBar->setPosition(ccp(-m_fTotalLength*0.5f,0.0f));
             m_pRenderBar->setFlipX(false);
-            setAnchorPoint(ccp(0.0,0.5));
             break;
         case LoadingBarTypeRight:
             
             m_pRenderBar->setAnchorPoint(ccp(1.0,0.5));
             m_pRenderBar->setPosition(ccp(m_fTotalLength*0.5f,0.0f));
             m_pRenderBar->setFlipX(true);
-            setAnchorPoint(ccp(1.0,0.5));
             break;
     }
 }
@@ -95,7 +92,6 @@ int UILoadingBar::getDirection()
 
 void UILoadingBar::loadTexture(const char* texture,TextureResType texType)
 {
-//    setUseMergedTexture(useSpriteFrame);
     m_eRenderBarTexType = texType;
     switch (m_eRenderBarTexType)
     {
@@ -111,22 +107,20 @@ void UILoadingBar::loadTexture(const char* texture,TextureResType texType)
     m_pRenderBar->setColor(getColor());
     m_pRenderBar->setOpacity(getOpacity());
     
-    m_fTotalLength = m_pRenderBar->getContentSize().width;
-    m_fBarHeight = m_pRenderBar->getContentSize().height;
-
+    m_barRendererTextureSize.width = m_pRenderBar->getContentSize().width;
+    m_barRendererTextureSize.height = m_pRenderBar->getContentSize().height;
+    
     switch (m_nBarType)
     {
     case LoadingBarTypeLeft:
         m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));
-        m_pRenderBar->setPosition(ccp(-m_fTotalLength*0.5f,0.0f));
         m_pRenderBar->setFlipX(false);
-        setAnchorPoint(ccp(0.0,0.5));
+//        setAnchorPoint(ccp(0.0,0.5));
         break;
     case LoadingBarTypeRight:
         m_pRenderBar->setAnchorPoint(ccp(1.0,0.5));
-        m_pRenderBar->setPosition(ccp(m_fTotalLength*0.5f,0.0f));
         m_pRenderBar->setFlipX(true);
-        setAnchorPoint(ccp(1.0,0.5));
+//        setAnchorPoint(ccp(1.0,0.5));
         break;
     }
     barRendererScaleChangedWithSize();
@@ -163,7 +157,7 @@ void UILoadingBar::setPercent(int percent)
             break;
     }
     
-    m_pRenderBar->setTextureRect(CCRect(x, y, m_fTotalLength * res, m_fBarHeight));
+    m_pRenderBar->setTextureRect(CCRect(x, y, m_barRendererTextureSize.width * res, m_barRendererTextureSize.height));
 }
 
 int UILoadingBar::getPercent()
@@ -178,7 +172,7 @@ float UILoadingBar::getTotalWidth()
 
 float UILoadingBar::getTotalHeight()
 {
-    return m_fBarHeight;
+    return m_barRendererTextureSize.height;
 }
 
 void UILoadingBar::onSizeChanged()
@@ -188,23 +182,26 @@ void UILoadingBar::onSizeChanged()
 
 const CCSize& UILoadingBar::getContentSize() const
 {
-    return CCSizeMake(m_fTotalLength, m_pRenderBar->getContentSize().height);
+    return m_barRendererTextureSize;
 }
 
 void UILoadingBar::barRendererScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_pRenderBar->setScale(1.0f);
+        m_fTotalLength = m_barRendererTextureSize.width;
+        m_pRenderBar->setScale(1);
     }
     else
     {
+        m_fTotalLength = m_size.width;
         CCSize textureSize = m_pRenderBar->getContentSize();
         float scaleX = m_size.width / m_fTotalLength;
         float scaleY = m_size.height / textureSize.height;
         m_pRenderBar->setScaleX(scaleX);
         m_pRenderBar->setScaleY(scaleY);
     }
+    m_pRenderBar->setPosition(ccp(-m_fTotalLength * 0.5f, 0.0f));
 }
 
 NS_CC_EXT_END

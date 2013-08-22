@@ -91,6 +91,7 @@ bool UIScrollView::init()
     {
         setUpdateEnabled(true);
         setTouchEnabled(true);
+        m_pInnerContainer->setTouchEnabled(false);
         return true;
     }
     return false;
@@ -103,24 +104,25 @@ void UIScrollView::initRenderer()
     Layout::addChild(m_pInnerContainer);
 }
 
-void UIScrollView::setSize(const CCSize &size)
+void UIScrollView::onSizeChanged()
 {
-    Layout::setSize(size);
-    m_fTopBoundary = size.height;
-    m_fRightBoundary = size.width;
+    Layout::onSizeChanged();
+    m_fTopBoundary = m_size.height;
+    m_fRightBoundary = m_size.width;
     CCSize innerSize = m_pInnerContainer->getSize();
     float orginInnerSizeWidth = innerSize.width;
     float orginInnerSizeHeight = innerSize.height;
-    float innerSizeWidth = MAX(orginInnerSizeWidth, m_fWidth);
-    float innerSizeHeight = MAX(orginInnerSizeHeight, m_fHeight);
+    float innerSizeWidth = MAX(orginInnerSizeWidth, m_size.width);
+    float innerSizeHeight = MAX(orginInnerSizeHeight, m_size.height);
     m_pInnerContainer->setSize(CCSizeMake(innerSizeWidth, innerSizeHeight));
+    m_pInnerContainer->setPosition(ccp(0, m_size.height - m_pInnerContainer->getSize().height));
 }
 
 void UIScrollView::setInnerContainerSize(const cocos2d::CCSize &size)
 {
-    float innerSizeWidth = m_fWidth;
-    float innerSizeHeight = m_fHeight;
-    if (size.width < m_fWidth)
+    float innerSizeWidth = m_size.width;
+    float innerSizeHeight = m_size.height;
+    if (size.width < m_size.width)
     {
         CCLOG("Inner width <= scrollview width, it will be force sized!");
     }
@@ -128,7 +130,7 @@ void UIScrollView::setInnerContainerSize(const cocos2d::CCSize &size)
     {
         innerSizeWidth = size.width;
     }
-    if (size.height < m_fHeight)
+    if (size.height < m_size.height)
     {
         CCLOG("Inner height <= scrollview height, it will be force sized!");
     }
@@ -137,7 +139,7 @@ void UIScrollView::setInnerContainerSize(const cocos2d::CCSize &size)
         innerSizeHeight = size.height;
     }
     m_pInnerContainer->setSize(CCSizeMake(innerSizeWidth, innerSizeHeight));
-    m_pInnerContainer->setPosition(ccp(0, m_fHeight - m_pInnerContainer->getSize().height));
+    m_pInnerContainer->setPosition(ccp(0, m_size.height - m_pInnerContainer->getSize().height));
 }
 
 const CCSize& UIScrollView::getInerContainerSize() const
