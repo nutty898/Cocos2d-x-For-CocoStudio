@@ -271,7 +271,15 @@ void UIImageView::setScale9Enabled(bool able)
     {
         return;
     }
+    
+    
     m_bScale9Enabled = able;
+    
+    if (m_bScale9Enabled)
+    {
+        m_bIgnoreSize = false;
+    }
+    
     m_pRenderer->removeChild(m_pImageRender, true);
     m_pImageRender = NULL;
     if (m_bScale9Enabled)
@@ -402,6 +410,7 @@ void UIImageView::imageTextureScaleChangedWithSize()
         {
             m_pImageRender->setScale(1.0f);
         }
+        m_size = m_imageTextureSize;
     }
     else
     {

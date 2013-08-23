@@ -88,8 +88,15 @@ void UIButton::setScale9Enabled(bool able)
     {
         return;
     }
+    
+
+    
     m_eBrightStyle = BRIGHT_NONE;
     m_bScale9Enabled = able;
+    if (m_bScale9Enabled)
+    {
+        m_bIgnoreSize = false;
+    }
     
     m_pRenderer->removeChild(m_pButtonNormal, true);
     m_pRenderer->removeChild(m_pButtonClicked, true);
@@ -119,6 +126,7 @@ void UIButton::setScale9Enabled(bool able)
     m_pRenderer->addChild(m_pButtonDisable,-1);
     setCapInsets(m_capInsets);
     setBright(m_bBright);
+    
 }
 
 void UIButton::loadTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType)
@@ -419,6 +427,7 @@ void UIButton::normalTextureScaleChangedWithSize()
         {
             m_pButtonNormal->setScale(1.0f);
         }
+        m_size = m_normalTextureSize;
     }
     else
     {

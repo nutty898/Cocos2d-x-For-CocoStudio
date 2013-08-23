@@ -71,6 +71,7 @@ public:
     virtual void setColor(const ccColor3B &color);
     virtual void setOpacity(int opacity);
     void removeBackGroundImage();
+    const CCSize& getBackGroundImageTextureSize() const;
 protected:
     virtual bool init();
     virtual void initRenderer();
@@ -99,6 +100,7 @@ protected:
     ccColor3B m_gEndColor;
     CCPoint m_AlongVector;
     int m_nCOpacity;
+    CCSize m_backGroundImageTextureSize;
 };
 
 class RectClippingNode : public CCClippingNode

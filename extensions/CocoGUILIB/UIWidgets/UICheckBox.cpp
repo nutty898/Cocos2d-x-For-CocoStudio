@@ -362,6 +362,7 @@ void UICheckBox::backGroundTextureScaleChangedWithSize()
     if (m_bIgnoreSize)
     {
         m_pBackGroundBox->setScale(1.0f);
+        m_size = m_pBackGroundBox->getContentSize();
     }
     else
     {
@@ -386,7 +387,6 @@ void UICheckBox::backGroundSelectedTextureScaleChangedWithSize()
         float scaleY = m_size.height / textureSize.height;
         m_pBackGroundSelectedBox->setScaleX(scaleX);
         m_pBackGroundSelectedBox->setScaleY(scaleY);
-
     }
 }
 

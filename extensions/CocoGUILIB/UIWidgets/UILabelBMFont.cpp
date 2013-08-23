@@ -97,6 +97,7 @@ void UILabelBMFont::labelBMFontScaleChangedWithSize()
     if (m_bIgnoreSize)
     {
         m_pLabelBMFont->setScale(1.0f);
+        m_size = m_pLabelBMFont->getContentSize();
     }
     else
     {

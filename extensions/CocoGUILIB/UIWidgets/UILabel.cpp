@@ -197,6 +197,7 @@ void UILabel::labelScaleChangedWithSize()
     if (m_bIgnoreSize)
     {
         m_pRenderLabel->setScale(1.0f);
+        m_size = m_pRenderLabel->getContentSize();
     }
     else
     {
@@ -206,6 +207,7 @@ void UILabel::labelScaleChangedWithSize()
         m_pRenderLabel->setScaleX(scaleX);
         m_pRenderLabel->setScaleY(scaleY);
     }
+    
 }
 
 NS_CC_EXT_END

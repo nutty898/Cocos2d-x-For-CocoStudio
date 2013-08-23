@@ -71,8 +71,6 @@ public:
     void setInnerContainerSize(const CCSize &size);
 	const CCSize& getInerContainerSize() const;
     
-	CCNode* getInnerContainerNode();
-    
     void addScrollToTopEvent(CCObject* target, SEL_ScrollToTopEvent selector);
     void addScrollToBottomEvent(CCObject* target, SEL_ScrollToBottomEvent selector);
     void addScrollToLeftEvent(CCObject* target, SEL_ScrollToLeftEvent selector);
@@ -86,7 +84,9 @@ public:
     void setDirection(SCROLLVIEW_DIR dir);
     SCROLLVIEW_DIR getDirection();
     
+    Layout* getInnerContainer();
 //    virtual void setLayoutType(LayoutType type);
+    
 protected:
     virtual bool init();
     virtual void initRenderer();

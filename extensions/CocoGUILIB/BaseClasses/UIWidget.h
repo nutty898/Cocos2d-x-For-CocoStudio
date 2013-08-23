@@ -178,6 +178,7 @@ public:
     LayoutParameter* getLayoutParameter();
     
     void ignoreContentAdaptWithSize(bool ignore);
+    CCPoint getWorldPosition();
     
     /*******to be removed*******/
     virtual void setTouchEnabled(bool enabled, bool containChildren);
@@ -185,6 +186,7 @@ public:
     void active(bool containChildren = false);
     bool isActive();
     void setBright(bool bright, bool containChild);
+    CCRect getRect();
     /***************************/
     
 protected:

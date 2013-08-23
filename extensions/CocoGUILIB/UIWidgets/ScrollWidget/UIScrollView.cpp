@@ -672,8 +672,10 @@ SCROLLVIEW_MOVE_DIR UIScrollView::getMoveDirection()
     return m_eMoveDirection;
 }
 
-CCNode* UIScrollView::getInnerContainerNode()
+/* gui mark */
+Layout* UIScrollView::getInnerContainer()
 {
-	return m_pInnerContainer->getContainerNode();
+    return m_pInnerContainer;
 }
+
 NS_CC_EXT_END

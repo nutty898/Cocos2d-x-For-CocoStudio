@@ -47,7 +47,8 @@ m_AlongVector(ccp(0.0f, -1.0f)),
 m_cColor(ccWHITE),
 m_gStartColor(ccWHITE),
 m_gEndColor(ccWHITE),
-m_nCOpacity(255)
+m_nCOpacity(255),
+m_backGroundImageTextureSize(CCSizeZero)
 {
     m_WidgetType = WidgetTypeContainer;
 }
@@ -106,6 +107,7 @@ bool Layout::init()
     }
     setSize(CCSizeZero);
     setClippingEnabled(true);
+    setAnchorPoint(ccp(0, 0));
     return true;
 }
 
@@ -394,6 +396,7 @@ void Layout::onSizeChanged()
     if (m_pBackGroundImage)
     {
         m_pBackGroundImage->setPosition(ccp(m_size.width/2.0f, m_size.height/2.0f));
+        CCLOG("m_size.width %f height %f ",m_size.width,m_size.height);
         if (m_bBackGroundScale9Enable)
         {
             dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_size);
@@ -429,7 +432,7 @@ void Layout::setBackGroundImageScale9Enabled(bool able)
         m_pRenderer->addChild(m_pBackGroundImage);
     }
     m_pBackGroundImage->setZOrder(-1);
-    setBackGroundImage(m_strBackGroundImageFileName.c_str(),m_eBGImageTexType);
+    setBackGroundImage(m_strBackGroundImageFileName.c_str(),m_eBGImageTexType);    
     setBackGroundImageCapInsets(m_backGroundImageCapInsets);
 }
 
@@ -458,7 +461,7 @@ void Layout::setBackGroundImage(const char* fileName,TextureResType texType)
             default:
                 break;
         }
-        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_pRenderer->getContentSize());
+        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_size);
     }
     else
     {
@@ -484,7 +487,8 @@ void Layout::setBackGroundImage(const char* fileName,TextureResType texType)
         dynamic_cast<CCSprite*>(m_pBackGroundImage)->setColor(getColor());
         dynamic_cast<CCSprite*>(m_pBackGroundImage)->setOpacity(getOpacity());
     }
-    m_pBackGroundImage->setPosition(ccp(m_pRenderer->getContentSize().width/2, m_pRenderer->getContentSize().height/2));
+    m_backGroundImageTextureSize = m_pBackGroundImage->getContentSize();
+    m_pBackGroundImage->setPosition(ccp(m_size.width/2.0f, m_size.height/2.0f));
 }
 
 void Layout::setBackGroundImageCapInsets(const CCRect &capInsets)
@@ -523,6 +527,7 @@ void Layout::removeBackGroundImage()
     m_pRenderer->removeChild(m_pBackGroundImage,  true);
     m_pBackGroundImage = NULL;
     m_strBackGroundImageFileName = "";
+    m_backGroundImageTextureSize = CCSizeZero;
 }
 
 void Layout::setBackGroundColorType(LayoutBackGroundColorType type)
@@ -664,6 +669,11 @@ void Layout::setOpacity(int opacity)
     }
 }
 
+const CCSize& Layout::getBackGroundImageTextureSize() const
+{
+    return m_backGroundImageTextureSize;
+}
+
 RectClippingNode::RectClippingNode():
 m_pInnerStencil(NULL),
 m_clippingSize(CCSizeMake(50.0f, 50.0f))
@@ -719,6 +729,5 @@ void RectClippingNode::setClippingSize(const cocos2d::CCSize &size)
     ccColor4F green = {0, 1, 0, 1};
     m_pInnerStencil->drawPolygon(rect, 4, green, 0, green);
 }
-
 
 NS_CC_EXT_END

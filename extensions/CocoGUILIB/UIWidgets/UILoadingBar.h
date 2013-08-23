@@ -48,19 +48,25 @@ public:
     int getPercent();
     float getTotalWidth();
     float getTotalHeight();
+    void setScale9Enabled(bool enabled);
+    void setCapInsets(const CCRect &capInsets);
+    void ignoreContentAdaptWithSize(bool ignore);
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();
+    void setScale9Scale();
     virtual const CCSize& getContentSize() const;
     void barRendererScaleChangedWithSize();
 protected:
     LoadingBarType m_nBarType;
     int m_nPercent;
     float m_fTotalLength;
-    CCSprite* m_pRenderBar;
+    CCNode* m_pRenderBar;
     TextureResType m_eRenderBarTexType;
     CCSize m_barRendererTextureSize;
-//    bool m_bUseSpriteFrame;
+    bool m_bScale9Enabled;
+    CCRect m_capInsets;
+    std::string m_strTextureFile;
 };
 
 NS_CC_EXT_END

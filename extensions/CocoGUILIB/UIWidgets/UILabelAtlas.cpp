@@ -93,6 +93,7 @@ void UILabelAtlas::labelAtlasScaleChangedWithSize()
     if (m_bIgnoreSize)
     {
         m_pRenderLaberAtlas->setScale(1.0f);
+        m_size = m_pRenderLaberAtlas->getContentSize();
     }
     else
     {

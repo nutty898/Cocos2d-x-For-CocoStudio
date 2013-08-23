@@ -62,7 +62,7 @@ m_anchorPoint(ccp(0.5f, 0.5f)),
 m_pUILayer(NULL),
 m_nActionTag(0),
 m_pLayoutParameter(NULL),
-m_size(CCSizeMake(50.0f, 50.0f)),
+m_size(CCSizeZero),
 m_bIgnoreSize(false)
 {
 }
@@ -95,8 +95,9 @@ bool UIWidget::init()
         renderRGBA->setCascadeOpacityEnabled(true);
     }
     //test
-    setSize(m_size);
+//    setSize(m_size);
     setBright(true);
+    ignoreContentAdaptWithSize(true);
     return true;
 }
 
@@ -149,6 +150,11 @@ void UIWidget::ignoreContentAdaptWithSize(bool ignore)
 const CCSize& UIWidget::getSize() const
 {
     return m_size;
+}
+
+CCPoint UIWidget::getWorldPosition()
+{
+    return m_pRenderer->convertToWorldSpace(CCPointZero);
 }
 
 void UIWidget::onSizeChanged()
@@ -727,7 +733,7 @@ int UIWidget::getOpacity()
     {
         return rgbap->getOpacity();
     }
-    return 0;
+    return 255;
 }
 
 bool UIWidget::isCascadeOpacityEnabled()
@@ -897,6 +903,12 @@ void UIWidget::setBright(bool bright, bool containChild)
             }
         }
     }
+}
+
+CCRect UIWidget::getRect()
+{
+    CCPoint wPos = getWorldPosition();
+    return CCRectMake(wPos.x, wPos.y, m_size.width, m_size.height);
 }
 
 /***************************/
