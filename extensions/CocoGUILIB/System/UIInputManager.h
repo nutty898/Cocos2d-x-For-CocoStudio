@@ -37,8 +37,8 @@ public:
     ~UIInputManager();
     void registWidget(UIWidget* widget);
     void uiSceneHasChanged();
-    void sortWidgets(Layout* widget);
-    void sortRootWidgets(Layout* root);
+    void sortWidgets(UIWidget* widget);
+    void sortRootWidgets(UIWidget* root);
     void removeManageredWidget(UIWidget* widget);
     bool checkEventWidget(const CCPoint &touchPoint);
     void addCheckedDoubleClickWidget(UIWidget* widget);
@@ -48,8 +48,8 @@ public:
     void onTouchEnd(CCTouch* touch);
     void onTouchCancelled(CCTouch* touch);
     
-    void setRootWidget(Layout* root);
-    Layout* getRootWidget();
+    void setRootWidget(UIWidget* root);
+    UIWidget* getRootWidget();
     
 protected:
     CCArray* m_manageredWidget;
@@ -64,7 +64,7 @@ protected:
     float m_fLongClickTime;
     float m_fLongClickRecordTime;
     CCArray* checkedDoubleClickWidget;
-    Layout* m_pRootWidget;
+    UIWidget* m_pRootWidget;
 };
 
 NS_CC_EXT_END

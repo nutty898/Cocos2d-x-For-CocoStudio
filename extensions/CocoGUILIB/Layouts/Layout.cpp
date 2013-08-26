@@ -24,7 +24,6 @@
 
 #include "Layout.h"
 #include "../System/UILayer.h"
-#include "../System/UIHelper.h"
 #include "../Drawable/UIClippingLayer.h"
 #include "../../GUI/CCControlExtension/CCScale9Sprite.h"
 
@@ -34,7 +33,6 @@ NS_CC_EXT_BEGIN
 
 Layout::Layout():
 m_bClippingEnabled(false),
-m_children(NULL),
 m_pLayoutExecutant(NULL),
 m_bBackGroundScale9Enable(false),
 m_pBackGroundImage(NULL),
@@ -69,29 +67,6 @@ Layout* Layout::create()
     return NULL;
 }
 
-void Layout::releaseResoures()
-{
-    m_pPushListener = NULL;
-    m_pfnPushSelector = NULL;
-    m_pMoveListener = NULL;
-    m_pfnMoveSelector = NULL;
-    m_pReleaseListener = NULL;
-    m_pfnReleaseSelector = NULL;
-    m_pCancelListener = NULL;
-    m_pfnCancelSelector = NULL;
-    setUpdateEnabled(false);
-    if (m_pUILayer)
-    {
-        m_pUILayer->getInputManager()->removeManageredWidget(this);
-        setUILayer(NULL);
-    }
-    removeAllChildrenAndCleanUp(true);
-    m_pRenderer->removeAllChildrenWithCleanup(true);
-    m_pRenderer->removeFromParentAndCleanup(true);
-    m_pRenderer->release();
-    m_children->release();
-}
-
 bool Layout::init()
 {
     m_children = CCArray::create();
@@ -107,6 +82,7 @@ bool Layout::init()
     }
     setSize(CCSizeZero);
     setClippingEnabled(true);
+    setBright(true);
     setAnchorPoint(ccp(0, 0));
     return true;
 }
@@ -135,238 +111,6 @@ void Layout::initRenderer()
 bool Layout::isClippingEnabled()
 {
     return m_bClippingEnabled;
-}
-
-bool Layout::addChild(UIWidget *child)
-{
-    if (!child)
-    {
-        return false;
-    }
-    if (m_children->containsObject(child))
-    {
-        return false;
-    }
-    child->setWidgetParent(this);
-    int childrenCount = m_children->data->num;
-    if (childrenCount <= 0)
-    {
-        m_children->addObject(child);
-    }
-    else
-    {
-        bool seekSucceed = false;
-        ccArray* arrayChildren = m_children->data;
-        for (int i=childrenCount-1; i>=0; --i)
-        {
-            UIWidget* widget = (UIWidget*)(arrayChildren->arr[i]);
-            if (child->getWidgetZOrder() >= widget->getWidgetZOrder())
-            {
-                if (i == childrenCount-1)
-                {
-                    m_children->addObject(child);
-                    seekSucceed = true;
-                    break;
-                }
-                else
-                {
-                    m_children->insertObject(child, i+1);
-                    seekSucceed = true;
-                    break;
-                }
-            }
-        }
-        if (!seekSucceed)
-        {
-            m_children->insertObject(child,0);
-        }
-    }
-    child->getContainerNode()->setZOrder(child->getWidgetZOrder());
-    m_pRenderer->addChild(child->getContainerNode());
-    
-    if (m_pUILayer)
-    {
-        int childrenCount = m_children->data->num;
-        ccArray* arrayChildren = m_children->data;
-        for (int i=0; i<childrenCount; i++)
-        {
-            UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-            Layout* layout = dynamic_cast<Layout*>(child);
-            if (layout)
-            {
-                layout->updateChildrenUILayer(m_pUILayer);
-            }
-        }
-    }
-    structureChangedEvent();
-    return true;
-}
-
-bool Layout::removeChild(UIWidget *child, bool cleanup)
-{
-    if (!child)
-    {
-        return false;
-    }
-    if (cleanup)
-    {
-        if (m_children->containsObject(child))
-        {
-            m_children->removeObject(child);
-            child->structureChangedEvent();
-            child->releaseResoures();
-            child->setWidgetParent(NULL);
-            delete child;
-        }
-    }
-    else
-    {
-        if (m_children->containsObject(child))
-        {
-            child->structureChangedEvent();
-            Layout* layout = dynamic_cast<Layout*>(child);
-            if (layout)
-            {
-                layout->disableUpdate();
-                layout->updateChildrenUILayer(NULL);
-            }
-            m_pRenderer->removeChild(child->getContainerNode(), false);
-            m_children->removeObject(child);
-            child->setWidgetParent(NULL);
-        }
-    }
-    return true;
-}
-
-void Layout::removeFromParentAndCleanup(bool cleanup)
-{
-    if (m_pWidgetParent)
-    {
-        ((Layout*)m_pWidgetParent)->removeChild(this, cleanup);
-    }
-    else
-    {
-        structureChangedEvent();
-        releaseResoures();
-        m_pWidgetParent = NULL;
-        delete this;
-    }
-}
-
-void Layout::removeAllChildrenAndCleanUp(bool cleanup)
-{
-    int times = m_children->data->num;
-    for (int i=0;i<times;i++)
-    {
-        UIWidget* child = (UIWidget*)(m_children->lastObject());
-        m_children->removeObject(child);
-        child->structureChangedEvent();
-        child->releaseResoures();
-        delete child;
-        child = NULL;
-    }
-}
-
-void Layout::reorderChild(UIWidget* child)
-{
-    m_children->removeObject(child);
-    int childrenCount = m_children->data->num;
-    if (childrenCount <= 0)
-    {
-        m_children->addObject(child);
-    }
-    else
-    {
-        bool seekSucceed = false;
-        ccArray* arrayChildren = m_children->data;
-        for (int i=childrenCount-1; i>=0; --i)
-        {
-            UIWidget* widget = (UIWidget*)(arrayChildren->arr[i]);
-            if (child->getWidgetZOrder() >= widget->getWidgetZOrder())
-            {
-                if (i == childrenCount-1)
-                {
-                    m_children->addObject(child);
-                    seekSucceed = true;
-                    break;
-                }
-                else
-                {
-                    m_children->insertObject(child, i+1);
-                    seekSucceed = true;
-                    break;
-                }
-            }
-        }
-        if (!seekSucceed)
-        {
-            m_children->insertObject(child,0);
-        }
-    }
-    structureChangedEvent();
-}
-
-void Layout::updateChildrenUILayer(UILayer* uiLayer)
-{
-    setUILayer(uiLayer);
-    setUpdateEnabled(isUpdateEnabled());
-    int childrenCount = m_children->data->num;
-    ccArray* arrayChildren = m_children->data;
-    for (int i=0; i<childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        Layout* layout = dynamic_cast<Layout*>(child);
-        if (layout)
-        {
-            layout->updateChildrenUILayer(m_pUILayer);
-        }
-    }
-}
-
-void Layout::disableUpdate()
-{
-    if (m_pUILayer)
-    {
-        m_pUILayer->removeUpdateEnableWidget(this);
-    }
-    int childrenCount = m_children->data->num;
-    ccArray* arrayChildren = m_children->data;
-    for (int i=0; i<childrenCount; i++)
-    {
-        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
-        Layout* layout = dynamic_cast<Layout*>(child);
-        if (layout)
-        {
-            layout->disableUpdate();
-        }
-    }
-}
-
-void Layout::setEnabled(bool enabled)
-{
-    UIWidget::setEnabled(enabled);
-    ccArray* arrayChildren = m_children->data;
-    int childrenCount = arrayChildren->num;
-    for (int i = 0; i < childrenCount; i++)
-    {
-        UIWidget* child = dynamic_cast<UIWidget*>(arrayChildren->arr[i]);
-        child->setEnabled(enabled);
-    }
-}
-
-UIWidget* Layout::getChildByName(const char *name)
-{
-    return CCUIHELPER->seekWidgetByName(this, name);
-}
-
-UIWidget* Layout::getChildByTag(int tag)
-{
-    return CCUIHELPER->seekWidgetByTag(this, tag);
-}
-
-CCArray* Layout::getChildren()
-{
-    return m_children;
 }
 
 bool Layout::hitTest(const CCPoint &pt)

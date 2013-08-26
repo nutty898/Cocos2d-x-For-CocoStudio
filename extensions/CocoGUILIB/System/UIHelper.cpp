@@ -123,7 +123,7 @@ void UIHelper::removeAllSpriteFrame()
     m_textureFiles->removeAllObjects();
 }
 
-UIWidget* UIHelper::seekWidgetByTag(Layout* root, int tag)
+UIWidget* UIHelper::seekWidgetByTag(UIWidget* root, int tag)
 {
     if (!root)
     {
@@ -138,28 +138,17 @@ UIWidget* UIHelper::seekWidgetByTag(Layout* root, int tag)
     for (int i=0;i<length;i++)
     {
         UIWidget* child = (UIWidget*)(arrayRootChildren->arr[i]);
-        Layout* layout = dynamic_cast<Layout*>(child);
-        UIWidget* res = NULL;
-        if (layout)
-        {
-            res = seekWidgetByTag(layout,tag);
-        }
-        else
-        {
-            if (child->getWidgetTag() == tag)
-            {
-                return child;
-            }
-        }
+        UIWidget* res = seekWidgetByTag(child,tag);
         if (res != NULL)
         {
             return res;
         }
     }
+    
     return NULL;
 }
 
-UIWidget* UIHelper::seekWidgetByName(Layout* root, const char *name)
+UIWidget* UIHelper::seekWidgetByName(UIWidget* root, const char *name)
 {
     if (!root)
     {
@@ -174,28 +163,17 @@ UIWidget* UIHelper::seekWidgetByName(Layout* root, const char *name)
     for (int i=0;i<length;i++)
     {
         UIWidget* child = (UIWidget*)(arrayRootChildren->arr[i]);
-        Layout* layout = dynamic_cast<Layout*>(child);
-        UIWidget* res = NULL;
-        if (layout)
-        {
-            res = seekWidgetByName(layout,name);
-        }
-        else
-        {
-            if (strcmp(child->getName(), name) == 0)
-            {
-                return child;
-            }
-        }
+        UIWidget* res = seekWidgetByName(child,name);
         if (res != NULL)
         {
             return res;
         }
     }
+    
     return NULL;
 }
 
-UIWidget* UIHelper::seekWidgetByRelativeName(Layout *root, const char *name)
+UIWidget* UIHelper::seekWidgetByRelativeName(UIWidget *root, const char *name)
 {
     if (!root)
     {

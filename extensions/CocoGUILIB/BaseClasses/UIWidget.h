@@ -90,6 +90,21 @@ public:
     virtual float getRelativeTopPos();
     
     
+    //children
+    virtual bool addChild(UIWidget* child);
+    virtual bool removeChild(UIWidget* child,bool cleanup);
+    virtual void removeFromParentAndCleanup(bool cleanup);
+    virtual void removeAllChildrenAndCleanUp(bool cleanup);
+//    virtual void releaseResoures();
+    void updateChildrenUILayer(UILayer* uiLayer);
+    void disableUpdate();
+    virtual void reorderChild(UIWidget* child);
+    UIWidget* getChildByName(const char* name);
+    UIWidget* getChildByTag(int tag);
+    CCArray* getChildren();
+//    void setEnabled(bool enabled);
+    
+    
     CCNode* getContainerNode();
     
 	void setWidgetParent(UIWidget* parent);
@@ -242,6 +257,7 @@ protected:
     LayoutParameter* m_pLayoutParameter;
     
     bool m_bIgnoreSize;
+    CCArray* m_children;
 };
 
 class GUIRenderer : public CCNodeRGBA

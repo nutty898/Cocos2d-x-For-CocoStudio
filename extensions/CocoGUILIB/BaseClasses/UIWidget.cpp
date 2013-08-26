@@ -25,6 +25,7 @@
 #include "UIWidget.h"
 #include "../System/UILayer.h"
 #include "../Layouts/Layout.h"
+#include "../System/UIHelper.h"
 
 NS_CC_EXT_BEGIN
 
@@ -41,7 +42,7 @@ m_bFocus(false),
 m_nWidgetZOrder(0),
 m_pWidgetParent(NULL),
 m_eBrightStyle(BRIGHT_NONE),
-m_bTouchEnabled(true),
+m_bTouchEnabled(false),
 m_bTouchPassedEnabled(false),
 m_nWidgetTag(-1),
 m_bUpdateEnabled(false),
@@ -63,7 +64,8 @@ m_pUILayer(NULL),
 m_nActionTag(0),
 m_pLayoutParameter(NULL),
 m_size(CCSizeZero),
-m_bIgnoreSize(false)
+m_bIgnoreSize(false),
+m_children(NULL)
 {
 }
 
@@ -85,6 +87,8 @@ UIWidget* UIWidget::create()
 
 bool UIWidget::init()
 {
+    m_children = CCArray::create();
+    m_children->retain();
     initRenderer();
     m_pRenderer->retain();
     m_pRenderer->setZOrder(m_nWidgetZOrder);
@@ -117,11 +121,229 @@ void UIWidget::releaseResoures()
         m_pUILayer->getInputManager()->removeManageredWidget(this);
         setUILayer(NULL);
     }
-//    removeAllChildrenAndCleanUp(true);
+    removeAllChildrenAndCleanUp(true);
     m_pRenderer->removeAllChildrenWithCleanup(true);
     m_pRenderer->removeFromParentAndCleanup(true);
     m_pRenderer->release();
 }
+
+bool UIWidget::addChild(UIWidget *child)
+{
+    if (!child)
+    {
+        return false;
+    }
+    if (m_children->containsObject(child))
+    {
+        return false;
+    }
+    child->setWidgetParent(this);
+    int childrenCount = m_children->data->num;
+    if (childrenCount <= 0)
+    {
+        m_children->addObject(child);
+    }
+    else
+    {
+        bool seekSucceed = false;
+        ccArray* arrayChildren = m_children->data;
+        for (int i=childrenCount-1; i>=0; --i)
+        {
+            UIWidget* widget = (UIWidget*)(arrayChildren->arr[i]);
+            if (child->getWidgetZOrder() >= widget->getWidgetZOrder())
+            {
+                if (i == childrenCount-1)
+                {
+                    m_children->addObject(child);
+                    seekSucceed = true;
+                    break;
+                }
+                else
+                {
+                    m_children->insertObject(child, i+1);
+                    seekSucceed = true;
+                    break;
+                }
+            }
+        }
+        if (!seekSucceed)
+        {
+            m_children->insertObject(child,0);
+        }
+    }
+    child->getContainerNode()->setZOrder(child->getWidgetZOrder());
+    m_pRenderer->addChild(child->getContainerNode());
+    
+    if (m_pUILayer)
+    {
+        int childrenCount = m_children->data->num;
+        ccArray* arrayChildren = m_children->data;
+        for (int i=0; i<childrenCount; i++)
+        {
+            UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
+            child->updateChildrenUILayer(m_pUILayer);
+        }
+    }
+    structureChangedEvent();
+    return true;
+}
+
+bool UIWidget::removeChild(UIWidget *child, bool cleanup)
+{
+    if (!child)
+    {
+        return false;
+    }
+    if (cleanup)
+    {
+        if (m_children->containsObject(child))
+        {
+            m_children->removeObject(child);
+            child->structureChangedEvent();
+            child->releaseResoures();
+            child->setWidgetParent(NULL);
+            delete child;
+        }
+    }
+    else
+    {
+        if (m_children->containsObject(child))
+        {
+            child->structureChangedEvent();
+            child->disableUpdate();
+            child->updateChildrenUILayer(NULL);
+            m_pRenderer->removeChild(child->getContainerNode(), false);
+            m_children->removeObject(child);
+            child->setWidgetParent(NULL);
+        }
+    }
+    return true;
+}
+
+void UIWidget::removeFromParentAndCleanup(bool cleanup)
+{
+    if (m_pWidgetParent)
+    {
+        m_pWidgetParent->removeChild(this, cleanup);
+    }
+    else
+    {
+        structureChangedEvent();
+        releaseResoures();
+        m_pWidgetParent = NULL;
+        delete this;
+    }
+}
+
+void UIWidget::removeAllChildrenAndCleanUp(bool cleanup)
+{
+    int times = m_children->data->num;
+    for (int i=0;i<times;i++)
+    {
+        UIWidget* child = (UIWidget*)(m_children->lastObject());
+        m_children->removeObject(child);
+        child->structureChangedEvent();
+        child->releaseResoures();
+        delete child;
+        child = NULL;
+    }
+}
+
+void UIWidget::reorderChild(UIWidget* child)
+{
+    m_children->removeObject(child);
+    int childrenCount = m_children->data->num;
+    if (childrenCount <= 0)
+    {
+        m_children->addObject(child);
+    }
+    else
+    {
+        bool seekSucceed = false;
+        ccArray* arrayChildren = m_children->data;
+        for (int i=childrenCount-1; i>=0; --i)
+        {
+            UIWidget* widget = (UIWidget*)(arrayChildren->arr[i]);
+            if (child->getWidgetZOrder() >= widget->getWidgetZOrder())
+            {
+                if (i == childrenCount-1)
+                {
+                    m_children->addObject(child);
+                    seekSucceed = true;
+                    break;
+                }
+                else
+                {
+                    m_children->insertObject(child, i+1);
+                    seekSucceed = true;
+                    break;
+                }
+            }
+        }
+        if (!seekSucceed)
+        {
+            m_children->insertObject(child,0);
+        }
+    }
+    structureChangedEvent();
+}
+
+void UIWidget::updateChildrenUILayer(UILayer* uiLayer)
+{
+    setUILayer(uiLayer);
+    setUpdateEnabled(isUpdateEnabled());
+    int childrenCount = m_children->data->num;
+    ccArray* arrayChildren = m_children->data;
+    for (int i=0; i<childrenCount; i++)
+    {
+        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
+        child->updateChildrenUILayer(m_pUILayer);
+    }
+}
+
+void UIWidget::disableUpdate()
+{
+    if (m_pUILayer)
+    {
+        m_pUILayer->removeUpdateEnableWidget(this);
+    }
+    int childrenCount = m_children->data->num;
+    ccArray* arrayChildren = m_children->data;
+    for (int i=0; i<childrenCount; i++)
+    {
+        UIWidget* child = (UIWidget*)(arrayChildren->arr[i]);
+        child->disableUpdate();
+    }
+}
+
+void UIWidget::setEnabled(bool enabled)
+{
+    m_bEnabled = enabled;
+    DYNAMIC_CAST_CCNODERGBA->setEnabled(enabled);
+    ccArray* arrayChildren = m_children->data;
+    int childrenCount = arrayChildren->num;
+    for (int i = 0; i < childrenCount; i++)
+    {
+        UIWidget* child = dynamic_cast<UIWidget*>(arrayChildren->arr[i]);
+        child->setEnabled(enabled);
+    }
+}
+
+UIWidget* UIWidget::getChildByName(const char *name)
+{
+    return CCUIHELPER->seekWidgetByName(this, name);
+}
+
+UIWidget* UIWidget::getChildByTag(int tag)
+{
+    return CCUIHELPER->seekWidgetByTag(this, tag);
+}
+
+CCArray* UIWidget::getChildren()
+{
+    return m_children;
+}
+
 
 void UIWidget::initRenderer()
 {
@@ -191,7 +413,7 @@ void UIWidget::setWidgetZOrder(int z)
     m_pRenderer->setZOrder(z);
     if (m_pWidgetParent)
     {
-        ((Layout*)m_pWidgetParent)->reorderChild(this);
+        m_pWidgetParent->reorderChild(this);
     }
 }
 
@@ -598,12 +820,6 @@ bool UIWidget::isBright() const
     return m_bBright;
 }
 
-void UIWidget::setEnabled(bool enabled)
-{
-    m_bEnabled = enabled;
-    DYNAMIC_CAST_CCNODERGBA->setEnabled(enabled);
-}
-
 bool UIWidget::isEnabled() const
 {
     return m_bEnabled;
@@ -855,16 +1071,12 @@ void UIWidget::setTouchEnable(bool enabled, bool containChildren)
     setTouchEnabled(enabled);
     if (containChildren)
     {
-        Layout* layout = dynamic_cast<Layout*>(this);
-        if (layout)
+        ccArray* childrenArray = getChildren()->data;
+        int length = childrenArray->num;
+        for (int i=0; i<length; ++i)
         {
-            ccArray* childrenArray = layout->getChildren()->data;
-            int length = childrenArray->num;
-            for (int i=0; i<length; ++i)
-            {
-                UIWidget* child = (UIWidget*)childrenArray->arr[i];
-                child->setTouchEnable(enabled,true);
-            }
+            UIWidget* child = (UIWidget*)childrenArray->arr[i];
+            child->setTouchEnable(enabled,true);
         }
     }
 }
@@ -891,16 +1103,12 @@ void UIWidget::setBright(bool bright, bool containChild)
     setBright(bright);
     if (containChild)
     {
-        Layout* layout = dynamic_cast<Layout*>(this);
-        if (layout)
+        ccArray* childrenArray = getChildren()->data;
+        int length = childrenArray->num;
+        for (int i=0; i<length; ++i)
         {
-            ccArray* childrenArray = layout->getChildren()->data;
-            int length = childrenArray->num;
-            for (int i=0; i<length; ++i)
-            {
-                UIWidget* child = (UIWidget*)childrenArray->arr[i];
-                child->setBright(bright,containChild);
-            }
+            UIWidget* child = (UIWidget*)childrenArray->arr[i];
+            child->setBright(bright,containChild);
         }
     }
 }

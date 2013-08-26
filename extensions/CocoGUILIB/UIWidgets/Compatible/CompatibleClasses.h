@@ -72,7 +72,7 @@ public:
     };
 protected:
     virtual bool init(){
-        if (UIButton::init())
+        if (UITextButton::init())
         {
             setScale9Enabled(true);
             setPressedActionEnabled(true);
