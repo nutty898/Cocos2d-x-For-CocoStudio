@@ -26,10 +26,61 @@
 #define __UITEXTFIELD_H__
 
 #include "../BaseClasses/UIWidget.h"
-#include "../Drawable/UICCTextField.h"
 
 
 NS_CC_EXT_BEGIN
+
+class UICCTextField: public CCTextFieldTTF, public CCTextFieldDelegate, public CCTouchDelegate
+{
+public:
+    UICCTextField();
+    ~UICCTextField();
+    
+    virtual void onEnter();
+    
+    // static
+    static UICCTextField* create(const char *placeholder, const char *fontName, float fontSize);
+    
+    // CCTextFieldDelegate
+    virtual bool onTextFieldAttachWithIME(CCTextFieldTTF *pSender);
+    virtual bool onTextFieldDetachWithIME(CCTextFieldTTF * pSender);
+    virtual bool onTextFieldInsertText(CCTextFieldTTF * pSender, const char * text, int nLen);
+    virtual bool onTextFieldDeleteBackward(CCTextFieldTTF * pSender, const char * delText, int nLen);
+    
+    void insertText(const char* text, int len);
+    void deleteBackward();
+    
+    void openIME();
+    void closeIME();
+    
+    void setMaxLengthEnabled(bool enable);
+    bool isMaxLengthEnabled();
+    void setMaxLength(int length);
+    int getMaxLength();
+    int getCharCount();
+    void setPasswordEnabled(bool enable);
+    bool isPasswordEnabled();
+    void setPasswordStyleText(const char* styleText);
+    void setPasswordText(const char* text);
+    void setAttachWithIME(bool attach);
+    bool getAttachWithIME();
+    void setDetachWithIME(bool detach);
+    bool getDetachWithIME();
+    void setInsertText(bool insert);
+    bool getInsertText();
+    void setDeleteBackward(bool deleteBackward);
+    bool getDeleteBackward();
+protected:
+    bool m_bMaxLengthEnabled;
+    int m_nMaxLength;
+    bool m_bPasswordEnabled;
+    std::string m_strPasswordStyleText;
+    bool m_bAttachWithIME;
+    bool m_bDetachWithIME;
+    bool m_bInsertText;
+    bool m_bDeleteBackward;
+};
+
 
 typedef void (CCObject::*SEL_TextFieldAttachWithIMEEvent)(CCObject*);
 #define coco_TextField_AttachWithIME_selector(_SELECTOR) (SEL_TextFieldAttachWithIMEEvent)(&_SELECTOR)

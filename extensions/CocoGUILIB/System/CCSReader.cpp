@@ -866,7 +866,7 @@ void CCSReader::setPropsForContainerWidgetFromJsonDictionary(UIWidget *widget, c
 {
     setPropsForWidgetFromJsonDictionary(widget, options);
     UIContainerWidget* containerWidget = (UIContainerWidget*)widget;
-//    containerWidget->setClippingEnable(DICTOOL->getBooleanValue_json(options, "clipAble"));
+    containerWidget->setClippingEnable(DICTOOL->getBooleanValue_json(options, "clipAble"));
     setColorPropsForWidgetFromJsonDictionary(widget,options);
 }
 

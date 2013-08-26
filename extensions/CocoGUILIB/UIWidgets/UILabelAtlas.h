@@ -26,9 +26,20 @@
 #define __UILABELATLAS_H__
 
 #include "../BaseClasses/UIWidget.h"
-#include "../Drawable/UICCLabelAtlas.h"
 
 NS_CC_EXT_BEGIN
+
+class UICCLabelAtlas : public CCLabelAtlas
+{
+public:
+    UICCLabelAtlas();
+    virtual ~UICCLabelAtlas();
+    static UICCLabelAtlas* create();
+    void setProperty(const char *string, const char *charMapFile, unsigned int itemWidth, unsigned int itemHeight, unsigned int startCharMap);
+    void setProperty(const char *string, CCTexture2D *texture, unsigned int itemWidth, unsigned int itemHeight, unsigned int startCharMap);
+    virtual void updateDisplayedOpacity(GLubyte opacity);
+    virtual void draw(void);
+};
 
 class UILabelAtlas : public UIWidget
 {

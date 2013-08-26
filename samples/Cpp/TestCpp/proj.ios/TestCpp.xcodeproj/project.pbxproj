@@ -357,9 +357,6 @@
 		501A006017B370CE000E0DB2 /* UIZoomButtonTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 501A004917B370CE000E0DB2 /* UIZoomButtonTest.cpp */; };
 		50F0780717CAF63500FF9325 /* UIRootWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077C017CAF63400FF9325 /* UIRootWidget.cpp */; };
 		50F0780817CAF63500FF9325 /* UIWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077C217CAF63400FF9325 /* UIWidget.cpp */; };
-		50F0780917CAF63500FF9325 /* UICCLabelAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077C517CAF63400FF9325 /* UICCLabelAtlas.cpp */; };
-		50F0780A17CAF63500FF9325 /* UICCTextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077C717CAF63400FF9325 /* UICCTextField.cpp */; };
-		50F0780B17CAF63500FF9325 /* UIClippingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077C917CAF63400FF9325 /* UIClippingLayer.cpp */; };
 		50F0780C17CAF63500FF9325 /* Layout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077CC17CAF63400FF9325 /* Layout.cpp */; };
 		50F0780D17CAF63500FF9325 /* LayoutExecutant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077CE17CAF63400FF9325 /* LayoutExecutant.cpp */; };
 		50F0780E17CAF63500FF9325 /* LayoutParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077D017CAF63400FF9325 /* LayoutParameter.cpp */; };
@@ -1151,12 +1148,6 @@
 		50F077C117CAF63400FF9325 /* UIRootWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRootWidget.h; sourceTree = "<group>"; };
 		50F077C217CAF63400FF9325 /* UIWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIWidget.cpp; sourceTree = "<group>"; };
 		50F077C317CAF63400FF9325 /* UIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWidget.h; sourceTree = "<group>"; };
-		50F077C517CAF63400FF9325 /* UICCLabelAtlas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UICCLabelAtlas.cpp; sourceTree = "<group>"; };
-		50F077C617CAF63400FF9325 /* UICCLabelAtlas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICCLabelAtlas.h; sourceTree = "<group>"; };
-		50F077C717CAF63400FF9325 /* UICCTextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UICCTextField.cpp; sourceTree = "<group>"; };
-		50F077C817CAF63400FF9325 /* UICCTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICCTextField.h; sourceTree = "<group>"; };
-		50F077C917CAF63400FF9325 /* UIClippingLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIClippingLayer.cpp; sourceTree = "<group>"; };
-		50F077CA17CAF63400FF9325 /* UIClippingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIClippingLayer.h; sourceTree = "<group>"; };
 		50F077CC17CAF63400FF9325 /* Layout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Layout.cpp; sourceTree = "<group>"; };
 		50F077CD17CAF63400FF9325 /* Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layout.h; sourceTree = "<group>"; };
 		50F077CE17CAF63400FF9325 /* LayoutExecutant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LayoutExecutant.cpp; sourceTree = "<group>"; };
@@ -3096,7 +3087,6 @@
 			children = (
 				50F077BC17CAF63400FF9325 /* Action */,
 				50F077BF17CAF63400FF9325 /* BaseClasses */,
-				50F077C417CAF63400FF9325 /* Drawable */,
 				50F077CB17CAF63400FF9325 /* Layouts */,
 				50F077D417CAF63400FF9325 /* System */,
 				50F077DF17CAF63400FF9325 /* UIWidgets */,
@@ -3120,19 +3110,6 @@
 				50F077C317CAF63400FF9325 /* UIWidget.h */,
 			);
 			path = BaseClasses;
-			sourceTree = "<group>";
-		};
-		50F077C417CAF63400FF9325 /* Drawable */ = {
-			isa = PBXGroup;
-			children = (
-				50F077C517CAF63400FF9325 /* UICCLabelAtlas.cpp */,
-				50F077C617CAF63400FF9325 /* UICCLabelAtlas.h */,
-				50F077C717CAF63400FF9325 /* UICCTextField.cpp */,
-				50F077C817CAF63400FF9325 /* UICCTextField.h */,
-				50F077C917CAF63400FF9325 /* UIClippingLayer.cpp */,
-				50F077CA17CAF63400FF9325 /* UIClippingLayer.h */,
-			);
-			path = Drawable;
 			sourceTree = "<group>";
 		};
 		50F077CB17CAF63400FF9325 /* Layouts */ = {
@@ -3728,9 +3705,6 @@
 				501A006017B370CE000E0DB2 /* UIZoomButtonTest.cpp in Sources */,
 				50F0780717CAF63500FF9325 /* UIRootWidget.cpp in Sources */,
 				50F0780817CAF63500FF9325 /* UIWidget.cpp in Sources */,
-				50F0780917CAF63500FF9325 /* UICCLabelAtlas.cpp in Sources */,
-				50F0780A17CAF63500FF9325 /* UICCTextField.cpp in Sources */,
-				50F0780B17CAF63500FF9325 /* UIClippingLayer.cpp in Sources */,
 				50F0780C17CAF63500FF9325 /* Layout.cpp in Sources */,
 				50F0780D17CAF63500FF9325 /* LayoutExecutant.cpp in Sources */,
 				50F0780E17CAF63500FF9325 /* LayoutParameter.cpp in Sources */,

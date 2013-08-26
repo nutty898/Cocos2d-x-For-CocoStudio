@@ -67,13 +67,14 @@ public:
     const CCSize& getBackGroundImageTextureSize() const;
     /*Compatible*/
     void setBackGroundImageScale9Enable(bool is){setBackGroundImageScale9Enabled(is);};
+    void setClippingEnable(bool is){setClippingEnabled(is);};
     /************/
+    virtual void setClippingEnabled(bool able);
+    virtual bool isClippingEnabled();
 protected:
     virtual bool init();
     virtual void initRenderer();
     virtual void onSizeChanged();
-    virtual void setClippingEnabled(bool able);
-    virtual bool isClippingEnabled();
     void addBackGroundImage();
 protected:
 //    float m_fWidth;
@@ -105,12 +106,15 @@ public:
     virtual bool init();
     static RectClippingNode* create();
     void setClippingSize(const CCSize& size);
+    void setClippingEnabled(bool enabled);
+    virtual void visit();
 protected:
     CCDrawNode* m_pInnerStencil;
 private:
     RectClippingNode();
     CCPoint rect[4];
     CCSize m_clippingSize;
+    bool m_bClippingEnabled;
 };
 
 NS_CC_EXT_END

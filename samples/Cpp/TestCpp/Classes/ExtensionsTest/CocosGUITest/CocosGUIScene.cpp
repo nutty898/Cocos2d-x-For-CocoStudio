@@ -23,17 +23,20 @@ void CocosGUITestScene::runThisTest()
     ul->scheduleUpdate();
     this->addChild(ul);
     
-    UISlider* sd = UISlider::create();
-    sd->loadBarTexture("cocosgui/slidbar.png");
-    sd->loadProgressBarTexture("cocosgui/slider_bar_active_9patch.png");
-    sd->setSlidBallTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
-    ul->addWidget(sd);
-    sd->setPosition(ccp(240, 100));
-    sd->setTouchEnable(true);
-    sd->setScale9Enable(true);
-    sd->setSize(CCSizeMake(480, 10));
-    sd->setScale9Enable(false);
-    sd->ignoreContentAdaptWithSize(true);
+    UIWidget* w = CCUIHELPER->createWidgetFromJsonFile("cocosgui/5_2/5_2.json");
+    
+    ul->addWidget(w);
+//    UISlider* sd = UISlider::create();
+//    sd->loadBarTexture("cocosgui/slidbar.png");
+//    sd->loadProgressBarTexture("cocosgui/slider_bar_active_9patch.png");
+//    sd->setSlidBallTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
+//    ul->addWidget(sd);
+//    sd->setPosition(ccp(240, 100));
+//    sd->setTouchEnable(true);
+//    sd->setScale9Enable(true);
+//    sd->setSize(CCSizeMake(480, 10));
+//    sd->setScale9Enable(false);
+//    sd->ignoreContentAdaptWithSize(true);
 }
 
 void CocosGUITestScene::MainMenuCallback(CCObject* pSender)

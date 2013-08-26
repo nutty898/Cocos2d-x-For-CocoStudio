@@ -26,6 +26,57 @@
 
 NS_CC_EXT_BEGIN
 
+UICCLabelAtlas::UICCLabelAtlas()
+{
+    
+}
+
+UICCLabelAtlas::~UICCLabelAtlas()
+{
+    
+}
+
+UICCLabelAtlas* UICCLabelAtlas::create()
+{
+    UICCLabelAtlas *pRet = new UICCLabelAtlas();
+    if(pRet)
+    {
+        pRet->autorelease();
+        return pRet;
+    }
+    CC_SAFE_DELETE(pRet);
+    
+    return NULL;
+}
+
+void UICCLabelAtlas::setProperty(const char *string, const char *charMapFile, unsigned int itemWidth, unsigned int itemHeight, unsigned int startCharMap)
+{
+    initWithString(string, charMapFile, itemWidth, itemHeight, startCharMap);
+}
+
+void UICCLabelAtlas::setProperty(const char *string, CCTexture2D *texture, unsigned int itemWidth, unsigned int itemHeight, unsigned int startCharMap)
+{
+    initWithString(string, texture, itemWidth, itemHeight, startCharMap);
+}
+
+void UICCLabelAtlas::draw()
+{
+    if (!m_pTextureAtlas)
+    {
+        return;
+    }
+    
+    CCAtlasNode::draw();
+}
+
+void UICCLabelAtlas::updateDisplayedOpacity(GLubyte opacity)
+{
+    CCAtlasNode::setOpacity(opacity);
+}
+
+
+
+
 UILabelAtlas::UILabelAtlas():
 m_pLaberAtlasRenderer(NULL)
 {

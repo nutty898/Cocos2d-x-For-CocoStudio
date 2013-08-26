@@ -24,7 +24,6 @@
 
 #include "Layout.h"
 #include "../System/UILayer.h"
-#include "../Drawable/UIClippingLayer.h"
 #include "../../GUI/CCControlExtension/CCScale9Sprite.h"
 
 NS_CC_EXT_BEGIN
@@ -46,8 +45,7 @@ m_cColor(ccWHITE),
 m_gStartColor(ccWHITE),
 m_gEndColor(ccWHITE),
 m_nCOpacity(255),
-m_backGroundImageTextureSize(CCSizeZero),
-m_colorType(LAYOUT_COLOR_NONE)
+m_backGroundImageTextureSize(CCSizeZero)
 {
     m_WidgetType = WidgetTypeContainer;
 }
@@ -82,7 +80,6 @@ bool Layout::init()
         renderRGBA->setCascadeOpacityEnabled(false);
     }
     setSize(CCSizeZero);
-    setClippingEnabled(true);
     setBright(true);
     setAnchorPoint(ccp(0, 0));
     return true;
@@ -128,7 +125,7 @@ bool Layout::hitTest(const CCPoint &pt)
 void Layout::setClippingEnabled(bool able)
 {
     m_bClippingEnabled = able;
-//    DYNAMIC_CAST_CLIPPINGLAYER->setClippingEnabled(able);
+    DYNAMIC_CAST_CLIPPINGLAYER->setClippingEnabled(able);
 }
 
 void Layout::onSizeChanged()
@@ -141,7 +138,6 @@ void Layout::onSizeChanged()
     if (m_pBackGroundImage)
     {
         m_pBackGroundImage->setPosition(ccp(m_size.width/2.0f, m_size.height/2.0f));
-        CCLOG("m_size.width %f height %f ",m_size.width,m_size.height);
         if (m_bBackGroundScale9Enable)
         {
             dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setPreferredSize(m_size);
@@ -421,7 +417,8 @@ const CCSize& Layout::getBackGroundImageTextureSize() const
 
 RectClippingNode::RectClippingNode():
 m_pInnerStencil(NULL),
-m_clippingSize(CCSizeMake(50.0f, 50.0f))
+m_clippingSize(CCSizeMake(50.0f, 50.0f)),
+m_bClippingEnabled(false)
 {
     
 }
@@ -473,6 +470,23 @@ void RectClippingNode::setClippingSize(const cocos2d::CCSize &size)
     rect[3] = ccp(0, m_clippingSize.height);
     ccColor4F green = {0, 1, 0, 1};
     m_pInnerStencil->drawPolygon(rect, 4, green, 0, green);
+}
+
+void RectClippingNode::setClippingEnabled(bool enabled)
+{
+    m_bClippingEnabled = enabled;
+}
+
+void RectClippingNode::visit()
+{
+    if (m_bClippingEnabled)
+    {
+        CCClippingNode::visit();
+    }
+    else
+    {
+        CCNode::visit();
+    }
 }
 
 NS_CC_EXT_END
