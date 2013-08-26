@@ -58,14 +58,14 @@ m_pReleaseListener(NULL),
 m_pfnReleaseSelector(NULL),
 m_pCancelListener(NULL),
 m_pfnCancelSelector(NULL),
-//m_bUseMergedTexture(false),
 m_anchorPoint(ccp(0.5f, 0.5f)),
 m_pUILayer(NULL),
 m_nActionTag(0),
 m_pLayoutParameter(NULL),
 m_size(CCSizeZero),
 m_bIgnoreSize(false),
-m_children(NULL)
+m_children(NULL),
+m_bAffectByClipping(false)
 {
 }
 
@@ -98,8 +98,6 @@ bool UIWidget::init()
         renderRGBA->setCascadeColorEnabled(true);
         renderRGBA->setCascadeOpacityEnabled(true);
     }
-    //test
-//    setSize(m_size);
     setBright(true);
     ignoreContentAdaptWithSize(true);
     return true;
@@ -672,8 +670,15 @@ bool UIWidget::hitTest(const CCPoint &pt)
     return false;
 }
 
-bool UIWidget::checkVisibleDependParent(const CCPoint &pt)
+bool UIWidget::parentAreaContainPoint(const CCPoint &pt)
 {
+    if (!m_bAffectByClipping)
+    {
+        return true;
+    }
+    
+    
+    
     if (m_pWidgetParent)
     {
         bool bRet = false;
@@ -683,7 +688,7 @@ bool UIWidget::checkVisibleDependParent(const CCPoint &pt)
         }
         if (bRet)
         {
-            return m_pWidgetParent->checkVisibleDependParent(pt);
+            return m_pWidgetParent->parentAreaContainPoint(pt);
         }
         return false;
     }

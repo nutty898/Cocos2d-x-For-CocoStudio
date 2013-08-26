@@ -144,7 +144,6 @@ UIWidget* UIHelper::seekWidgetByTag(UIWidget* root, int tag)
             return res;
         }
     }
-    
     return NULL;
 }
 
@@ -169,7 +168,6 @@ UIWidget* UIHelper::seekWidgetByName(UIWidget* root, const char *name)
             return res;
         }
     }
-    
     return NULL;
 }
 

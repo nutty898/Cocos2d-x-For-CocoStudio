@@ -95,14 +95,12 @@ public:
     virtual bool removeChild(UIWidget* child,bool cleanup);
     virtual void removeFromParentAndCleanup(bool cleanup);
     virtual void removeAllChildrenAndCleanUp(bool cleanup);
-//    virtual void releaseResoures();
     void updateChildrenUILayer(UILayer* uiLayer);
     void disableUpdate();
     virtual void reorderChild(UIWidget* child);
     UIWidget* getChildByName(const char* name);
     UIWidget* getChildByTag(int tag);
     CCArray* getChildren();
-//    void setEnabled(bool enabled);
     
     
     CCNode* getContainerNode();
@@ -164,7 +162,7 @@ public:
     void didNotSelectSelf();
     
     virtual void update(float dt){};
-    bool checkVisibleDependParent(const CCPoint &pt);
+    bool parentAreaContainPoint(const CCPoint &pt);
     virtual void checkChildInfo(int handleState,UIWidget* sender,const CCPoint &touchPoint);
     void setUILayer(UILayer* uiLayer);
     
@@ -202,14 +200,11 @@ public:
     bool isActive();
     void setBright(bool bright, bool containChild);
     CCRect getRect();
-    /*Compatible*/
-//    void setTouchEnable(bool enable,){setTouchEnabled(<#bool enable#>)};
     /***************************/
     virtual const CCSize& getContentSize() const;
 protected:
     virtual void onSizeChanged();
     virtual void onIgnoreSize();
-    
     virtual bool init();
     virtual void initRenderer();
     virtual void onPressStateChangedToNormal();
@@ -219,7 +214,7 @@ protected:
     void moveEvent();
     void releaseUpEvent();
     void cancelUpEvent();
-    void longClickEvent();    
+    void longClickEvent();
 protected:
     bool m_bEnabled;
     bool m_bVisible;
@@ -227,14 +222,12 @@ protected:
     bool m_bTouchEnabled;
     bool m_bTouchPassedEnabled;
     bool m_bFocus;
-
     int m_nWidgetZOrder;
     CCPoint m_anchorPoint;
     UIWidget* m_pWidgetParent;
     BrightStyle m_eBrightStyle;
     bool m_bUpdateEnabled;
     CCNode* m_pRenderer;
-    
     CCPoint m_touchStartPos;
     CCPoint m_touchMovePos;
     CCPoint m_touchEndPos;
@@ -253,11 +246,10 @@ protected:
     UILayer* m_pUILayer;
 	int m_nActionTag;
     CCSize m_size;
-    
     LayoutParameter* m_pLayoutParameter;
-    
     bool m_bIgnoreSize;
     CCArray* m_children;
+    bool m_bAffectByClipping;
 };
 
 class GUIRenderer : public CCNodeRGBA
