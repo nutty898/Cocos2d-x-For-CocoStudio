@@ -329,7 +329,7 @@ void UILoadingBar::setScale9Scale()
             break;
     }
     float width = (float)(m_nPercent) / 100 * m_fTotalLength;
-    dynamic_cast<CCScale9Sprite*>(m_pRenderBar)->setContentSize(CCSizeMake(width, m_barRendererTextureSize.height));
+    dynamic_cast<CCScale9Sprite*>(m_pRenderBar)->setPreferredSize(CCSizeMake(width, m_barRendererTextureSize.height));
 }
 
 NS_CC_EXT_END

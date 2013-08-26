@@ -409,7 +409,7 @@ void UIImageView::imageTextureScaleChangedWithSize()
     {
         if (m_bScale9Enabled)
         {
-            m_pImageRender->setContentSize(m_size);
+            dynamic_cast<CCScale9Sprite*>(m_pImageRender)->setPreferredSize(m_size);
         }
         else
         {

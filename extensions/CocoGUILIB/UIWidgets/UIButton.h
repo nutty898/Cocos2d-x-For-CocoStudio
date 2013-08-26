@@ -49,6 +49,7 @@ public:
     virtual void setNormalSpriteFrame(CCSpriteFrame* frame);
     virtual void setPressedSpriteFrame(CCSpriteFrame* frame);
     virtual void setDisabledSpriteFrame(CCSpriteFrame* frame);
+    void setPressedActionEnabled(bool enabled);
     /*Compatible*/
     void setTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTextures(normal, selected, disabled, texType);};
     void setNormalTexture(const char* normal, TextureResType texType = UI_TEX_TYPE_LOCAL){loadNormalTexture(normal,texType);};
@@ -84,6 +85,7 @@ protected:
     CCSize m_normalTextureSize;
     CCSize m_pressedTextureSize;
     CCSize m_disabledTextureSize;
+    bool m_bPressedActionEnabled;
 };
 
 NS_CC_EXT_END

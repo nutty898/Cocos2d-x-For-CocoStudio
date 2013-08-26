@@ -399,7 +399,7 @@ void Layout::onSizeChanged()
         CCLOG("m_size.width %f height %f ",m_size.width,m_size.height);
         if (m_bBackGroundScale9Enable)
         {
-            dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_size);
+            dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setPreferredSize(m_size);
         }
     }
     if (m_pColorRender)
@@ -461,7 +461,7 @@ void Layout::setBackGroundImage(const char* fileName,TextureResType texType)
             default:
                 break;
         }
-        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setContentSize(m_size);
+        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setPreferredSize(m_size);
     }
     else
     {
@@ -507,7 +507,7 @@ void Layout::addBackGroundImage()
         m_pBackGroundImage = CCScale9Sprite::create();
         m_pBackGroundImage->setZOrder(-1);
         m_pRenderer->addChild(m_pBackGroundImage);
-        m_pBackGroundImage->setContentSize(m_size);
+        dynamic_cast<CCScale9Sprite*>(m_pBackGroundImage)->setPreferredSize(m_size);
     }
     else
     {

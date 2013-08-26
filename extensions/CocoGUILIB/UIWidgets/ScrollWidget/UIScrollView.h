@@ -85,7 +85,8 @@ public:
     SCROLLVIEW_DIR getDirection();
     
     Layout* getInnerContainer();
-//    virtual void setLayoutType(LayoutType type);
+    virtual void setLayoutExecutant(LayoutExecutant* exe);
+    virtual LayoutExecutant* getLayoutExecutant() const;
     
 protected:
     virtual bool init();

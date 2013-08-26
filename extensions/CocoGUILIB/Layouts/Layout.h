@@ -43,8 +43,8 @@ public:
     Layout();
     virtual ~Layout();
     static Layout* create();    
-    void setLayoutExecutant(LayoutExecutant* exe);
-    LayoutExecutant* getLayoutExecutant() const;
+    virtual void setLayoutExecutant(LayoutExecutant* exe);
+    virtual LayoutExecutant* getLayoutExecutant() const;
     virtual bool addChild(UIWidget* child);
     virtual bool removeChild(UIWidget* child,bool cleanup);
     virtual void removeFromParentAndCleanup(bool cleanup);

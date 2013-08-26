@@ -385,7 +385,6 @@
 		50F0782217CAF63500FF9325 /* UISwitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077FE17CAF63500FF9325 /* UISwitch.cpp */; };
 		50F0782317CAF63500FF9325 /* UITextButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F0780017CAF63500FF9325 /* UITextButton.cpp */; };
 		50F0782417CAF63500FF9325 /* UITextField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F0780217CAF63500FF9325 /* UITextField.cpp */; };
-		50F0782517CAF63500FF9325 /* UIZoomButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F0780417CAF63500FF9325 /* UIZoomButton.cpp */; };
 		6442E66D17297DB40008499D /* TextureAtlasEncryptionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6442E66B17297DB40008499D /* TextureAtlasEncryptionTest.cpp */; };
 		A059B9AD174D9B8E0078F84F /* ConfigurationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A059B9AB174D9B8E0078F84F /* ConfigurationTest.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -1210,8 +1209,6 @@
 		50F0780117CAF63500FF9325 /* UITextButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextButton.h; sourceTree = "<group>"; };
 		50F0780217CAF63500FF9325 /* UITextField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UITextField.cpp; sourceTree = "<group>"; };
 		50F0780317CAF63500FF9325 /* UITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextField.h; sourceTree = "<group>"; };
-		50F0780417CAF63500FF9325 /* UIZoomButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIZoomButton.cpp; sourceTree = "<group>"; };
-		50F0780517CAF63500FF9325 /* UIZoomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIZoomButton.h; sourceTree = "<group>"; };
 		6442E66B17297DB40008499D /* TextureAtlasEncryptionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureAtlasEncryptionTest.cpp; sourceTree = "<group>"; };
 		6442E66C17297DB40008499D /* TextureAtlasEncryptionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureAtlasEncryptionTest.h; sourceTree = "<group>"; };
 		A059B9AB174D9B8E0078F84F /* ConfigurationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConfigurationTest.cpp; sourceTree = "<group>"; };
@@ -3199,8 +3196,6 @@
 				50F0780117CAF63500FF9325 /* UITextButton.h */,
 				50F0780217CAF63500FF9325 /* UITextField.cpp */,
 				50F0780317CAF63500FF9325 /* UITextField.h */,
-				50F0780417CAF63500FF9325 /* UIZoomButton.cpp */,
-				50F0780517CAF63500FF9325 /* UIZoomButton.h */,
 			);
 			path = UIWidgets;
 			sourceTree = "<group>";
@@ -3761,7 +3756,6 @@
 				50F0782217CAF63500FF9325 /* UISwitch.cpp in Sources */,
 				50F0782317CAF63500FF9325 /* UITextButton.cpp in Sources */,
 				50F0782417CAF63500FF9325 /* UITextField.cpp in Sources */,
-				50F0782517CAF63500FF9325 /* UIZoomButton.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

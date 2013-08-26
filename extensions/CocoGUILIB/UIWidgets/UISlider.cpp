@@ -399,7 +399,7 @@ void UISlider::barRendererScaleChangedWithSize()
         m_fBarLength = m_size.width;
         if (m_bScale9Enabled)
         {
-            m_pBarNode->setContentSize(m_size);
+            dynamic_cast<CCScale9Sprite*>(m_pBarNode)->setPreferredSize(m_size);
         }
         else
         {

@@ -41,7 +41,8 @@ m_ePressedTexType(UI_TEX_TYPE_LOCAL),
 m_eDisabledTexType(UI_TEX_TYPE_LOCAL),
 m_normalTextureSize(m_size),
 m_pressedTextureSize(m_size),
-m_disabledTextureSize(m_size)
+m_disabledTextureSize(m_size),
+m_bPressedActionEnabled(false)
 {
     
 }
@@ -291,6 +292,18 @@ void UIButton::onPressStateChangedToNormal()
     m_pButtonNormal->setVisible(true);
     m_pButtonClicked->setVisible(false);
     m_pButtonDisable->setVisible(false);
+    if (m_bPressedActionEnabled)
+    {
+        m_pButtonNormal->stopAllActions();
+        m_pButtonClicked->stopAllActions();
+        m_pButtonDisable->stopAllActions();
+        CCAction *zoomAction = CCScaleTo::create(0.05f, 1.0f);
+        CCAction *zoomAction1 = CCScaleTo::create(0.05f, 1.0f);
+        CCAction *zoomAction2 = CCScaleTo::create(0.05f, 1.0f);
+        m_pButtonNormal->runAction(zoomAction);
+        m_pButtonClicked->runAction(zoomAction1);
+        m_pButtonDisable->runAction(zoomAction2);
+    }
 }
 
 void UIButton::onPressStateChangedToPressed()
@@ -298,6 +311,18 @@ void UIButton::onPressStateChangedToPressed()
     m_pButtonNormal->setVisible(false);
     m_pButtonClicked->setVisible(true);
     m_pButtonDisable->setVisible(false);
+    if (m_bPressedActionEnabled)
+    {
+        m_pButtonNormal->stopAllActions();
+        m_pButtonClicked->stopAllActions();
+        m_pButtonDisable->stopAllActions();
+        CCAction *zoomAction = CCScaleTo::create(0.05f, 1.1f);
+        CCAction *zoomAction1 = CCScaleTo::create(0.05f, 1.1f);
+        CCAction *zoomAction2 = CCScaleTo::create(0.05f, 1.1f);
+        m_pButtonNormal->runAction(zoomAction);
+        m_pButtonClicked->runAction(zoomAction1);
+        m_pButtonDisable->runAction(zoomAction2);
+    }
 }
 
 void UIButton::onPressStateChangedToDisabled()
@@ -433,7 +458,7 @@ void UIButton::normalTextureScaleChangedWithSize()
     {
         if (m_bScale9Enabled)
         {
-            m_pButtonNormal->setContentSize(m_size);
+            dynamic_cast<CCScale9Sprite*>(m_pButtonNormal)->setPreferredSize(m_size);
         }
         else
         {
@@ -462,7 +487,7 @@ void UIButton::pressedTextureScaleChangedWithSize()
     {
         if (m_bScale9Enabled)
         {
-            m_pButtonClicked->setContentSize(m_size);
+            dynamic_cast<CCScale9Sprite*>(m_pButtonClicked)->setPreferredSize(m_size);
         }
         else
         {
@@ -491,7 +516,7 @@ void UIButton::disabledTextureScaleChangedWithSize()
     {
         if (m_bScale9Enabled)
         {
-            m_pButtonDisable->setContentSize(m_size);
+            dynamic_cast<CCScale9Sprite*>(m_pButtonDisable)->setPreferredSize(m_size);
         }
         else
         {
@@ -501,6 +526,11 @@ void UIButton::disabledTextureScaleChangedWithSize()
             m_pButtonDisable->setScaleY(scaleY);
         }
     }
+}
+
+void UIButton::setPressedActionEnabled(bool enabled)
+{
+    m_bPressedActionEnabled = enabled;
 }
 
 NS_CC_EXT_END

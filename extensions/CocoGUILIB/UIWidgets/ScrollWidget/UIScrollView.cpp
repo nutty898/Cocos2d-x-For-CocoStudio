@@ -672,10 +672,19 @@ SCROLLVIEW_MOVE_DIR UIScrollView::getMoveDirection()
     return m_eMoveDirection;
 }
 
-/* gui mark */
 Layout* UIScrollView::getInnerContainer()
 {
     return m_pInnerContainer;
+}
+
+void UIScrollView::setLayoutExecutant(LayoutExecutant *exe)
+{
+    m_pInnerContainer->setLayoutExecutant(exe);
+}
+
+LayoutExecutant* UIScrollView::getLayoutExecutant() const
+{
+    return m_pInnerContainer->getLayoutExecutant();
 }
 
 NS_CC_EXT_END

@@ -42,7 +42,6 @@
 #include "../UIWidgets/ScrollWidget/UIListView.h"
 #include "../UIWidgets/ScrollWidget/UIDragPanel.h"
 #include "../UIWidgets/UINodeContainer.h"
-#include "../UIWidgets/UIZoomButton.h"
 #include "../UIWidgets/UILabelBMFont.h"
 #include "../UIWidgets/ScrollWidget/UIPageView.h"
 #include "UIHelper.h"

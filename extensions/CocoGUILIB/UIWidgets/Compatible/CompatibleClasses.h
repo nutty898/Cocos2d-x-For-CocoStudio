@@ -2,8 +2,8 @@
 #ifndef __TestCpp__CompatibleClasses__
 #define __TestCpp__CompatibleClasses__
 
-#include "../../Layouts/Layout.h"
-#include "../UILabel.h"
+//#include "../../Layouts/Layout.h"
+//#include "../UILabel.h"
 
 NS_CC_EXT_BEGIN
 
@@ -54,6 +54,31 @@ public:
         }
         CC_SAFE_DELETE(widget);
         return NULL;
+    };
+};
+
+
+class UIZoomButton : public UITextButton {
+public:
+    static UIZoomButton* create()
+    {
+        UIZoomButton* widget = new UIZoomButton();
+        if (widget && widget->init())
+        {
+            return widget;
+        }
+        CC_SAFE_DELETE(widget);
+        return NULL;
+    };
+protected:
+    virtual bool init(){
+        if (UIButton::init())
+        {
+            setScale9Enabled(true);
+            setPressedActionEnabled(true);
+            return true;
+        }
+        return false;
     };
 };
 

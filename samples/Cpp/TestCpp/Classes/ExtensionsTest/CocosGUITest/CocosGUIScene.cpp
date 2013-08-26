@@ -184,15 +184,34 @@ void CocosGUITestScene::runThisTest()
     sc->setInnerContainerSize(CCSizeMake(100, 500));
     
 //    sc->setSize(CCSizeMake(200, 200));
-    
+    UIZoomButton* zb = UIZoomButton::create();
+    zb->setTextures("cocosgui/check_box_normal.png", "cocosgui/check_box_normal_press.png", "cocosgui/check_box_active.png");
+    sc->addChild(zb);
+    zb->setSize(zb->getContentSize());
+    LinearLayoutParameter* lp = LinearLayoutParameter::create();
+    zb->setLayoutParameter(lp);
     for (int i=0; i<10; i++)
     {
+        LinearLayoutParameter* lp = LinearLayoutParameter::create();
+        lp->setMargin(UIMargin(0,10,0,0));
         UICheckBox* cb = UICheckBox::create();
         cb->loadTextures("cocosgui/check_box_normal.png", "cocosgui/check_box_normal_press.png", "cocosgui/check_box_active.png", "cocosgui/check_box_normal_disable.png", "cocosgui/check_box_active_disable.png");
         sc->addChild(cb);
         cb->setPosition(ccp(50, i*50));
+        cb->setLayoutParameter(lp);
     }
     
+    LinearVerticalLayoutExecutant* exe = LinearVerticalLayoutExecutant::create();
+    sc->setLayoutExecutant(exe);
+    exe->doLayout();
+    
+//    CCScale9Sprite* sp9 = CCScale9Sprite::create("cocosgui/loadingbar.png");
+//    sp9->setPosition(ccp(100, 100));
+//    addChild(sp9);
+////    sp9->setContentSize(CCSizeMake(0, 17));
+//    sp9->setPreferredSize(CCSizeMake(0, 17));
+        
+
     
     
 //    lb->setPosition(ccp(50, 100));
