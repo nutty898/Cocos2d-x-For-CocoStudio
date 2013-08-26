@@ -65,20 +65,21 @@ public:
     void setScale9Enable(bool is){setScale9Enabled(is);};
     /************/
     virtual const CCSize& getContentSize() const;
+    void ignoreContentAdaptWithSize(bool ignore);
 protected:
     virtual void initRenderer();
-    void checkSlidBoundary();
-    float getPercentWithBallPos(float px,float py);
+    float getPercentWithBallPos(float location);
     void percentChangedEvent();
     virtual void onPressStateChangedToNormal();
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();
     virtual void onSizeChanged();
     void barRendererScaleChangedWithSize();
+    void progressBarRendererScaleChangedWithSize();
 protected:
     CCNode*  m_pBarNode;
     CCNode* m_pProgressBarNode;
-//    UIButton* m_pSlidBall;
+    CCSize m_ProgressBarTextureSize;
     
     CCSprite* m_pSlidBallNormalRenderer;
     CCSprite* m_pSlidBallPressedRenderer;

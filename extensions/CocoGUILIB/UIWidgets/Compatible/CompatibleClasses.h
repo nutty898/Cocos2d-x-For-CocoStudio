@@ -2,63 +2,14 @@
 #ifndef __TestCpp__CompatibleClasses__
 #define __TestCpp__CompatibleClasses__
 
-//#include "../../Layouts/Layout.h"
-//#include "../UILabel.h"
-
 NS_CC_EXT_BEGIN
 
-class UIPanel : public Layout
+//class type define
+typedef Layout UIPanel;
+typedef UILabel UITextArea;
+typedef Layout UIContainerWidget;
+class UIZoomButton : public UITextButton
 {
-    
-    
-public:
-    static UIPanel* create()
-    {
-        UIPanel* widget = new UIPanel();
-        if (widget && widget->init())
-        {
-            return widget;
-        }
-        CC_SAFE_DELETE(widget);
-        return NULL;
-    };
-};
-
-class UITextArea : public UILabel
-{
-    
-    
-public:
-    static UITextArea* create()
-    {
-        UITextArea* widget = new UITextArea();
-        if (widget && widget->init())
-        {
-            return widget;
-        }
-        CC_SAFE_DELETE(widget);
-        return NULL;
-    };
-};
-
-class UIContainerWidget : public Layout {
-    
-    
-public:
-    static UIContainerWidget* create()
-    {
-        UIContainerWidget* widget = new UIContainerWidget();
-        if (widget && widget->init())
-        {
-            return widget;
-        }
-        CC_SAFE_DELETE(widget);
-        return NULL;
-    };
-};
-
-
-class UIZoomButton : public UITextButton {
 public:
     static UIZoomButton* create()
     {
@@ -81,6 +32,9 @@ protected:
         return false;
     };
 };
+
+//enmu type define
+typedef LayoutBackGroundColorType PanelColorType;
 
 NS_CC_EXT_END
 

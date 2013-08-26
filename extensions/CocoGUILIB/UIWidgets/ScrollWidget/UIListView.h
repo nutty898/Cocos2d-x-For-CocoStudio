@@ -25,25 +25,49 @@
 #ifndef __UILISTVIEW_H__
 #define __UILISTVIEW_H__
 
-#include "UIScrollView.h"
+#include "Layout.h"
 
 NS_CC_EXT_BEGIN
+
+typedef enum LISTVIEW_DIR
+{
+    LISTVIEW_DIR_NONE,
+    LISTVIEW_DIR_VERTICAL,
+    LISTVIEW_DIR_HORIZONTAL
+}ListViewDirection;
+
+typedef enum LISTVIEW_MOVE_DIR
+{
+    LISTVIEW_MOVE_DIR_NONE,
+    LISTVIEW_MOVE_DIR_UP,
+    LISTVIEW_MOVE_DIR_DOWN,
+    LISTVIEW_MOVE_DIR_LEFT,
+    LISTVIEW_MOVE_DIR_RIGHT,
+}ListViewMoveDirection;
 
 typedef void (cocos2d::CCObject::*SEL_ListViewInitChildEvent)(cocos2d::CCObject*);
 typedef void (cocos2d::CCObject::*SEL_ListViewUpdateChildEvent)(cocos2d::CCObject*);
 #define coco_ListView_InitChild_selector(_SELECTOR) (SEL_ListViewInitChildEvent)(&_SELECTOR)
 #define coco_ListView_UpdateChild_selector(_SELECTOR) (SEL_ListViewUpdateChildEvent)(&_SELECTOR)
 
-class UIListView : public UIScrollView
+class UIListView : public Layout
 {
 public:
     UIListView();
     virtual ~UIListView();
     static UIListView* create();
-    virtual void releaseResoures();
     virtual bool addChild(UIWidget* widget);
     virtual void removeAllChildrenAndCleanUp(bool cleanup);
     virtual bool removeChild(UIWidget* child, bool cleanup);
+    
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
+    virtual void onTouchMoved(const CCPoint &touchPoint);
+    virtual void onTouchEnded(const CCPoint &touchPoint);
+    virtual void onTouchCancelled(const CCPoint &touchPoint);
+    virtual void onTouchLongClicked(const CCPoint &touchPoint);
+    
+    void setDirection(ListViewDirection dir);
+    ListViewDirection getDirection();
     
     void initChildWithDataLength(int length);
     int getDataLength();
@@ -58,14 +82,29 @@ public:
     
 protected:
     virtual bool init();
-    virtual void initRenderer();
+    virtual void update(float dt);
+    virtual void onSizeChanged();
+    
+    void setMoveDirection(ListViewMoveDirection dir);
+    ListViewMoveDirection getMoveDirection();
     
     virtual void resetProperty();
     
     virtual void handlePressLogic(const CCPoint &touchPoint);
-    virtual void endRecordSlidAction();
-    virtual bool scrollChildren(float touchOffset);
+    virtual void handleMoveLogic(const CCPoint &touchPoint);
+    virtual void handleReleaseLogic(const CCPoint &touchPoint);
+    virtual void interceptTouchEvent(int handleState,UIWidget* sender,const CCPoint &touchPoint);
+    virtual void checkChildInfo(int handleState,UIWidget* sender,const CCPoint &touchPoint);
+    
     void moveChildren(float offset);
+    virtual bool scrollChildren(float touchOffset);
+    void autoScrollChildren(float dt);
+    float getCurAutoScrollDistance(float time);
+    void startAutoScrollChildren(float v);
+    void stopAutoScrollChildren();
+    void recordSlidTime(float dt);
+    void startRecordSlidAction();
+    virtual void endRecordSlidAction();
     
     UIWidget* getCheckPositionChild();
     UIWidget* getChildFromUpdatePool();
@@ -84,8 +123,28 @@ protected:
     
     void initChildEvent();
     void updateChildEvent();
-    virtual void onSizeChanged();
 protected:
+    ListViewDirection m_eDirection;
+    ListViewMoveDirection m_eMoveDirection;
+    
+    float m_fTouchStartLocation;
+    float m_fTouchEndLocation;
+    float m_fTouchMoveStartLocation;
+    float m_fTopBoundary;//test
+    float m_fBottomBoundary;//test
+    float m_fLeftBoundary;
+    float m_fRightBoundary;                
+    
+    bool m_bAutoScroll;
+    
+    float m_fAutoScrollOriginalSpeed;
+    float m_fAutoScrollAcceleration;
+    
+    bool m_bBePressed;
+    float m_fSlidTime;
+    CCPoint moveChildPoint;
+    float m_fChildFocusCancelOffset;    
+    
     cocos2d::CCObject* m_pInitChildListener;
     SEL_ListViewInitChildEvent m_pfnInitChildSelector;
     cocos2d::CCObject* m_pUpdateChildListener;

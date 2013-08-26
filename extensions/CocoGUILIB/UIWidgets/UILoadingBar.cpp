@@ -76,7 +76,7 @@ void UILoadingBar::setDirection(LoadingBarType dir)
     switch (m_nBarType)
     {
         case LoadingBarTypeLeft:
-            m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));
+            m_pRenderBar->setAnchorPoint(ccp(0.0f,0.5f));
             m_pRenderBar->setPosition(ccp(-m_fTotalLength*0.5f,0.0f));
             if (!m_bScale9Enabled)
             {
@@ -84,8 +84,7 @@ void UILoadingBar::setDirection(LoadingBarType dir)
             }
             break;
         case LoadingBarTypeRight:
-            
-            m_pRenderBar->setAnchorPoint(ccp(1.0,0.5));
+            m_pRenderBar->setAnchorPoint(ccp(1.0f,0.5f));
             m_pRenderBar->setPosition(ccp(m_fTotalLength*0.5f,0.0f));
             if (!m_bScale9Enabled)
             {
@@ -268,10 +267,6 @@ void UILoadingBar::ignoreContentAdaptWithSize(bool ignore)
     if (!m_bScale9Enabled || (m_bScale9Enabled && !ignore))
     {
         UIWidget::ignoreContentAdaptWithSize(ignore);
-    }
-    else
-    {
-        CCLOG("fuck fuck fuck");
     }
 }
 

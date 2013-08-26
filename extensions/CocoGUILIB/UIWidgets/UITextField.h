@@ -85,13 +85,15 @@ public:
     /*compatibel*/
     void setMaxLengthEnable(bool is){setMaxLengthEnabled(is);};
     void setPasswordEnable(bool is){setPasswordEnabled(is);};
-    
+    virtual const CCSize& getContentSize() const;
 protected:
     // event
     void attachWithIMEEvent();
     void detachWithIMEEvent();
     void insertTextEvent();
     void deleteBackwardEvent();
+    virtual void onSizeChanged();
+    void textfieldRendererScaleChangedWithSize();
 protected:
     float m_fTouchWidth;
     float m_fTouchHeight;

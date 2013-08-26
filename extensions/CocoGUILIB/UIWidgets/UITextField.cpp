@@ -180,6 +180,8 @@ void UITextField::update(float dt)
     {
         insertTextEvent();
         setInsertText(false);
+        
+        textfieldRendererScaleChangedWithSize();
     }
     if (getDeleteBackward())
     {
@@ -300,6 +302,38 @@ void UITextField::setOpacity(int opacity)
 {
     UIWidget::setOpacity(opacity);
     m_pRenderTextField->setOpacity(opacity);
+}
+
+void UITextField::onSizeChanged()
+{
+    textfieldRendererScaleChangedWithSize();
+}
+
+void UITextField::textfieldRendererScaleChangedWithSize()
+{
+    if (m_bIgnoreSize)
+    {
+        m_pRenderTextField->setScale(1.0f);
+        m_size = getContentSize();
+    }
+    else
+    {
+        CCSize textureSize = getContentSize();
+        float scaleX = 1.0f;
+        float scaleY = 1.0f;
+        if (!textureSize.equals(CCSizeZero))
+        {
+            scaleX = m_size.width / textureSize.width;
+            scaleY = m_size.height / textureSize.height;
+        }
+        m_pRenderTextField->setScaleX(scaleX);
+        m_pRenderTextField->setScaleY(scaleY);
+    }
+}
+
+const CCSize& UITextField::getContentSize() const
+{
+    return m_pRenderTextField->getContentSize();
 }
 
 NS_CC_EXT_END

@@ -216,6 +216,7 @@ void UIDragPanel::removeAllChildrenAndCleanUp(bool cleanup)
 
 void UIDragPanel::onSizeChanged()
 {
+    Layout::onSizeChanged();
     CCSize innerSize = m_pInnerContainer->getSize();
     float orginInnerSizeWidth = innerSize.width;
     float orginInnerSizeHeight = innerSize.height;
