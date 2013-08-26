@@ -56,10 +56,15 @@ public:
     virtual void setAnchorPoint(const CCPoint &pt);
     virtual bool onTouchBegan(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
+    /*Compatible*/
+    void setTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTexture(fileName,texType);};
+    void setScale9Size(const CCSize& size){setScale9Enabled(true);setSize(size);};
+    void setScale9Enable(bool is){setScale9Enabled(is);};
+    /************/
+    virtual const CCSize& getContentSize() const;
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();
-    virtual const CCSize& getContentSize() const;
     void imageTextureScaleChangedWithSize();
 protected:
     int m_nViewType;

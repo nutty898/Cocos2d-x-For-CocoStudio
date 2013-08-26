@@ -241,9 +241,9 @@ bool UIPageView::removeChild(UIWidget* widget, bool cleanup)
     return false;
 }
 
-void UIPageView::setSize(const CCSize &size)
+void UIPageView::onSizeChanged()
 {
-    Layout::setSize(size);
+    Layout::onSizeChanged();
     m_fRightBoundary = getSize().width;
     updateChildrenSize();
     updateChildrenPosition();

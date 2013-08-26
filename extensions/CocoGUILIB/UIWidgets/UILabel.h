@@ -51,6 +51,7 @@ public:
     void setTextAreaSize(const CCSize &size);
     void setTextHorizontalAlignment(CCTextAlignment alignment);
     void setTextVerticalAlignment(CCVerticalTextAlignment alignment);
+    virtual const CCSize& getContentSize() const;
 protected:
     virtual bool init();
     virtual void initRenderer();
@@ -58,7 +59,7 @@ protected:
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();
     virtual void onSizeChanged();
-    virtual const CCSize& getContentSize() const;
+    
     void labelScaleChangedWithSize();
 protected:
     bool m_bTouchScaleChangeAble;

@@ -51,11 +51,16 @@ public:
     void setScale9Enabled(bool enabled);
     void setCapInsets(const CCRect &capInsets);
     void ignoreContentAdaptWithSize(bool ignore);
+    /*Compatible*/
+    void setTexture(const char* texture,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTexture(texture,texType);};
+    void setScale9Size(const CCSize& size){setScale9Enabled(true);setSize(size);};
+    void setScale9Enable(bool is){setScale9Enabled(is);};
+    /************/
+    virtual const CCSize& getContentSize() const;
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();
     void setScale9Scale();
-    virtual const CCSize& getContentSize() const;
     void barRendererScaleChangedWithSize();
 protected:
     LoadingBarType m_nBarType;

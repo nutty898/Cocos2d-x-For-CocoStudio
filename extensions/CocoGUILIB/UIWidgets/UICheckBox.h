@@ -55,6 +55,15 @@ public:
     virtual bool isFlipX();
     virtual bool isFlipY();
     virtual void onTouchEnded(const CCPoint &touchPoint);
+    /*Compatible*/
+    void setTextures(const char* backGround,const char* backGroundSelected,const char* cross,const char* backGroundDisabled,const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTextures(backGround, backGroundSelected, cross, backGroundDisabled,frontCrossDisabled,texType);};
+    void setBackGroundTexture(const char* backGround,TextureResType type = UI_TEX_TYPE_LOCAL){loadBackGroundTexture(backGround,type);};
+    void setBackGroundSelectedTexture(const char* backGroundSelected,TextureResType texType = UI_TEX_TYPE_LOCAL){loadBackGroundSelectedTexture(backGroundSelected,texType);};
+    void setFrontCrossTexture(const char* cross,TextureResType texType = UI_TEX_TYPE_LOCAL){loadFrontCrossTexture(cross,texType);};
+    void setBackGroundDisabledTexture(const char* backGroundDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadBackGroundDisabledTexture(backGroundDisabled,texType);};
+    void setFrontCrossDisabledTexture(const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadFrontCrossDisabledTexture(frontCrossDisabled,texType);};
+    /************/
+    virtual const CCSize& getContentSize() const;
 protected:
     virtual bool init();
     virtual void initRenderer();
@@ -64,7 +73,6 @@ protected:
     void selectedEvent();
     void unSelectedEvent();
     virtual void onSizeChanged();
-    virtual const CCSize& getContentSize() const;
     void backGroundTextureScaleChangedWithSize();
     void backGroundSelectedTextureScaleChangedWithSize();
     void frontCrossTextureScaleChangedWithSize();

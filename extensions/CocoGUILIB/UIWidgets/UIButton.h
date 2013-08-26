@@ -49,6 +49,15 @@ public:
     virtual void setNormalSpriteFrame(CCSpriteFrame* frame);
     virtual void setPressedSpriteFrame(CCSpriteFrame* frame);
     virtual void setDisabledSpriteFrame(CCSpriteFrame* frame);
+    /*Compatible*/
+    void setTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTextures(normal, selected, disabled, texType);};
+    void setNormalTexture(const char* normal, TextureResType texType = UI_TEX_TYPE_LOCAL){loadNormalTexture(normal,texType);};
+    void setPressedTexture(const char* selected, TextureResType texType = UI_TEX_TYPE_LOCAL){loadPressedTexture(selected,texType);};
+    void setDisabledTexture(const char* disabled, TextureResType texType = UI_TEX_TYPE_LOCAL){loadDisabledTexture(disabled,texType);};
+    void setScale9Enable(bool able){setScale9Enabled(able);};
+    void setScale9Size(const CCSize& size){setScale9Enabled(true);setSize(size);};
+    /************/
+    virtual const CCSize& getContentSize() const;
 protected:
     virtual bool init();
     virtual void initRenderer();
@@ -56,7 +65,7 @@ protected:
     virtual void onPressStateChangedToPressed();
     virtual void onPressStateChangedToDisabled();
     virtual void onSizeChanged();
-    virtual const CCSize& getContentSize() const;
+    
     void normalTextureScaleChangedWithSize();
     void pressedTextureScaleChangedWithSize();
     void disabledTextureScaleChangedWithSize();

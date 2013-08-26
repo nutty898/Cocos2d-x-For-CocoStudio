@@ -190,6 +190,10 @@ void UISlider::setScale9Enabled(bool able)
     }
     
     m_bScale9Enabled = able;
+    if (m_bScale9Enabled)
+    {
+        m_bIgnoreSize = false;
+    }
     m_pRenderer->removeChild(m_pBarNode, true);
     m_pRenderer->removeChild(m_pProgressBarNode, true);
     m_pBarNode = NULL;
@@ -386,16 +390,9 @@ void UISlider::barRendererScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        if (m_bScale9Enabled)
-        {
-            
-        }
-        else
-        {
-            m_size = m_pBarNode->getContentSize();
-            m_fBarLength = m_size.width;
-            m_pBarNode->setScale(1.0f);
-        }
+        m_size = m_pBarNode->getContentSize();
+        m_fBarLength = m_size.width;
+        m_pBarNode->setScale(1.0f);
     }
     else
     {

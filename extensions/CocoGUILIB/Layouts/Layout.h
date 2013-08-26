@@ -72,6 +72,9 @@ public:
     virtual void setOpacity(int opacity);
     void removeBackGroundImage();
     const CCSize& getBackGroundImageTextureSize() const;
+    /*Compatible*/
+    void setBackGroundImageScale9Enable(bool is){setBackGroundImageScale9Enabled(is);};
+    /************/
 protected:
     virtual bool init();
     virtual void initRenderer();

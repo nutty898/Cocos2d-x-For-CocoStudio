@@ -181,18 +181,20 @@ public:
     CCPoint getWorldPosition();
     
     /*******to be removed*******/
-    virtual void setTouchEnabled(bool enabled, bool containChildren);
+    virtual void setTouchEnable(bool enabled, bool containChildren = false);
     void disable(bool containChildren = false);
     void active(bool containChildren = false);
     bool isActive();
     void setBright(bool bright, bool containChild);
     CCRect getRect();
+    /*Compatible*/
+//    void setTouchEnable(bool enable,){setTouchEnabled(<#bool enable#>)};
     /***************************/
-    
+    virtual const CCSize& getContentSize() const;
 protected:
     virtual void onSizeChanged();
     virtual void onIgnoreSize();
-    virtual const CCSize& getContentSize() const;
+    
     virtual bool init();
     virtual void initRenderer();
     virtual void onPressStateChangedToNormal();

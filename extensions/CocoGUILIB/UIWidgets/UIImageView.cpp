@@ -402,14 +402,7 @@ void UIImageView::imageTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        if (m_bScale9Enabled)
-        {
-            m_pImageRender->setContentSize(m_imageTextureSize);
-        }
-        else
-        {
-            m_pImageRender->setScale(1.0f);
-        }
+        m_pImageRender->setScale(1.0f);
         m_size = m_imageTextureSize;
     }
     else

@@ -51,7 +51,7 @@ public:
     void insertPage(Layout* page, int idx);
     void removePage(Layout* page, bool cleanup);
     void removePageAtIndex(int index, bool cleanup);
-    virtual void setSize(const CCSize &size);
+    virtual void onSizeChanged();
     void updateChildrenSize();
     void updateChildrenPosition();
     void scrollToPage(int idx);

@@ -35,7 +35,6 @@
 #include "../UIWidgets/UILabel.h"
 #include "../UIWidgets/UILabelAtlas.h"
 #include "../UIWidgets/UILoadingBar.h"
-//#include "../UIWidgets/UIPanel.h"
 #include "../UIWidgets/ScrollWidget/UIScrollView.h"
 #include "../UIWidgets/UISlider.h"
 #include "../UIWidgets/UITextButton.h"
@@ -50,6 +49,7 @@
 #include "CCSReader.h"
 #include "UILayer.h"
 #include "../Layouts/LayoutExecutant.h"
+#include "../UIWidgets/Compatible/CompatibleClasses.h"
 NS_CC_EXT_BEGIN
 
 const char* CocosGUIVersion();

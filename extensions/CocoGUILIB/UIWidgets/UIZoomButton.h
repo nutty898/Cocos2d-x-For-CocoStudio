@@ -64,6 +64,10 @@ public:
     void setDisabledBackgroundSpriteFrame(CCSpriteFrame * spriteFrame);
     void setZoomOnTouchDown(bool zoom);
     bool getZoomOnTouchDown();
+    
+    
+    void setTextures(const char* backgroundNormal,const char* backgroundPressed,const char* backgroundDisabled){loadTextures(backgroundNormal, backgroundPressed, backgroundDisabled);};
+    
 protected:
     virtual bool init();
     virtual void initRenderer();

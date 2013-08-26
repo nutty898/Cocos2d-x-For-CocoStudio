@@ -81,6 +81,11 @@ public:
     virtual void setAnchorPoint(const CCPoint &pt);
     virtual void setColor(const ccColor3B &color);
     virtual void setOpacity(int opacity);
+    
+    /*compatibel*/
+    void setMaxLengthEnable(bool is){setMaxLengthEnabled(is);};
+    void setPasswordEnable(bool is){setPasswordEnabled(is);};
+    
 protected:
     // event
     void attachWithIMEEvent();

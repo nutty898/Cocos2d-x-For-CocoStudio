@@ -39,10 +39,10 @@ public:
     void setText(const char* value);
     const char* getStringValue();
     virtual void setAnchorPoint(const CCPoint &pt);
+    virtual const CCSize& getContentSize() const;
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();
-    virtual const CCSize& getContentSize() const;
     void labelBMFontScaleChangedWithSize();
 protected:
     CCLabelBMFont* m_pLabelBMFont;

@@ -419,11 +419,11 @@ void UIButton::normalTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        if (m_bScale9Enabled)
-        {
-            m_pButtonNormal->setContentSize(m_normalTextureSize);
-        }
-        else
+//        if (m_bScale9Enabled)
+//        {
+//            m_pButtonNormal->setContentSize(m_normalTextureSize);
+//        }
+//        else
         {
             m_pButtonNormal->setScale(1.0f);
         }
@@ -449,11 +449,11 @@ void UIButton::pressedTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        if (m_bScale9Enabled)
-        {
-            m_pButtonClicked->setContentSize(m_pressedTextureSize);
-        }
-        else
+//        if (m_bScale9Enabled)
+//        {
+//            m_pButtonClicked->setContentSize(m_pressedTextureSize);
+//        }
+//        else
         {
             m_pButtonClicked->setScale(1.0f);
         }
@@ -478,11 +478,11 @@ void UIButton::disabledTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        if (m_bScale9Enabled)
-        {
-            m_pButtonDisable->setContentSize(m_disabledTextureSize);
-        }
-        else
+//        if (m_bScale9Enabled)
+//        {
+//            m_pButtonDisable->setContentSize(m_disabledTextureSize);
+//        }
+//        else
         {
             m_pButtonDisable->setScale(1.0f);
         }

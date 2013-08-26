@@ -850,7 +850,7 @@ LayoutParameter* UIWidget::getLayoutParameter()
 
 /*******to be removed*******/
 
-void UIWidget::setTouchEnabled(bool enabled, bool containChildren)
+void UIWidget::setTouchEnable(bool enabled, bool containChildren)
 {
     setTouchEnabled(enabled);
     if (containChildren)
@@ -863,7 +863,7 @@ void UIWidget::setTouchEnabled(bool enabled, bool containChildren)
             for (int i=0; i<length; ++i)
             {
                 UIWidget* child = (UIWidget*)childrenArray->arr[i];
-                child->setTouchEnabled(enabled,true);
+                child->setTouchEnable(enabled,true);
             }
         }
     }
@@ -872,13 +872,13 @@ void UIWidget::setTouchEnabled(bool enabled, bool containChildren)
 void UIWidget::disable(bool containChildren)
 {
     setBright(false,containChildren);
-    setTouchEnabled(false,containChildren);
+    setTouchEnable(false,containChildren);
 }
 
 void UIWidget::active(bool containChildren)
 {
     setBright(true,containChildren);
-    setTouchEnabled(true,containChildren);
+    setTouchEnable(true,containChildren);
 }
 
 bool UIWidget::isActive()
