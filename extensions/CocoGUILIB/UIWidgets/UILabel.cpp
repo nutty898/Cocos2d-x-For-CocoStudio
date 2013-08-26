@@ -32,7 +32,7 @@ m_sFontName("Thonburi"),
 m_nFontSize(10),
 m_fOnSelectedScaleOffset(0.5),
 m_fNormalScaleValue(1),
-m_pRenderLabel(NULL)
+m_pLabelRenderer(NULL)
 {
 }
 
@@ -64,8 +64,8 @@ bool UILabel::init()
 void UILabel::initRenderer()
 {
     UIWidget::initRenderer();
-    m_pRenderLabel = CCLabelTTF::create();
-    m_pRenderer->addChild(m_pRenderLabel);
+    m_pLabelRenderer = CCLabelTTF::create();
+    m_pRenderer->addChild(m_pLabelRenderer);
 }
 
 void UILabel::setText(const char* text)
@@ -75,46 +75,46 @@ void UILabel::setText(const char* text)
 		return;
 	}
     std::string strText(text);
-    m_pRenderLabel->setString(strText.c_str());
+    m_pLabelRenderer->setString(strText.c_str());
     labelScaleChangedWithSize();
 }
 
 const char* UILabel::getStringValue()
 {
-    return m_pRenderLabel->getString();
+    return m_pLabelRenderer->getString();
 }
 
 int UILabel::getStringLength()
 {
-    const char* str = m_pRenderLabel->getString();
+    const char* str = m_pLabelRenderer->getString();
     return strlen(str);
 }
 
 void UILabel::setFontSize(int size)
 {
-    m_pRenderLabel->setFontSize(size);
+    m_pLabelRenderer->setFontSize(size);
     labelScaleChangedWithSize();
 }
 
 void UILabel::setFontName(const char* name)
 {
-    m_pRenderLabel->setFontName(name);
+    m_pLabelRenderer->setFontName(name);
     labelScaleChangedWithSize();
 }
 
 void UILabel::setTextAreaSize(const CCSize &size)
 {
-    m_pRenderLabel->setDimensions(size);
+    m_pLabelRenderer->setDimensions(size);
 }
 
 void UILabel::setTextHorizontalAlignment(CCTextAlignment alignment)
 {
-    m_pRenderLabel->setHorizontalAlignment(alignment);
+    m_pLabelRenderer->setHorizontalAlignment(alignment);
 }
 
 void UILabel::setTextVerticalAlignment(CCVerticalTextAlignment alignment)
 {
-    m_pRenderLabel->setVerticalAlignment(alignment);
+    m_pLabelRenderer->setVerticalAlignment(alignment);
 }
 
 void UILabel::setTouchScaleChangeAble(bool able)
@@ -158,28 +158,28 @@ void UILabel::clickScale(float scale)
 
 void UILabel::setFlipX(bool flipX)
 {
-    m_pRenderLabel->setFlipX(flipX);
+    m_pLabelRenderer->setFlipX(flipX);
 }
 
 void UILabel::setFlipY(bool flipY)
 {
-    m_pRenderLabel->setFlipY(flipY);
+    m_pLabelRenderer->setFlipY(flipY);
 }
 
 bool UILabel::isFlipX()
 {
-    return m_pRenderLabel->isFlipX();
+    return m_pLabelRenderer->isFlipX();
 }
 
 bool UILabel::isFlipY()
 {
-    return m_pRenderLabel->isFlipY();
+    return m_pLabelRenderer->isFlipY();
 }
 
 void UILabel::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
-    m_pRenderLabel->setAnchorPoint(pt);
+    m_pLabelRenderer->setAnchorPoint(pt);
 }
 
 void UILabel::onSizeChanged()
@@ -189,23 +189,23 @@ void UILabel::onSizeChanged()
 
 const CCSize& UILabel::getContentSize() const
 {
-    return m_pRenderLabel->getContentSize();
+    return m_pLabelRenderer->getContentSize();
 }
 
 void UILabel::labelScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_pRenderLabel->setScale(1.0f);
-        m_size = m_pRenderLabel->getContentSize();
+        m_pLabelRenderer->setScale(1.0f);
+        m_size = m_pLabelRenderer->getContentSize();
     }
     else
     {
-        CCSize textureSize = m_pRenderLabel->getContentSize();
+        CCSize textureSize = m_pLabelRenderer->getContentSize();
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
-        m_pRenderLabel->setScaleX(scaleX);
-        m_pRenderLabel->setScaleY(scaleY);
+        m_pLabelRenderer->setScaleX(scaleX);
+        m_pLabelRenderer->setScaleY(scaleY);
     }
     
 }

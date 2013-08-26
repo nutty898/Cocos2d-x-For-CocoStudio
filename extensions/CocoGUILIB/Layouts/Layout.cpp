@@ -46,7 +46,8 @@ m_cColor(ccWHITE),
 m_gStartColor(ccWHITE),
 m_gEndColor(ccWHITE),
 m_nCOpacity(255),
-m_backGroundImageTextureSize(CCSizeZero)
+m_backGroundImageTextureSize(CCSizeZero),
+m_colorType(LAYOUT_COLOR_NONE)
 {
     m_WidgetType = WidgetTypeContainer;
 }

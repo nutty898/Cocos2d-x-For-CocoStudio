@@ -66,7 +66,7 @@ protected:
     LoadingBarType m_nBarType;
     int m_nPercent;
     float m_fTotalLength;
-    CCNode* m_pRenderBar;
+    CCNode* m_pBarRenderer;
     TextureResType m_eRenderBarTexType;
     CCSize m_barRendererTextureSize;
     bool m_bScale9Enabled;

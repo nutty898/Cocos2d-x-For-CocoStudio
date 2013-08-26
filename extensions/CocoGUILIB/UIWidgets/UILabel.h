@@ -67,7 +67,7 @@ protected:
     std::string m_sFontName;
     int m_nFontSize;
     float m_fOnSelectedScaleOffset;
-    CCLabelTTF* m_pRenderLabel;
+    CCLabelTTF* m_pLabelRenderer;
 };
 
 NS_CC_EXT_END

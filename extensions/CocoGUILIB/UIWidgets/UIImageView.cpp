@@ -27,8 +27,8 @@
 
 NS_CC_EXT_BEGIN
 
-#define DYNAMIC_CAST_CCSPRITE dynamic_cast<cocos2d::CCSprite*>(m_pImageRender)
-#define DYNAMIC_CAST_SCALE9SPRITE dynamic_cast<cocos2d::extension::CCScale9Sprite*>(m_pImageRender)
+#define DYNAMIC_CAST_CCSPRITE dynamic_cast<cocos2d::CCSprite*>(m_pImageRenderer)
+#define DYNAMIC_CAST_SCALE9SPRITE dynamic_cast<cocos2d::extension::CCScale9Sprite*>(m_pImageRenderer)
 
 UIImageView::UIImageView():
 m_nViewType(1),
@@ -38,7 +38,7 @@ m_bStartCheckDoubleClick(false),
 m_touchRelease(false),
 m_bDoubleClickEnabled(false),
 m_bScale9Enabled(false),
-m_pImageRender(NULL),
+m_pImageRenderer(NULL),
 m_strTextureFile(""),
 m_capInsets(CCRectZero),
 m_eImageTexType(UI_TEX_TYPE_LOCAL),
@@ -66,8 +66,8 @@ UIImageView* UIImageView::create()
 void UIImageView::initRenderer()
 {
     UIWidget::initRenderer();
-    m_pImageRender = CCSprite::create();
-    m_pRenderer->addChild(m_pImageRender);
+    m_pImageRenderer = CCSprite::create();
+    m_pRenderer->addChild(m_pImageRenderer);
 }
 
 void UIImageView::loadTexture(const char *fileName, TextureResType texType)
@@ -77,7 +77,6 @@ void UIImageView::loadTexture(const char *fileName, TextureResType texType)
         return;
     }
     m_strTextureFile = fileName;
-//    setUseMergedTexture(useSpriteFrame);
     m_eImageTexType = texType;
     switch (m_eImageTexType)
     {
@@ -112,7 +111,7 @@ void UIImageView::loadTexture(const char *fileName, TextureResType texType)
         default:
             break;
     }
-    m_imageTextureSize = m_pImageRender->getContentSize();
+    m_imageTextureSize = m_pImageRenderer->getContentSize();
     updateAnchorPoint();
     imageTextureScaleChangedWithSize();
 }
@@ -280,18 +279,18 @@ void UIImageView::setScale9Enabled(bool able)
         m_bIgnoreSize = false;
     }
     
-    m_pRenderer->removeChild(m_pImageRender, true);
-    m_pImageRender = NULL;
+    m_pRenderer->removeChild(m_pImageRenderer, true);
+    m_pImageRenderer = NULL;
     if (m_bScale9Enabled)
     {
-        m_pImageRender = extension::CCScale9Sprite::create();
+        m_pImageRenderer = extension::CCScale9Sprite::create();
     }
     else
     {
-        m_pImageRender = CCSprite::create();
+        m_pImageRenderer = CCSprite::create();
     }
     loadTexture(m_strTextureFile.c_str(),m_eImageTexType);
-    m_pRenderer->addChild(m_pImageRender);
+    m_pRenderer->addChild(m_pImageRenderer);
     setCapInsets(m_capInsets);
 }
 
@@ -385,7 +384,7 @@ void UIImageView::setCapInsets(const CCRect &capInsets)
 void UIImageView::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
-    m_pImageRender->setAnchorPoint(pt);
+    m_pImageRenderer->setAnchorPoint(pt);
 }
 
 void UIImageView::onSizeChanged()
@@ -402,22 +401,22 @@ void UIImageView::imageTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_pImageRender->setScale(1.0f);
+        m_pImageRenderer->setScale(1.0f);
         m_size = m_imageTextureSize;
     }
     else
     {
         if (m_bScale9Enabled)
         {
-            dynamic_cast<CCScale9Sprite*>(m_pImageRender)->setPreferredSize(m_size);
+            dynamic_cast<CCScale9Sprite*>(m_pImageRenderer)->setPreferredSize(m_size);
         }
         else
         {
-            CCSize textureSize = m_pImageRender->getContentSize();
+            CCSize textureSize = m_pImageRenderer->getContentSize();
             float scaleX = m_size.width / textureSize.width;
             float scaleY = m_size.height / textureSize.height;
-            m_pImageRender->setScaleX(scaleX);
-            m_pImageRender->setScaleY(scaleY);
+            m_pImageRenderer->setScaleX(scaleX);
+            m_pImageRenderer->setScaleY(scaleY);
         }
     }
 }

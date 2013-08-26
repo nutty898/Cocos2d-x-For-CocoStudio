@@ -27,7 +27,7 @@
 NS_CC_EXT_BEGIN
     
 UILabelBMFont::UILabelBMFont():
-m_pLabelBMFont(NULL)
+m_pLabelBMFontRenderer(NULL)
 {
 }
 
@@ -50,13 +50,13 @@ UILabelBMFont* UILabelBMFont::create()
 void UILabelBMFont::initRenderer()
 {
     UIWidget::initRenderer();
-    m_pLabelBMFont = CCLabelBMFont::create();
-    m_pRenderer->addChild(m_pLabelBMFont);
+    m_pLabelBMFontRenderer = CCLabelBMFont::create();
+    m_pRenderer->addChild(m_pLabelBMFontRenderer);
 }
 
 void UILabelBMFont::setFntFile(const char *fileName)
 {
-    m_pLabelBMFont->initWithString("", fileName);
+    m_pLabelBMFontRenderer->initWithString("", fileName);
     updateAnchorPoint();
     labelBMFontScaleChangedWithSize();
 }
@@ -67,19 +67,19 @@ void UILabelBMFont::setText(const char* value)
 	{
 		return;
 	}
-	m_pLabelBMFont->setString(value);
+	m_pLabelBMFontRenderer->setString(value);
     labelBMFontScaleChangedWithSize();
 }
 
 const char* UILabelBMFont::getStringValue()
 {
-    return m_pLabelBMFont->getString();
+    return m_pLabelBMFontRenderer->getString();
 }
 
 void UILabelBMFont::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
-    m_pLabelBMFont->setAnchorPoint(pt);
+    m_pLabelBMFontRenderer->setAnchorPoint(pt);
 }
 
 void UILabelBMFont::onSizeChanged()
@@ -89,23 +89,23 @@ void UILabelBMFont::onSizeChanged()
 
 const CCSize& UILabelBMFont::getContentSize() const
 {
-    return m_pLabelBMFont->getContentSize();
+    return m_pLabelBMFontRenderer->getContentSize();
 }
 
 void UILabelBMFont::labelBMFontScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_pLabelBMFont->setScale(1.0f);
-        m_size = m_pLabelBMFont->getContentSize();
+        m_pLabelBMFontRenderer->setScale(1.0f);
+        m_size = m_pLabelBMFontRenderer->getContentSize();
     }
     else
     {
-        CCSize textureSize = m_pLabelBMFont->getContentSize();
+        CCSize textureSize = m_pLabelBMFontRenderer->getContentSize();
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
-        m_pLabelBMFont->setScaleX(scaleX);
-        m_pLabelBMFont->setScaleY(scaleY);
+        m_pLabelBMFontRenderer->setScaleX(scaleX);
+        m_pLabelBMFontRenderer->setScaleY(scaleY);
     }
 }
 

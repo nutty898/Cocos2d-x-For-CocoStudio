@@ -71,9 +71,9 @@ protected:
     void pressedTextureScaleChangedWithSize();
     void disabledTextureScaleChangedWithSize();
 protected:
-    CCNode* m_pButtonNormal;
-    CCNode* m_pButtonClicked;
-    CCNode* m_pButtonDisable;
+    CCNode* m_pButtonNormalRenderer;
+    CCNode* m_pButtonClickedRenderer;
+    CCNode* m_pButtonDisableRenderer;
     std::string m_strNormalFileName;
     std::string m_strClickedFileName;
     std::string m_strDisabledFileName;

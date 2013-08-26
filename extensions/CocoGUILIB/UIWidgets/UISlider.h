@@ -77,8 +77,8 @@ protected:
     void barRendererScaleChangedWithSize();
     void progressBarRendererScaleChangedWithSize();
 protected:
-    CCNode*  m_pBarNode;
-    CCNode* m_pProgressBarNode;
+    CCNode*  m_pBarRenderer;
+    CCNode* m_pProgressBarRenderer;
     CCSize m_ProgressBarTextureSize;
     
     CCSprite* m_pSlidBallNormalRenderer;

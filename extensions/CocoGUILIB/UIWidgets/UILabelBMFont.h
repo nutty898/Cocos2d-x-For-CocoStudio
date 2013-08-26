@@ -45,7 +45,7 @@ protected:
     virtual void onSizeChanged();
     void labelBMFontScaleChangedWithSize();
 protected:
-    CCLabelBMFont* m_pLabelBMFont;
+    CCLabelBMFont* m_pLabelBMFontRenderer;
 };
     
 NS_CC_EXT_END

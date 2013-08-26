@@ -79,11 +79,11 @@ protected:
     void backGroundDisabledTextureScaleChangedWithSize();
     void frontCrossDisabledTextureScaleChangedWithSize();
 protected:
-    CCSprite* m_pBackGroundBox;
-    CCSprite* m_pBackGroundSelectedBox;
-    CCSprite* m_pFrontCross;
-    CCSprite* m_pBackGroundBoxDisabled;
-    CCSprite* m_pFrontCrossDisabled;
+    CCSprite* m_pBackGroundBoxRenderer;
+    CCSprite* m_pBackGroundSelectedBoxRenderer;
+    CCSprite* m_pFrontCrossRenderer;
+    CCSprite* m_pBackGroundBoxDisabledRenderer;
+    CCSprite* m_pFrontCrossDisabledRenderer;
     bool m_bIsSelected;
     CCObject*       m_pSelectListener;
     SEL_SelectEvent    m_pfnSelectSelector;

@@ -109,7 +109,7 @@ protected:
     SEL_TextFieldInsertTextEvent m_pfnInsertTextSelector;
     SEL_TextFieldDeleteBackwardEvent m_pfnDeleteBackwardSelector;
     
-    UICCTextField* m_pRenderTextField;
+    UICCTextField* m_pTextFieldRenderer;
 };
 
 NS_CC_EXT_END

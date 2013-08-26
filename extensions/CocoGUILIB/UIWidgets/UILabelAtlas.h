@@ -46,7 +46,7 @@ protected:
     virtual void onSizeChanged();
     void labelAtlasScaleChangedWithSize();
 protected:
-    UICCLabelAtlas* m_pRenderLaberAtlas;
+    UICCLabelAtlas* m_pLaberAtlasRenderer;
 };
 
 NS_CC_EXT_END

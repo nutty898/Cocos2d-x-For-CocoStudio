@@ -44,7 +44,7 @@ public:
     virtual void setFlipY(bool flipY);
     virtual void setAnchorPoint(const CCPoint &pt);
 protected:
-    CCLabelTTF* m_pTextLable;
+    CCLabelTTF* m_pTextLableRenderer;
     
 };
 

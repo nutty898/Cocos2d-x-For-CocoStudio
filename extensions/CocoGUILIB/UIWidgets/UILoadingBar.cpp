@@ -27,13 +27,13 @@
 
 NS_CC_EXT_BEGIN
 
-#define DYNAMIC_CAST_CCSPRITE dynamic_cast<cocos2d::CCSprite*>(m_pRenderBar)
+#define DYNAMIC_CAST_CCSPRITE dynamic_cast<cocos2d::CCSprite*>(m_pBarRenderer)
 
 UILoadingBar::UILoadingBar():
 m_nBarType(LoadingBarTypeLeft),
 m_nPercent(100),
 m_fTotalLength(0),
-m_pRenderBar(NULL),
+m_pBarRenderer(NULL),
 m_eRenderBarTexType(UI_TEX_TYPE_LOCAL),
 m_bScale9Enabled(false),
 m_capInsets(CCRectZero),
@@ -60,9 +60,9 @@ UILoadingBar* UILoadingBar::create()
 void UILoadingBar::initRenderer()
 {
     UIWidget::initRenderer();
-    m_pRenderBar = CCSprite::create();
-    m_pRenderer->addChild(m_pRenderBar);
-    m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));
+    m_pBarRenderer = CCSprite::create();
+    m_pRenderer->addChild(m_pBarRenderer);
+    m_pBarRenderer->setAnchorPoint(ccp(0.0,0.5));
 }
 
 void UILoadingBar::setDirection(LoadingBarType dir)
@@ -76,19 +76,19 @@ void UILoadingBar::setDirection(LoadingBarType dir)
     switch (m_nBarType)
     {
         case LoadingBarTypeLeft:
-            m_pRenderBar->setAnchorPoint(ccp(0.0f,0.5f));
-            m_pRenderBar->setPosition(ccp(-m_fTotalLength*0.5f,0.0f));
+            m_pBarRenderer->setAnchorPoint(ccp(0.0f,0.5f));
+            m_pBarRenderer->setPosition(ccp(-m_fTotalLength*0.5f,0.0f));
             if (!m_bScale9Enabled)
             {
-                dynamic_cast<CCSprite*>(m_pRenderBar)->setFlipX(false);
+                dynamic_cast<CCSprite*>(m_pBarRenderer)->setFlipX(false);
             }
             break;
         case LoadingBarTypeRight:
-            m_pRenderBar->setAnchorPoint(ccp(1.0f,0.5f));
-            m_pRenderBar->setPosition(ccp(m_fTotalLength*0.5f,0.0f));
+            m_pBarRenderer->setAnchorPoint(ccp(1.0f,0.5f));
+            m_pBarRenderer->setPosition(ccp(m_fTotalLength*0.5f,0.0f));
             if (!m_bScale9Enabled)
             {
-                dynamic_cast<CCSprite*>(m_pRenderBar)->setFlipX(true);
+                dynamic_cast<CCSprite*>(m_pBarRenderer)->setFlipX(true);
             }
             break;
     }
@@ -112,21 +112,21 @@ void UILoadingBar::loadTexture(const char* texture,TextureResType texType)
         case UI_TEX_TYPE_LOCAL:
             if (m_bScale9Enabled)
             {
-                dynamic_cast<CCScale9Sprite*>(m_pRenderBar)->initWithFile(texture);
+                dynamic_cast<CCScale9Sprite*>(m_pBarRenderer)->initWithFile(texture);
             }
             else
             {
-                dynamic_cast<CCSprite*>(m_pRenderBar)->initWithFile(texture);
+                dynamic_cast<CCSprite*>(m_pBarRenderer)->initWithFile(texture);
             }
             break;
         case UI_TEX_TYPE_PLIST:
             if (m_bScale9Enabled)
             {
-                dynamic_cast<CCScale9Sprite*>(m_pRenderBar)->initWithSpriteFrameName(texture);
+                dynamic_cast<CCScale9Sprite*>(m_pBarRenderer)->initWithSpriteFrameName(texture);
             }
             else
             {
-                dynamic_cast<CCSprite*>(m_pRenderBar)->initWithSpriteFrameName(texture);
+                dynamic_cast<CCSprite*>(m_pBarRenderer)->initWithSpriteFrameName(texture);
             }
             break;
         default:
@@ -134,31 +134,31 @@ void UILoadingBar::loadTexture(const char* texture,TextureResType texType)
     }
     if (m_bScale9Enabled)
     {
-        dynamic_cast<CCScale9Sprite*>(m_pRenderBar)->setColor(getColor());
-        dynamic_cast<CCScale9Sprite*>(m_pRenderBar)->setOpacity(getOpacity());
+        dynamic_cast<CCScale9Sprite*>(m_pBarRenderer)->setColor(getColor());
+        dynamic_cast<CCScale9Sprite*>(m_pBarRenderer)->setOpacity(getOpacity());
     }
     else
     {
-        dynamic_cast<CCSprite*>(m_pRenderBar)->setColor(getColor());
-        dynamic_cast<CCSprite*>(m_pRenderBar)->setOpacity(getOpacity());
+        dynamic_cast<CCSprite*>(m_pBarRenderer)->setColor(getColor());
+        dynamic_cast<CCSprite*>(m_pBarRenderer)->setOpacity(getOpacity());
     }
-    m_barRendererTextureSize.width = m_pRenderBar->getContentSize().width;
-    m_barRendererTextureSize.height = m_pRenderBar->getContentSize().height;
+    m_barRendererTextureSize.width = m_pBarRenderer->getContentSize().width;
+    m_barRendererTextureSize.height = m_pBarRenderer->getContentSize().height;
     
     switch (m_nBarType)
     {
     case LoadingBarTypeLeft:
-        m_pRenderBar->setAnchorPoint(ccp(0.0,0.5));
+        m_pBarRenderer->setAnchorPoint(ccp(0.0f,0.5f));
         if (!m_bScale9Enabled)
         {
-            dynamic_cast<CCSprite*>(m_pRenderBar)->setFlipX(false);
+            dynamic_cast<CCSprite*>(m_pBarRenderer)->setFlipX(false);
         }
         break;
     case LoadingBarTypeRight:
-        m_pRenderBar->setAnchorPoint(ccp(1.0,0.5));
+        m_pBarRenderer->setAnchorPoint(ccp(1.0f,0.5f));
         if (!m_bScale9Enabled)
         {
-            dynamic_cast<CCSprite*>(m_pRenderBar)->setFlipX(true);
+            dynamic_cast<CCSprite*>(m_pBarRenderer)->setFlipX(true);
         }
         break;
     }
@@ -176,18 +176,18 @@ void UILoadingBar::setScale9Enabled(bool enabled)
     {
         m_bIgnoreSize = false;
     }
-    m_pRenderer->removeChild(m_pRenderBar, true);
-    m_pRenderBar = NULL;
+    m_pRenderer->removeChild(m_pBarRenderer, true);
+    m_pBarRenderer = NULL;
     if (m_bScale9Enabled)
     {
-        m_pRenderBar= CCScale9Sprite::create();
+        m_pBarRenderer = CCScale9Sprite::create();
     }
     else
     {
-        m_pRenderBar = CCSprite::create();
+        m_pBarRenderer = CCSprite::create();
     }
     loadTexture(m_strTextureFile.c_str(),m_eRenderBarTexType);
-    m_pRenderer->addChild(m_pRenderBar);
+    m_pRenderer->addChild(m_pBarRenderer);
     setCapInsets(m_capInsets);
 }
 
@@ -199,7 +199,7 @@ void UILoadingBar::setCapInsets(const CCRect &capInsets)
     }
     m_capInsets = capInsets;
     
-    dynamic_cast<CCScale9Sprite*>(m_pRenderBar)->setCapInsets(capInsets);
+    dynamic_cast<CCScale9Sprite*>(m_pBarRenderer)->setCapInsets(capInsets);
 }
 
 void UILoadingBar::setPercent(int percent)
@@ -238,7 +238,7 @@ void UILoadingBar::setPercent(int percent)
     }
     else
     {
-        dynamic_cast<CCSprite*>(m_pRenderBar)->setTextureRect(CCRectMake(x, y, m_barRendererTextureSize.width * res, m_barRendererTextureSize.height));
+        dynamic_cast<CCSprite*>(m_pBarRenderer)->setTextureRect(CCRectMake(x, y, m_barRendererTextureSize.width * res, m_barRendererTextureSize.height));
     }
 }
 
@@ -280,7 +280,7 @@ void UILoadingBar::barRendererScaleChangedWithSize()
     if (m_bIgnoreSize)
     {
         m_fTotalLength = m_barRendererTextureSize.width;
-        m_pRenderBar->setScale(1.0f);
+        m_pBarRenderer->setScale(1.0f);
         m_size = m_barRendererTextureSize;
     }
     else
@@ -293,7 +293,7 @@ void UILoadingBar::barRendererScaleChangedWithSize()
         else
         {
             
-            CCSize textureSize = m_pRenderBar->getContentSize();
+            CCSize textureSize = m_pBarRenderer->getContentSize();
             float scaleX = 1.0f;
             float scaleY = 1.0f;
             if (!textureSize.equals(CCSizeZero))
@@ -301,11 +301,11 @@ void UILoadingBar::barRendererScaleChangedWithSize()
                scaleX = m_size.width / textureSize.width;
                scaleY = m_size.height / textureSize.height;
             }
-            m_pRenderBar->setScaleX(scaleX);
-            m_pRenderBar->setScaleY(scaleY);
+            m_pBarRenderer->setScaleX(scaleX);
+            m_pBarRenderer->setScaleY(scaleY);
         }
     }
-    m_pRenderBar->setPosition(ccp(-m_fTotalLength * 0.5f, 0.0f));
+    m_pBarRenderer->setPosition(ccp(-m_fTotalLength * 0.5f, 0.0f));
 }
 
 void UILoadingBar::setScale9Scale()
@@ -313,18 +313,18 @@ void UILoadingBar::setScale9Scale()
     switch (m_nBarType)
     {
         case LoadingBarTypeLeft:
-            m_pRenderBar->setPosition(ccp(-m_fTotalLength * 0.5f, 0.0f));
+            m_pBarRenderer->setPosition(ccp(-m_fTotalLength * 0.5f, 0.0f));
             break;
             
         case LoadingBarTypeRight:
-            m_pRenderBar->setPosition(ccp(m_fTotalLength * 0.5f, 0.0f));
+            m_pBarRenderer->setPosition(ccp(m_fTotalLength * 0.5f, 0.0f));
             break;
             
         default:
             break;
     }
     float width = (float)(m_nPercent) / 100 * m_fTotalLength;
-    dynamic_cast<CCScale9Sprite*>(m_pRenderBar)->setPreferredSize(CCSizeMake(width, m_barRendererTextureSize.height));
+    dynamic_cast<CCScale9Sprite*>(m_pBarRenderer)->setPreferredSize(CCSizeMake(width, m_barRendererTextureSize.height));
 }
 
 NS_CC_EXT_END

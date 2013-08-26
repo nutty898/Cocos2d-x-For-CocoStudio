@@ -27,7 +27,7 @@
 NS_CC_EXT_BEGIN
 
 UILabelAtlas::UILabelAtlas():
-m_pRenderLaberAtlas(NULL)
+m_pLaberAtlasRenderer(NULL)
 {
 }
 
@@ -50,32 +50,32 @@ UILabelAtlas* UILabelAtlas::create()
 void UILabelAtlas::initRenderer()
 {
     UIWidget::initRenderer();
-    m_pRenderLaberAtlas = UICCLabelAtlas::create();
-    m_pRenderer->addChild(m_pRenderLaberAtlas);
+    m_pLaberAtlasRenderer = UICCLabelAtlas::create();
+    m_pRenderer->addChild(m_pLaberAtlasRenderer);
 }
 
 void UILabelAtlas::setProperty(const char *stringValue, const char *charMapFile, int itemWidth, int itemHeight, const char *startCharMap,bool useSpriteFrame)
 {
-    m_pRenderLaberAtlas->setProperty(stringValue, charMapFile, itemWidth, itemHeight, (int)(startCharMap[0]));
+    m_pLaberAtlasRenderer->setProperty(stringValue, charMapFile, itemWidth, itemHeight, (int)(startCharMap[0]));
     updateAnchorPoint();
     labelAtlasScaleChangedWithSize();
 }
 
 void UILabelAtlas::setStringValue(const char *value)
 {
-    m_pRenderLaberAtlas->setString(value);
+    m_pLaberAtlasRenderer->setString(value);
     labelAtlasScaleChangedWithSize();
 }
 
 const char* UILabelAtlas::getStringValue()
 {
-    return m_pRenderLaberAtlas->getString();
+    return m_pLaberAtlasRenderer->getString();
 }
 
 void UILabelAtlas::setAnchorPoint(const CCPoint &pt)
 {
     UIWidget::setAnchorPoint(pt);
-    m_pRenderLaberAtlas->setAnchorPoint(ccp(pt.x, pt.y));
+    m_pLaberAtlasRenderer->setAnchorPoint(ccp(pt.x, pt.y));
 }
 
 void UILabelAtlas::onSizeChanged()
@@ -85,23 +85,23 @@ void UILabelAtlas::onSizeChanged()
 
 const CCSize& UILabelAtlas::getContentSize() const
 {
-    return m_pRenderLaberAtlas->getContentSize();
+    return m_pLaberAtlasRenderer->getContentSize();
 }
 
 void UILabelAtlas::labelAtlasScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_pRenderLaberAtlas->setScale(1.0f);
-        m_size = m_pRenderLaberAtlas->getContentSize();
+        m_pLaberAtlasRenderer->setScale(1.0f);
+        m_size = m_pLaberAtlasRenderer->getContentSize();
     }
     else
     {
-        CCSize textureSize = m_pRenderLaberAtlas->getContentSize();
+        CCSize textureSize = m_pLaberAtlasRenderer->getContentSize();
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
-        m_pRenderLaberAtlas->setScaleX(scaleX);
-        m_pRenderLaberAtlas->setScaleY(scaleY);
+        m_pLaberAtlasRenderer->setScaleX(scaleX);
+        m_pLaberAtlasRenderer->setScaleY(scaleY);
     }
 }
 

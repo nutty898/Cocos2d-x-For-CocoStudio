@@ -76,7 +76,7 @@ protected:
     
     bool m_bScale9Enabled;
     CCRect m_capInsets;
-    CCNode* m_pImageRender;
+    CCNode* m_pImageRenderer;
     std::string m_strTextureFile;
     TextureResType m_eImageTexType;
     CCSize m_imageTextureSize;
