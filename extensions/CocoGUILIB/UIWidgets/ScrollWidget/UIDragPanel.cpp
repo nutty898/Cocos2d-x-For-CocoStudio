@@ -213,6 +213,10 @@ void UIDragPanel::removeAllChildrenAndCleanUp(bool cleanup)
     m_pInnerContainer->removeAllChildrenAndCleanUp(cleanup);
 }
 
+CCArray* UIDragPanel::getChildren()
+{
+    return m_pInnerContainer->getChildren();
+}
 
 void UIDragPanel::onSizeChanged()
 {

@@ -138,7 +138,7 @@ public:
     virtual bool addChild(UIWidget* widget);
     virtual bool removeChild(UIWidget* child,bool cleanup);
     virtual void removeAllChildrenAndCleanUp(bool cleanup);
-    
+    virtual CCArray* getChildren();
     /* gui mark */
     
     const CCSize& getInnerContainerSize() const;

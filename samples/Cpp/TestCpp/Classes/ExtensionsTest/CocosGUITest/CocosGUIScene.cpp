@@ -24,8 +24,20 @@ void CocosGUITestScene::runThisTest()
     this->addChild(ul);
     
     UIWidget* w = CCUIHELPER->createWidgetFromJsonFile("cocosgui/5_2/5_2.json");
-    
     ul->addWidget(w);
+    
+//    UIButton* btn = UIButton::create();
+//    btn->loadTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
+//    
+//    ul->addWidget(btn);
+//    btn->setPosition(ccp(100, 100));
+//    btn->ignoreContentAdaptWithSize(false);
+//    
+//    btn->setSize(CCSizeMake(100, 100));
+//    btn->setScale9Enabled(true);
+//    btn->setTouchEnabled(true);
+    
+
 //    UISlider* sd = UISlider::create();
 //    sd->loadBarTexture("cocosgui/slidbar.png");
 //    sd->loadProgressBarTexture("cocosgui/slider_bar_active_9patch.png");

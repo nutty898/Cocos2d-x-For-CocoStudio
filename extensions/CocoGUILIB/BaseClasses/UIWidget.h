@@ -100,7 +100,7 @@ public:
     virtual void reorderChild(UIWidget* child);
     UIWidget* getChildByName(const char* name);
     UIWidget* getChildByTag(int tag);
-    CCArray* getChildren();
+    virtual CCArray* getChildren();
     
     
     CCNode* getContainerNode();

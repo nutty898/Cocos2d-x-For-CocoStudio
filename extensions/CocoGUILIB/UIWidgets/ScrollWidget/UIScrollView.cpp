@@ -162,6 +162,11 @@ bool UIScrollView::removeChild(UIWidget* child,bool cleanup)
 	return m_pInnerContainer->removeChild(child, cleanup);
 }
 
+CCArray* UIScrollView::getChildren()
+{
+    return m_pInnerContainer->getChildren();
+}
+
 void UIScrollView::moveChildren(float offset)
 {
     switch (m_eDirection)

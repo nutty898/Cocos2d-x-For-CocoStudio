@@ -66,6 +66,7 @@ public:
     virtual bool addChild(UIWidget* widget);
     virtual void removeAllChildrenAndCleanUp(bool cleanup);
 	virtual bool removeChild(UIWidget* child,bool cleanup);
+    virtual CCArray* getChildren();
     void scrollToBottom();
     void scrollToTop();
     void setInnerContainerSize(const CCSize &size);

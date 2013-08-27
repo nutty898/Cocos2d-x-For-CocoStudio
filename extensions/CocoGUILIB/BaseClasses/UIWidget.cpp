@@ -672,11 +672,27 @@ bool UIWidget::hitTest(const CCPoint &pt)
 
 bool UIWidget::parentAreaContainPoint(const CCPoint &pt)
 {
+
+    m_bAffectByClipping = false;
+    UIWidget* parent = getWidgetParent();
+    while (parent)
+    {
+        Layout* layoutParent = dynamic_cast<Layout*>(parent);
+        if (layoutParent)
+        {
+            if (layoutParent->isClippingEnabled())
+            {
+                m_bAffectByClipping = true;
+                break;
+            }
+        }
+        parent = parent->getWidgetParent();
+    }
+    
     if (!m_bAffectByClipping)
     {
         return true;
     }
-    
     
     
     if (m_pWidgetParent)
@@ -1121,7 +1137,11 @@ void UIWidget::setBright(bool bright, bool containChild)
 CCRect UIWidget::getRect()
 {
     CCPoint wPos = getWorldPosition();
-    return CCRectMake(wPos.x, wPos.y, m_size.width, m_size.height);
+    float width = m_size.width;
+    float height = m_size.height;
+    float offset_width = m_anchorPoint.x * width;
+    float offset_height = m_anchorPoint.y * height;
+    return CCRectMake(wPos.x - offset_width, wPos.y - offset_height, width, height);
 }
 
 /***************************/
