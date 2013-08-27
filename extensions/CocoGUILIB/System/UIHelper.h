@@ -53,6 +53,8 @@ public:
     float getFileDesignWidth();
     void setFileDesignHeight(float height);
     float getFileDesignHeight();
+    /*temp action*/
+    UIWidget* seekActionWidgetByActionTag(UIWidget* root, int tag);
 protected:
     
     float m_fFileDesignWidth;

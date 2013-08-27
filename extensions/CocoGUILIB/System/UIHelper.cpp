@@ -211,4 +211,29 @@ float UIHelper::getFileDesignHeight()
     return m_fFileDesignHeight;
 }
 
+/*temp action*/
+UIWidget* UIHelper::seekActionWidgetByActionTag(UIWidget* root, int tag)
+{
+	if (!root)
+	{
+		return NULL;
+	}
+	if (root->getActionTag() == tag)
+	{
+		return root;
+	}
+    ccArray* arrayRootChildren = root->getChildren()->data;
+    int length = arrayRootChildren->num;
+	for (int i=0;i<length;i++)
+	{
+		UIWidget* child = (UIWidget*)(arrayRootChildren->arr[i]);
+		UIWidget* res = seekActionWidgetByActionTag(child,tag);
+		if (res != NULL)
+		{
+			return res;
+		}
+	}
+	return NULL;
+}
+
 NS_CC_EXT_END

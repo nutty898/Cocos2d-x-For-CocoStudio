@@ -355,6 +355,10 @@
 		501A005E17B370CE000E0DB2 /* UITextButtonTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 501A004317B370CE000E0DB2 /* UITextButtonTest.cpp */; };
 		501A005F17B370CE000E0DB2 /* UITextFieldTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 501A004617B370CE000E0DB2 /* UITextFieldTest.cpp */; };
 		501A006017B370CE000E0DB2 /* UIZoomButtonTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 501A004917B370CE000E0DB2 /* UIZoomButtonTest.cpp */; };
+		50D6A43717CC8ABB00523A82 /* UIAction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50D6A42F17CC8ABB00523A82 /* UIAction.cpp */; };
+		50D6A43817CC8ABB00523A82 /* UIActionFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50D6A43117CC8ABB00523A82 /* UIActionFrame.cpp */; };
+		50D6A43917CC8ABB00523A82 /* UIActionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50D6A43317CC8ABB00523A82 /* UIActionManager.cpp */; };
+		50D6A43A17CC8ABB00523A82 /* UIActionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50D6A43517CC8ABB00523A82 /* UIActionNode.cpp */; };
 		50F0780717CAF63500FF9325 /* UIRootWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077C017CAF63400FF9325 /* UIRootWidget.cpp */; };
 		50F0780817CAF63500FF9325 /* UIWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077C217CAF63400FF9325 /* UIWidget.cpp */; };
 		50F0780C17CAF63500FF9325 /* Layout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50F077CC17CAF63400FF9325 /* Layout.cpp */; };
@@ -1144,6 +1148,14 @@
 		501A004717B370CE000E0DB2 /* UITextFieldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITextFieldTest.h; sourceTree = "<group>"; };
 		501A004917B370CE000E0DB2 /* UIZoomButtonTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIZoomButtonTest.cpp; sourceTree = "<group>"; };
 		501A004A17B370CE000E0DB2 /* UIZoomButtonTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIZoomButtonTest.h; sourceTree = "<group>"; };
+		50D6A42F17CC8ABB00523A82 /* UIAction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIAction.cpp; sourceTree = "<group>"; };
+		50D6A43017CC8ABB00523A82 /* UIAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAction.h; sourceTree = "<group>"; };
+		50D6A43117CC8ABB00523A82 /* UIActionFrame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIActionFrame.cpp; sourceTree = "<group>"; };
+		50D6A43217CC8ABB00523A82 /* UIActionFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActionFrame.h; sourceTree = "<group>"; };
+		50D6A43317CC8ABB00523A82 /* UIActionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIActionManager.cpp; sourceTree = "<group>"; };
+		50D6A43417CC8ABB00523A82 /* UIActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActionManager.h; sourceTree = "<group>"; };
+		50D6A43517CC8ABB00523A82 /* UIActionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIActionNode.cpp; sourceTree = "<group>"; };
+		50D6A43617CC8ABB00523A82 /* UIActionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIActionNode.h; sourceTree = "<group>"; };
 		50F077C017CAF63400FF9325 /* UIRootWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIRootWidget.cpp; sourceTree = "<group>"; };
 		50F077C117CAF63400FF9325 /* UIRootWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIRootWidget.h; sourceTree = "<group>"; };
 		50F077C217CAF63400FF9325 /* UIWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIWidget.cpp; sourceTree = "<group>"; };
@@ -3097,6 +3109,14 @@
 		50F077BC17CAF63400FF9325 /* Action */ = {
 			isa = PBXGroup;
 			children = (
+				50D6A42F17CC8ABB00523A82 /* UIAction.cpp */,
+				50D6A43017CC8ABB00523A82 /* UIAction.h */,
+				50D6A43117CC8ABB00523A82 /* UIActionFrame.cpp */,
+				50D6A43217CC8ABB00523A82 /* UIActionFrame.h */,
+				50D6A43317CC8ABB00523A82 /* UIActionManager.cpp */,
+				50D6A43417CC8ABB00523A82 /* UIActionManager.h */,
+				50D6A43517CC8ABB00523A82 /* UIActionNode.cpp */,
+				50D6A43617CC8ABB00523A82 /* UIActionNode.h */,
 			);
 			path = Action;
 			sourceTree = "<group>";
@@ -3730,6 +3750,10 @@
 				50F0782217CAF63500FF9325 /* UISwitch.cpp in Sources */,
 				50F0782317CAF63500FF9325 /* UITextButton.cpp in Sources */,
 				50F0782417CAF63500FF9325 /* UITextField.cpp in Sources */,
+				50D6A43717CC8ABB00523A82 /* UIAction.cpp in Sources */,
+				50D6A43817CC8ABB00523A82 /* UIActionFrame.cpp in Sources */,
+				50D6A43917CC8ABB00523A82 /* UIActionManager.cpp in Sources */,
+				50D6A43A17CC8ABB00523A82 /* UIActionNode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

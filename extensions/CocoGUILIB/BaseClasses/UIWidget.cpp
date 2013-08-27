@@ -65,7 +65,9 @@ m_pLayoutParameter(NULL),
 m_size(CCSizeZero),
 m_bIgnoreSize(false),
 m_children(NULL),
-m_bAffectByClipping(false)
+m_bAffectByClipping(false),
+/*temp action*/
+m_pBindingAction(NULL)
 {
 }
 
@@ -1060,16 +1062,6 @@ WidgetType UIWidget::getWidgetType()
     return m_WidgetType;
 }
 
-void UIWidget::setActionTag(int tag)
-{
-	m_nActionTag = tag;
-}
-
-int UIWidget::getActionTag()
-{
-	return m_nActionTag;
-}
-
 void UIWidget::setLayoutParameter(LayoutParameter *parameter)
 {
     if (m_pLayoutParameter)
@@ -1145,6 +1137,22 @@ CCRect UIWidget::getRect()
 }
 
 /***************************/
+
+/*temp action*/
+void UIWidget::setActionTag(int tag)
+{
+	m_nActionTag = tag;
+}
+
+int UIWidget::getActionTag()
+{
+	return m_nActionTag;
+}
+
+void UIWidget::setBindingAction(UIActionNode *actionNode)
+{
+    m_pBindingAction = actionNode;
+}
 
 GUIRenderer::GUIRenderer():
 m_bEnabled(true)

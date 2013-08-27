@@ -61,6 +61,8 @@ typedef void (CCObject::*SEL_CancelEvent)(CCObject*);
 #define coco_cancelselector(_SELECTOR) (cocos2d::extension::SEL_CancelEvent)(&_SELECTOR)
 
 class UILayer;
+/*temp action*/
+class UIActionNode;
 
 class UIWidget : public CCObject
 {
@@ -156,8 +158,6 @@ public:
     void stopActionByTag(int tag);
     CCAction* getActionByTag(int tag);
     
-	void setActionTag(int tag);
-	int getActionTag();
     
     void didNotSelectSelf();
     
@@ -201,6 +201,12 @@ public:
     void setBright(bool bright, bool containChild);
     CCRect getRect();
     /***************************/
+    
+    /*temp action*/
+    void setActionTag(int tag);
+	int getActionTag();
+    void setBindingAction(UIActionNode* actionNode);
+    
     virtual const CCSize& getContentSize() const;
 protected:
     virtual void onSizeChanged();
@@ -250,6 +256,8 @@ protected:
     bool m_bIgnoreSize;
     CCArray* m_children;
     bool m_bAffectByClipping;
+    /*temp action*/
+    UIActionNode* m_pBindingAction;
 };
 
 class GUIRenderer : public CCNodeRGBA
