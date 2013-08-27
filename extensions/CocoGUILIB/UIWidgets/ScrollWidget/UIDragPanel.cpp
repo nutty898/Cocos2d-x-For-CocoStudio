@@ -119,6 +119,7 @@ bool UIDragPanel::init()
     {
         setUpdateEnabled(true);
         setTouchEnabled(true);
+        setClippingEnabled(true);
         return true;
     }
     return false;
@@ -145,8 +146,9 @@ void UIDragPanel::releaseResoures()
 
 bool UIDragPanel::onTouchBegan(const CCPoint &touchPoint)
 {
-    Layout::onTouchBegan(touchPoint);
+    bool pass = Layout::onTouchBegan(touchPoint);
     handlePressLogic(touchPoint);
+    return pass;
 }
 
 void UIDragPanel::onTouchMoved(const CCPoint &touchPoint)

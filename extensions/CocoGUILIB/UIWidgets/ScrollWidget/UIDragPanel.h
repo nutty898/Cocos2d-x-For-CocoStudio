@@ -269,6 +269,10 @@ protected:
     void moveToInit();
     void moveToUpdate(float t);
     virtual void onSizeChanged();
+    /*compatible*/
+    virtual void setClippingEnable(bool is){setClippingEnabled(is);};
+    /************/
+    virtual void setClippingEnabled(bool able){Layout::setClippingEnabled(able);};
 protected:
     Layout* m_pInnerContainer;
     

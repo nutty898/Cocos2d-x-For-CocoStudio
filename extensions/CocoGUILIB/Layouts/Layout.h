@@ -67,7 +67,7 @@ public:
     const CCSize& getBackGroundImageTextureSize() const;
     /*Compatible*/
     void setBackGroundImageScale9Enable(bool is){setBackGroundImageScale9Enabled(is);};
-    void setClippingEnable(bool is){setClippingEnabled(is);};
+    virtual void setClippingEnable(bool is){setClippingEnabled(is);};
     /************/
     virtual void setClippingEnabled(bool able);
     virtual bool isClippingEnabled();

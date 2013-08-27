@@ -92,6 +92,7 @@ bool UIListView::init()
     {
         setUpdateEnabled(true);
         setTouchEnabled(true);
+        setClippingEnabled(true);
         
         m_pChildPool = CCArray::create();
         m_pUpdatePool = CCArray::create();

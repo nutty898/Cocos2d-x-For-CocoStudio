@@ -91,6 +91,7 @@ bool UIScrollView::init()
     {
         setUpdateEnabled(true);
         setTouchEnabled(true);
+        setClippingEnabled(true);
         m_pInnerContainer->setTouchEnabled(false);
         return true;
     }

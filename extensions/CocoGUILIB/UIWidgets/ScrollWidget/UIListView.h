@@ -123,6 +123,10 @@ protected:
     
     void initChildEvent();
     void updateChildEvent();
+    /*compatible*/
+    virtual void setClippingEnable(bool is){setClippingEnabled(is);};
+    /************/
+    virtual void setClippingEnabled(bool able){Layout::setClippingEnabled(able);};
 protected:
     ListViewDirection m_eDirection;
     ListViewMoveDirection m_eMoveDirection;

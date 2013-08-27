@@ -77,6 +77,10 @@ protected:
     virtual bool scrollPages(float touchOffset);
     void movePages(float offset);
     void pageTurningEvent();
+    /*compatible*/
+    virtual void setClippingEnable(bool is){setClippingEnabled(is);};
+    /************/
+    virtual void setClippingEnabled(bool able){Layout::setClippingEnabled(able);};
 protected:
     int m_nCurPageIdx;
     CCArray* m_pages;
