@@ -25,7 +25,7 @@
 #ifndef __UILISTVIEW_H__
 #define __UILISTVIEW_H__
 
-#include "Layout.h"
+#include "../../Layouts/Layout.h"
 
 NS_CC_EXT_BEGIN
 

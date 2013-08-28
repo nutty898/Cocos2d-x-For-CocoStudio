@@ -52,6 +52,7 @@ public:
     const char* getStringValue();
     virtual void setAnchorPoint(const CCPoint &pt);
     virtual const CCSize& getContentSize() const;
+    virtual CCNode* getVirtualRenderer();
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();

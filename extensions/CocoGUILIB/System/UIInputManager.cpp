@@ -204,7 +204,7 @@ void UIInputManager::onTouchEnd(CCTouch* touch)
     for (int i=0; i<length; ++i)
     {
         UIWidget* hitWidget = (UIWidget*)(selectedWidgetArray->arr[i]);
-        hitWidget->onTouchEnded(touchMovedPoint);
+        hitWidget->onTouchEnded(touchEndedPoint);
     }
     m_pSelectedWidgets->removeAllObjects();
 }
@@ -219,7 +219,7 @@ void UIInputManager::onTouchCancelled(CCTouch* touch)
     for (int i=0; i<length; ++i)
     {
         UIWidget* hitWidget = (UIWidget*)(selectedWidgetArray->arr[i]);
-        hitWidget->onTouchCancelled(touchMovedPoint);
+        hitWidget->onTouchCancelled(touchEndedPoint);
     }
     m_pSelectedWidgets->removeAllObjects();
 }

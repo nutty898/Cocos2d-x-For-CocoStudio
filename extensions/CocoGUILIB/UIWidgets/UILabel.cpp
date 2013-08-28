@@ -192,6 +192,11 @@ const CCSize& UILabel::getContentSize() const
     return m_pLabelRenderer->getContentSize();
 }
 
+CCNode* UILabel::getVirtualRenderer()
+{
+    return m_pLabelRenderer;
+}
+
 void UILabel::labelScaleChangedWithSize()
 {
     if (m_bIgnoreSize)

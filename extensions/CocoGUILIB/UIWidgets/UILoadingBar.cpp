@@ -275,6 +275,11 @@ const CCSize& UILoadingBar::getContentSize() const
     return m_barRendererTextureSize;
 }
 
+CCNode* UILoadingBar::getVirtualRenderer()
+{
+    return m_pBarRenderer;
+}
+
 void UILoadingBar::barRendererScaleChangedWithSize()
 {
     if (m_bIgnoreSize)

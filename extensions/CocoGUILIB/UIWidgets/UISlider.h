@@ -65,6 +65,7 @@ public:
     void setScale9Enable(bool is){setScale9Enabled(is);};
     /************/
     virtual const CCSize& getContentSize() const;
+    virtual CCNode* getVirtualRenderer();
     void ignoreContentAdaptWithSize(bool ignore);
 protected:
     virtual void initRenderer();

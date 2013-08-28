@@ -137,6 +137,7 @@ public:
     void setMaxLengthEnable(bool is){setMaxLengthEnabled(is);};
     void setPasswordEnable(bool is){setPasswordEnabled(is);};
     virtual const CCSize& getContentSize() const;
+    virtual CCNode* getVirtualRenderer();
 protected:
     // event
     void attachWithIMEEvent();

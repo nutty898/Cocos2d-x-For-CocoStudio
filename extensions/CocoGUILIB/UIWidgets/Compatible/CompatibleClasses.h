@@ -2,6 +2,10 @@
 #ifndef __TestCpp__CompatibleClasses__
 #define __TestCpp__CompatibleClasses__
 
+#include "../UILabel.h"
+#include "../UITextButton.h"
+#include "../../Layouts/Layout.h"
+
 NS_CC_EXT_BEGIN
 
 //class type define

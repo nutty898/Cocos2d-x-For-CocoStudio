@@ -415,6 +415,11 @@ const CCSize& UISlider::getContentSize() const
     return m_pBarRenderer->getContentSize();
 }
 
+CCNode* UISlider::getVirtualRenderer()
+{
+    return m_pBarRenderer;
+}
+
 void UISlider::barRendererScaleChangedWithSize()
 {
     if (m_bIgnoreSize)

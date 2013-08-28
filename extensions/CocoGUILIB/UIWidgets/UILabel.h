@@ -52,6 +52,7 @@ public:
     void setTextHorizontalAlignment(CCTextAlignment alignment);
     void setTextVerticalAlignment(CCVerticalTextAlignment alignment);
     virtual const CCSize& getContentSize() const;
+    virtual CCNode* getVirtualRenderer();
 protected:
     virtual bool init();
     virtual void initRenderer();

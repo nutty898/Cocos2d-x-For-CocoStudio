@@ -440,6 +440,26 @@ const CCSize& UIButton::getContentSize() const
     return m_normalTextureSize;
 }
 
+CCNode* UIButton::getVirtualRenderer()
+{
+    if (m_bBright)
+    {
+        switch (m_eBrightStyle)
+        {
+            case BRIGHT_NORMAL:
+                return m_pButtonNormalRenderer;
+            case BRIGHT_HIGHLIGHT:
+                return m_pButtonClickedRenderer;
+            default:
+                return NULL;
+        }
+    }
+    else
+    {
+        return m_pButtonDisableRenderer;
+    }
+}
+
 void UIButton::normalTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)

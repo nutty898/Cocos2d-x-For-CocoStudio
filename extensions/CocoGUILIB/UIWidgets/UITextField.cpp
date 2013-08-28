@@ -577,4 +577,9 @@ const CCSize& UITextField::getContentSize() const
     return m_pTextFieldRenderer->getContentSize();
 }
 
+CCNode* UITextField::getVirtualRenderer()
+{
+    return m_pTextFieldRenderer;
+}
+
 NS_CC_EXT_END

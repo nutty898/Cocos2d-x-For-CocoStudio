@@ -357,6 +357,11 @@ const CCSize& UICheckBox::getContentSize() const
     return m_pBackGroundBoxRenderer->getContentSize();
 }
 
+CCNode* UICheckBox::getVirtualRenderer()
+{
+    return m_pBackGroundBoxRenderer;
+}
+
 void UICheckBox::backGroundTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)

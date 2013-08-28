@@ -397,6 +397,11 @@ const CCSize& UIImageView::getContentSize() const
     return m_imageTextureSize;
 }
 
+CCNode* UIImageView::getVirtualRenderer()
+{
+    return m_pImageRenderer;
+}
+
 void UIImageView::imageTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)

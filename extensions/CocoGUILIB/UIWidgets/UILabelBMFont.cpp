@@ -92,6 +92,11 @@ const CCSize& UILabelBMFont::getContentSize() const
     return m_pLabelBMFontRenderer->getContentSize();
 }
 
+CCNode* UILabelBMFont::getVirtualRenderer()
+{
+    return m_pLabelBMFontRenderer;
+}
+
 void UILabelBMFont::labelBMFontScaleChangedWithSize()
 {
     if (m_bIgnoreSize)

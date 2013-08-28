@@ -230,6 +230,8 @@ public:
     
     void ignoreContentAdaptWithSize(bool ignore);
     CCPoint getWorldPosition();
+    CCPoint convertToWorldSpace(const CCPoint& pt);
+    virtual CCNode* getVirtualRenderer();
     
     /*******to be removed*******/
     virtual void setTouchEnable(bool enabled, bool containChildren = false);
@@ -238,6 +240,7 @@ public:
     bool isActive();
     void setBright(bool bright, bool containChild);
     CCRect getRect();
+    CCNode* getValidNode(){return getVirtualRenderer();};
     /***************************/
     
     /*temp action*/

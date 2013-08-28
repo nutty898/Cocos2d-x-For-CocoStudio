@@ -139,6 +139,11 @@ const CCSize& UILabelAtlas::getContentSize() const
     return m_pLaberAtlasRenderer->getContentSize();
 }
 
+CCNode* UILabelAtlas::getVirtualRenderer()
+{
+    return m_pLaberAtlasRenderer;
+}
+
 void UILabelAtlas::labelAtlasScaleChangedWithSize()
 {
     if (m_bIgnoreSize)

@@ -379,6 +379,16 @@ CCPoint UIWidget::getWorldPosition()
     return m_pRenderer->convertToWorldSpace(CCPointZero);
 }
 
+CCPoint UIWidget::convertToWorldSpace(const CCPoint& pt)
+{
+    return m_pRenderer->convertToWorldSpace(pt);
+}
+
+CCNode* UIWidget::getVirtualRenderer()
+{
+    return m_pRenderer;
+}
+
 void UIWidget::onSizeChanged()
 {
 
