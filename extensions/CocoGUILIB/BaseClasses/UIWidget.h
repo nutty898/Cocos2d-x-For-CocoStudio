@@ -67,25 +67,63 @@ class UIActionNode;
 class UIWidget : public CCObject
 {
 public:
-    UIWidget();
+    /// @{
+    /// @name Constructor, Distructor and Initializers.
+    
+    /**
+     * Default constructor
+     */
+    UIWidget(void);
+    
+    /**
+     * Default destructor
+     */
     virtual ~UIWidget();
-    virtual void releaseResoures();
+    
+    /**
+     * Allocates and initializes a widget.
+     * @return A initialized widget which is marked as "autorelease".
+     */
     static UIWidget* create();
-    void setBrightStyle(BrightStyle style);
-    virtual void setWidgetZOrder(int z);
-    virtual int getWidgetZOrder();
-    virtual void setTouchEnabled(bool enable);
-    bool isTouchEnabled();
-    void setUpdateEnabled(bool enable);
-    bool isUpdateEnabled();
-    bool isFocus();
-    void setFocus(bool fucos);
+    
+    /**
+     * Release texture resoures of widget.
+     * Release renderer.
+     * If you override releaseResoures, you shall call its parent's one, e.g. UIWidget::releaseResoures().
+     */
+    virtual void releaseResoures();
+    
+    /**
+     * Highest control of widget.
+     *
+     *
+     */
+    void setEnabled(bool enabled);
+    bool isEnabled() const;
     void setVisible(bool visible);
     bool isVisible() const;
     void setBright(bool bright);
     bool isBright() const;
-    void setEnabled(bool enabled);
-    bool isEnabled() const;
+    virtual void setTouchEnabled(bool enable);
+    bool isTouchEnabled();
+    bool isFocus();
+    void setFocus(bool fucos);
+    
+    /**
+     * To set
+     * @return A initialized node which is marked as "autorelease".
+     */
+    void setBrightStyle(BrightStyle style);
+    
+    
+    
+    
+    virtual void setWidgetZOrder(int z);
+    virtual int getWidgetZOrder();
+
+    void setUpdateEnabled(bool enable);
+    bool isUpdateEnabled();
+
     virtual float getRelativeLeftPos();
     virtual float getRelativeBottomPos();
     virtual float getRelativeRightPos();
