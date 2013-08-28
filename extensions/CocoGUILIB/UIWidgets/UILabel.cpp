@@ -105,16 +105,19 @@ void UILabel::setFontName(const char* name)
 void UILabel::setTextAreaSize(const CCSize &size)
 {
     m_pLabelRenderer->setDimensions(size);
+    labelScaleChangedWithSize();
 }
 
 void UILabel::setTextHorizontalAlignment(CCTextAlignment alignment)
 {
     m_pLabelRenderer->setHorizontalAlignment(alignment);
+    labelScaleChangedWithSize();
 }
 
 void UILabel::setTextVerticalAlignment(CCVerticalTextAlignment alignment)
 {
     m_pLabelRenderer->setVerticalAlignment(alignment);
+    labelScaleChangedWithSize();
 }
 
 void UILabel::setTouchScaleChangeAble(bool able)
