@@ -42,7 +42,8 @@ m_pImageRenderer(NULL),
 m_strTextureFile(""),
 m_capInsets(CCRectZero),
 m_eImageTexType(UI_TEX_TYPE_LOCAL),
-m_imageTextureSize(m_size)
+m_imageTextureSize(m_size),
+m_bPrevIgnoreSize(true)
 {
 
 }
@@ -273,12 +274,6 @@ void UIImageView::setScale9Enabled(bool able)
     
     
     m_bScale9Enabled = able;
-    
-    if (m_bScale9Enabled)
-    {
-        m_bIgnoreSize = false;
-    }
-    
     m_pRenderer->removeChild(m_pImageRenderer, true);
     m_pImageRenderer = NULL;
     if (m_bScale9Enabled)
@@ -291,7 +286,26 @@ void UIImageView::setScale9Enabled(bool able)
     }
     loadTexture(m_strTextureFile.c_str(),m_eImageTexType);
     m_pRenderer->addChild(m_pImageRenderer);
+    if (m_bScale9Enabled)
+    {
+        bool ignoreBefore = m_bIgnoreSize;
+        ignoreContentAdaptWithSize(false);
+        m_bPrevIgnoreSize = ignoreBefore;
+    }
+    else
+    {
+        ignoreContentAdaptWithSize(m_bPrevIgnoreSize);
+    }
     setCapInsets(m_capInsets);
+}
+
+void UIImageView::ignoreContentAdaptWithSize(bool ignore)
+{
+    if (!m_bScale9Enabled || (m_bScale9Enabled && !ignore))
+    {
+        UIWidget::ignoreContentAdaptWithSize(ignore);
+        m_bPrevIgnoreSize = ignore;
+    }
 }
 
 void UIImageView::setDisplayFrame(CCSpriteFrame *pNewFrame)
@@ -407,7 +421,6 @@ void UIImageView::imageTextureScaleChangedWithSize()
     if (m_bIgnoreSize)
     {
         m_pImageRenderer->setScale(1.0f);
-        m_size = m_imageTextureSize;
     }
     else
     {

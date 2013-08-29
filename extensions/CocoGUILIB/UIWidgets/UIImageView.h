@@ -56,6 +56,7 @@ public:
     virtual void setAnchorPoint(const CCPoint &pt);
     virtual bool onTouchBegan(const CCPoint &touchPoint);
     virtual void onTouchEnded(const CCPoint &touchPoint);
+    virtual void ignoreContentAdaptWithSize(bool ignore);
     /*Compatible*/
     void setTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTexture(fileName,texType);};
     void setScale9Size(const CCSize& size){setScale9Enabled(true);setSize(size);};
@@ -74,8 +75,8 @@ protected:
     bool m_bStartCheckDoubleClick;
     bool m_touchRelease;
     bool m_bDoubleClickEnabled;
-    
     bool m_bScale9Enabled;
+    bool m_bPrevIgnoreSize;
     CCRect m_capInsets;
     CCNode* m_pImageRenderer;
     std::string m_strTextureFile;

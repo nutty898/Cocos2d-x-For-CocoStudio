@@ -52,7 +52,8 @@ m_strSlidBallNormalTextureFile(""),
 m_strSlidBallPressedTextureFile(""),
 m_strSlidBallDisabledTextureFile(""),
 m_capInsets(CCRectZero),
-m_ProgressBarTextureSize(CCSizeZero)
+m_ProgressBarTextureSize(CCSizeZero),
+m_bPrevIgnoreSize(true)
 {
 }
 
@@ -194,10 +195,6 @@ void UISlider::setScale9Enabled(bool able)
     }
     
     m_bScale9Enabled = able;
-    if (m_bScale9Enabled)
-    {
-        m_bIgnoreSize = false;
-    }
     m_pRenderer->removeChild(m_pBarRenderer, true);
     m_pRenderer->removeChild(m_pProgressBarRenderer, true);
     m_pBarRenderer = NULL;
@@ -214,9 +211,19 @@ void UISlider::setScale9Enabled(bool able)
     }
     loadBarTexture(m_strTextureFile.c_str(), m_eBarTexType);
     loadProgressBarTexture(m_strProgressBarTextureFile.c_str(), m_eProgressBarTexType);
-    setCapInsets(m_capInsets);
     m_pRenderer->addChild(m_pBarRenderer, -1);
     m_pRenderer->addChild(m_pProgressBarRenderer, -1);
+    if (m_bScale9Enabled)
+    {
+        bool ignoreBefore = m_bIgnoreSize;
+        ignoreContentAdaptWithSize(false);
+        m_bPrevIgnoreSize = ignoreBefore;
+    }
+    else
+    {
+        ignoreContentAdaptWithSize(m_bPrevIgnoreSize);
+    }
+    setCapInsets(m_capInsets);
 }
 
 void UISlider::ignoreContentAdaptWithSize(bool ignore)
@@ -224,6 +231,7 @@ void UISlider::ignoreContentAdaptWithSize(bool ignore)
     if (!m_bScale9Enabled || (m_bScale9Enabled && !ignore))
     {
         UIWidget::ignoreContentAdaptWithSize(ignore);
+        m_bPrevIgnoreSize = ignore;
     }
 }
 

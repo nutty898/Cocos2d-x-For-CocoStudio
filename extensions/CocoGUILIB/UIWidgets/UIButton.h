@@ -50,6 +50,7 @@ public:
     virtual void setPressedSpriteFrame(CCSpriteFrame* frame);
     virtual void setDisabledSpriteFrame(CCSpriteFrame* frame);
     void setPressedActionEnabled(bool enabled);
+    virtual void ignoreContentAdaptWithSize(bool ignore);
     /*Compatible*/
     void setTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTextures(normal, selected, disabled, texType);};
     void setNormalTexture(const char* normal, TextureResType texType = UI_TEX_TYPE_LOCAL){loadNormalTexture(normal,texType);};
@@ -78,6 +79,7 @@ protected:
     std::string m_strNormalFileName;
     std::string m_strClickedFileName;
     std::string m_strDisabledFileName;
+    bool m_bPrevIgnoreSize;
     bool m_bScale9Enabled;
     CCRect m_capInsets;
     TextureResType m_eNormalTexType;

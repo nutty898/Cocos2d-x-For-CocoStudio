@@ -50,7 +50,7 @@ public:
     float getTotalHeight();
     void setScale9Enabled(bool enabled);
     void setCapInsets(const CCRect &capInsets);
-    void ignoreContentAdaptWithSize(bool ignore);
+    virtual void ignoreContentAdaptWithSize(bool ignore);
     /*Compatible*/
     void setTexture(const char* texture,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTexture(texture,texType);};
     void setScale9Size(const CCSize& size){setScale9Enabled(true);setSize(size);};
@@ -71,6 +71,7 @@ protected:
     TextureResType m_eRenderBarTexType;
     CCSize m_barRendererTextureSize;
     bool m_bScale9Enabled;
+    bool m_bPrevIgnoreSize;
     CCRect m_capInsets;
     std::string m_strTextureFile;
 };

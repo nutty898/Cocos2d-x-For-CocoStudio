@@ -37,7 +37,8 @@ m_pBarRenderer(NULL),
 m_eRenderBarTexType(UI_TEX_TYPE_LOCAL),
 m_bScale9Enabled(false),
 m_capInsets(CCRectZero),
-m_strTextureFile("")
+m_strTextureFile(""),
+m_bPrevIgnoreSize(true)
 {
 }
 
@@ -172,10 +173,6 @@ void UILoadingBar::setScale9Enabled(bool enabled)
         return;
     }
     m_bScale9Enabled = enabled;
-    if (enabled)
-    {
-        m_bIgnoreSize = false;
-    }
     m_pRenderer->removeChild(m_pBarRenderer, true);
     m_pBarRenderer = NULL;
     if (m_bScale9Enabled)
@@ -188,6 +185,16 @@ void UILoadingBar::setScale9Enabled(bool enabled)
     }
     loadTexture(m_strTextureFile.c_str(),m_eRenderBarTexType);
     m_pRenderer->addChild(m_pBarRenderer);
+    if (m_bScale9Enabled)
+    {
+        bool ignoreBefore = m_bIgnoreSize;
+        ignoreContentAdaptWithSize(false);
+        m_bPrevIgnoreSize = ignoreBefore;
+    }
+    else
+    {
+        ignoreContentAdaptWithSize(m_bPrevIgnoreSize);
+    }
     setCapInsets(m_capInsets);
 }
 
@@ -267,6 +274,7 @@ void UILoadingBar::ignoreContentAdaptWithSize(bool ignore)
     if (!m_bScale9Enabled || (m_bScale9Enabled && !ignore))
     {
         UIWidget::ignoreContentAdaptWithSize(ignore);
+        m_bPrevIgnoreSize = ignore;
     }
 }
 
@@ -286,7 +294,6 @@ void UILoadingBar::barRendererScaleChangedWithSize()
     {
         m_fTotalLength = m_barRendererTextureSize.width;
         m_pBarRenderer->setScale(1.0f);
-        m_size = m_barRendererTextureSize;
     }
     else
     {

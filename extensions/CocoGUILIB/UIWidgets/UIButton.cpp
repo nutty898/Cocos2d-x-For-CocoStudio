@@ -42,7 +42,8 @@ m_eDisabledTexType(UI_TEX_TYPE_LOCAL),
 m_normalTextureSize(m_size),
 m_pressedTextureSize(m_size),
 m_disabledTextureSize(m_size),
-m_bPressedActionEnabled(false)
+m_bPressedActionEnabled(false),
+m_bPrevIgnoreSize(true)
 {
     
 }
@@ -89,15 +90,9 @@ void UIButton::setScale9Enabled(bool able)
     {
         return;
     }
-    
-
-    
     m_eBrightStyle = BRIGHT_NONE;
     m_bScale9Enabled = able;
-    if (m_bScale9Enabled)
-    {
-        m_bIgnoreSize = false;
-    }
+
     
     m_pRenderer->removeChild(m_pButtonNormalRenderer, true);
     m_pRenderer->removeChild(m_pButtonClickedRenderer, true);
@@ -118,6 +113,7 @@ void UIButton::setScale9Enabled(bool able)
         m_pButtonClickedRenderer = CCSprite::create();
         m_pButtonDisableRenderer = CCSprite::create();
     }
+
 //    setTextures(m_strNormalFileName.c_str(), m_strClickedFileName.c_str(), m_strDisabledFileName.c_str(),getUseMergedTexture());
     loadNormalTexture(m_strNormalFileName.c_str(), m_eNormalTexType);
     loadPressedTexture(m_strClickedFileName.c_str(), m_ePressedTexType);
@@ -125,9 +121,27 @@ void UIButton::setScale9Enabled(bool able)
     m_pRenderer->addChild(m_pButtonNormalRenderer,-1);
     m_pRenderer->addChild(m_pButtonClickedRenderer,-1);
     m_pRenderer->addChild(m_pButtonDisableRenderer,-1);
+    if (m_bScale9Enabled)
+    {
+        bool ignoreBefore = m_bIgnoreSize;
+        ignoreContentAdaptWithSize(false);
+        m_bPrevIgnoreSize = ignoreBefore;
+    }
+    else
+    {
+        ignoreContentAdaptWithSize(m_bPrevIgnoreSize);
+    }
     setCapInsets(m_capInsets);
     setBright(m_bBright);
-    
+}
+
+void UIButton::ignoreContentAdaptWithSize(bool ignore)
+{
+    if (!m_bScale9Enabled || (m_bScale9Enabled && !ignore))
+    {
+        UIWidget::ignoreContentAdaptWithSize(ignore);
+        m_bPrevIgnoreSize = ignore;
+    }
 }
 
 void UIButton::loadTextures(const char* normal,const char* selected,const char* disabled,TextureResType texType)
@@ -472,7 +486,6 @@ void UIButton::normalTextureScaleChangedWithSize()
         {
             m_pButtonNormalRenderer->setScale(1.0f);
         }
-        m_size = m_normalTextureSize;
     }
     else
     {

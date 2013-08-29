@@ -66,7 +66,7 @@ public:
     /************/
     virtual const CCSize& getContentSize() const;
     virtual CCNode* getVirtualRenderer();
-    void ignoreContentAdaptWithSize(bool ignore);
+    virtual void ignoreContentAdaptWithSize(bool ignore);
 protected:
     virtual void initRenderer();
     float getPercentWithBallPos(float location);
@@ -93,6 +93,7 @@ protected:
     float m_fBarNodeScaleValue;
     float m_fTouchMoveStartLocation;
     bool m_bScale9Enabled;
+    bool m_bPrevIgnoreSize;
     std::string m_strTextureFile;
     std::string m_strProgressBarTextureFile;
     std::string m_strSlidBallNormalTextureFile;

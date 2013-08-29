@@ -80,6 +80,7 @@ bool Layout::init()
         renderRGBA->setCascadeColorEnabled(false);
         renderRGBA->setCascadeOpacityEnabled(false);
     }
+    ignoreContentAdaptWithSize(false);
     setSize(CCSizeZero);
     setBright(true);
     setAnchorPoint(ccp(0, 0));

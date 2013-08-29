@@ -63,6 +63,7 @@ m_pUILayer(NULL),
 m_nActionTag(0),
 m_pLayoutParameter(NULL),
 m_size(CCSizeZero),
+m_customSize(CCSizeZero),
 m_bIgnoreSize(false),
 m_children(NULL),
 m_bAffectByClipping(false),
@@ -352,7 +353,15 @@ void UIWidget::initRenderer()
 
 void UIWidget::setSize(const CCSize &size)
 {
-    m_size = size;
+    if (m_bIgnoreSize)
+    {
+        m_size = getContentSize();
+    }
+    else
+    {
+        m_size = size;
+    }
+    m_customSize = size;
     onSizeChanged();
 }
 
@@ -361,12 +370,19 @@ void UIWidget::ignoreContentAdaptWithSize(bool ignore)
     m_bIgnoreSize = ignore;
     if (m_bIgnoreSize)
     {
-        onIgnoreSize();
+        CCSize s = getContentSize();
+        m_size = s;
     }
     else
     {
-        onSizeChanged();
+        m_size = m_customSize;
     }
+    onSizeChanged();
+}
+
+bool UIWidget::isIgnoreContentAdaptWithSize() const
+{
+    return m_bIgnoreSize;
 }
 
 const CCSize& UIWidget::getSize() const
@@ -394,11 +410,6 @@ void UIWidget::onSizeChanged()
 
 }
 
-void UIWidget::onIgnoreSize()
-{
-    setSize(getContentSize());
-}
-
 const CCSize& UIWidget::getContentSize() const
 {
     return m_size;
@@ -417,7 +428,7 @@ void UIWidget::structureChangedEvent()
     }
 }
 
-void UIWidget::setWidgetZOrder(int z)
+void UIWidget::setZOrder(int z)
 {
     m_nWidgetZOrder = z;
     m_pRenderer->setZOrder(z);
@@ -427,7 +438,7 @@ void UIWidget::setWidgetZOrder(int z)
     }
 }
 
-int UIWidget::getWidgetZOrder()
+int UIWidget::getZOrder()
 {
     return m_nWidgetZOrder;
 }
@@ -858,7 +869,7 @@ bool UIWidget::isEnabled() const
     return m_bEnabled;
 }
 
-float UIWidget::getRelativeLeftPos()
+float UIWidget::getLeftInParent()
 {
     float leftPos = 0.0f;
     switch (m_WidgetType)
@@ -875,7 +886,7 @@ float UIWidget::getRelativeLeftPos()
     return leftPos;
 }
 
-float UIWidget::getRelativeBottomPos()
+float UIWidget::getBottomInParent()
 {
     float bottomPos = 0.0f;
     switch (m_WidgetType)
@@ -892,12 +903,12 @@ float UIWidget::getRelativeBottomPos()
     return bottomPos;
 }
 
-float UIWidget::getRelativeRightPos()
+float UIWidget::getRightInParent()
 {
     return getRelativeLeftPos() + m_size.width;
 }
 
-float UIWidget::getRelativeTopPos()
+float UIWidget::getTopInParent()
 {
     return getRelativeBottomPos() + m_size.height;
 }

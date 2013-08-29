@@ -23,8 +23,70 @@ void CocosGUITestScene::runThisTest()
     ul->scheduleUpdate();
     this->addChild(ul);
     
-    UIWidget* w = CCUIHELPER->createWidgetFromJsonFile("cocosgui/5_2/5_2.json");
-    ul->addWidget(w);
+//    UIButton* btn = UIButton::create();
+////    btn->ignoreContentAdaptWithSize(false);
+//    btn->loadTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
+//    btn->setPosition(ccp(100, 100));
+//    ul->addWidget(btn);
+//    btn->setTouchEnabled(true);
+//    btn->setSize(CCSizeMake(100, 100));
+//    CCSize s = btn->getSize();
+//    CCLOG("s w %f s h %f",s.width,s.height);
+//    
+////    btn->ignoreContentAdaptWithSize(false);
+//    
+//    btn->setScale9Enabled(true);
+//    s = btn->getSize();
+//    CCLOG("9 s w %f s h %f",s.width,s.height);
+//
+//    btn->setSize(CCSizeMake(100, 100));
+//    s = btn->getSize();
+//    CCLOG("s9 s w %f s h %f",s.width,s.height);
+//
+//    btn->setScale9Enabled(false);
+//    s = btn->getSize();
+//    CCLOG("s9f s w %f s h %f",s.width,s.height);
+//    CCLOG("is == %d",btn->isIgnoreContentAdaptWithSize());
+//
+//    btn->ignoreContentAdaptWithSize(false);
+//    btn->setSize(CCSizeMake(150, 150));
+    
+    
+    UISlider* lb = UISlider::create();
+    
+    lb->loadBarTexture("cocosgui/slidbar.png");
+//    lb->ignoreContentAdaptWithSize(false);
+    ul->addWidget(lb);
+    lb->setPosition(ccp(100, 100));
+//    lb->setPercent(50);
+    lb->setSize(CCSizeMake(200, 50));
+    CCSize s = lb->getSize();
+    CCLOG("s w %f s h %f",s.width,s.height);
+//    lb->ignoreContentAdaptWithSize(false);
+    s = lb->getSize();
+    CCLOG("ig s w %f s h %f",s.width,s.height);
+    
+    lb->setScale9Enabled(true);
+    s = lb->getSize();
+    CCLOG("s9 s w %f s h %f",s.width,s.height);
+
+//    lb->setScale9Enabled(false);
+//    s = lb->getSize();
+//    CCLOG("s9f s w %f s h %f",s.width,s.height);
+
+//    lb->ignoreContentAdaptWithSize(true);
+//    s = lb->getSize();
+//    CCLOG("ssss s w %f s h %f",s.width,s.height);
+//
+//    btn->setScale9Enabled(true);
+    
+//    btn->setScale9Enable(true);
+//    s = btn->getSize();
+//    CCLOG("s9f ag s w %f s h %f",s.width,s.height);
+//    CCLOG("is == %d",btn->isIgnoreContentAdaptWithSize());
+    
+//    UIWidget* w = CCUIHELPER->createWidgetFromJsonFile("cocosgui/5_2/5_2.json");
+//    ul->addWidget(w);
     
 //    UIButton* btn = UIButton::create();
 //    btn->loadTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");

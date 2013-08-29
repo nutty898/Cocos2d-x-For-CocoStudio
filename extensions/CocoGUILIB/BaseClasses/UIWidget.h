@@ -94,47 +94,181 @@ public:
     virtual void releaseResoures();
     
     /**
+     * Sets whether the node is enabled
+     *
      * Highest control of widget.
+     * The default value is true, a widget is default to enabled
      *
-     *
+     * @param enabled   true if the node is enabled, widget may be touched and visible, false if the node is disabled, widget cannot be touched and hidden.
      */
     void setEnabled(bool enabled);
-    bool isEnabled() const;
-    void setVisible(bool visible);
-    bool isVisible() const;
-    void setBright(bool bright);
-    bool isBright() const;
-    virtual void setTouchEnabled(bool enable);
-    bool isTouchEnabled();
-    bool isFocus();
-    void setFocus(bool fucos);
     
     /**
-     * To set
-     * @return A initialized node which is marked as "autorelease".
+     * Determines if the widget is enabled
+     *
+     * @return true if the widget is enabled, false if the widget is disabled.
+     */
+    bool isEnabled() const;
+    
+    /**
+     * Sets whether the widget is visible
+     *
+     * The default value is true, a widget is default to visible
+     *
+     * @param visible   true if the widget is visible, false if the widget is hidden.
+     */
+    void setVisible(bool visible);
+    
+    /**
+     * Determines if the widget is visible
+     *
+     * @return true if the widget is visible, false if the widget is hidden.
+     */
+    bool isVisible() const;
+    
+    /**
+     * Sets whether the widget is bright
+     *
+     * The default value is true, a widget is default to bright
+     *
+     * @param visible   true if the widget is bright, false if the widget is dark.
+     */
+    void setBright(bool bright);
+    
+    /**
+     * Determines if the widget is bright
+     *
+     * @return true if the widget is bright, false if the widget is dark.
+     */
+    bool isBright() const;
+    
+    /**
+     * Sets whether the widget is touch enabled
+     *
+     * The default value is false, a widget is default to touch disabled
+     *
+     * @param visible   true if the widget is touch enabled, false if the widget is touch disabled.
+     */
+    virtual void setTouchEnabled(bool enabled);
+    
+    /**
+     * To set the bright style of widget.
+     *
+     * @see BrightStyle
+     *
+     * @param style   BRIGHT_NORMAL the widget is normal state, BRIGHT_HIGHLIGHT the widget is height light state.
      */
     void setBrightStyle(BrightStyle style);
     
+    /**
+     * Determines if the widget is touch enabled
+     *
+     * @return true if the widget is touch enabled, false if the widget is touch disabled.
+     */
+    bool isTouchEnabled();
     
+    /**
+     * Sets whether the widget is on focus
+     *
+     * The default value is false, a widget is default to not on focus
+     *
+     * @param visible   true if the widget is on focus, false if the widget is not on focus.
+     */
+    bool isFocus();
     
+    /**
+     * Determines if the widget is on focus
+     *
+     * @return true if the widget is on focus, false if the widget is not on focus.
+     */
+    void setFocus(bool fucos);
     
-    virtual void setWidgetZOrder(int z);
-    virtual int getWidgetZOrder();
+    /**
+     * Sets the Z order which stands for the drawing order, and reorder this widget in its parent's children array.
+     *
+     * The Z order of widget is relative to its "brothers": children of the same parent.
+     * It's nothing to do with OpenGL's z vertex. This one only affects the draw order of widgets in cocos2d.
+     * The larger number it is, the later this widget will be drawn in each message loop.
+     * Please refer to setVertexZ(float) for the difference.
+     *
+     * @param nZOrder   Z order of this widget.
+     */
+    void setZOrder(int z);
+    
+    /**
+     * Gets the Z order of this widget.
+     *
+     * @see setZOrder(int)
+     *
+     * @return The Z order.
+     */
+    int getZOrder();
+    
+    /**
+     * Gets the left boundary position of this widget.
+     *
+     * @return The left boundary position of this widget.
+     */
+    float getLeftInParent();
+    
+    /**
+     * Gets the bottom boundary position of this widget.
+     *
+     * @return The bottom boundary position of this widget.
+     */
+    float getBottomInParent();
+    
+    /**
+     * Gets the right boundary position of this widget.
+     *
+     * @return The right boundary position of this widget.
+     */
+    float getRightInParent();
+    
+    /**
+     * Gets the top boundary position of this widget.
+     *
+     * @return The top boundary position of this widget.
+     */
+    float getTopInParent();
 
-    void setUpdateEnabled(bool enable);
-    bool isUpdateEnabled();
-
-    virtual float getRelativeLeftPos();
-    virtual float getRelativeBottomPos();
-    virtual float getRelativeRightPos();
-    virtual float getRelativeTopPos();
-    
-    
-    //children
+    /**
+     * Adds a child to the container.
+     *
+     * @param child A child widget
+     */
     virtual bool addChild(UIWidget* child);
+    
+    /**
+     * Removes a child from the container with a cleanup
+     *
+     * @param child     The child node which will be removed.
+     *
+     * @return the result of removing, succeeded or failed.
+     */
     virtual bool removeChild(UIWidget* child,bool cleanup);
+    
+    /**
+     * Removes this widget itself from its parent widget.
+     * If the widget orphan, then it will destroy itself.
+     * @param cleanup   true if all actions and callbacks on this widget should be removed, false otherwise.
+     */
     virtual void removeFromParentAndCleanup(bool cleanup);
+    
+    /**
+     * Removes all children from the container, and do a cleanup to all running actions depending on the cleanup parameter.
+     *
+     * @param cleanup   true if all running actions on all children nodes should be cleanup, false oterwise.
+     */
     virtual void removeAllChildrenAndCleanUp(bool cleanup);
+    
+    /**
+     *
+     *
+     * @param cleanup   true if all running actions on all children nodes should be cleanup, false oterwise.
+     */
+    void setUILayer(UILayer* uiLayer);
+
     void updateChildrenUILayer(UILayer* uiLayer);
     void disableUpdate();
     virtual void reorderChild(UIWidget* child);
@@ -202,7 +336,7 @@ public:
     virtual void update(float dt){};
     bool parentAreaContainPoint(const CCPoint &pt);
     virtual void checkChildInfo(int handleState,UIWidget* sender,const CCPoint &touchPoint);
-    void setUILayer(UILayer* uiLayer);
+    
     
     void structureChangedEvent();
     
@@ -228,10 +362,14 @@ public:
     void setLayoutParameter(LayoutParameter* parameter);
     LayoutParameter* getLayoutParameter();
     
-    void ignoreContentAdaptWithSize(bool ignore);
+    virtual void ignoreContentAdaptWithSize(bool ignore);
+    bool isIgnoreContentAdaptWithSize() const;
     CCPoint getWorldPosition();
     CCPoint convertToWorldSpace(const CCPoint& pt);
     virtual CCNode* getVirtualRenderer();
+    
+    void setUpdateEnabled(bool enable);
+    bool isUpdateEnabled();
     
     /*******to be removed*******/
     virtual void setTouchEnable(bool enabled, bool containChildren = false);
@@ -241,6 +379,12 @@ public:
     void setBright(bool bright, bool containChild);
     CCRect getRect();
     CCNode* getValidNode(){return getVirtualRenderer();};
+    void setWidgetZOrder(int z){setZOrder(z);};
+    int getWidgetZOrder(){return getZOrder();};
+    float getRelativeLeftPos(){return getLeftInParent();};
+    float getRelativeBottomPos(){return getBottomInParent();};
+    float getRelativeRightPos(){return getRightInParent();};
+    float getRelativeTopPos(){return getTopInParent();};
     /***************************/
     
     /*temp action*/
@@ -251,7 +395,6 @@ public:
     virtual const CCSize& getContentSize() const;
 protected:
     virtual void onSizeChanged();
-    virtual void onIgnoreSize();
     virtual bool init();
     virtual void initRenderer();
     virtual void onPressStateChangedToNormal();
@@ -293,6 +436,7 @@ protected:
     UILayer* m_pUILayer;
 	int m_nActionTag;
     CCSize m_size;
+    CCSize m_customSize;
     LayoutParameter* m_pLayoutParameter;
     bool m_bIgnoreSize;
     CCArray* m_children;
