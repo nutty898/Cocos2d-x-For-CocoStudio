@@ -372,6 +372,11 @@ void UICheckBox::backGroundTextureScaleChangedWithSize()
     else
     {
         CCSize textureSize = m_pBackGroundBoxRenderer->getContentSize();
+        if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+        {
+            m_pBackGroundBoxRenderer->setScale(1.0f);
+            return;
+        }
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
         m_pBackGroundBoxRenderer->setScaleX(scaleX);
@@ -388,6 +393,11 @@ void UICheckBox::backGroundSelectedTextureScaleChangedWithSize()
     else
     {
         CCSize textureSize = m_pBackGroundSelectedBoxRenderer->getContentSize();
+        if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+        {
+            m_pBackGroundSelectedBoxRenderer->setScale(1.0f);
+            return;
+        }
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
         m_pBackGroundSelectedBoxRenderer->setScaleX(scaleX);
@@ -404,6 +414,11 @@ void UICheckBox::frontCrossTextureScaleChangedWithSize()
     else
     {
         CCSize textureSize = m_pFrontCrossRenderer->getContentSize();
+        if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+        {
+            m_pFrontCrossRenderer->setScale(1.0f);
+            return;
+        }
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
         m_pFrontCrossRenderer->setScaleX(scaleX);
@@ -420,6 +435,11 @@ void UICheckBox::backGroundDisabledTextureScaleChangedWithSize()
     else
     {
         CCSize textureSize = m_pBackGroundBoxDisabledRenderer->getContentSize();
+        if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+        {
+            m_pBackGroundBoxDisabledRenderer->setScale(1.0f);
+            return;
+        }
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
         m_pBackGroundBoxDisabledRenderer->setScaleX(scaleX);
@@ -436,6 +456,11 @@ void UICheckBox::frontCrossDisabledTextureScaleChangedWithSize()
     else
     {
         CCSize textureSize = m_pFrontCrossDisabledRenderer->getContentSize();
+        if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+        {
+            m_pFrontCrossDisabledRenderer->setScale(1.0f);
+            return;
+        }
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
         m_pFrontCrossDisabledRenderer->setScaleX(scaleX);

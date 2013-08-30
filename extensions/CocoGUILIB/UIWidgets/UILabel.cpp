@@ -210,6 +210,11 @@ void UILabel::labelScaleChangedWithSize()
     else
     {
         CCSize textureSize = m_pLabelRenderer->getContentSize();
+        if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+        {
+            m_pLabelRenderer->setScale(1.0f);
+            return;
+        }
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
         m_pLabelRenderer->setScaleX(scaleX);

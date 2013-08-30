@@ -107,6 +107,11 @@ void UILabelBMFont::labelBMFontScaleChangedWithSize()
     else
     {
         CCSize textureSize = m_pLabelBMFontRenderer->getContentSize();
+        if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+        {
+            m_pLabelBMFontRenderer->setScale(1.0f);
+            return;
+        }
         float scaleX = m_size.width / textureSize.width;
         float scaleY = m_size.height / textureSize.height;
         m_pLabelBMFontRenderer->setScaleX(scaleX);

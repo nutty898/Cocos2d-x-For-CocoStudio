@@ -478,11 +478,7 @@ void UIButton::normalTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-//        if (m_bScale9Enabled)
-//        {
-//            m_pButtonNormal->setContentSize(m_normalTextureSize);
-//        }
-//        else
+        if (!m_bScale9Enabled)
         {
             m_pButtonNormalRenderer->setScale(1.0f);
             m_size = m_normalTextureSize;
@@ -496,8 +492,14 @@ void UIButton::normalTextureScaleChangedWithSize()
         }
         else
         {
-            float scaleX = m_size.width / m_normalTextureSize.width;
-            float scaleY = m_size.height / m_normalTextureSize.height;
+            CCSize textureSize = m_normalTextureSize;
+            if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+            {
+                m_pButtonNormalRenderer->setScale(1.0f);
+                return;
+            }
+            float scaleX = m_size.width / textureSize.width;
+            float scaleY = m_size.height / textureSize.height;
             m_pButtonNormalRenderer->setScaleX(scaleX);
             m_pButtonNormalRenderer->setScaleY(scaleY);
         }
@@ -525,6 +527,12 @@ void UIButton::pressedTextureScaleChangedWithSize()
         }
         else
         {
+            CCSize textureSize = m_pressedTextureSize;
+            if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+            {
+                m_pButtonClickedRenderer->setScale(1.0f);
+                return;
+            }
             float scaleX = m_size.width / m_pressedTextureSize.width;
             float scaleY = m_size.height / m_pressedTextureSize.height;
             m_pButtonClickedRenderer->setScaleX(scaleX);
@@ -554,6 +562,12 @@ void UIButton::disabledTextureScaleChangedWithSize()
         }
         else
         {
+            CCSize textureSize = m_disabledTextureSize;
+            if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+            {
+                m_pButtonDisableRenderer->setScale(1.0f);
+                return;
+            }
             float scaleX = m_size.width / m_disabledTextureSize.width;
             float scaleY = m_size.height / m_disabledTextureSize.height;
             m_pButtonDisableRenderer->setScaleX(scaleX);

@@ -375,8 +375,11 @@ void UIImageView::imageTextureScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_pImageRenderer->setScale(1.0f);
-        m_size = m_imageTextureSize;
+        if (!m_bScale9Enabled)
+        {
+            m_pImageRenderer->setScale(1.0f);
+            m_size = m_imageTextureSize;
+        }
     }
     else
     {
@@ -387,6 +390,11 @@ void UIImageView::imageTextureScaleChangedWithSize()
         else
         {
             CCSize textureSize = m_pImageRenderer->getContentSize();
+            if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
+            {
+                m_pImageRenderer->setScale(1.0f);
+                return;
+            }
             float scaleX = m_size.width / textureSize.width;
             float scaleY = m_size.height / textureSize.height;
             m_pImageRenderer->setScaleX(scaleX);

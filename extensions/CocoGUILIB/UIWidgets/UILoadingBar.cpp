@@ -282,9 +282,12 @@ void UILoadingBar::barRendererScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_fTotalLength = m_barRendererTextureSize.width;
-        m_pBarRenderer->setScale(1.0f);
-        m_size = m_barRendererTextureSize;
+        if (!m_bScale9Enabled)
+        {
+            m_fTotalLength = m_barRendererTextureSize.width;
+            m_pBarRenderer->setScale(1.0f);
+            m_size = m_barRendererTextureSize;
+        }
     }
     else
     {
@@ -297,13 +300,13 @@ void UILoadingBar::barRendererScaleChangedWithSize()
         {
             
             CCSize textureSize = m_pBarRenderer->getContentSize();
-            float scaleX = 1.0f;
-            float scaleY = 1.0f;
-            if (!textureSize.equals(CCSizeZero))
+            if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
             {
-               scaleX = m_size.width / textureSize.width;
-               scaleY = m_size.height / textureSize.height;
+                m_pBarRenderer->setScale(1.0f);
+                return;
             }
+            float scaleX = m_size.width / textureSize.width;
+            float scaleY = m_size.height / textureSize.height;
             m_pBarRenderer->setScaleX(scaleX);
             m_pBarRenderer->setScaleY(scaleY);
         }

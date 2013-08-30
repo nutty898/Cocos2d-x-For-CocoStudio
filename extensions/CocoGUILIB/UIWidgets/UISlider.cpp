@@ -432,9 +432,10 @@ void UISlider::barRendererScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_fBarLength = m_size.width;
+        
         m_pBarRenderer->setScale(1.0f);
         m_size = m_pBarRenderer->getContentSize();
+        m_fBarLength = m_size.width;
     }
     else
     {
@@ -446,6 +447,11 @@ void UISlider::barRendererScaleChangedWithSize()
         else
         {
             CCSize btextureSize = m_pBarRenderer->getContentSize();
+            if (btextureSize.width <= 0.0f || btextureSize.height <= 0.0f)
+            {
+                m_pBarRenderer->setScale(1.0f);
+                return;
+            }
             float bscaleX = m_size.width / btextureSize.width;
             float bscaleY = m_size.height / btextureSize.height;
             m_pBarRenderer->setScaleX(bscaleX);
@@ -459,11 +465,14 @@ void UISlider::progressBarRendererScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        CCSize ptextureSize = m_ProgressBarTextureSize;
-        float pscaleX = m_size.width / ptextureSize.width;
-        float pscaleY = m_size.height / ptextureSize.height;
-        m_pProgressBarRenderer->setScaleX(pscaleX);
-        m_pProgressBarRenderer->setScaleY(pscaleY);
+        if (!m_bScale9Enabled)
+        {
+            CCSize ptextureSize = m_ProgressBarTextureSize;
+            float pscaleX = m_size.width / ptextureSize.width;
+            float pscaleY = m_size.height / ptextureSize.height;
+            m_pProgressBarRenderer->setScaleX(pscaleX);
+            m_pProgressBarRenderer->setScaleY(pscaleY);
+        }
     }
     else
     {
@@ -473,7 +482,12 @@ void UISlider::progressBarRendererScaleChangedWithSize()
         }
         else
         {
-            CCSize ptextureSize = m_pProgressBarRenderer->getContentSize();
+            CCSize ptextureSize = m_ProgressBarTextureSize;
+            if (ptextureSize.width <= 0.0f || ptextureSize.height <= 0.0f)
+            {
+                m_pProgressBarRenderer->setScale(1.0f);
+                return;
+            }
             float pscaleX = m_size.width / ptextureSize.width;
             float pscaleY = m_size.height / ptextureSize.height;
             m_pProgressBarRenderer->setScaleX(pscaleX);

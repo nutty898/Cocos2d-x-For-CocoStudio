@@ -563,13 +563,13 @@ void UITextField::textfieldRendererScaleChangedWithSize()
     else
     {
         CCSize textureSize = getContentSize();
-        float scaleX = 1.0f;
-        float scaleY = 1.0f;
-        if (!textureSize.equals(CCSizeZero))
+        if (textureSize.width <= 0.0f || textureSize.height <= 0.0f)
         {
-            scaleX = m_size.width / textureSize.width;
-            scaleY = m_size.height / textureSize.height;
+            m_pTextFieldRenderer->setScale(1.0f);
+            return;
         }
+        float scaleX = m_size.width / textureSize.width;
+        float scaleY = m_size.height / textureSize.height;
         m_pTextFieldRenderer->setScaleX(scaleX);
         m_pTextFieldRenderer->setScaleY(scaleY);
     }
