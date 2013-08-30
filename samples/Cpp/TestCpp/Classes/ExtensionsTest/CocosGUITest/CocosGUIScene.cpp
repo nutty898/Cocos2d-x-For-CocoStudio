@@ -51,24 +51,48 @@ void CocosGUITestScene::runThisTest()
 //    btn->ignoreContentAdaptWithSize(false);
 //    btn->setSize(CCSizeMake(150, 150));
     
+    UIScrollView* sc = UIScrollView::create();
+    sc->setBackGroundColor(ccGREEN);
+    sc->setBackGroundColorType(LAYOUT_COLOR_SOLID);
+    sc->setSize(CCSizeMake(100, 100));
+    sc->setInnerContainerSize(CCSizeMake(100, 600));
+    LinearVerticalLayoutExecutant * exe = LinearVerticalLayoutExecutant::create();
+    sc->setLayoutExecutant(exe);
     
-    UISlider* lb = UISlider::create();
+    for (int i=0; i<80; i++)
+    {
+        UIButton* btn = UIButton::create();
+        btn->loadTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
+        btn->setTouchEnabled(true);
+        LinearLayoutParameter* lp = LinearLayoutParameter::create();
+        lp->setGravity(LINEAR_GRAVITY_CENTER_HORIZONTAL);
+        btn->setLayoutParameter(lp);
+        sc->addChild(btn);
+    }
+    exe->doLayout();
     
-    lb->loadBarTexture("cocosgui/slidbar.png");
-//    lb->ignoreContentAdaptWithSize(false);
-    ul->addWidget(lb);
-    lb->setPosition(ccp(100, 100));
-//    lb->setPercent(50);
-    lb->setSize(CCSizeMake(200, 50));
-    CCSize s = lb->getSize();
-    CCLOG("s w %f s h %f",s.width,s.height);
-//    lb->ignoreContentAdaptWithSize(false);
-    s = lb->getSize();
-    CCLOG("ig s w %f s h %f",s.width,s.height);
+    ul->addWidget(sc);
     
-    lb->setScale9Enabled(true);
-    s = lb->getSize();
-    CCLOG("s9 s w %f s h %f",s.width,s.height);
+    sc->setPosition(ccp(100, 100));
+    
+    
+//    UISlider* lb = UISlider::create();
+//    
+//    lb->loadBarTexture("cocosgui/slidbar.png");
+////    lb->ignoreContentAdaptWithSize(false);
+//    ul->addWidget(lb);
+//    lb->setPosition(ccp(100, 100));
+////    lb->setPercent(50);
+//    lb->setSize(CCSizeMake(200, 50));
+//    CCSize s = lb->getSize();
+//    CCLOG("s w %f s h %f",s.width,s.height);
+////    lb->ignoreContentAdaptWithSize(false);
+//    s = lb->getSize();
+//    CCLOG("ig s w %f s h %f",s.width,s.height);
+//    
+//    lb->setScale9Enabled(true);
+//    s = lb->getSize();
+//    CCLOG("s9 s w %f s h %f",s.width,s.height);
 
 //    lb->setScale9Enabled(false);
 //    s = lb->getSize();

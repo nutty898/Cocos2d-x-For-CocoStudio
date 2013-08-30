@@ -138,6 +138,9 @@ public:
     //override "update" method of widget.
     virtual void update(float dt);
     
+//    float getScrollDegreeRange() const;
+//    void setScrollDegreeRange(float range);
+    
     /*compatible*/
     int getPage() const{return getCurPageIndex();};
     /************/
@@ -158,6 +161,7 @@ protected:
     void updateChildrenSize();
     void updateChildrenPosition();
     virtual void onSizeChanged();
+//    virtual bool isInScrollDegreeRange(UIWidget* widget);
     /*compatible*/
     virtual void setClippingEnable(bool is){setClippingEnabled(is);};
     /************/
@@ -181,6 +185,7 @@ protected:
     float m_fChildFocusCancelOffset;
     CCObject* m_pPageTurningListener;
     SEL_PageViewPageTurningEvent m_pfnPageTurningSelector;
+    float m_fScrollDegreeRange;
 };
 
 NS_CC_EXT_END

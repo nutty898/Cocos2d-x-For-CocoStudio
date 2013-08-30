@@ -261,7 +261,7 @@ UIWidget* CCSReader::widgetFromJsonFile(const char *fileName)
 //    UIActionManager::shareManager()->releaseActions();
     /* ********************** */
     CCLOG("file name == [%s]",fileName);
-//    UIActionManager::shareManager()->initWithDictionary(fileName,actions,widget);
+    UIActionManager::shareManager()->initWithDictionary(fileName,actions,widget);
 
 	CC_SAFE_DELETE(widgetTree);
 	CC_SAFE_DELETE(actions);

@@ -25,7 +25,7 @@
 #ifndef __UISLIDER_H__
 #define __UISLIDER_H__
 
-#include "UIWidget.h"
+#include "../BaseClasses/UIWidget.h"
 
 NS_CC_EXT_BEGIN
 

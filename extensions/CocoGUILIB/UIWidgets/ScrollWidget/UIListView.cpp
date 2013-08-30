@@ -60,6 +60,9 @@ UIListView::UIListView()
 , m_overRightArray(NULL)
 , m_fDisBoundaryToChild_0(0.0f)
 , m_fDisBetweenChild(0.0f)
+/* gui mark */
+, m_fScrollDegreeRange(45.0f)
+/**/
 {
 }
 
@@ -161,7 +164,14 @@ bool UIListView::onTouchBegan(const CCPoint &touchPoint)
 void UIListView::onTouchMoved(const CCPoint &touchPoint)
 {
     Layout::onTouchMoved(touchPoint);
-    handleMoveLogic(touchPoint);
+    /* gui mark */
+//    if (isInScrollDegreeRange(this))
+    {
+        handleMoveLogic(touchPoint);
+    }    
+    // before
+//    handleMoveLogic(touchPoint);
+    /**/
 }
 
 void UIListView::onTouchEnded(const CCPoint &touchPoint)
@@ -406,8 +416,11 @@ void UIListView::interceptTouchEvent(int handleState, UIWidget *sender, const CC
             }
             if (offset > m_fChildFocusCancelOffset)
             {
-                sender->setFocus(false);
-                handleMoveLogic(touchPoint);
+//                if (isInScrollDegreeRange(sender))
+                {
+                    sender->setFocus(false);
+                    handleMoveLogic(touchPoint);
+                }
             }
         }
             break;
@@ -423,6 +436,9 @@ void UIListView::interceptTouchEvent(int handleState, UIWidget *sender, const CC
 
 void UIListView::checkChildInfo(int handleState,UIWidget* sender,const CCPoint &touchPoint)
 {
+    /* gui mark */
+//    Layout::checkChildInfo(handleState, sender, touchPoint);
+    /**/
     interceptTouchEvent(handleState, sender, touchPoint);
 }
 
@@ -1498,5 +1514,51 @@ void UIListView::addUpdateChildEvent(cocos2d::CCObject *target, SEL_ListViewUpda
     m_pUpdateChildListener = target;
     m_pfnUpdateChildSelector = selector;
 }
+
+/* gui mark */
+//float UIListView::getScrollDegreeRange() const
+//{
+//    return m_fScrollDegreeRange;
+//}
+//
+//void UIListView::setScrollDegreeRange(float range)
+//{
+//    m_fScrollDegreeRange = range;
+//}
+//
+//bool UIListView::isInScrollDegreeRange(UIWidget* widget)
+//{
+//    CCPoint vector = ccpSub(widget->getTouchMovePos(), widget->getTouchStartPos());
+//    float radians = ccpToAngle(vector);
+//    float degrees = CC_RADIANS_TO_DEGREES(radians);
+//    
+//    float compare = m_fScrollDegreeRange / 2;
+//    
+//    switch (m_eDirection)
+//    {
+//        case LISTVIEW_DIR_VERTICAL:
+//            if ((degrees >= 90 - compare && degrees <= 90 + compare)
+//                || (degrees >= -90 - compare && degrees <= -90 + compare))
+//            {
+//                return true;
+//            }
+//            break;
+//            
+//        case LISTVIEW_DIR_HORIZONTAL:
+//            if ((degrees >= -compare && degrees <= compare)
+//                || (degrees >= -179.99 && degrees <= -179.99 + compare)
+//                || (degrees >= 180 - compare && degrees <= 180))
+//            {
+//                return true;
+//            }
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//    
+//    return false;
+//}
+/**/
 
 NS_CC_EXT_END

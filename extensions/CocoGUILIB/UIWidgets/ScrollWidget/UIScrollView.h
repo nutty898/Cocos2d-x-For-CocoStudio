@@ -184,6 +184,8 @@ public:
     
     //override "onTouchLongClicked" method of widget.
     virtual void onTouchLongClicked(const CCPoint &touchPoint);
+//    float getScrollDegreeRange() const;
+//    void setScrollDegreeRange(float range);
 protected:
     virtual bool init();
     virtual void initRenderer();
@@ -210,6 +212,7 @@ protected:
     void setMoveDirection(SCROLLVIEW_MOVE_DIR dir);
     SCROLLVIEW_MOVE_DIR getMoveDirection();
     virtual void onSizeChanged();
+//    virtual bool isInScrollDegreeRange(UIWidget* widget);
     /*compatible*/
     virtual void setClippingEnable(bool is){setClippingEnabled(is);};
     /************/
@@ -253,7 +256,7 @@ protected:
     SEL_ScrollToRightEvent m_pfnScrollToRightSelector;
     
     Layout* m_pInnerContainer;
-    
+    float m_fScrollDegreeRange;
 };
 
 NS_CC_EXT_END

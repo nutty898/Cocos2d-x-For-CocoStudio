@@ -137,7 +137,10 @@ void UICCTextField::insertText(const char * text, int len)
     // password
     if (m_bPasswordEnabled)
     {
-        setPasswordText(m_pInputText->c_str());
+        if (CCTextFieldTTF::getCharCount() > 0)
+        {
+            setPasswordText(m_pInputText->c_str());
+        }
     }
 }
 

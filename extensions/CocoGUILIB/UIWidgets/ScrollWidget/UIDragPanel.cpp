@@ -139,7 +139,7 @@ void UIDragPanel::releaseResoures()
     Layout::releaseResoures();
     m_pInnerContainer->structureChangedEvent();
     m_pInnerContainer->releaseResoures();
-    m_pInnerContainer->setParent(NULL);
+    m_pInnerContainer->setWidgetParent(NULL);
     delete m_pInnerContainer;
     m_pInnerContainer = NULL;
 }
@@ -395,7 +395,7 @@ void UIDragPanel::handlePressLogic(const CCPoint &touchPoint)
         }
     }
     
-    CCPoint nsp = m_pRenderer->convertToNodeSpace(touchPoint);
+    CCPoint nsp = getContainerNode()->convertToNodeSpace(touchPoint);
     m_touchStartNodeSpace = nsp;
     
     m_touchStartWorldSpace = touchPoint;    
@@ -416,7 +416,7 @@ void UIDragPanel::handleMoveLogic(const CCPoint &touchPoint)
         
     m_bTouchMoved = true;
     
-    CCPoint nsp = m_pRenderer->convertToNodeSpace(touchPoint);
+    CCPoint nsp = getContainerNode()->convertToNodeSpace(touchPoint);
     CCPoint delta = ccpSub(nsp, m_touchStartNodeSpace);
     m_touchStartNodeSpace = nsp;
     
@@ -556,6 +556,13 @@ void UIDragPanel::interceptTouchEvent(int handleState, UIWidget *sender, const C
             break;
     }
 }
+
+/* gui mark */
+//bool UIDragPanel::isInScrollDegreeRange(UIWidget *widget)
+//{
+//    return false;
+//}
+/**/
 
 /*
 void UIDragPanel::setDirection(DRAGPANEL_DIR dir)

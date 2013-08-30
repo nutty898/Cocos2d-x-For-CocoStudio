@@ -25,10 +25,15 @@
 #ifndef __UILISTVIEW_H__
 #define __UILISTVIEW_H__
 
+/* gui mark */
 #include "../../Layouts/Layout.h"
+/**/
 
 NS_CC_EXT_BEGIN
 
+/**
+ *  list view direction
+ */
 typedef enum LISTVIEW_DIR
 {
     LISTVIEW_DIR_NONE,
@@ -36,6 +41,9 @@ typedef enum LISTVIEW_DIR
     LISTVIEW_DIR_HORIZONTAL
 }ListViewDirection;
 
+/**
+ *  list view scroll direction
+ */
 typedef enum LISTVIEW_MOVE_DIR
 {
     LISTVIEW_MOVE_DIR_NONE,
@@ -45,6 +53,9 @@ typedef enum LISTVIEW_MOVE_DIR
     LISTVIEW_MOVE_DIR_RIGHT,
 }ListViewMoveDirection;
 
+/**
+ *  list view event
+ */
 typedef void (cocos2d::CCObject::*SEL_ListViewInitChildEvent)(cocos2d::CCObject*);
 typedef void (cocos2d::CCObject::*SEL_ListViewUpdateChildEvent)(cocos2d::CCObject*);
 #define coco_ListView_InitChild_selector(_SELECTOR) (SEL_ListViewInitChildEvent)(&_SELECTOR)
@@ -56,8 +67,18 @@ public:
     UIListView();
     virtual ~UIListView();
     static UIListView* create();
+    
+    /**
+     *  add widget child override
+     */
     virtual bool addChild(UIWidget* widget);
+    /**
+     *  remove all widget children override
+     */
     virtual void removeAllChildrenAndCleanUp(bool cleanup);
+    /**
+     *  remove widget child override
+     */
     virtual bool removeChild(UIWidget* child, bool cleanup);
     
     virtual bool onTouchBegan(const CCPoint &touchPoint);
@@ -66,19 +87,58 @@ public:
     virtual void onTouchCancelled(const CCPoint &touchPoint);
     virtual void onTouchLongClicked(const CCPoint &touchPoint);
     
+    /**
+     *  set and get direction
+     */
     void setDirection(ListViewDirection dir);
     ListViewDirection getDirection();
     
+    /**
+     *  initialze data length
+     *  and create children with parameter length
+     */
     void initChildWithDataLength(int length);
+    /**
+     *  get data length
+     */
     int getDataLength();
     
+    /**
+     *  update child function whetn trigger update child event
+     */
+    /**
+     *  get update widget child
+     */
     UIWidget* getUpdateChild();
+    /**
+     *  get update data index
+     */
     int getUpdateDataIndex();
+    /**
+     *  get and set update success or not
+     */
     bool getUpdateSuccess();
     void setUpdateSuccess(bool sucess);
     
+    /**
+     *  add event call-back function
+     */
+    /**
+     *  add init child event
+     */
     void addInitChildEvent(cocos2d::CCObject* target, SEL_ListViewInitChildEvent seletor);
+    /**
+     *  add udpate child event
+     */
     void addUpdateChildEvent(cocos2d::CCObject* target, SEL_ListViewUpdateChildEvent selector);
+    
+    /* gui mark */
+    /**
+     *  get and set degree range for checking move or not with scrolling
+     */
+//    float getScrollDegreeRange() const;
+//    void setScrollDegreeRange(float range);
+    /**/
     
 protected:
     virtual bool init();
@@ -94,6 +154,9 @@ protected:
     virtual void handleMoveLogic(const CCPoint &touchPoint);
     virtual void handleReleaseLogic(const CCPoint &touchPoint);
     virtual void interceptTouchEvent(int handleState,UIWidget* sender,const CCPoint &touchPoint);
+    /* gui mark */
+//    virtual bool isInScrollDegreeRange(UIWidget* widget);
+    /**/
     virtual void checkChildInfo(int handleState,UIWidget* sender,const CCPoint &touchPoint);
     
     void moveChildren(float offset);
@@ -122,7 +185,8 @@ protected:
     void updateChild();
     
     void initChildEvent();
-    void updateChildEvent();
+    void updateChildEvent();        
+    
     /*compatible*/
     virtual void setClippingEnable(bool is){setClippingEnabled(is);};
     /************/
@@ -171,6 +235,10 @@ protected:
     
     float m_fDisBoundaryToChild_0;
     float m_fDisBetweenChild;
+    
+    /* gui mark */
+    float m_fScrollDegreeRange;
+    /**/
 };
 
 NS_CC_EXT_END
