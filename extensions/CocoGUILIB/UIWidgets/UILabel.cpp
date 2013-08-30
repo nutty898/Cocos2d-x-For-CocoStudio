@@ -27,7 +27,7 @@
 NS_CC_EXT_BEGIN
 
 UILabel::UILabel():
-m_bTouchScaleChangeAble(false),
+m_bTouchScaleChangeEnabled(false),
 m_sFontName("Thonburi"),
 m_nFontSize(10),
 m_fOnSelectedScaleOffset(0.5),
@@ -120,20 +120,20 @@ void UILabel::setTextVerticalAlignment(CCVerticalTextAlignment alignment)
     labelScaleChangedWithSize();
 }
 
-void UILabel::setTouchScaleChangeAble(bool able)
+void UILabel::setTouchScaleChangeEnabled(bool enable)
 {
-    m_bTouchScaleChangeAble = able;
+    m_bTouchScaleChangeEnabled = enable;
     m_fNormalScaleValue = getScale();
 }
 
-bool UILabel::getTouchScaleChangeAble()
+bool UILabel::isTouchScaleChangeEnabled()
 {
-    return m_bTouchScaleChangeAble;
+    return m_bTouchScaleChangeEnabled;
 }
 
 void UILabel::onPressStateChangedToNormal()
 {
-    if (!m_bTouchScaleChangeAble)
+    if (!m_bTouchScaleChangeEnabled)
     {
         return;
     }
@@ -142,7 +142,7 @@ void UILabel::onPressStateChangedToNormal()
 
 void UILabel::onPressStateChangedToPressed()
 {
-    if (!m_bTouchScaleChangeAble)
+    if (!m_bTouchScaleChangeEnabled)
     {
         return;
     }

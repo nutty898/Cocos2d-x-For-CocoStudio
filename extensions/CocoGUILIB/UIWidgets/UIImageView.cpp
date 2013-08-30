@@ -340,51 +340,6 @@ void UIImageView::setSpriteFrame(CCSpriteFrame *pNewFrame)
     }
 }
 
-void UIImageView::setPreferredSize(const CCSize &pSize)
-{
-    if (!m_bScale9Enabled)
-    {
-        return;
-    }
-    DYNAMIC_CAST_SCALE9SPRITE->setPreferredSize(pSize);
-}
-
-void UIImageView::setInsetLeft(float insetLeft)
-{
-    if (!m_bScale9Enabled)
-    {
-        return;
-    }
-    DYNAMIC_CAST_SCALE9SPRITE->setInsetLeft(insetLeft);
-}
-
-void UIImageView::setInsetTop(float insetTop)
-{
-    if (!m_bScale9Enabled)
-    {
-        return;
-    }
-    DYNAMIC_CAST_SCALE9SPRITE->setInsetTop(insetTop);
-}
-
-void UIImageView::setInsetRight(float insetRight)
-{
-    if (!m_bScale9Enabled)
-    {
-        return;
-    }
-    DYNAMIC_CAST_SCALE9SPRITE->setInsetRight(insetRight);
-}
-
-void UIImageView::setInsetBottom(float insetBottom)
-{
-    if (!m_bScale9Enabled)
-    {
-        return;
-    }
-    DYNAMIC_CAST_SCALE9SPRITE->setInsetBottom(insetBottom);
-}
-
 void UIImageView::setCapInsets(const CCRect &capInsets)
 {
     m_capInsets = capInsets;
@@ -421,6 +376,7 @@ void UIImageView::imageTextureScaleChangedWithSize()
     if (m_bIgnoreSize)
     {
         m_pImageRenderer->setScale(1.0f);
+        m_size = m_imageTextureSize;
     }
     else
     {

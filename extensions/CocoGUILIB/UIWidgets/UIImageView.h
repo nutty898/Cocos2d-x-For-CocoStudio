@@ -32,31 +32,81 @@ NS_CC_EXT_BEGIN
 class UIImageView : public UIWidget
 {
 public:
+    /**
+     * Default constructor
+     */
     UIImageView();
+    
+    /**
+     * Default destructor
+     */
     virtual ~UIImageView();
+    
+    /**
+     * Allocates and initializes.
+     */
     static UIImageView* create();
-    virtual void loadTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
-    virtual void setTextureRect(const CCRect& rect);
-    void doubleClickEvent();
-    void checkDoubleClick(float dt);
-    void setDoubleClickEnabled(bool able);
-    virtual void setFlipX(bool flipX);
-    virtual void setFlipY(bool flipY);
-    virtual bool isFlipX();
-    virtual bool isFlipY();
+    
+    /**
+     * Load texture for imageview.
+     *
+     * @param fileName   file name of texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
+    void loadTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Updates the texture rect of the UIImageView in points.
+     * It will call setTextureRect:rotated:untrimmedSize with rotated = NO, and utrimmedSize = rect.size.
+     */
+    void setTextureRect(const CCRect& rect);
+    
+    /**
+     * Sets if imageview is using scale9 renderer.
+     *
+     * @param true that using scale9 renderer, false otherwise.
+     */
     void setScale9Enabled(bool able);
+    
+    /**
+     * Sets capinsets for imageview, if imageview is using scale9 renderer.
+     *
+     * @param capInsets    capinsets for imageview
+     */
+    void setCapInsets(const CCRect &capInsets);
+    
+    //override "setFlipX" method of widget.
+    virtual void setFlipX(bool flipX);
+    
+    //override "setFlipY" method of widget.
+    virtual void setFlipY(bool flipY);
+    
+    //override "isFlipX" method of widget.
+    virtual bool isFlipX();
+    
+    //override "isFlipY" method of widget.
+    virtual bool isFlipY();
+    
+    //override "setAnchorPoint" method of widget.
+    virtual void setAnchorPoint(const CCPoint &pt);
+    
+    //override "onTouchBegan" method of widget.
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
+    
+    //override "onTouchEnded" method of widget.
+    virtual void onTouchEnded(const CCPoint &touchPoint);
+    
+    //override "ignoreContentAdaptWithSize" method of widget.
+    virtual void ignoreContentAdaptWithSize(bool ignore);
+    
+    
+    
     void setDisplayFrame(CCSpriteFrame *pNewFrame);
     void setSpriteFrame(CCSpriteFrame *pNewFrame);
-    void setPreferredSize(const CCSize& pSize);
-    void setInsetLeft(float insetLeft);
-    void setInsetTop(float insetTop);
-    void setInsetRight(float insetRight);
-    void setInsetBottom(float insetBottom);
-    void setCapInsets(const CCRect &capInsets);
-    virtual void setAnchorPoint(const CCPoint &pt);
-    virtual bool onTouchBegan(const CCPoint &touchPoint);
-    virtual void onTouchEnded(const CCPoint &touchPoint);
-    virtual void ignoreContentAdaptWithSize(bool ignore);
+    void setDoubleClickEnabled(bool able);
+    void doubleClickEvent();
+    void checkDoubleClick(float dt);
     /*Compatible*/
     void setTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTexture(fileName,texType);};
     void setScale9Size(const CCSize& size){setScale9Enabled(true);setSize(size);};

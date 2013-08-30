@@ -45,7 +45,7 @@ void LayoutParameter::setMargin(const UIMargin &margin)
     UIWidget* subClass = dynamic_cast<UIWidget*>(this);
     if (subClass)
     {
-        UIWidget* parent = subClass->getWidgetParent();
+        UIWidget* parent = subClass->getParent();
         if (parent)
         {
             Layout* containerParent = dynamic_cast<Layout*>(parent);
@@ -89,7 +89,7 @@ void LinearLayoutParameter::setGravity(UILinearGravity gravity)
     UIWidget* subClass = dynamic_cast<UIWidget*>(this);
     if (subClass)
     {
-        UIWidget* parent = subClass->getWidgetParent();
+        UIWidget* parent = subClass->getParent();
         if (parent)
         {
             Layout* containerParent = dynamic_cast<Layout*>(parent);
@@ -128,7 +128,7 @@ void RelativeLayoutParameter::setAlign(UIRelativeAlign align)
     UIWidget* subClass = dynamic_cast<UIWidget*>(this);
     if (subClass)
     {
-        UIWidget* parent = subClass->getWidgetParent();
+        UIWidget* parent = subClass->getParent();
         if (parent)
         {
             Layout* containerParent = dynamic_cast<Layout*>(parent);
@@ -155,7 +155,7 @@ void RelativeLayoutParameter::setRelativeToWidgetName(const char *name)
     UIWidget* subClass = dynamic_cast<UIWidget*>(this);
     if (subClass)
     {
-        UIWidget* parent = subClass->getWidgetParent();
+        UIWidget* parent = subClass->getParent();
         if (parent)
         {
             Layout* containerParent = dynamic_cast<Layout*>(parent);
@@ -182,7 +182,7 @@ void RelativeLayoutParameter::setRelativeName(const char* name)
     UIWidget* subClass = dynamic_cast<UIWidget*>(this);
     if (subClass)
     {
-        UIWidget* parent = subClass->getWidgetParent();
+        UIWidget* parent = subClass->getParent();
         if (parent)
         {
             Layout* containerParent = dynamic_cast<Layout*>(parent);

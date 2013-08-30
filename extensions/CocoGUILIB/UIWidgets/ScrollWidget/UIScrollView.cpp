@@ -80,7 +80,7 @@ void UIScrollView::releaseResoures()
     Layout::releaseResoures();
     m_pInnerContainer->structureChangedEvent();
     m_pInnerContainer->releaseResoures();
-    m_pInnerContainer->setWidgetParent(NULL);
+    m_pInnerContainer->setParent(NULL);
     delete m_pInnerContainer;
     m_pInnerContainer = NULL;
 }
@@ -143,7 +143,7 @@ void UIScrollView::setInnerContainerSize(const cocos2d::CCSize &size)
     m_pInnerContainer->setPosition(ccp(0, m_size.height - m_pInnerContainer->getSize().height));
 }
 
-const CCSize& UIScrollView::getInerContainerSize() const
+const CCSize& UIScrollView::getInnerContainerSize() const
 {
 	return m_pInnerContainer->getSize();
 }

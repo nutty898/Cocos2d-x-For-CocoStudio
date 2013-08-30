@@ -485,6 +485,7 @@ void UIButton::normalTextureScaleChangedWithSize()
 //        else
         {
             m_pButtonNormalRenderer->setScale(1.0f);
+            m_size = m_normalTextureSize;
         }
     }
     else

@@ -32,10 +32,22 @@ NS_CC_EXT_BEGIN
 class UIRootWidget : public Layout
 {
 public:
+    /**
+     * Default constructor
+     */
     UIRootWidget();
+    
+    /**
+     * Default destructor
+     */
     virtual ~UIRootWidget();
+    
+    /**
+     * Allocates and initializes a widget.
+     */
     static UIRootWidget* create();
 protected:
+    //initializes state of widget.
     virtual bool init();
 };
 

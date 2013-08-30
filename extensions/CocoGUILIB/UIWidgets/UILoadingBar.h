@@ -38,26 +38,90 @@ typedef enum
 class UILoadingBar : public UIWidget
 {
 public:
+    /**
+     * Default constructor
+     */
     UILoadingBar();
+    
+    /**
+     * Default destructor
+     */
     virtual ~UILoadingBar();
+    
+    /**
+     * Allocates and initializes.
+     */
     static UILoadingBar* create();
+    
+    /**
+     * Changes the progress direction of loadingbar.
+     *
+     * @see LoadingBarType  LoadingBarTypeLeft means progress left to right, LoadingBarTypeRight otherwise.
+     *
+     * @param LoadingBarType
+     */
     void setDirection(LoadingBarType dir);
+    
+    /**
+     * Gets the progress direction of loadingbar.
+     *
+     * @see LoadingBarType  LoadingBarTypeLeft means progress left to right, LoadingBarTypeRight otherwise.
+     *
+     * @param LoadingBarType
+     */
     int getDirection();
+    
+    /**
+     * Load texture for loadingbar.
+     *
+     * @param fileName   file name of texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadTexture(const char* texture,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Changes the progress direction of loadingbar.
+     *
+     * @param percent    percent value from 1 to 100.
+     */
     void setPercent(int percent);
+    
+    /**
+     * Gets the progress direction of loadingbar.
+     *
+     * @return percent    percent value from 1 to 100.
+     */
     int getPercent();
-    float getTotalWidth();
-    float getTotalHeight();
+    
+    /**
+     * Sets if loadingbar is using scale9 renderer.
+     *
+     * @param true that using scale9 renderer, false otherwise.
+     */
     void setScale9Enabled(bool enabled);
+    
+    /**
+     * Sets capinsets for loadingbar, if loadingbar is using scale9 renderer.
+     *
+     * @param capInsets    capinsets for loadingbar
+     */
     void setCapInsets(const CCRect &capInsets);
+    
+    //override "ignoreContentAdaptWithSize" method of widget.
     virtual void ignoreContentAdaptWithSize(bool ignore);
+    
+    //override "getContentSize" method of widget.
+    virtual const CCSize& getContentSize() const;
+    
+    //override "getVirtualRenderer" method of widget.
+    virtual CCNode* getVirtualRenderer();
+    
     /*Compatible*/
     void setTexture(const char* texture,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTexture(texture,texType);};
     void setScale9Size(const CCSize& size){setScale9Enabled(true);setSize(size);};
     void setScale9Enable(bool is){setScale9Enabled(is);};
     /************/
-    virtual const CCSize& getContentSize() const;
-    virtual CCNode* getVirtualRenderer();
 protected:
     virtual void initRenderer();
     virtual void onSizeChanged();

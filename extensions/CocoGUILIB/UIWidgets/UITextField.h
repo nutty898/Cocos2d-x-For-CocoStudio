@@ -102,7 +102,6 @@ public:
     virtual void initRenderer();
     void setTouchSize(const CCSize &size);
     void setText(const char* text);
-    //void setSize(const CCSize &size);
     void setPlaceHolder(const char* value);
     void setFontSize(int size);
     void setFontName(const char* name);

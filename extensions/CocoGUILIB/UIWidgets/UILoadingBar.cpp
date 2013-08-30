@@ -254,16 +254,6 @@ int UILoadingBar::getPercent()
     return m_nPercent;
 }
 
-float UILoadingBar::getTotalWidth()
-{
-    return m_fTotalLength;
-}
-
-float UILoadingBar::getTotalHeight()
-{
-    return m_barRendererTextureSize.height;
-}
-
 void UILoadingBar::onSizeChanged()
 {
     barRendererScaleChangedWithSize();
@@ -294,6 +284,7 @@ void UILoadingBar::barRendererScaleChangedWithSize()
     {
         m_fTotalLength = m_barRendererTextureSize.width;
         m_pBarRenderer->setScale(1.0f);
+        m_size = m_barRendererTextureSize;
     }
     else
     {

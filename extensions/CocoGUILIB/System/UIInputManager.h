@@ -33,15 +33,47 @@ NS_CC_EXT_BEGIN
 class UIInputManager
 {
 public:
+    /**
+     * Default constructor
+     */
     UIInputManager();
+    
+    /**
+     * Default destructor
+     */
     ~UIInputManager();
+    
+    /**
+     * Regist a widget to input manager.
+     *
+     * @param widget    registed widget can be touched.
+     */
     void registWidget(UIWidget* widget);
+    
+    /**
+     * A call back function called when widget tree struct has changed.
+     *
+     * If widget tree struct has changed, uiinputmanager will resort registed widgets.
+     */
     void uiSceneHasChanged();
-    void sortWidgets(UIWidget* widget);
-    void sortRootWidgets(UIWidget* root);
+    
+    /**
+     * Remove a registed widget from input manager.
+     *
+     * @param widget    widget which will be removed.
+     */
     void removeManageredWidget(UIWidget* widget);
+    
+    /**
+     * Finds a widget which is selected and call it's "onTouchBegan" method.
+     *
+     * @param touch point.
+     *
+     * @return true that find a widget selected, false otherwise.
+     */
     bool checkEventWidget(const CCPoint &touchPoint);
-    void addCheckedDoubleClickWidget(UIWidget* widget);
+    
+    
     void update(float dt);
     bool onTouchBegan(CCTouch* touch);
     void onTouchMoved(CCTouch* touch);
@@ -50,6 +82,15 @@ public:
     
     void setRootWidget(UIWidget* root);
     UIWidget* getRootWidget();
+    void addCheckedDoubleClickWidget(UIWidget* widget);
+protected:
+    /**
+     * Sort a widget tree by z order.
+     *
+     * @param widget    widget tree which will be sorted.
+     */
+    void sortWidgets(UIWidget* widget);
+    void sortRootWidgets(UIWidget* root);
     
 protected:
     CCArray* m_manageredWidget;

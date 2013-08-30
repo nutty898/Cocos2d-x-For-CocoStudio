@@ -40,45 +40,157 @@ typedef enum
 class Layout : public UIWidget
 {
 public:
+    /**
+     * Default constructor
+     */
     Layout();
+    
+    /**
+     * Default destructor
+     */
     virtual ~Layout();
-    static Layout* create();    
+    
+    /**
+     * Allocates and initializes a layout.
+     */
+    static Layout* create();
+    
+    /**
+     * Sets a LayoutExecutant for doing layout.
+     *
+     * @see LayoutExecutant
+     *
+     * @param LayoutExecutant pointer.
+     */
     virtual void setLayoutExecutant(LayoutExecutant* exe);
+    
+    /**
+     * Gets the LayoutExecutant of Layout
+     *
+     * @see LayoutExecutant
+     *
+     * @return LayoutExecutant pointer.
+     */
     virtual LayoutExecutant* getLayoutExecutant() const;
     
-    
-
-    
-    
+    //override "hitTest" method of widget.
     virtual bool hitTest(const CCPoint &pt);
     
     //background
+    /**
+     * Sets a background image for layout
+     *
+     * @param fileName image file path.
+     *
+     * @param texType @see TextureResType. UI_TEX_TYPE_LOCAL means local file, UI_TEX_TYPE_PLIST means sprite frame.
+     */
     void setBackGroundImage(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Sets a background image capinsets for layout, if the background image is a scale9 render.
+     *
+     * @param capinsets of background image.
+     *
+     */
     void setBackGroundImageCapInsets(const CCRect& capInsets);
-    virtual void setBackGroundColorType(LayoutBackGroundColorType type);
-    void setBackGroundImageScale9Enabled(bool able);
+    
+    /**
+     * Sets Color Type for layout.
+     *
+     * @param type   @see LayoutBackGroundColorType.
+     */
+    void setBackGroundColorType(LayoutBackGroundColorType type);
+    
+    /**
+     * Sets background iamge use scale9 renderer.
+     *
+     * @param enabled   true that use scale9 renderer, false otherwise.
+     */
+    void setBackGroundImageScale9Enabled(bool enabled);
+    
+    /**
+     * Sets background color for layout, if color type is LAYOUT_COLOR_SOLID
+     *
+     * @param color
+     */
     void setBackGroundColor(const ccColor3B &color);
+    
+    /**
+     * Sets background color for layout, if color type is LAYOUT_COLOR_GRADIENT
+     *
+     * @param start color
+     *
+     * @param end color
+     */
     void setBackGroundColor(const ccColor3B &startColor, const ccColor3B &endColor);
+    
+    /**
+     * Sets background opacity layout.
+     *
+     * @param opacity
+     */
     void setBackGroundColorOpacity(int opacity);
+    
+    /**
+     * Sets background color vector for layout, if color type is LAYOUT_COLOR_GRADIENT
+     *
+     * @param vector
+     */
     void setBackGroundColorVector(const CCPoint &vector);
+    
+    //override "setColor" method of widget.
     virtual void setColor(const ccColor3B &color);
+    
+    //override "setOpacity" method of widget.
     virtual void setOpacity(int opacity);
+    
+    /**
+     * Remove the background image of layout.
+     */
     void removeBackGroundImage();
+    
+    /**
+     * Gets background image texture size.
+     *
+     * @return background image texture size.
+     */
     const CCSize& getBackGroundImageTextureSize() const;
+    
+    /**
+     * Changes if layout can clip it's content and child.
+     *
+     * If you really need this, please enable it. But it would reduce the rendering efficiency. 
+     *
+     * @param clipping enabled.
+     */
+    virtual void setClippingEnabled(bool able);
+    
+    /**
+     * Gets if layout is clipping enabled.
+     *
+     * @return if layout is clipping enabled.
+     */
+    virtual bool isClippingEnabled();
+    
+    
     /*Compatible*/
     void setBackGroundImageScale9Enable(bool is){setBackGroundImageScale9Enabled(is);};
     virtual void setClippingEnable(bool is){setClippingEnabled(is);};
     /************/
-    virtual void setClippingEnabled(bool able);
-    virtual bool isClippingEnabled();
+
 protected:
+    //override "init" method of widget.
     virtual bool init();
+    
+    //override "initRenderer" method of widget.
     virtual void initRenderer();
+    
+    //override "onSizeChanged" method of widget.
     virtual void onSizeChanged();
+    
+    //init background image renderer.
     void addBackGroundImage();
 protected:
-//    float m_fWidth;
-//    float m_fHeight;
     bool m_bClippingEnabled;
     LayoutExecutant* m_pLayoutExecutant;
     

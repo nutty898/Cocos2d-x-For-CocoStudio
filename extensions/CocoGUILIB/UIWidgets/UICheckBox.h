@@ -36,25 +36,125 @@ typedef void (CCObject::*SEL_UnSelectEvent)(CCObject*);
 class UICheckBox : public UIWidget
 {
 public:
+    /**
+     * Default constructor
+     */
     UICheckBox();
+    
+    /**
+     * Default destructor
+     */
     virtual ~UICheckBox();
+    
+    /**
+     * Allocates and initializes.
+     */
     static UICheckBox* create();
+    
+    /**
+     * Load textures for checkbox.
+     *
+     * @param backGround    backGround texture.
+     *
+     * @param backGroundSelected    backGround selected state texture.
+     *
+     * @param cross    cross texture.
+     *
+     * @param frontCrossDisabled    cross dark state texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadTextures(const char* backGround,const char* backGroundSelected,const char* cross,const char* backGroundDisabled,const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load backGround texture for checkbox.
+     *
+     * @param backGround    backGround texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadBackGroundTexture(const char* backGround,TextureResType type = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load backGroundSelected texture for checkbox.
+     *
+     * @param backGroundSelected     backGround selected state texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadBackGroundSelectedTexture(const char* backGroundSelected,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load cross texture for checkbox.
+     *
+     * @param cross    cross texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadFrontCrossTexture(const char* cross,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load backGroundDisabled texture for checkbox.
+     *
+     * @param backGroundDisabled    backGroundDisabled texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadBackGroundDisabledTexture(const char* backGroundDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load frontCrossDisabled texture for checkbox.
+     *
+     * @param frontCrossDisabled    frontCrossDisabled texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadFrontCrossDisabledTexture(const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Sets selcted state for checkbox.
+     *
+     * @param selected    true that checkbox is selected, false otherwise.
+     */
     void setSelectedState(bool selected);
+    
+    /**
+     * Gets selcted state of checkbox.
+     *
+     * @return selected    true that checkbox is selected, false otherwise.
+     */
     bool getSelectedState();
+    
+    //override "setAnchorPoint" method of widget.
     virtual void setAnchorPoint(const CCPoint &pt);
+    
+    //add a call back function would called when checkbox is selected.
     virtual void addSelectEvent(CCObject* target,SEL_SelectEvent selector);
+    
+    //add a call back function would called when checkbox is unselected.
     virtual void addUnSelectEvent(CCObject* target,SEL_UnSelectEvent selector);
+    
+    //override "setFlipX" method of widget.
     virtual void setFlipX(bool flipX);
+    
+    //override "setFlipY" method of widget.
     virtual void setFlipY(bool flipY);
+    
+    //override "isFlipX" method of widget.
     virtual bool isFlipX();
+    
+    //override "isFlipY" method of widget.
     virtual bool isFlipY();
+    
+    //override "onTouchEnded" method of widget.
     virtual void onTouchEnded(const CCPoint &touchPoint);
+    
+    //override "getContentSize" method of widget.
+    virtual const CCSize& getContentSize() const;
+    
+    //override "getVirtualRenderer" method of widget.
+    virtual CCNode* getVirtualRenderer();
+    
     /*Compatible*/
     void setTextures(const char* backGround,const char* backGroundSelected,const char* cross,const char* backGroundDisabled,const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadTextures(backGround, backGroundSelected, cross, backGroundDisabled,frontCrossDisabled,texType);};
     void setBackGroundTexture(const char* backGround,TextureResType type = UI_TEX_TYPE_LOCAL){loadBackGroundTexture(backGround,type);};
@@ -63,8 +163,7 @@ public:
     void setBackGroundDisabledTexture(const char* backGroundDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadBackGroundDisabledTexture(backGroundDisabled,texType);};
     void setFrontCrossDisabledTexture(const char* frontCrossDisabled,TextureResType texType = UI_TEX_TYPE_LOCAL){loadFrontCrossDisabledTexture(frontCrossDisabled,texType);};
     /************/
-    virtual const CCSize& getContentSize() const;
-    virtual CCNode* getVirtualRenderer();
+
 protected:
     virtual bool init();
     virtual void initRenderer();

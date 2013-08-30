@@ -138,7 +138,7 @@ bool UIWidget::addChild(UIWidget *child)
     {
         return false;
     }
-    child->setWidgetParent(this);
+    child->setParent(this);
     int childrenCount = m_children->data->num;
     if (childrenCount <= 0)
     {
@@ -172,8 +172,8 @@ bool UIWidget::addChild(UIWidget *child)
             m_children->insertObject(child,0);
         }
     }
-    child->getContainerNode()->setZOrder(child->getWidgetZOrder());
-    m_pRenderer->addChild(child->getContainerNode());
+    child->getRenderer()->setZOrder(child->getWidgetZOrder());
+    m_pRenderer->addChild(child->getRenderer());
     
     if (m_pUILayer)
     {
@@ -202,7 +202,7 @@ bool UIWidget::removeChild(UIWidget *child, bool cleanup)
             m_children->removeObject(child);
             child->structureChangedEvent();
             child->releaseResoures();
-            child->setWidgetParent(NULL);
+            child->setParent(NULL);
             delete child;
         }
     }
@@ -213,9 +213,9 @@ bool UIWidget::removeChild(UIWidget *child, bool cleanup)
             child->structureChangedEvent();
             child->disableUpdate();
             child->updateChildrenUILayer(NULL);
-            m_pRenderer->removeChild(child->getContainerNode(), false);
+            m_pRenderer->removeChild(child->getRenderer(), false);
             m_children->removeObject(child);
-            child->setWidgetParent(NULL);
+            child->setParent(NULL);
         }
     }
     return true;
@@ -677,7 +677,7 @@ void UIWidget::addCancelEvent(CCObject *target, SEL_CancelEvent selector)
     m_pfnCancelSelector = selector;
 }
 
-CCNode* UIWidget::getContainerNode()
+CCNode* UIWidget::getRenderer()
 {
     return m_pRenderer;
 }
@@ -697,7 +697,7 @@ bool UIWidget::parentAreaContainPoint(const CCPoint &pt)
 {
 
     m_bAffectByClipping = false;
-    UIWidget* parent = getWidgetParent();
+    UIWidget* parent = getParent();
     while (parent)
     {
         Layout* layoutParent = dynamic_cast<Layout*>(parent);
@@ -709,7 +709,7 @@ bool UIWidget::parentAreaContainPoint(const CCPoint &pt)
                 break;
             }
         }
-        parent = parent->getWidgetParent();
+        parent = parent->getParent();
     }
     
     if (!m_bAffectByClipping)
@@ -828,26 +828,6 @@ float UIWidget::getRotationY()
     return m_pRenderer->getRotationY();
 }
 
-void UIWidget::setSkewX(float skewX)
-{
-    m_pRenderer->setSkewX(skewX);
-}
-
-float UIWidget::getSkewX()
-{
-    return m_pRenderer->getSkewX();
-}
-
-void UIWidget::setSkewY(float skewY)
-{
-    m_pRenderer->setSkewY(skewY);
-}
-
-float UIWidget::getSkewY()
-{
-    return m_pRenderer->getSkewY();
-}
-
 void UIWidget::setVisible(bool visible)
 {
     m_bVisible = visible;
@@ -913,12 +893,12 @@ float UIWidget::getTopInParent()
     return getRelativeBottomPos() + m_size.height;
 }
 
-UIWidget* UIWidget::getWidgetParent()
+UIWidget* UIWidget::getParent()
 {
     return m_pWidgetParent;
 }
 
-void UIWidget::setWidgetParent(UIWidget* parent)
+void UIWidget::setParent(UIWidget* parent)
 {
 	m_pWidgetParent = parent;
 }
@@ -1058,12 +1038,12 @@ const CCPoint& UIWidget::getTouchEndPos()
     return m_touchEndPos;
 }
 
-void UIWidget::setWidgetTag(int tag)
+void UIWidget::setTag(int tag)
 {
     m_nWidgetTag = tag;
 }
 
-int UIWidget::getWidgetTag()
+int UIWidget::getTag()
 {
     return m_nWidgetTag;
 }

@@ -42,11 +42,42 @@ class Layout;
 class LayoutExecutant : public CCObject
 {
 public:
+    /**
+     * Default constructor
+     */
     LayoutExecutant() : m_pLayout(NULL){m_eLayoutType = LAYOUT_DEFAULT;};
+    
+    /**
+     * Default destructor
+     */
     virtual ~LayoutExecutant(){m_pLayout = NULL;};
+    
+    /**
+     * To do layout. Need to be overrided.
+     */
     virtual void doLayout()=0;
+    
+    /**
+     * Gets LayoutType.
+     *
+     * @see LayoutType
+     *
+     * @return LayoutType
+     */
     LayoutType getLayoutType(){return m_eLayoutType;};
+    
+    /**
+     * Binding a Layout to LayoutExecutant.
+     *
+     * @param Layout
+     */
     void setLayout(Layout* layout);
+    
+    /**
+     * Gets the Layout of LayoutExecutant.
+     *
+     * @return Layout
+     */
     Layout* getLayout() const;
 protected:
     LayoutType m_eLayoutType;
@@ -56,32 +87,70 @@ protected:
 class LinearVerticalLayoutExecutant : public LayoutExecutant
 {
 public:
+    /**
+     * Default constructor
+     */
     LinearVerticalLayoutExecutant(){m_eLayoutType = LAYOUT_LINEAR_VERTICAL;};
+    
+    /**
+     * Default destructor
+     */
     virtual ~LinearVerticalLayoutExecutant(){};
+    
+    /**
+     * Allocates and initializes.
+     * @return A initialized LayoutExecutant which is marked as "autorelease".
+     */
     static LinearVerticalLayoutExecutant* create();
+    
+    //To do layout.
     virtual void doLayout();
 };
 
 class LinearHorizontalLayoutExecutant : public LayoutExecutant
 {
 public:
+    /**
+     * Default constructor
+     */
     LinearHorizontalLayoutExecutant(){m_eLayoutType = LAYOUT_LINEAR_HORIZONTAL;};
+    
+    /**
+     * Default destructor
+     */
     virtual ~LinearHorizontalLayoutExecutant(){};
+    
+    /**
+     * Allocates and initializes.
+     * @return A initialized LayoutExecutant which is marked as "autorelease".
+     */
     static LinearHorizontalLayoutExecutant* create();
+    
+    //To do layout.
     virtual void doLayout();
-protected:
-    LayoutType m_eLayoutType;
 };
 
 class RelativeLayoutExecutant : public LayoutExecutant
 {
 public:
+    /**
+     * Default constructor
+     */
     RelativeLayoutExecutant(){m_eLayoutType = LAYOUT_RELATIVE;};
+    
+    /**
+     * Default destructor
+     */
     virtual ~RelativeLayoutExecutant(){};
+    
+    /**
+     * Allocates and initializes.
+     * @return A initialized LayoutExecutant which is marked as "autorelease".
+     */
     static RelativeLayoutExecutant* create();
+    
+    //To do layout.
     virtual void doLayout();
-protected:
-    LayoutType m_eLayoutType;
 };
 
 NS_CC_EXT_END

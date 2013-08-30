@@ -558,7 +558,7 @@ void UIPageView::addPageTurningEvent(CCObject *target, SEL_PageViewPageTurningEv
     m_pfnPageTurningSelector = selector;
 }
 
-int UIPageView::getPage() const
+int UIPageView::getCurPageIndex() const
 {
     return m_nCurPageIdx;
 }

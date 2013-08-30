@@ -42,31 +42,109 @@ class UIPageView : public Layout , public UIScrollInterface
 {
     
 public:
+    /**
+     * Default constructor
+     */
     UIPageView();
+    
+    /**
+     * Default destructor
+     */
     virtual ~UIPageView();
+    
+    /**
+     * Allocates and initializes.
+     */
     static UIPageView* create();
+    
+    /**
+     * Add a widget to a page of pageview.
+     *
+     * @param widget    widget to be added to pageview.
+     *
+     * @param pageIdx   index of page.
+     *
+     * @param forceCreate   if force create and there is no page exsit, pageview would create a default page for adding widget.
+     */
     void addWidgetToPage(UIWidget* widget, int pageIdx, bool forceCreate);
-    Layout* createPage();
+    
+    /**
+     * Push back a page to pageview.
+     *
+     * @param page    page to be added to pageview.
+     */
     void addPage(Layout* page);
+    
+    /**
+     * Inert a page to pageview.
+     *
+     * @param page    page to be added to pageview.
+     */
     void insertPage(Layout* page, int idx);
+    
+    /**
+     * Remove a page of pageview.
+     *
+     * @param page    page which will be removed.
+     *
+     * @param cleanup   true that page will be destroyed, false otherwise.
+     */
     void removePage(Layout* page, bool cleanup);
+    
+    /**
+     * Remove a page at index of pageview.
+     *
+     * @param index    index of page.
+     *
+     * @param cleanup   true that page will be destroyed, false otherwise.
+     */
     void removePageAtIndex(int index, bool cleanup);
-    virtual void onSizeChanged();
-    void updateChildrenSize();
-    void updateChildrenPosition();
+    
+    /**
+     * scroll pageview to index.
+     *
+     * @param idx    index of page.
+     */
     void scrollToPage(int idx);
-    virtual bool removeChild(UIWidget* widget, bool cleanup);
-    virtual void removeAllChildrenAndCleanUp(bool cleanup);
-    virtual bool onTouchBegan(const CCPoint &touchPoint);
-    virtual void onTouchMoved(const CCPoint &touchPoint);
-    virtual void onTouchEnded(const CCPoint &touchPoint);
-    virtual void onTouchCancelled(const CCPoint &touchPoint);
-    virtual void update(float dt);
+    
+    /**
+     * Gets current page index.
+     *
+     * @return current page index.
+     */
+    int getCurPageIndex() const;
+    
+    //Add call back function called when page turning.
     void addPageTurningEvent(CCObject *target, SEL_PageViewPageTurningEvent selector);
-    int getPage() const;
+    
+    //override "removeChild" method of widget.
+    virtual bool removeChild(UIWidget* widget, bool cleanup);
+    
+    //override "removeAllChildrenAndCleanUp" method of widget.
+    virtual void removeAllChildrenAndCleanUp(bool cleanup);
+    
+    //override "onTouchBegan" method of widget.
+    virtual bool onTouchBegan(const CCPoint &touchPoint);
+    
+    //override "onTouchMoved" method of widget.
+    virtual void onTouchMoved(const CCPoint &touchPoint);
+    
+    //override "onTouchEnded" method of widget.
+    virtual void onTouchEnded(const CCPoint &touchPoint);
+    
+    //override "onTouchCancelled" method of widget.
+    virtual void onTouchCancelled(const CCPoint &touchPoint);
+    
+    //override "update" method of widget.
+    virtual void update(float dt);
+    
+    /*compatible*/
+    int getPage() const{return getCurPageIndex();};
+    /************/
 protected:
     virtual bool addChild(UIWidget* widget);
     virtual bool init();
+    Layout* createPage();
     float getPositionXByIndex(int idx);
     void updateBoundaryPages();
     virtual void handlePressLogic(const CCPoint &touchPoint);
@@ -77,6 +155,9 @@ protected:
     virtual bool scrollPages(float touchOffset);
     void movePages(float offset);
     void pageTurningEvent();
+    void updateChildrenSize();
+    void updateChildrenPosition();
+    virtual void onSizeChanged();
     /*compatible*/
     virtual void setClippingEnable(bool is){setClippingEnabled(is);};
     /************/

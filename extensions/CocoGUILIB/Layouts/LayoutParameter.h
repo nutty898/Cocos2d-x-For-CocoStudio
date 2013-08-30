@@ -39,11 +39,47 @@ typedef enum
 class LayoutParameter : public CCObject
 {
 public:
+    /**
+     * Default constructor
+     */
     LayoutParameter() : m_margin(UIMargin()){m_eLayoutParameterType = LAYOUT_PARAMETER_NONE;};
+    
+    /**
+     * Default destructor
+     */
     virtual ~LayoutParameter(){};
+    
+    /**
+     * Allocates and initializes.
+     * @return A initialized LayoutParameter which is marked as "autorelease".
+     */
     static LayoutParameter* create();
+    
+    /**
+     * Sets Margin parameter for LayoutParameter.
+     * 
+     * @see UIMargin
+     *
+     * @param margin
+     */
     void setMargin(const UIMargin& margin);
+    
+    /**
+     * Gets Margin parameter of LayoutParameter.
+     *
+     * @see UIMargin
+     *
+     * @return const UIMargin&
+     */
     const UIMargin& getMargin() const;
+    
+    /**
+     * Gets LayoutParameterType of LayoutParameter.
+     *
+     * @see LayoutParameterType
+     *
+     * @return LayoutParameterType
+     */
     LayoutParameterType getLayoutType() const;
 protected:
     UIMargin m_margin;
@@ -53,10 +89,38 @@ protected:
 class LinearLayoutParameter : public LayoutParameter
 {
 public:
+    /**
+     * Default constructor
+     */
     LinearLayoutParameter() : m_eLinearGravity(LINEAR_GRAVITY_NONE){m_eLayoutParameterType = LAYOUT_PARAMETER_LINEAR;};
+    
+    /**
+     * Default destructor
+     */
     virtual ~LinearLayoutParameter(){};
+    
+    /**
+     * Allocates and initializes.
+     * @return A initialized LayoutParameter which is marked as "autorelease".
+     */
     static LinearLayoutParameter* create();
+    
+    /**
+     * Sets UILinearGravity parameter for LayoutParameter.
+     *
+     * @see UILinearGravity
+     *
+     * @param UILinearGravity
+     */
     void setGravity(UILinearGravity gravity);
+    
+    /**
+     * Gets UILinearGravity parameter for LayoutParameter.
+     *
+     * @see UILinearGravity
+     *
+     * @return UILinearGravity
+     */
     UILinearGravity getGravity() const;
 protected:
     UILinearGravity m_eLinearGravity;
@@ -65,16 +129,66 @@ protected:
 class RelativeLayoutParameter : public LayoutParameter
 {
 public:
+    /**
+     * Default constructor
+     */
     RelativeLayoutParameter() : m_eRelativeAlign(RELATIVE_ALIGN_NONE),m_strRelativeWidgetName(""),m_strRelativeLayoutName(""){m_eLayoutParameterType = LAYOUT_PARAMETER_RELATIVE;};
+    
+    /**
+     * Default destructor
+     */
     virtual ~RelativeLayoutParameter(){};
+    
+    /**
+     * Allocates and initializes.
+     * @return A initialized LayoutParameter which is marked as "autorelease".
+     */
     static RelativeLayoutParameter* create();
+    
+    /**
+     * Sets UIRelativeAlign parameter for LayoutParameter.
+     *
+     * @see UIRelativeAlign
+     *
+     * @param UIRelativeAlign
+     */
     void setAlign(UIRelativeAlign align);
+    
+    /**
+     * Gets UIRelativeAlign parameter for LayoutParameter.
+     *
+     * @see UIRelativeAlign
+     *
+     * @return UIRelativeAlign
+     */
     UIRelativeAlign getAlign() const;
     
+    /**
+     * Sets a key for LayoutParameter. Witch widget named this is relative to.
+     *
+     * @param name
+     */
     void setRelativeToWidgetName(const char* name);
+    
+    /**
+     * Gets the key of LayoutParameter. Witch widget named this is relative to.
+     *
+     * @return name
+     */
     const char* getRelativeToWidgetName() const;
     
+    /**
+     * Sets a name in Relative Layout for LayoutParameter.
+     *
+     * @param name
+     */
     void setRelativeName(const char* name);
+    
+    /**
+     * Gets a name in Relative Layout of LayoutParameter.
+     *
+     * @return name
+     */
     const char* getRelativeName() const;
 protected:
     UIRelativeAlign m_eRelativeAlign;

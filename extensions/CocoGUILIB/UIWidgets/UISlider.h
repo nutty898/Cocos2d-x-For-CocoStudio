@@ -34,24 +34,132 @@ typedef void (CCObject::*SEL_PercentChangedEvent)(CCObject*);
 class UISlider : public UIWidget
 {
 public:
+    /**
+     * Default constructor
+     */
     UISlider();
+    
+    /**
+     * Default destructor
+     */
     virtual ~UISlider();
+    
+    /**
+     * Allocates and initializes.
+     */
     static UISlider* create();
+    
+    /**
+     * Load texture for slider bar.
+     *
+     * @param fileName   file name of texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadBarTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Sets if slider is using scale9 renderer.
+     *
+     * @param true that using scale9 renderer, false otherwise.
+     */
     void setScale9Enabled(bool able);
+    
+    /**
+     * Sets capinsets for slider, if slider is using scale9 renderer.
+     *
+     * @param capInsets    capinsets for slider
+     */
     void setCapInsets(const CCRect &capInsets);
+    
+    /**
+     * Load textures for slider ball.
+     *
+     * @param slider ball normal    normal state texture.
+     *
+     * @param slider ball selected    selected state texture.
+     *
+     * @param slider ball disabled    dark state texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadSlidBallTextures(const char* normal,const char* pressed,const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load normal state texture for slider ball.
+     *
+     * @param normal    normal state texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadSlidBallNormalTexture(const char* normal,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load selected state texture for slider ball.
+     *
+     * @param selected    selected state texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadSlidBallPressedTexture(const char* pressed,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load dark state texture for slider ball.
+     *
+     * @param disabled    dark state texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadSlidBallDisabledTexture(const char* disabled,TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Load dark state texture for slider progress bar.
+     *
+     * @param fileName    file path of texture.
+     *
+     * @param texType    @see UI_TEX_TYPE_LOCAL
+     */
     void loadProgressBarTexture(const char* fileName, TextureResType texType = UI_TEX_TYPE_LOCAL);
+    
+    /**
+     * Changes the progress direction of slider.
+     *
+     * @param percent    percent value from 1 to 100.
+     */
     void setPercent(int percent);
-    virtual void addPercentChangedEvent(CCObject* target,SEL_PushEvent selector);
+    
+    /**
+     * Gets the progress direction of slider.
+     *
+     * @return percent    percent value from 1 to 100.
+     */
     int getPercent();
+    
+    /**
+     * Add call back function called when slider's percent has changed to slider.
+     */
+    virtual void addPercentChangedEvent(CCObject* target,SEL_PushEvent selector);
+    
+    //override "onTouchBegan" method of widget.
     virtual bool onTouchBegan(const CCPoint &touchPoint);
+    
+    //override "onTouchMoved" method of widget.
     virtual void onTouchMoved(const CCPoint &touchPoint);
+    
+    //override "onTouchEnded" method of widget.
     virtual void onTouchEnded(const CCPoint &touchPoint);
+    
+    //override "onTouchCancelled" method of widget.
     virtual void onTouchCancelled(const CCPoint &touchPoint);
+    
+    //override "getContentSize" method of widget.
+    virtual const CCSize& getContentSize() const;
+    
+    //override "getVirtualRenderer" method of widget.
+    virtual CCNode* getVirtualRenderer();
+    
+    //override "ignoreContentAdaptWithSize" method of widget.
+    virtual void ignoreContentAdaptWithSize(bool ignore);
     
     /*Compatible*/
     void setBarTexture(const char* fileName,TextureResType texType = UI_TEX_TYPE_LOCAL){loadBarTexture(fileName,texType);};
@@ -64,9 +172,6 @@ public:
     void setScale9Size(const CCSize& size){setScale9Enabled(true);setSize(size);};
     void setScale9Enable(bool is){setScale9Enabled(is);};
     /************/
-    virtual const CCSize& getContentSize() const;
-    virtual CCNode* getVirtualRenderer();
-    virtual void ignoreContentAdaptWithSize(bool ignore);
 protected:
     virtual void initRenderer();
     float getPercentWithBallPos(float location);

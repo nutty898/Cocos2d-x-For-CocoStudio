@@ -432,9 +432,9 @@ void UISlider::barRendererScaleChangedWithSize()
 {
     if (m_bIgnoreSize)
     {
-        m_size = m_pBarRenderer->getContentSize();
         m_fBarLength = m_size.width;
         m_pBarRenderer->setScale(1.0f);
+        m_size = m_pBarRenderer->getContentSize();
     }
     else
     {
