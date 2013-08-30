@@ -272,6 +272,16 @@ UIWidget* CCSReader::widgetFromJsonFile(const char *fileName)
 
 void CCSReader::setPropsForWidgetFromJsonDictionary(UIWidget*widget,cs::CSJsonDictionary *options)
 {
+    bool ignoreSizeExsit = DICTOOL->checkObjectExist_json(options, "ignoreSize");
+    if (ignoreSizeExsit)
+    {
+        widget->ignoreContentAdaptWithSize(DICTOOL->getBooleanValue_json(options, "ignoreSize"));
+    }
+    
+    float w = DICTOOL->getFloatValue_json(options, "width");
+    float h = DICTOOL->getFloatValue_json(options, "height");
+    widget->setSize(CCSizeMake(w, h));
+    
     widget->setWidgetTag(DICTOOL->getIntValue_json(options, "tag"));
 	widget->setActionTag(DICTOOL->getIntValue_json(options, "actiontag"));
     widget->setTouchEnable(DICTOOL->getBooleanValue_json(options, "touchAble"));
@@ -866,7 +876,12 @@ void CCSReader::setPropsForContainerWidgetFromJsonDictionary(UIWidget *widget, c
 {
     setPropsForWidgetFromJsonDictionary(widget, options);
     UIContainerWidget* containerWidget = (UIContainerWidget*)widget;
-    containerWidget->setClippingEnable(DICTOOL->getBooleanValue_json(options, "clipAble"));
+    if (!dynamic_cast<UIScrollView*>(containerWidget)
+        && !dynamic_cast<UIListView*>(containerWidget)
+        && !dynamic_cast<UIDragPanel*>(containerWidget))
+    {
+        containerWidget->setClippingEnable(DICTOOL->getBooleanValue_json(options, "clipAble"));
+    }
     setColorPropsForWidgetFromJsonDictionary(widget,options);
 }
 
@@ -898,12 +913,12 @@ void CCSReader::setPropsForPanelFromJsonDictionary(UIWidget*widget,cs::CSJsonDic
         
         int colorType = DICTOOL->getIntValue_json(options, "colorType");
         panel->setBackGroundColorType(PanelColorType(colorType));
-        float w = DICTOOL->getFloatValue_json(options, "width");
-        float h = DICTOOL->getFloatValue_json(options, "height");
+//        float w = DICTOOL->getFloatValue_json(options, "width");
+//        float h = DICTOOL->getFloatValue_json(options, "height");
         panel->setBackGroundColor(ccc3(scr, scg, scb),ccc3(ecr, ecg, ecb));
         panel->setBackGroundColor(ccc3(cr, cg, cb));
         panel->setBackGroundColorOpacity(co);
-        panel->setSize(CCSizeMake(w, h));
+//        panel->setSize(CCSizeMake(w, h));
         
         std::string tp_b = m_strFilePath;
         const char* imageFileName = DICTOOL->getStringValue_json(options, "backGroundImage");
@@ -965,12 +980,12 @@ void CCSReader::setPropsForPanelFromJsonDictionary(UIWidget*widget,cs::CSJsonDic
         
         int colorType = DICTOOL->getIntValue_json(options, "colorType");
         panel->setBackGroundColorType(PanelColorType(colorType));
-        float w = DICTOOL->getFloatValue_json(options, "width");
-        float h = DICTOOL->getFloatValue_json(options, "height");
+//        float w = DICTOOL->getFloatValue_json(options, "width");
+//        float h = DICTOOL->getFloatValue_json(options, "height");
         panel->setBackGroundColor(ccc3(scr, scg, scb),ccc3(ecr, ecg, ecb));
         panel->setBackGroundColor(ccc3(cr, cg, cb));
         panel->setBackGroundColorOpacity(co);
-        panel->setSize(CCSizeMake(w, h));
+//        panel->setSize(CCSizeMake(w, h));
         
         
         cs::CSJsonDictionary* imageFileNameDic = DICTOOL->getSubDictionary_json(options, "backGroundImageData");

@@ -64,6 +64,7 @@ protected:
     void labelBMFontScaleChangedWithSize();
 protected:
     CCLabelBMFont* m_pLabelBMFontRenderer;
+    bool m_bFntFileHasInit;
 };
     
 NS_CC_EXT_END

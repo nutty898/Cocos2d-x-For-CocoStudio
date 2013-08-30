@@ -27,7 +27,8 @@
 NS_CC_EXT_BEGIN
     
 UILabelBMFont::UILabelBMFont():
-m_pLabelBMFontRenderer(NULL)
+m_pLabelBMFontRenderer(NULL),
+m_bFntFileHasInit(false)
 {
 }
 
@@ -56,14 +57,19 @@ void UILabelBMFont::initRenderer()
 
 void UILabelBMFont::setFntFile(const char *fileName)
 {
+    if (!fileName || std::strcmp(fileName, "") == 0)
+    {
+        return;
+    }
     m_pLabelBMFontRenderer->initWithString("", fileName);
     updateAnchorPoint();
     labelBMFontScaleChangedWithSize();
+    m_bFntFileHasInit = true;
 }
 
 void UILabelBMFont::setText(const char* value)
 {
-	if (!value)
+	if (!value || !m_bFntFileHasInit)
 	{
 		return;
 	}

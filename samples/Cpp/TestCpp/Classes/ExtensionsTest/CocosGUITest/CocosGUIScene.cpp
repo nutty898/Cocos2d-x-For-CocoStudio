@@ -76,20 +76,20 @@ void CocosGUITestScene::runThisTest()
 //    sc->setPosition(ccp(100, 100));
     
     
-    UISlider* lb = UISlider::create();
-    lb->setTouchEnabled(true);
-    lb->loadBarTexture("cocosgui/slidbar.png");
-    lb->loadSlidBallTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
-    ul->addWidget(lb);
-    lb->setPosition(ccp(100, 100));
-    lb->ignoreContentAdaptWithSize(false);
-    lb->setSize(CCSizeMake(200, 50));
-    
-    
-    lb->setScale9Enabled(true);
-    lb->loadProgressBarTexture("cocosgui/sliderThumb.png");
-    
-    lb->setScale9Enabled(false);
+//    UISlider* lb = UISlider::create();
+//    lb->setTouchEnabled(true);
+//    lb->loadBarTexture("cocosgui/slidbar.png");
+//    lb->loadSlidBallTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
+//    ul->addWidget(lb);
+//    lb->setPosition(ccp(100, 100));
+//    lb->ignoreContentAdaptWithSize(false);
+//    lb->setSize(CCSizeMake(200, 50));
+//    
+//    
+//    lb->setScale9Enabled(true);
+//    lb->loadProgressBarTexture("cocosgui/sliderThumb.png");
+//    
+//    lb->setScale9Enabled(false);
     
 //    CCSize s = lb->getSize();
 //    CCLOG("s w %f s h %f",s.width,s.height);
@@ -116,8 +116,8 @@ void CocosGUITestScene::runThisTest()
 //    CCLOG("s9f ag s w %f s h %f",s.width,s.height);
 //    CCLOG("is == %d",btn->isIgnoreContentAdaptWithSize());
     
-//    UIWidget* w = CCUIHELPER->createWidgetFromJsonFile("cocosgui/5_2/5_2.json");
-//    ul->addWidget(w);
+    UIWidget* w = CCUIHELPER->createWidgetFromJsonFile("cocosgui/NewProject_U1_1/NewProject_U1_1.json");
+    ul->addWidget(w);
     
 //    UIButton* btn = UIButton::create();
 //    btn->loadTextures("cocosgui/sliderballnormal.png", "cocosgui/sliderballpressed.png", "");
