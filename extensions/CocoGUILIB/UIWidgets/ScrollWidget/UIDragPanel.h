@@ -22,8 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#ifndef __TestCpp__UIDragPanel__
-#define __TestCpp__UIDragPanel__
+#ifndef __UIDRAGPANEL_H__
+#define __UIDRAGPANEL_H__
 
 #include "../../Layouts/Layout.h"
 #include "UIScrollInterface.h"

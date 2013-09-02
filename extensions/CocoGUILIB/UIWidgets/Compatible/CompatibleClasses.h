@@ -1,6 +1,6 @@
 
-#ifndef __TestCpp__CompatibleClasses__
-#define __TestCpp__CompatibleClasses__
+#ifndef __COMPATIBLECLASSES_H__
+#define __COMPATIBLECLASSES_H__
 
 #include "../UILabel.h"
 #include "../UITextButton.h"
